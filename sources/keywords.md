@@ -1553,14 +1553,14 @@ if (oEnter != null && execution.Name == oEnter.Name)
 {
 // Enter-Order gefüllt
 if (_sendMail) this.SendEmail(Core.AccountManager.Core.Settings.MailDefaultFromAddress, Core.PreferenceManager.DefaultEmailAddress,
-execution.Instrument.Symbol + " Order " + execution.Name + " ausgeführt.", "Die Order für " + execution.Instrument.Name + " wurde ausgeführt. Invest: " + (Trade.Quantity * Trade.AvgPrice).ToString("F2"));
+execution.Instrument.Symbol + " order " + execution.Name + " executed.", "The order for " + execution.Instrument.Name + " was executed. Invest: " + (Trade.Quantity * Trade.AvgPrice).ToString("F2"));
 }
 else if (oTStop != null && execution.Name == oTStop.Name)
 {
 OrderStatus = 0; // Trend-Stopp-Order gefüllt
 if (_sendMail) this.SendEmail(Core.AccountManager.Core.Settings.MailDefaultFromAddress, Core.PreferenceManager.DefaultEmailAddress,
-execution.Instrument.Symbol +" Order " + execution.Name + " ausgeführt.",
-execution.Instrument.Symbol +" Order " + execution.Name + " ausgeführt. Profit:" + Trade.ClosedProfitLoss.ToString("F2"));
+execution.Instrument.Symbol +" order " + execution.Name + " executed.",
+execution.Instrument.Symbol +" order " + execution.Name + " executed. Profit:" + Trade.ClosedProfitLoss.ToString("F2"));
 }
 }
 }

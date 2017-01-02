@@ -1571,7 +1571,7 @@ FirstTickOfBar is a property of the type "bool" that returns "true" if the curre
 This property can only be meaningfully applied when the indicator or strategy is running in the tick-by-tick mode, meaning that CalculateOnClosedBar = false and the data feed is able to output real-time values.
 When using end-of-day data in a daily chart, the "FirstTickOfBar" is always true for the last bar.
 FirstTickOfBar should not be used outside of the OnCalculate() method.
-See [*Bars.TicksCountForLastBar*].
+See [*Bars.TicksCountForLastBar*](#barstickscountforlastbar).
 
 ### Usage
 FirstTickOfBar
@@ -1833,31 +1833,31 @@ protected override void OnInit()
 ```
 
 ### Important Keywords
--   [*Add()*]
--   [*AllowRemovalOfChartDrawings*]
--   [*IsAutoScale*]
--   [*RequiredBarsCount*]
--   [*CalculateOnClosedBar*]
--   [*ClearOutputWindow()*]
--   [*Displacement*]
--   [*IsShowInDataBox*]
--   [*IsAddDrawingsToPricePanel*]
--   [*InputPriceType*]
--   [*IsOverlay*]
--   [*IsShowPriceMarkers*]
--   [*SessionBreakLines*]
--   [*IsShowChartVerticalGrid*]
+-   [*Add()*](#add)
+-   [*AllowRemovalOfChartDrawings*](#allowremovalofchartdrawings)
+-   [*IsAutoScale*](#isautoscale)
+-   [*RequiredBarsCount*](#requiredbarscount)
+-   [*CalculateOnClosedBar*](calculateonclosedbar)
+-   [*ClearOutputWindow()*](#clearoutputwindows)
+-   [*Displacement*](displacement)
+-   [*IsShowInDataBox*](#isshowindatabox)
+-   [*IsAddDrawingsToPricePanel*](#isadddrawingstopricepanel)
+-   [*InputPriceType*](#inputpricetype)
+-   [*IsOverlay*](#isoverlay)
+-   [*IsShowPriceMarkers*](#isshowpricemarkers)
+-   [*SessionBreakLines*](#sessionbreaklines)
+-   [*IsShowChartVerticalGrid*](#isshowchartverticalgrid)
 
 **Additional Keywords for Strategies**
 
--   [*DefaultOrderQuantity*]
--   [*EntriesPerDirection*]
--   [*EntryHandling*]
--   [*SetUpStopLoss()*]
--   [*SetUpProfitTarget()*]
--   [*SetUpTrailStop()*]
--   [*TimeInForce*]
--   [*PrintOrders*]
+-   [*DefaultOrderQuantity*](#defaultorderquantity)
+-   [*EntriesPerDirection*](#entriesperdirection)
+-   [*EntryHandling*](#entryhandling)
+-   [*SetUpStopLoss()*](#setupstoploss)
+-   [*SetUpProfitTarget()*](#setupprofittarget)
+-   [*SetUpTrailStop()*](#setuptrailstop)
+-   [*TimeInForce*](#timeinforce)
+-   [*PrintOrders*](#printorders)
 
 ### More Information
 **Caution:**
@@ -1955,7 +1955,7 @@ A line object is used for drawing a horizontal line in the chart. Usually, these
 The lines described here are not to be confused with lines from the drawing objects (see "AddChartHorizontalLine").
 LevelLine objects can be added to an indicator with the help of the Add() method, and with this, added to the lines collection.
 
-See [*OnPaint*].
+See [*OnPaint*](#onpaint).
 
 ### Parameter
 |       |                                                              |
@@ -2048,7 +2048,7 @@ a crossreference to Print() and ShowAlert()
 ### Description
 The GetSerieLowestValue() method attempts to find the lowest bar within a predefined number of periods.
 
-See [*GetSerieHighestValue()*].
+See [*GetSerieHighestValue()*](#getseriehighestvalue).
 
 ### Parameter
 period Number of bars that will be searched for the lowest bar
@@ -2089,7 +2089,7 @@ The data type Level1Args represents a change in the level 1 data and is used as 
 | Volume         | A long value that shows the volume                                                                                               |
 
 ### Example
-See [*OnLevel1()*].
+See [*OnLevel1()*](#onlevel1).
 
 ## Level1Args
 ### Description
@@ -2097,22 +2097,17 @@ The data type Level1Args represents a change in the level 2 data (market depth) 
 
 |                |                                                                |
 |----------------|----------------------------------------------------------------|
-| MarketDataType | Potential values are:                                                                                                        
-                  MarketDataType.Ask                                              
-                  MarketDataType.Bid                                              |
+| MarketDataType | Potential values are: MarketDataType.Ask, MarketDataType.Bid                                              |
 | MarketMaker    | A string value containing the market maker ID                  |
 | Position       | An int value that defines the position within the market depth |
 | Operation      | Represents the action caused by a change in the order book.                                                                  
-                  Values can be:                                                                                                            
-                  Operation.Insert                                                
-                  Operation.Remove                                                
-                  Operation.Update                                                |
+                  Values can be: Operation.Insert, Operation.Remove, Operation.Update                                                |
 | Price          | A double value that displays the bid/ask price                 |
 | Time           | A date-time value containing the timestamp of the change       |
 | Volume         | A long value that shows the volume                             |
 
 ### Example
-See [*OnLevel2()*].
+See [*OnLevel2()*](#onlevel2).
 
 ## IsOverlay
 ### Description
@@ -2122,7 +2117,7 @@ The overlay property defines whether the indicator outputs are displayed in the 
 IsOverlay = true
 ```
 
-The indicator is drawn above the price (for example an [*SMA*])
+The indicator is drawn above the price (for example an *SMA*)
 
 ```cs
 IsOverlay = false (default)
@@ -2220,23 +2215,14 @@ _ma_medium = value;
 ## OnPaint()
 ### Description
 A plot (drawing) is used to visually display indicators in a chart. OnPaint objects are assigned to an indicator with the help of the Add() method and attached to the plots collection.
-See [*LevelLine*].
+See [*LevelLine*](#levelline).
 
 ### Parameter
 |           |                        |
 |-----------|------------------------|
 | Color     | Drawing color          |
 | Pen       | Pen object             |
-| PlotStyle | LevelLine type                          
-             PlotStyle.Bar                    
-             PlotStyle.Block                  
-             PlotStyle.Cross                     
-             PlotStyle.Dot              
-             PlotStyle.Hash                       
-             PlotStyle.LevelLine                  
-             PlotStyle.Square                   
-             PlotStyle.TriangleDown            
-             PlotStyle.TriangleUp    |
+| PlotStyle | LevelLine type: PlotStyle.Bar, PlotStyle.Block, PlotStyle.Cross, PlotStyle.Dot, PlotStyle.Hash, PlotStyle.LevelLine, PlotStyle.Square, PlotStyle.TriangleDown, PlotStyle.TriangleUp  |
 | Name      | Description            |
 
 ### Usage
@@ -2248,7 +2234,7 @@ OnPaint(Pen pen, PlotStyle plotStyle, string name)
 ```
 
 ### More Information
-Information on the pen class: [*http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx*]
+Information on the pen class: [*http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx)
 
 ### Example
 ```cs
@@ -2280,11 +2266,11 @@ Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
 ### Description
 In each indicator, the plot method can be overridden in order to add your own graphics (GDI+) to the price chart with the help of the graphics class (System.Drawing).
 
-See [*http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx*].
+See [*http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx).
 
-The [*Chart*] object offers several parameters.
+The *Chart* object offers several parameters.
 
-More examples: [*Bar Numbering*][*PlotSample*], *Chart Background Image*.
+More examples: *Bar Numbering*, *PlotSample*, *Chart Background Image*.
 
 ### Parameter
 graphics The graphics object of the price chart (context)
@@ -2374,7 +2360,7 @@ graphics.DrawString("Here is bottom left!", font, brush, r.X + 10, r.Y + r.Heigh
 ### Description
 Price type describes a form of price data.
 
-See [*InputPriceType*]
+See [*InputPriceType*](#inputpricetypes)
 
 Following variables are available:
 -   PriceType.Close
@@ -2390,12 +2376,12 @@ Following variables are available:
 PriceType
 
 ### Example
-See [*InputPriceType*]
+See [*InputPriceType*](#inputpricetype)
 
 ## Print()
 ### Description
 The Print() method writes outputs in the AgenaTrader output window.
-See [*ClearOutputWindow()*].
+See [*ClearOutputWindow()*](#clearoutputwindow).
 
 ### Usage
 ```cs
@@ -2416,7 +2402,7 @@ none
 ### More Information
 Information regarding output formatting: *Formatting numbers*.
 
-Hints about the String.Format() method: [*http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx*]
+Hints about the String.Format() method: [*http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx*](http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx)
 
 ### Example
 ```cs
@@ -2431,7 +2417,7 @@ Print("One empty row afterwards \\n");
 ## RemoveChartDrawing()
 ### Description
 The RemoveChartDrawing() method removes a specific drawing object from the chart based on a unique identifier (tag).
-See [*RemoveChartDrawings()*].
+See [*RemoveChartDrawings()*](#removechartdrawings).
 
 ### Usage
 RemoveChartDrawings(string tag)
@@ -2450,7 +2436,7 @@ RemoveChartDrawings("My line");
 ## RemoveChartDrawings()
 ### Description
 This method removes all drawings from the chart
-See [*RemoveChartDrawings()*].
+See [*RemoveChartDrawings()*](#removechartdrawings).
 
 ### Usage
 RemoveChartDrawings()
@@ -2519,7 +2505,7 @@ SessionBreakLines = false;
 ## TickSize
 A tick is the smallest possible price change of a financial instrument within an exchange. If, for example, the trading prices are specified to 2 decimal places, then a tick equals 0.01. You can expect Forex instruments to be specified to within 4 or 5 decimal places. A tick is called a pip in Forex trading and usually equals 0.0001 or 0.00001.
 The tick value is usually predefined by the exchange and does not (usually) change.
-See [*Instrument.TickSize*].
+See [*Instrument.TickSize*](#instrumentticksize).
 
 Usually, a tick is displayed as a decimal number. Historically speaking (especially in American exchanges) stocks have been noted with tick sizes of 1/16 of a dollar.
 This notation is still widespread within commodities. Corn futures (ZC) are noted in ¼ US cents/bushel (usually equals 12.50 US$ per contract).
@@ -2544,15 +2530,15 @@ After 17-317 comes 18.
 
 The individual contract specifications can be found on the websites of the respective exchanges.
 
-CME: [*www.cmegroup.com*] under Products & Trading
-Eurex (FDAX): *http://www.eurexchange.com/exchange-en/products/idx/dax/17206/*
+CME: [*http://www.cmegroup.com*](http://www.cmegroup.com) under Products & Trading
+Eurex (FDAX): [*http://www.eurexchange.com/exchange-en/products/idx/dax/17206/*](http://www.eurexchange.com/exchange-en/products/idx/dax/17206/)
 
-See [*Instrument.TickSize*].
+See [*Instrument.TickSize*](#instrumentticksize).
 
 ## TimeFrame
-See [*Bars.TimeFrame*].
+See [*Bars.TimeFrame*](barstimeframe).
 
-When using multiple timeframes ([*Multibars*][*MultiBars*]) in an indicator, please see [*TimeFrames*].
+When using multiple timeframes ([*Multibars*](#multibars)) in an indicator, please see [*TimeFrames*](#timeframes).
 
 ## GetDayAsInt()
 ### Description
@@ -2564,9 +2550,9 @@ To day outputs an int representation in the format of yyyymmdd.
 
 13.08.2012 would thus be 20120813.
 
-See [*GetTimeAsInt*].
+See [*GetTimeAsInt*](#gettimeasint).
 
-Help with date-time: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*]
+Help with date-time: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
 ### Usage
 GetDayAsInt(DateTime time)
@@ -2587,9 +2573,9 @@ To time outputs an int representation in the format hhmmss.
 
 The time 07:30 will be displayed as 73000 and 14:15:12 will become 141512.
 
-See [*GetDayAsInt*].
+See [*GetDayAsInt*](#getdayasint).
 
-Help with date-time: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*]
+Help with date-time: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
 ### Usage
 GetTimeAsInt(DateTime time)
@@ -2675,7 +2661,7 @@ Value\[**int** barsAgo\]
 The methods known for a collection, Set(), Reset(), and Count(), can be used for values.
 
 ### Example
-See [*Values*].
+See [*Values*](#values).
 
 ## IsShowChartVerticalGrid
 ### Description

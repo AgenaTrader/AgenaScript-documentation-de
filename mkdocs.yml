@@ -1,0 +1,19 @@
+site_name: AgenaScript Dokumentation (Deutsch)
+docs_dir: sources
+theme: readthedocs
+site_favicon: favicon.ico
+extra_css: [custom.css]
+use_directory_urls: true
+repo_url: https://github.com/AgenaTrader/AgenaScript-documentation-de
+edit_uri: edit/master/sources/
+site_url: https://agenatrader.github.io/AgenaScript-documentation-de/index.html
+strict: true
+google_analytics: ['UA-74646070-1', 'agenatrader.github.io']
+pages:
+    - 'Lets start': 'index.md'
+    - 'Handling bars and instruments': 'handling_bars_and_instruments.md'
+    - 'Events': 'events.md'
+    - 'Strategy programming': 'strategy_programming.md'
+    - 'Keywords': 'keywords.md'
+    - 'Drawing objects': 'drawing_objects.md'
+    - 'Hints and advice': 'hints_and_advice.md'

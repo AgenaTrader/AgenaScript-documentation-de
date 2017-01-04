@@ -2164,32 +2164,34 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 namespace AgenaTrader.UserCode
 {
-[Description("Multibar Demo")]
-// The indicator requires daily and weekly data
-[TimeFrameRequirements("1 Day", "1 Week")]
-public class MultiBarDemo : UserIndicator
-{
-protected override void OnBarsRequirements()
-{
+    [Description("Multibar Demo")]
+    // The indicator requires daily and weekly data
+    [TimeFrameRequirements("1 Day", "1 Week")]
+    public class MultiBarDemo : UserIndicator
+    {
+        private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
+        private static readonly TimeFrame TF_Week = new TimeFrame(DatafeedHistoryPeriodicity.Week, 1);
 
- Add(DatafeedHistoryPeriodicity.Day, 1);
+        protected override void OnBarsRequirements()
+        {
+            Add(TF_Day);
+            Add(TF_Week);
+        }
 
- Add(DatafeedHistoryPeriodicity.Week, 1);
-
- }
-
- protected override void OnInit()
-{
-CalculateOnClosedBar = true;
-}
-protected override void OnCalculate()
-{
-// The current value for the SMA 14 in a daily timeframe
-Print(SMA(Closes[1], 14)[0]);
-// Current value for the SMA 14 in a weekly timeframe
-Print(SMA(Closes[2], 14)[0]);
-}
-}
+        protected override void OnInit()
+        {
+            CalculateOnClosedBar = true;
+        }
+        protected override void OnCalculate()
+        {
+            // The current value for the SMA 14 in the timeframe of the chart
+            Print("TF0: " + SMA(Closes[0], 14)[0]);
+            // The current value for the SMA 14 in a daily timeframe
+            Print("TF1: " + SMA(Closes[1], 14)[0]);
+            // Current value for the SMA 14 in a weekly timeframe
+            Print("TF2: " + SMA(Closes[2], 14)[0]);
+        }
+    }
 }
 ```
 

@@ -213,8 +213,8 @@ An order object of type IOrder as a list
 
 ### Example
 ```cs
-private IOrder oEnterLong = null;
-private IOrder oExitLong = null;
+private IOrder oopenlong = null;
+private IOrder oenterlong = null;
 
 
 protected override void OnInit()
@@ -225,12 +225,12 @@ protected override void OnInit()
 
 protected override void OnCalculate()
 {
-   oEnterLong = SubmitOrder(0, OrderAction.Buy, OrderType.Market, DefaultOrderQuantity, 0, 0, "ocoId","strategyName");
-   oExitLong = SubmitOrder(0, OrderAction.Sell, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, "ocoId","strategyName");
+   oopenlong = SubmitOrder(0, OrderAction.Buy, OrderType.Market, DefaultOrderQuantity, 0, 0, "ocoId","strategyName");
+   oenterlong = SubmitOrder(0, OrderAction.Sell, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, "ocoId","strategyName");
 
-   CreateIfDoneGroup(new List<IOrder> { oEnterLong, oExitLong });
+   CreateIfDoneGroup(new List<IOrder> { oopenlong, oenterlong });
 
-   oEnterLong.ConfirmOrder();
+   oopenlong.ConfirmOrder();
 }
 ```
 
@@ -248,7 +248,7 @@ An order object of type IOrder as a list
 
 ### Example
 ```cs
-private IOrder oEnterLong = null;
+private IOrder oopenlong = null;
 private IOrder oEnterShort = null;
 
 
@@ -260,12 +260,12 @@ protected override void OnInit()
 
 protected override void OnCalculate()
 {
-   oEnterLong = SubmitOrder(0, OrderAction.Buy, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, "ocoId","strategyName");
+   oopenlong = SubmitOrder(0, OrderAction.Buy, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, "ocoId","strategyName");
    oEnterShort = SubmitOrder(0, OrderAction.SellShort, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * -1.1,"ocoId", "strategyName");
 
-   CreateOCOGroup(new List<IOrder> { oEnterLong, oEnterShort });
+   CreateOCOGroup(new List<IOrder> { oopenlong, oEnterShort });
 
-   oEnterLong.ConfirmOrder();
+   oopenlong.ConfirmOrder();
    oEnterShort.ConfirmOrder();
 }
 ```
@@ -308,7 +308,7 @@ protected override void OnCalculate()
 ### Description
 Change order changes an order.
 
-Default quantity defines the amount to be used in a strategy. Default quantity is set within the [*OnInit()*](#initialize) method.
+Default quantity defines the amount to be used in a strategy. Default quantity is set within the [*OnInit()*](#oninit) method.
 
 ### Usage
 ```cs
@@ -330,9 +330,9 @@ DefaultOrderQuantity = 100;
 ### Description
 Enter long creates a long position (buy).
 
-If a signature not containing an amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing an amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenLongLimit()*](#enterlonglimit), [*OpenLongStop()*](#enterlongstop), [*OpenLongStopLimit()*](#enterlongstoplimit).
+See [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
 
 ### Usage
 ```cs
@@ -369,9 +369,9 @@ if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
 ### Description
 Enter long limit creates a limit order for entering a long position (buy).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenLong()*](#enterlong), [*OpenLongStop()*](#enterlongstop), [*OpenLongStopLimit()*](#enterlongstoplimit).
+See [*OpenLong()*](#openlong), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
 
 ### Usage
 ```cs
@@ -410,9 +410,9 @@ if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
 ### Description
 Enter long stop creates a limit order for entering a long position (buy).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenLong()*](#enterlong), [*OpenLongLimit()*](#enterlonglimit), [*OpenLongStopLimit()*](#enterlongstoplimit).
+See [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStopLimit()*](#openlongstoplimit).
 
 ### Usage
 ```cs
@@ -451,9 +451,9 @@ if (stopOrder == null)
 ### Description
 Enter long stop limit creates a buy stop limit order for entering a long position.
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenLong()*](#enterlong), [*OpenLongLimit()*](#enterlonglimit), [*OpenLongStop()*](#enterlongstop).
+See [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop).
 
 ### Usage
 ```cs
@@ -494,9 +494,9 @@ if (stopOrder == null)
 ### Description
 Enter short creates a market order for entering a short position (naked sell).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenShortLimit()*](#entershortlimit), [*OpenShortStop()*](#entershortstop)(entershortstop), [*OpenShortStopLimit()*](#entershortstoplimit).
+See [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
 
 ### Usage
 ```cs
@@ -532,9 +532,9 @@ if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
 ### Description
 Enter short limit creates a limit order for entering a short position (naked short).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenShort()*](#entershort), [*OpenShortStop()*](#entershortstop), [*OpenShortStopLimit()*](#entershortstoplimit).
+See [*OpenShort()*](#openshort), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
 
 ### Usage
 ```cs
@@ -571,8 +571,8 @@ OpenShortLimit("SMA cross entry");
 ## OpenShortStop()
 ### Description
 Enter short stop creates a limit order for entering a short position.
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
-See [*OpenShort()*](#entershort), [*OpenShortLimit()*](#entershortlimit), [*OpenShortStopLimit()*](#entershortstoplimit).
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+See [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStopLimit()*](#openshortstoplimit)..
 
 ### Usage
 ```cs
@@ -611,9 +611,9 @@ if (stopOrder == null)
 ### Description
 Enter short stop limit creates a sell stop limit order for entering a short position.
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*OpenShort()*](#entershort), [*OpenShortLimit()*](#entershortlimit), [*OpenShortStop()*](#entershortstop).
+See [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop).
 
 ### Usage
 ```cs
@@ -658,7 +658,7 @@ Entries per direction defines the maximum number of entries permitted in one dir
 
 Whether the name of the entry signal is taken into consideration or not is defined within [*EntryHandling*](#entryhandling).
 
-Entries per direction is defined with the [*OnInit()*](#initialize) method.
+Entries per direction is defined with the [*OnInit()*](#oninit) method.
 
 ### Usage
 **EntriesPerDirection**
@@ -698,7 +698,7 @@ protected override void OnCalculate()
 ### Description
 Entry handling decides how the maximum number of entries permitted in one direction is interpreted ([*EntriesPerDirection*](#entriesperdirection)).
 
-Entry handling is defined with the [*OnInit()*](#initialize) method.
+Entry handling is defined with the [*OnInit()*](#oninit) method.
 
 **EntryHandling.AllEntries**
 
@@ -722,7 +722,7 @@ See [*EntriesPerDirection*](#entriesperdirection).
 ### Description
 Exit long creates a sell market order for closing a long position (sell).
 
-If a signature not containing a set amount is used, the amount is set by [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
 See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
@@ -766,7 +766,7 @@ if (CrossBelow(EMA(14), SMA(50), 2))
 ### Description
 Exit long limit creates a sell limit order for closing a long position (i.e. for selling).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
 ### Usage
@@ -811,7 +811,7 @@ if (CrossBelow(EMA(14), SMA(50), 2))
 ### Description
 Exit long stop creates a sell stop order for closing a long position (short).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
 ### Usage
@@ -855,7 +855,7 @@ if (CrossBelow(EMA(14), SMA(50), 2))
 ### Description
 Exit long stop limit creates a sell stop limit order for closing a long position (i.e. selling).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
 See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
@@ -904,7 +904,7 @@ if (CrossBelow(EMA(14), SMA(50), 2))
 ### Description
 Exit short creates a buy-to-cover market order for closing a short position (buy).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 See [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
 
 ### Usage
@@ -947,9 +947,9 @@ if (CrossAbove(EMA(15), SMA(50), 2))
 ### Description
 Exit short limit creates a buy-to-cover limit order for closing a short position (buy).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
-See [*CloseShort()*](#closeshort)(#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+See [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
 
 ### Usage
 ```cs
@@ -991,7 +991,7 @@ if (CrossAbove(EMA(15), SMA(50), 2))
 ## CloseShortStop()
 ### Description
 Exit short stop creates a buy-to-cover stop order for closing a short position.
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
 See [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
 
@@ -1033,7 +1033,7 @@ if (CrossAbove(EMA(15), SMA(50), 2))
 ## CloseShortStopLimit()
 ### Description
 Exit short stop limit creates a buy-to-cover stop limit order for closing a short position.
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultquantity) or taken from the strategy dialog window.
+If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
 
 See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
@@ -1186,7 +1186,7 @@ Print("the current P&L " + this.Name + " is " + string.Format( "{0:F1} R.", GetP
 
 ## IsAutomated
 ### Description
-IsAutomated determines whether orders are activated automatically. IsAutomated is specified in the [*OnInit()*](#initialize) method.
+IsAutomated determines whether orders are activated automatically. IsAutomated is specified in the [*OnInit()*](#oninit) method.
 
 If IsAutomated = true, then orders are automatically activated (default). If IsAutomated is assigned the value false, the corresponding order must be activated with order.[*ConfirmOrder()*](#confirmorder).
 
@@ -1571,7 +1571,7 @@ if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
 ### Description
 The time in force property determines how long an order is valid for. The validity period is dependent upon which values are accepted by a broker.
 
-TimeInForce is specified with the [*OnInit()*](#initialize) method.
+TimeInForce is specified with the [*OnInit()*](#oninit) method.
 
 Permitted values are:
 TimeInForce.day

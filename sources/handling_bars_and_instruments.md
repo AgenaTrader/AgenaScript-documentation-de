@@ -1,4 +1,4 @@
-#Handling bars und instrumente
+#Handling bars and instruments
 
 Data is understood as information that is retrieved externally and uploaded to AgenaTrader, or as data series that are created by AgenaScripts.
 
@@ -6,48 +6,47 @@ Further detailed information can be found using the appropriate shortcuts:
 
 [Bars (Candles)](#bars-candles)
 
-[Datenserien](#datenserien)
+[Data series](#data-series)
 
 [Instruments](#instruments)
 
 ##Bars (Candles)
-### Funktionsweise
-Ein klassischer Indikator berechnet üblicherweise aus einer vorliegenden Datenreihe einen oder mehrere Werte.
+### Functionality
+A classical indicator calculates one or multiple values using an existing data series.
 
-Datenreihen können dabei z.B. alle Schlusskurse oder auch alle Tiefkurse eines Tages, einer Stunde oder einer 10 Min. Periode sein.
+Data series can be anything from closing prices to daily lows or values of an hourly period etc.
 
-Jeder Periode (also jeder Kerze eines Tages, einer Stunde usw.) wird/werden folglich ein oder mehrere Indikatorwert(e) zugeordnet.
-Im Folgenden gehen wir von einem Indikatorwert, wie z.B. bei einem gleitenden Durchschnitt aus.
-Zur Berechnung eines gleitenden Durchschnitts benötigt AgenaTrader eine Datenreihe. Im Beispiel nehmen wir die Schlusskurse. Alle Schlusskurse der Bars (Kerzen), die in einem Chart dargestellt sind, sind in einer Liste gespeichert und sozusagen durchnummeriert.
+Every period (meaning all candles of one day, one hour etc.) is assigned one or more indicator values.
+The following example is based on an indicator value, such as with a moving average, for example.
+To calculate a smoothed moving average, AgenaTrader needs a data series. In this example we will use the closing prices. All closing prices of a bar (candle) that are represented in the chart will be saved in a list and indexed.
 
-Der aktuelle Schlusskurs, also der Schlusskurs des Bars, der am rechten Rand des Charts dargestellt wird, bekommt die Nummer 0. Der Bar links davon die Nummer 1 usw. Der älteste dargestellte Bar hat dann z.B. die Nummer 500.
+The current closing price, meaning the closing price of the bar that is on the right-hand side of the chart, will be assigned an index of 0. The bar to the left of that will have an index of 1 and so on. The oldest bar displayed will have an index value of 500.
 
-Kommt im Laufe der Handelssitzung ein neuer Bar hinzu, erhält dieser nun die Nummer 0, der links von ihm, der gerade noch die Nummer 0 hatte, wird zu Nummer 1 usw. Der letzte dargestellte Bar wird zu Nummer 501.
+Whenever a new bar is added within a session it will become the new index 0; the bar to the left of it, which previously had an index of 0, will become index 1 and so on. The oldest bar will become index 501.
+Within a script (a self-created program/algorithm) the [*Close*](#close) will be representative for the array (list) of all closing prices.
+The last closing price is thus *Close \[0\]*; the closing price previous to this will become *Close \[1\]*, the value before that will become *Close \[2\]* and the oldest bar will be *Close \[501\]*. The number within the squared brackets represents the index. AgenaTrader allows you to use the „bars ago" expression for this in general cases.
 
-In einem Script (einem selbsterstellten Programm) steht [*Close*](#close) für die Liste (Array) aller Schlusskurse.
-Der letzte Schlusskurs ist dann *Close \[0\]*; , der Schlusskurs davor (bei Tagesdaten ist das z.B. der Schlusskurs von gestern) ist *Close \[1\]*,, der davor *Close \[2\]* bis zum ersten Bar im Chart (ganz links) mit *Close \[501\]*. Die Zahl in den eckigen Klammern ist ein Index. In AgenaTrader steht hierfür im allgemeinen Fall der Ausdruck "barsAgo
+Obviously, every bar will not only have a closing value but also a [*High*](#high), [*Low*](#low), [*Open*](#open), [*Median*](#median), [*Typical*](#typical), [*Weighted*](#weighted), [*Time*](#time) and [*Volume*](#volume). Thus, the high of the candle that occurred 10 days ago will be *High \[10\]*, yesterday’s low *Low \[1\]*...
 
-Für jeden Bar gibt es nicht nur Close, sondern zudem auch [*High*](#high), [*Low*](#low), [*Open*](#open), [*Median*](#median), [*Typical*](#typical), [*Weighted*](#weighted), [*Time*](#time) and [*Volume*](#volume). Das Hoch der Kerze, von vor 10 Tagen ist also z.B. *High \[10\]*, Das Tief von gestern *Low \[1\]*...
+**Important tip:**
 
-**wichtiger Hinweis:**
+The previous examples all assume that the calculations will occur at the end of a period. The value of the currently running index is not being taken into consideration.
 
-Die o.g. Beispiele gelten, wenn die Berechnung am Ende einer Periode erfolgt. Die Werte der aktuell laufenden (noch nicht fertigen Kerze) sind nicht berücksichtigt.
+If you wish to use the values of the currently forming candle then you will need to set the value of
 
-Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgreifen, muß man dies AgenaTrader im Script mit
+[*CalculateOnClosedBar*](#CalculateOnClosedBar) to „false".
 
-[*CalculateOnClosedBar*](#CalculateOnClosedBar) = false mitteilen..
+In this case the currently running bar will have the value 0, the bar next to the current bar will have the value 1 and so on. The oldest bar (as in the example above) would now have the value 502.
 
-In diesem Fall bekommt der aktuell laufende Bar die Nummer 0, der Bar links neben dem aktuell laufenden die Nummer 1 usw. Der letzte Bar (im Beispiel oben) hätte jetzt die Nummer 502.
+With close \[0\] you would receive the most recent value of the last price that your data provider transmitted to AgenaTrader. All values of the bar (high \[0\], low \[0\]…) may still change as long as the bar is not yet finished/closed and a new bar has not yet started. Only the open \[0\] value will not change.
 
-Mit close \[0\]  bekommt man nun den jeweils letzten Kurs, der gerade vom Datenanbieter an AgenaTrader übermittelt wurde. Alle Werte des Bars (high \[0\], low \[0\]…) können sich solange verändern, bis der Bar fertig ausgebildet ist und ein neuer Bar begonnen hat. Nur Open[0] ändert sich auch in diesem Fall nicht mehr.
+## Properties of Bars
+### Properties of Bars
+"Bars" represents a list of all bars (candles) within a chart (see [*Functionality*](#functionality)(#functionality)[*Bars*](#bars)).
 
-## Eigenschaften von Bars
-### Eigenschaften von Bars
-"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe [*Funktionsweise*](#funktionsweise)(#funktionsweise)[*Bars*](#bars)).
+Bars (**public** IBars Bars) can be used directly in a script and equates to BarsArray \[0\] (see Bars.GetNextSessionTimeSpan for more information).
 
-Bars (**public** IBars Bars) kann direkt in einem Script verwendet werden und entspricht in diesem Fall \[0\] (siehe Bars.GetNextSessionTimeSpan for more information).
-
-Die Liste der Bars selbst hat viele Eigenschaften, die in einem selbst erstellten AgenaScript verwendet werden können. Eigenschaften werden immer mit einem Punkt hinter dem Objekt (in diesem Falle Bars, der Liste der Kerzen) angegeben.
+The list of bars itself has many properties that can be used in AgenaScript. Properties are always indicated by a dot before the objects (in this case bars, list of candles).
 
 [*BarsCountForSession*](#barscountforsession)
 
@@ -113,186 +112,188 @@ Die Liste der Bars selbst hat viele Eigenschaften, die in einem selbst erstellte
 
 [*Bars.TailBottom*](#barstailbottom)
 
-[*ProcessingBarSeriesIndex*](#processingbarseriesindex)
+[*IsProcessingBarIndexLast*](#isprocessingbarindexlast)
 
 With the **OnCalculate()** method you can use any properties you want without having to test for a null reference.
 As soon as the function **OnCalculate()** is called up by AgenaScript, it is assumed that an object is also available. If you wish to use these properties outside of **OnCalculate()** then you should first perform a test for null references using **if** (Bars != **null**).
 
 ## BarsCountForSession
-### Beschreibung
-Bars.BarsCountForSession  liefert die Anzahl der Bars, die seit dem Beginn der aktuellen Handelssitzung entstanden sind.
+### Description
+Bars.BarsCountForSession outputs the amount of bars that have occurred since the beginning of the current trading session.
 
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+See further [*Properties*](#properties) of bars.
 
-### Rückgabewert
-Typ int		Anzahl der Bars
-Ein Wert von -1 deutet auf ein Problem bei der Ermittlung des Sessionbeginns hin.
+### Return Value
+Type int Amount of Bars
+
+A value of -1 indicates a problem with referencing the correct session beginning.
 
 ### Usage
 Bars.BarsCountForSession
 
-### Weitere Informationen
-Innerhalb von  *OnBarUpdate()* kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode  OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
+### Further Information
+Within *OnCalculate()* this property can be used without having to test for a null reference. As soon as the OnCalculate() method is called up by AgenaScript, the object will become available.
 
-Falls diese Eigenschaft ausserhalb von  OnCalculate()  verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit *if* (Bars!= *null*) ausgeführt werden. .
+If this property is used outside of OnCalculate() then you should test for a null reference before executing it. You can test using *if* (Bars!= *null*) .
 
-### Beispiel
+### Example
 ```cs
-Print ("Seit dem Start der letzten Handelssitzung sind" + Bars.BarsCountForSession + "Bars entstanden.");
+Print ("Since the start of the last trading session there have been" + Bars.BarsCountForSession + "bars.");
 ```
 
 ## Bars.Count
-### Beschreibung
-Bars.Count liefert die Anzahl der Bars in einer Datenreihe.
+### Description
+Bars.Count gives you the amount of bars in a data series.
 
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+See [*Properties*](#properties) for additional information.
 
-### Rückgabewert
-Typ int		Anzahl der Bars
+### Return Value
+Type int Amount of Bars
 
-### Verwendung
+### Usage
 Bars.Count
 
-### Weitere Informationen
-Der Wert von *ProcessingBarIndex* kann immer nur kleiner oder gleich Bars.Count - 1 sein.
+### More Information
+The value of *ProcessingBarIndex* can only be lesser than or equal to Bars.Count - 1
 
-Wenn in AgenaTrader angegeben wurde, wieviel Bars in einen Chart geladen werden sollen, entspricht der Wert von Bars.Count genau dieser Einstellung. Im Beispiel unten würde Bars.Count 500 liefern.
+When you specify how many bars are to be loaded within AgenaTrader, then the value of Bars.Count is equal to this setting. In the following example, Bars.Count would give back a value of 500.
 
 ![Bars.Count](./media/image1.png)
 
-### Beispiel
+### Example
 ```cs
-Print ("Es stehen insgesamt " + Bars.Count + "Bars zur Verfügung.");
+Print ("There are a total of" + Bars.Count + "bars available.");
 ```
 
 ## Bars.IsFirstBarInSession
-### Beschreibung
-Mit Bars.IsFirstBarInSession kann festgestellt werden, ob der aktuelle Bar der erste Bar einer Handelssitzung ist.
+### Description
+With Bars.IsFirstBarInSession you can determine whether the current bar is the first bar of the trading session.
 
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+See [*Properties*](#properties) of bars for more information.
 
-### Rückgabewert
-Typ bool
+### Return Value
+Type bool
 
-**true**: Der Bar ist der erste Bar einer Handelssitzung
-**false**: Der Bar ist nicht der erste Bar einer Handelssitzung
+**true**: The bar is the first bar of the current trading session
+**false**: The bar is not the first bar of the current trading session
 
-### Verwendung
+### Usage
 Bars.IsFirstBarInSession
 
-### Weitere Informationen
-Innerhalb von *OnCalculate()* kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
-Falls diese Eigenschaft ausserhalb von OnCalculate() verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit if (Bars != null) ausgeführt werden..
+### More Information
+With *OnCalculate()* this property can be used without having to test for a null reference. As soon as the OnCalculate() method is called up, an object will become available.
+If this property is called up outside of OnCalculate() you should test for a null reference using if (Bars != null).
 
-### Beispiel
+### Example
 ```cs
 if (Bars.IsFirstBarInSession)
-Print ("Die aktuelle Handelsitzung hat um" + Time [0]);
+Print ("The current trading session started at" + Time [0]);
 ```
 
 ## Bars.GetBar
-### Beschreibung
-Bars.GetBar liefert den ersten Bars (vom ältesten zum jüngsten), der dem übergebenen Datum bzw. der Uhrzeit entspricht.
+### Description
+Bars.GetBar outputs the first bars (from oldest to newest) that correspond to the specified date/time.
 
-Siehe auch [*Bars.GetBarsAgo*](#barsgetbarsago), [*Bars.GetByIndex*](#barsgetbyindex), [*Bars.GetBarIndex*](#barsgetbarindex).
+See [*Bars.GetBarsAgo*](#barsgetbarsago), [*Bars.GetByIndex*](#barsgetbyindex), [*Bars.GetBarIndex*](#barsgetbarindex).
 
 ### Parameter
-Typ DateTime
+Type DateTime
 
-### Rückgabewert
-Typ IBar Bar-Objekt, des dem Zeitstempel entsprichenden Bars
+### Return Value
+Type IBar Bar Object, for the bars corresponding to the timestamp
 
-bei Zeitstempel älter als der älteste Bar: 0 (null)
-bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars
+For a timestamp older than the oldest bar: 0 (null)
+For a timestamp younger than the newest bar: index of the last bar
 
 ### Usage
 ```cs
 Bars.GetBar(DateTime time)
 ```
 
-### Verwendung
-zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
+### More Information
+For the indexing of bars please see [*Functionality*](#functionality), [*Bars*](#bars)
 
- Benutzung von DateTime siehe [http://msdn.microsoft.com/de-de/library/system.datetime.aspx](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+For more information about using DateTime see [http://msdn.microsoft.com/de-de/library/system.datetime.aspx](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
-### Beispiel
+### Example
 ```cs
-Print ("Der Schlusskurs für den 01.03.2012 um 18:00:00 Uhr war " + Bars.GetBar(new DateTime(2012, 01, 03, 18, 0, 0)).Close);
+Print ("The closing price for 01.03.2012 at 18:00:00 was " + Bars.GetBar(new DateTime(2012, 01, 03, 18, 0, 0)).Close);
 ```
 
 ## Bars.GetBarsAgo
-### Beschreibung
-Bars.GetBarsAgo liefert den Index des ersten Bars (vom ältesten zum jüngsten), der dem übergebenen Datum bzw. der Uhrzeit entspricht.
+### Description
+Bars.GetBarsAgo outputs the index of the first bars (from oldest to newest) that correspond to the specified date/time.
 
-Siehe auch: [*Bars.GetBar*](#barsgetbar), [*Bars.GetByIndex*](#barsgetbyindex), [*Bars.GetBarIndex*](#barsgetbarindex).
+See: [*Bars.GetBar*](#barsgetbar), [*Bars.GetByIndex*](#barsgetbyindex), [*Bars.GetBarIndex*](#barsgetbarindex).
 
 ### Parameter
-Typ DateTime
+Type DateTime
 
-### Rückgabewert
-Typ int Index des Bars, der dem Zeitstempel als erstes entspricht.
-bei Zeitstempel älter als der älteste Bar: 0 (null)
-bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars
+### Return Value
+Type int Index of the bar that corresponds to the timestamp
 
-### Verwendung
+With a timestamp older than the oldest bar: 0 (null)
+With a timestamp newer than the youngest bar: index of the last bar
+
+### Usage
 ```cs
 Bars.GetBarsAgo(DateTime time)
 ```
 
-### Weitere Informationen
-zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
+### More Information
+For more information about indexing please see [*Functionality*](#functionality), [*Bars*](#bars)
 
-zur Benutzung von DateTime siehe  [http://msdn.microsoft.com/de-de/library/system.datetime.aspx](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+For more information about using DateTime see [http://msdn.microsoft.com/de-de/library/system.datetime.aspx](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
-### Beispiel
+### Example
 ```cs
-Print("Der Bar für den 01.03.2012 um 18:00:00 Uhr hat den Index " + Bars.GetBarsAgo(new DateTime(2012, 01, 03, 18, 0, 0)));
+Print("The bar for 01.03.2012 at 18:00:00 O’clock has an index of " + Bars.GetBarsAgo(new DateTime(2012, 01, 03, 18, 0, 0)));
 ```
 
 ## Bars.GetClose
-Bars.GetClose(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetClose(int index) – see [*Bars.GetOpen*](barsgetopen).
 
 ## Bars.GetHigh
-Bars.GetHigh(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetHigh(int index) – see [*Bars.GetOpen*](barsgetopen).
 
 ## Bars.GetByIndex
-### Beschreibung
-Bars.GetByIndex liefert das zu einem übergebenen Index gehörende Bar-Objekt.
+### Description
+Bars.GetByIndex outputs the index for the specified bar object
 
-Siehe auch [*Bars.GetBar*](#barsgetbar)(#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago)(#barsgetbarsago), [*Bars.GetBarIndex*](#barsgetbarindex)(#barsgetindex).
+See [*Bars.GetBar*](#barsgetbar)(#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago)(#barsgetbarsago), [*Bars.GetBarIndex*](#barsgetbarindex)(#barsgetindex).
 
 ### Parameter
-Typ int Index
+Type int Index
 
-### Rückgabewert
-Typ IBar Bar-Objekt zu dem übergebenen Index
+### Return Value
+Type IBar Bar object for the specified index
 
-### Verwendung
+### Usage
 ```cs
 Bars.GetByIndex (int Index)
 ```
 
-### Weitere Informationen
-zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
+### More Information
+For indexing of bars see [*Functionality*](#functionality), [*Bars*](#bars)
 
-### Beispiel
+### Example
 ```cs
-Print(Close[0] + " und " + Bars.GetByIndex(ProcessingBarIndex).Close + "sind in diesem Beispiel gleich.");
+Print(Close[0] + " and " + Bars.GetByIndex(ProcessingBarIndex).Close + " are equal in this example.");
 ```
 
 ## Bars.GetBarIndex
-### Beschreibung
-Bars.GetBarIndex  liefert den Index eines Bars you can input either a bar object or a date-time object using this method.
+### Description
+Bars.GetBarIndex outputs the index of a bar – you can input either a bar object or a date-time object using this method.
 
 See [*Bars.GetBar*](#barsgetbar)(#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago)(#barsgetbarsago), [*Bars.GetByIndex*](#barsgetbyindex)(#barsgetbyindex).
 
 ### Parameter
-Typ IBar bar
-oder
-Typ DateTime
+Type IBar bar
+or
+Type DateTime
 
-### Rückgabewert
-Type int der zu dem übergebenen Bar-Objekt bzw. dem übergebenen DateTime-Objekt gehörende Bar-Index
+### Return Value
+Type int The bar index of the specified bar object or DateTime object
 
 ### Usage
 ```cs
@@ -300,57 +301,56 @@ Bars.GetBarIndex (IBar bar)
 Bars.GetBarIndex (DateTime dt)
 ```
 
-### Weitere Informationen
-zur Indizierung von Bars siehe[*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
+### More Information
+For more information about indexing see [*Functionality*](#functionality), [*Bars*](#bars)
 
-### Beispiel
+### Example
 ```cs
 int barsAgo = 5;
 IBar bar = Bars.GetBar(Time[barsAgo]);
-Print(barsAgo + " und " + Bars.GetBarIndex(bar) + "sind in diesem Beispiel gleich.");
+Print(barsAgo + " and " + Bars.GetBarIndex(bar) + " are equal in this example.");
 ```
 
 ## Bars.GetLow
-Bars.GetLow(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetLow(int index) – see [*Bars.GetOpen*](barsgetopen).
 
 ## Bars.GetNextSessionTimeSpan
 ### Description
-Bars.GetNextSessionTimeSpan liefert jeweils Datum und Uhrzeit von Beginn und Ende der nächsten Handelssitzung.
+Bars.GetNextSessionTimeSpan outputs the date and time for the beginning and end of a trading session.
 
-Siehe auch [*Bars.CurrentSessionBeginTime*](#barssessionbegin), [*Bars.CurrentSessionEndTime*](#barssessionend), [*Bars.NextSessionBeginTime*](#barssessionnextbegin), [*Bars.NextSessionEndTime*](#barssessionnextend).
+See [*Bars.CurrentSessionBeginTime*](#barssessionbegin), [*Bars.CurrentSessionEndTime*](#barssessionend), [*Bars.NextSessionBeginTime*](#barssessionnextbegin), [*Bars.NextSessionEndTime*](#barssessionnextend).
 
 ### Parameter
 |          |         |                                                                                            |
 |----------|---------|--------------------------------------------------------------------------------------------|
-| DateTime | time    | Datum bzw. Uhrzeit, für die die Daten der folgenden Handelssitzung gesucht werden          |
-| iBars    | bars    | Barobjekt, für das die Daten der folgenden Handelssitzung gesucht werden.                  |                    
-| int      | barsago | Anzahl der Tage in der Vergangenheit, für die die Daten der folgenden Handelssitzung gesucht werden   |
+| DateTime | time    | Date or time for which the data of the following trading session will be scanned/searched. |
+| iBars    | bars    | Bar object for which the data will be scanned/searched.                                    |
+| int      | barsago | Number of days in the past for which the data will be searched/scanned.                    |
 
-### Rückgabewert
+### Return Value
 DateTime session begin
 DateTime session end
 
-**Hinweis:**
-Das Datum von Beginn und Ende sind jeweils für eine Handelssitzung zusammengehörend. Wenn das übergebene Datum dem Ende-Datum der aktuellen Handelssitzung entspricht, kann das zurückgegebene Datum für den Beginn der Handelssitzung bereits in der Vergangenheit liegen.
-Es wird in diesem Fall nicht das Datum der nächstfolgenden Handelssitzung zurückgegeben.
+**Note:**
+The date for the beginning and the end of a trading session are connected components. If the specified date corresponds to the end date of the current trading session then the returned value for the beginning of a trading session may already be in the past. In this case the date for the following trading session cannot be returned.
 
-### Verwendung
+### Usage
 ```cs
 Bars.GetNextSessionTimeSpan(Bars bars, int barsAgo, out DateTime sessionBegin, out DateTime sessionEnd)
 Bars.GetNextSessionTimeSpan(DateTime time, out DateTime sessionBegin, out DateTime sessionEnd)
 ```
 
-### Weitere Informationen
-Die beiden Signaturen liefern nicht notwendigerweise auch die gleichen Ergebnisse.
-Bei Verwendung der Bar-Signatur wird der ubergebene Bar daraufhin untersucht, zu welchem Session-Template er gehört. Beginn und Ende der nächsten Session werden dann diesem Template entnommen.
+### More Information
+The two signatures will not necessarily output the same result.
+When using the bar signature, the supplied bar will be inspected for its session template association. The beginning and end of the next session will be taken from this template.
 
-Bei Verwendung der Zeit-Signatur wierden Datum und Uhrzeit des übergebenen Bars genutzt, um die Daten der aktuellen und damit der folgenden Session zu berechnen.
+When using the time signature, the date and time of the supplied bar will be used to calculate the data for the current and the following sessions.
 
-Wenn bei Verwendung der Zeit-Signatur ein Zeitstempel übergeben wird, der exakt einer Beginn bzw. Endezeit einer Session entspricht, werden Beginn und Ende der davorliegenden Session zurückgegeben, d.h. der Zeitstempel wird als "in der Session enthalten" angesehen, selbst wenn der fragliche Bar bereits in einer neuen Session enthalten ist. Um dieses Verhaten sicher auszuschließen, ist die Verwendung der Bar-Signatur empfohlen.
+When using the time signature, a timestamp is transmitted that corresponds exactly to the beginning or the end time of a session.
 
-zur Benutzung von DateTime siehe  [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+More information can be found here [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
-### Beispiel
+### Example
 ```cs
 DateTime sessionBegin;
 DateTime sessionEnd;
@@ -362,43 +362,42 @@ Print("Session Start: " + sessionBegin + " Session End: " + sessionEnd);
 ```
 
 ## Bars.GetSessionBegin
-### Beschreibung
-Bars.GetSessionBegin  liefert das Datum und die Uhrzeit des Beginns einer bestimmten Handelssitzung.
-Datum und Uhrzeit für den Beginn der aktuellen Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird. Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+### Description
+Bars.GetSessionBegin provides the date and time of the particular session start. The date and time for the start of the current trading session are also correctly indicated when the function is called from a bar in the past. See also other [*Properties*](#properties) of bars.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ DateTime
+### Return value
+Type DateTime
 
-### Verwendung
+### Usage
 Bars.GetSessionBegin(DateTime dt)
 
-### Weitere Informationen
-Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion Instrument.Exchange ermittelt werden.
+### Further Information
+The time of the returned value corresponds to the start time of the trading session.  The relevant trading center which is specified in the MarketEscort. The trading place used for the value is set in the Instrumet Escort and can be determined in AgenaSript with the Instrument.Exchange function.
 
 ![Bars.CurrentSessionBeginTime](./media/image3.png)
-### Beispiel
+### Example
 ```cs
 Print("Die Handelssitzung am 25.03.2015 hat um "+ Bars.GetSessionBegin(new DateTime(2015, 03, 25)) + " begonnen.");
 }
 ```
 ## Bars.GetOpen
-### Beschreibung
-Die folgenden Methoden sind aus Gründen der Kompatibilität vorhanden.
+### Description
+For reasons of compatibility, the following methods are available.
 
--   Bars.GetOpen(int index) liefert das Open des mit  &lt;index&gt referenzierten Bars;.
--   Bars.GetHigh(int index) liefert das High des mit  &lt;index&gt referenzierten Bars;.
--   Bars.GetLow(int index) liefert das Low des mit  &lt;index&gt referenzierten Bars;.
--   Bars.GetClose(int index) liefert das Close des mit  &lt;index&gt referenzierten Bars;.
--   Bars.GetTime(int index) liefert das Zeitstempel des mit  &lt;index&gt referenzierten Bars;.
--   Bars.GetVolume(int index) liefert das Volumen des mit  &lt;index&gt referenzierten Bars;.
+-   Bars.GetOpen(int index) outputs the open for the bars referenced with &lt;index&gt;.
+-   Bars.GetHigh(int index) outputs the high for the bars referenced with &lt;index&gt;.
+-   Bars.GetLow(int index) outputs the low for the bars referenced with &lt;index&gt;.
+-   Bars.GetClose(int index) outputs the close for the bars referenced with &lt;index&gt;.
+-   Bars.GetTime(int index) outputs the timestamp for the bars referenced with &lt;index&gt;.
+-   Bars.GetVolume(int index) outputs the volume for the bars referenced with &lt;index&gt;.
 
-**Achtung:**: Die Indizierung weicht von der sonst verwendeten [*Indizierung *](#indexing), [*Bars*](#bars) ab.
-Hier beginnt die Indizierung mit 0 am ältesten Bar (links im Chart) und endet mit dem jüngsten Bar rechts im Chart  (=Bars.Count-1)..
+**Caution**: The indexing will deviate from the [*Indexing*](#indexing), [*Bars*](#bars) normally used.
+Here, the indexing will begin with 0 for the oldest bar (on the left of the chart) and end with the newest bar on the right of the chart (=Bars.Count-1).
 
-Die Indizierungen können leicht (in beiden Richtungen!) wie folgt umgerechnet werden:
+The indexing can easily be recalculated:
 ```cs
 private int Convert(int idx)
 {
@@ -409,139 +408,136 @@ return Math.Max(0,Bars.Count-idx-1-(CalculateOnClosedBar?1:0));
 ### Parameter
 int index (0 .. Bars.Count-1)
 
-### Rückgabewert
-Typ double für GetOpen, GetHigh, GetLow, GetClose und GetVolume
+### Return Value
+Type double for GetOpen, GetHigh, GetLow, GetClose and GetVolume
 
-Type DateTime für GetTime
+Type DateTime for GetTime
 
 ## Bars.GetTime
-Bars.GetTime(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetTime(int index) – see [*Bars.GetOpen*](barsgetopen).
 
 ## Bars.GetVolume
-Bars.GetVolume(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetVolume(int index) – see [*Bars.GetOpen*](barsgetopen).
 
 ## Bars.Instrument
-### Beschreibung
-Bars.Instrument liefert ein Instrument-Objekt, für das im Chart dargestellte Handelsinstrument.
+### Description
+Bars.Instrument outputs an instrument object for the trading instrument displayed within the chart.
 
-Siehe auch weitere [*Eigenschaften *](#eigenschaften ) von Bars.
+See [*Properties*](#properties) for more information.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ Instrument
+### Return Value
+Type Instrument
 
-### Verwendung
+### Usage
 Bars.Instrument
 
-### Weitere Informationen
-Für weitere Informationen zu Handelsinstrumenten siehe unter [*Instrument*](#instrument).
+### More Information
+For more information regarding the trading instruments please see [*Instrument*](#instrument).
 
-### Beispiel
+### Example
 ```cs
-// beide Ausgaben liefern das gleiche Ergebnis
-Print("Das aktuell dargestellte Handelsinstrument hat das Symbol" + Bars.Instrument);
+// both outputs will provide the same result
+Print("The currently displayed trading instrument has the symbol: " + Bars.Instrument);
 Instrument i = Bars.Instrument;
-Print("Das aktuell dargestellte Handelsinstrument hat das Symbol" + i.Symbol);
+Print("The currently displayed trading instrument has the symbol " + i.Symbol);
 ```
 ## Bars.IsEod
-### Beschreibung
-Mit Bars.IsEod kann überprüft werden, ob es sich um End-of-Day-Bars handelt.
+### Description
+Bars.IsEod can be used to check whether they are end-of-day bars.
 
-Siehe auch weitere [*Eigenschaften *](#eigenschaften ) von Bars.
+See [*Properties*](#properties) for more information.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ bool
+### Return Value
+Type bool
 
-### Verwendung
+### Usage
 Bars.IsEod
 
-### Weitere Informationen
-Innerhalb von [*OnCalculate()*](#oncalculate), kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode  OnCalculate () von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
+### More Information
+Within [*OnCalculate()*](#oncalculate), this property can be used without having to test for null reference. As soon as the method OnCalculate () is called by AgenaScript, there is always a bar object.
 
-IFalls diese Eigenschaft ausserhalb von OnCalculate (),  verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit if (bars! = Null) ausgeführt werden.
+If this property  used outside of OnCalculate (), then a corresponding test should be set to zero reference, e.g. With if (bars! = Null).
 
-### Beispiel
+### Example
 ```cs
-Print("Die Bars sind Eod: " + Bars.IsEod);
+Print("The bars are EOD: " + Bars.IsEod);
 ```
 ## Bars.IsIntraday
-### Beschreibung
-Bars.IsIntraday liefert eine boolesche Variable die weist darauf hin, ob die Zeitspanne (TimeFrame) intraday ist. 
+### Description
+Bars.IsIntraday returns a boolean which indicates if the TimeFrame is intra-day.
 
-### Rückgabewert
-Typ bool
+### Return Value
+**bool**
 
-Es sendet „true“ zurück wenn die Zeitspanne (TimeFrame) intraday ist (z.B. 1 Min., 15 Min., 1 Std. etc.) und "false" in den anderen Fällen.
+It returns "true" if TimeFrame is intra-day (e.g. 1 min, 15 min, 1 hour, etc.) and "false" in other cases.
 
-### Verwendung
+### Usage
 ```cs
 Bars.IsIntraday
 ```
 
-### Beispiel
+### Example
 ```cs
 if(Bars.IsIntraday) {
-	Print("TimeFrame ist Intraday.");
+	Print("TimeFrame is Intraday.");
 } else {
-	Print("TimeFrame ist nicht Intraday.");
+	Print("TimeFrame is not Intraday.");
 }
 ```
 ## Bars.IsNtb
-### Beschreibung
-Mit Bars.IsNtb kann überprüft werden, ob es sich um Not-Time-Based-Bars handelt. Bei Ntb-Bars handelt es sich beispielsweise um Point & Figure oder Renko Charts.
+### Description
+With Bars.IsNtb it can be checked whether it is not-time-based bars. For example Ntb bars are Point & Figure or Renko Charts.
 
-Siehe auch weitere  [* Eigenschaften*](#eigenschaften) von Bars.
+See [*Properties*](#properties) for more information.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ bool
+### Return Value
+Type bool
 
-### Verwendung
+### Usage
 Bars.IsNtb
 
-### Weitere Informationen
-Innerhalb von [*OnCalculate()*](#oncalculate) kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate()  von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden. Falls diese Eigenschaft ausserhalb von OnCalculate(), verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit if (Bars != null) ausgeführt werden.
-
-### Beispiel
+### More Information
+[*OnCalculate()*](#oncalculate) property can be used without having to test for null reference first. As soon as the method OnCalculate() is called by AgenaScript, there is always a bar object. If this property is used outside of OnCalculate(), then a corresponding test should be set to zero reference, e.g. With if (bars! = Null).
+### Example
 ```cs
-Print("Die angezeigten Bars sind Ntb: " + Bars.IsNtb);
+Print("The bars are Ntb: " + Bars.IsNtb);
 ```
 
 
 ## Bars.LastBarCompleteness
-### Beschreibung
-Bars.LastBarCompletenessliefert einen Wert, der angibt, zu wieviel Prozent ein Bar bereits fertiggestellt ist.  Ein Bar in der Zeiteinheit 10 Minuten ist z.B. nach 5 Minuten genau zu 50% fertig.
+### Description
+Bars.LastBarCompleteness outputs the value that displays what percentage a bar has already completed. A bar with a period of 10 minutes has completed 50% after 5 minutes.
 
-Für nicht-zeitbasierte Chartarten (Kagi, LineBreak, Renko, Range, P&F usw.) und während eines Backtests liefert die Eigenschaft immer eine 0.
+For non-time-based charts (Kagi, LineBreak, Renko, Range, P&F etc.) this will output 0 during backtesting.
 
-Siehe auch weitere  [* Eigenschaften*](#eigenschaften) von Bars.
-
-### Rückgabewert
+### Return Value
 **double**
 
-als Prozentwert, d.h. für 30% wird 0.3 zurückgegeben-
+A percentage value; 30% will be outputted as 0.3
 
-### Verwendung
+### Usage
 Bars.LastBarCompleteness
 
-### Weitere Informationen
-Innerhalb von  [*OnCalculate()*](#oncalculate) kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode  OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
+### More Information
+With [*OnCalculate()*](#oncalculate) this property can be used without having to test for a null reference. As soon as the OnCalculate() method is called up by AgenaScript, the object will become available.
 
-Falls diese Eigenschaft ausserhalb von OnCalculate()  verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit *if* (Bars != *null*) ausgeführt werden.
+If this property is used outside of OnCalculate() you should test for a null reference before executing it. You can test using *if* (Bars != *null*)
 
-### Beispiel
+### Example
 ```cs
-// Ein 60 Min. Chart wird intraday beobachtet.
-// Jeweils 5 Min. bevor der aktuelle Bar schließt,
-// soll ein akustisches Signal ausgegeben werden.
-// 55 Min. entsprechen 92%
+// A 60 minute chart is looked at from an intraday perspective
+// every 5 minutes before the current bar closes
+// an acoustic signal shall be played
+// 55 min. equals 92%
 bool remind = false;
 protected override void OnCalculate()
 {
@@ -556,290 +552,285 @@ PlaySound("Alert1");
 
 ## Bars.CurrentSessionBeginTime
 ### Description
-Bars.CurrentSessionBeginTime liefert das Datum und die Uhrzeit des Beginns der aktuell laufenden Handelssitzung.
+Bars.CurrentSessionBeginTime outputs the date and time for the beginning of the current trading session.
 
-Datum und Uhrzeit für den Beginn der aktuellen Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
+Date and time for the beginning of the current trading session will be displayed correctly when the function is used on a bar that has occurred in the past.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ DateTime
+### Return Value
+Type DateTime
 
-### Verwendung
-Bars.CurrentSessionBeginTime
+### Usage
+Bars.GetSessionBegin
 
-### Weitere Informationen
-Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
+### More Information
+The time for the returned value will equal the starting time defined in the Market Escort for the specified exchange. The value itself is set within the Instrument Escort and can be called up in AgenaScript using the function [*Instrument.Exchange*](#instrumentexchange) .
 
 ![Bars.CurrentSessionBeginTime](./media/image3.png)
 
 ### Example
 ```cs
-Print("Die laufende Handelssitzung hat um " + Bars.CurrentSessionBeginTime );
+Print("The currently running trading session started at " + Bars.CurrentSessionBeginTime );
 ```
 
 ## Bars.IsSessionBreak
-### Beschreibung
-Mit Bars.IsSessionBreak  kann ermittelt werden, ob die Bars innerhalb der laufenden Handelssitzung in den im Marktplatz-Escort definierten Handelspausen liegen.
+### Description
+Bars.IsSessionBreak can be used to determine whether the bars are within the commercial trading session in the commercial breaks defined in the marketplace escort.
 
-Siehe auch weitere  [*Eigenschaften*](#eigenschaften) von Bars.
+See [*Properties*](#properties) for more information.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ bool
+### Return Value
+Type bool
 
-### Verwendung
+### Usage
 Bars.IsSessionBreak
 
-### Weitere Informationen
+### More Information
 ![Bars.CurrentSessionEndTime](./media/image4.png)
 ### Example
 ```cs
 if (Bars.IsSessionBreak)
 {
-Print("Die Börse Xetra hat gerade eine Handelspause");
+Print("The stock exchange Xetra has just a trade pause");
 }
 ```
 
 ## Bars.CurrentSessionEndTime
-### Beschreibung
-Bars.CurrentSessionEndTime liefert das Datum und die Uhrzeit für das Ende der aktuell laufenden Handelssitzung.
-Datum und Uhrzeit für das Ende der aktuellen Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
+### Description
+Bars.CurrentSessionEndTime outputs the time for the end of the currently running trading session.
+Date and time for the end of the current trading session will, in this case, also be outputted correctly when the function is used on a previous bar.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ DateTime
+### Return Value
+Type DateTime
 
-### Verwendung
-Bars.CurrentSessionEndTime
+### Usage
+Bars.GetSessionEnd
 
-### Weitere Informationen
-Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Endezeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
+### More Information
+The time for the returned value will correlate with the end time of the trading session defined in the Market Escort for the exchange. The value itself can be set within the Instrument Escort and can be called up with AgenaScript using the [*Instrument.Exchange*](#instrumentexchange) function.
 
 ![Bars.CurrentSessionEndTime](./media/image4.png)
 
-### Beispiel
+### Example
 ```cs
-Print("Die laufende Handelssitzung endet um" + Bars.CurrentSessionEndTime);
+Print("The current trading session will end at " + Bars.CurrentSessionEndTime);
 ```
 
 ## Bars.NextSessionBeginTime
-### Beschreibung
-Bars.NextSessionBeginTime liefert das Datum und die Uhrzeit des Beginns der auf die aktuell laufende Handelssitzung folgenden Sitzung.
-Datum und Uhrzeit für den Beginn der nächsten Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
+### Description
+Bars.NextSessionBeginTime outputs the date and time for the start of the next trading session.
+Date and time for the next session will be correctly outputted when the function is used on a bar in the past.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ DateTime
+### Return Value
+Type DateTime
 
-### Verwendung
+### Usage
 Bars.GetSessionNextBegin
 
-### Weitere Informationen
-Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
+### More Information
+The time for the returned value will correlate to the value displayed in the MarketEscort. The value can be set within the Instrument Escort and can be called up using the [*Instrument.Exchange*](#instrumentexchange) function.
 
 ![Bars.NextSessionBeginTime](./media/image3.png)
 
-### Beispiel
+### Example
 ```cs
-Print("Die nächste Handelssitzung beginnt um" + Bars.NextSessionBeginTime);
+Print("The next trading session starts at " + Bars.NextSessionBeginTime);
 ```
 
 ## Bars.NextSessionEndTime
-### Beschreibung
-Bars.NextSessionEndTime liefert das Datum und die Uhrzeit für das Ende der auf die aktuell laufende Handelssitzung folgenden Sitzung.
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+### Description
+Bars.NextSessionEndTime outputs the date and time for the end of the next session.
+See [*Properties*](#properties) for more information.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ DateTime
+### Return Value
+Type DateTime
 
-### Verwendung
+### Usage
 Bars.GetSessionNextEnd
 
-### Weitere Informationen
-Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Endezeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
+### More Information
+The time for the returned value will correlate with the value specified within the MarketEscort. The value itself can be set within the Instrument Escort and can be called up with AgenaScript using the [*Instrument.Exchange*](#instrumentexchange) function.
 
 ![Bars.NextSessionEndTime](./media/image4.png)
 
-### Beispiel
+### Example
 ```cs
-Print("Die nächste Handelssitzung endet um " + Bars.NextSessionEndTime);
+Print("The next trading session ends at " + Bars.NextSessionEndTime);
 ```
 
 ## Bars.TicksCountForLastBar
-### Beschreibung
-Bars.TicksCountForLastBar  liefert die Gesamtanzahl der in einem Bar enthaltenen Ticks.
+### Description
+Bars.TicksCountForLastBar outputs the total numbers of ticks contained within a bar.
 
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+More information can be found in [*Properties*](#properties) of bars.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ int
+### Return Value
+Type int
 
-### Verwendung
+### Usage
 Bars.TicksCountForLastBar
 
-### Weitere Informationen
-Innerhalb von [*OnCalculate()*](#oncalculate) kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
+### More Information
+With [*OnCalculate()*](#oncalculate) this property can be used without having to test for a null reference. As soon as the OnCalculate() method is called up by AgenaScript, the object will become available.
 
-Falls diese Eigenschaft ausserhalb von OnCalculate(),verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit  *if* (Bars != *null*) ausgeführt werden.
+If this property is used outside of OnCalculate(), you should test for a null reference before executing it. You can test using *if* (Bars != *null*)
 
-### Beispiel
+### Example
 ```cs
-Print("Der aktuelle Bar besteht aus " + Bars.TicksCountForLastBar + " Ticks.");
+Print("The current bar consists of " + Bars.TicksCountForLastBar + " Ticks.");
 ```
 
 ## Bars.TimeFrame
-### Beschreibung
-Bars.TimeFrame liefert ein TimeFrame-Objekt, das Informationen zum aktuell verwendeten Zeiteinheit enthält.
+### Description
+Bars.TimeFrame outputs the timeframe object containing information regarding the currently used timeframe.
 
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+More information can be found here: [*Properties*](#properties)
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ ITimeFrame
+### Return Value
+Type ITimeFrame
 
-### Verwendung
+### Usage
 Bars.TimeFrame
 
 ### More Information
-Für weitere Informationen zum TimeFrame-Objekt siehe unter [*TimeFrame*](#timeframe).
+For more information about timeframe objects please see [*TimeFrame*](#timeframe).
 
-Innerhalb von [*OnCalculate()*](#oncalculate) kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
+With [*OnCalculate()*](#oncalculate) this property can be used without having to test for a null reference. As soon as the OnCalculate() method is called up by AgenaScript, the object will become available.
 
-Falls diese Eigenschaft ausserhalb von OnCalculate() verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit *if* (Bars != *null*) ausgeführt werden.
+If this property is used outside of OnCalculate(),you should test for a null reference before executing it. You can test using *if* (Bars != *null*)
 
-### Beispiel
+### Example
 ```cs
-//Anwendung in einem 30 Minuten Chart
+//Usage within a 30 minute chart
 TimeFrame tf = (TimeFrame) Bars.TimeFrame;
-Print(Bars.TimeFrame); // liefert "30 Min"
-Print(tf.Periodicity); // liefert "Minute"
-Print(tf.PeriodicityValue); // liefert "30"
+Print(Bars.TimeFrame); // outputs "30 Min"
+Print(tf.Periodicity); // outputs "Minute"
+Print(tf.PeriodicityValue); // outputs "30"
 ```
 
 ## Bars.TicksCountInTotal
-### Beschreibung
-Bars.TicksCountInTotal liefert die Gesamtzahl aller Ticks von dem Moment an, von dem die Funktion aufgerufen wird.
+### Description
+Bars.TicksCountInTotal outputs the total number of ticks from the moment the function is called up.
 
-Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
+More information can be found here: [*Properties*](#properties).
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-Typ int
+### Return Value
+Type int
 
-### Verwendung
+### Usage
 Bars.TicksCountInTotal
 
-### Weitere Informationen
-Der Datentyp int hat einen positiven Wertebereich von 2147483647.Wenn 10 Ticks je Sekunde angenommen werden, gibt es auch nach 2 Handelsmonaten bei einem 24h-Handel noch kein Überlauf.
+### More Information
+The data type int has a positive value range of 2147483647. When you assume 10 ticks per second, there will be no overlaps within 2 trading months with a daily runtime of 24 hours.
 
-Innerhalb von  [*OnCalculate()*](#oncalculate) kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.
+With [*OnCalculate()*](#oncalculate) this property can be used without having to test for a null reference. As soon as the OnCalculate() method is called up by AgenaScript, the object will become available.
 
-Falls diese Eigenschaft ausserhalb von  OnCalculate(),  verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit *if* (Bars != *null*) ausgeführt werden.
-
-### Beispiel
-```cs
-Print("Die Gesamtanzahl der gelieferten Ticks in diesem Wert beträgt " + Bars.TicksCountInTotal);
-```
+If this property is used outside of OnCalculate(), you should test for a null reference before executing it. You can test using *if* (Bars != *null*)
 
 ## Bars.isGrowing
-### Beschreibung
-Bar-Eigenschaften verwendet, wenn Bar aufwächst.
+### Description
+Bar properties used when Bar is growing up.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-keine
+### Return Value
+None
 
-### Beispiel
+### Usage
 ```cs
 Bars[0].isGrowing;
 ```
 
 ## Bars.IsFalling
-### Beschreibung
-Bar Eigenschaften verwendet, wenn Bar fällt herunter.
+### Description
+Bar properties used when Bar is falling down.
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-keine
+### Return Value
+None
 
-### Beispiel
+### Usage
 ```cs
 Bars[0].IsFalling;
 ```
 
 ## Bars.TailTop
-### Beschreibung
-Mit dieser Eigenschaft kann man die Höhe des oberen Dochtes auslesen.
+### Description
+Bar properties used for candle tail top height
 
 ### Parameter
-keine
+None
 
-### Rückgabewert
-keine
+### Return Value
+None
 
-### Beispiel
+### Usage
 ```cs
 Bars[0].TailTop;
 ```
 
 ## Bars.TailBottom
-### Beschreibung
-Mit dieser Eigenschaft kann man die Höhe des oberen Dochtes auslesen
-
+### Description
+Bar properties used for candle tail bottom height
 ### Parameter
-keine
+None
 
-### Rückgabewert
-keine
+### Return Value
+None
 
-### Verwendung
+### Usage
 ```cs
-//Verwendung innerhalb eines 30-Minuten-Chart
+//Usage within a 30 minute chart
 Bars[0].TailBottom;
 ```
 
-### Beispiel
-**Print**("Die Gesamtmenge der Zecken ist" + Bars.TicksCountInTotal);
+
+### Example
+**Print**("The total amount of ticks is " + Bars.TicksCountInTotal);
 
 ## ProcessingBarSeriesIndex
-### Beschreibung
-Gibt an, ob der aktuelle Balken zuletzt berechnet wurde.
+### Description
+Indicates if current bar is last in calculation.
 
 ### Parameter
-keine
+none
 
-### Rückgabewert
-Typ bool
+### Return value
+Type bool
 
-### Verwendung
+### Usage
 ProcessingBarSeriesIndex
 
-### Weitere Informationen
-Verwendet für komplizierte Berechnung auf einem letzten Stab
+### More Information
+used for complicated calculation on a last bar
 
-### Beispiel
+### Example
 ```cs
 protected override void OnCalculate()
         {
@@ -851,11 +842,11 @@ protected override void OnCalculate()
 ```
 
 
-## Datenserien
-### Beschreibung
-Datenserien werden in AgenaTrader zum einen unterschieden in die frei für die eigene Programmierung verwendbaren Datenserien zum Speichern von Werten unterschiedlicher Datentypen und zum anderen in die in AgenaTrader fest integrierten Datenserien, die die Kursdaten der einzelnen Bars enthalten. Die letzteren werden hier vorgestellt.
-Das Konzept von Datenserien wird sehr konsequent und durchgängig verfolgt. Alle Kursdaten der einzelnen Bars sind in Datenserien organisiert.
-Folgende Datenserien sind verfügbar:
+## Data Series
+### Description
+Data series are interpreted as freely usable data storage containers for your programs. Additionally, they an integrated component of AgenaTrader that saves the price changes for individual bars. We will be focusing on the latter function here.
+In the following section, the concept of data series will be explained in detail and understandably. All price data for the individual bars are organized and saved within data series.
+The following are available:
 
 [*Open*](#open) [*Opens*](#opens)
 
@@ -878,566 +869,568 @@ Folgende Datenserien sind verfügbar:
 [*Volume*](#volume) [*Volumes*](#volumes)
 
 ## Open
-### Beschreibung
-Open ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Eröffnungskurse gespeichert sind.
+### Description
+Open is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical opening prices are saved.
 
 ### Parameter
-barsAgo	Indexwert(sehen [*Bars*](#bars))
+BarsAgo Index Value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 Open
 Open[int barsAgo]
 ```
 
-### Weitere Informationenon
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
+### Example
 ```cs
-// Eröffnungskurs der aktuellen Periode
+// Opening price for the current period
 Print(Time[0] + " " + Open[0]);
-// Eröffnungskurs des Bars von vor 5 Perioden
+// Opening price for the bars of 5 periods ago
 Print(Time[5] + " " + Open[5]);
-// aktueller Wert für den SMA 14 über die Eröffnungskurse (gerundet)
+// Current value for the SMA 14 that is based on the opening prices (rounded)
 Print("SMA(14) calculated using the opening prices: " + Instrument.Round2TickSize(SMA(Open, 14)[0]));
 ```
 
 ## Opens
 ### Description
-Opens ist ein Array von Datenserien, welches alle Open-Datenserien enthält.
+Opens is an array of data series that contains all open data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+This array is only useful or meaningful for indicators or strategies that use multiple data from multiple timeframes.
+A new entry is entered into the array whenever a new timeframe is added to an indicator or strategy.
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Opens\[0\] die Open-Dataseries der Chart-Zeiteinheit
-Opens\[1\] die Open-Dataseries aller Bars auf Tagesbasis
-Opens\[2\]  die Open-Dataseries aller Bars auf Wochenbasis.
+Opens\[0\] The open data series of the chart timeframe
+Opens\[1\] The open data series of all bars in a daily timeframe
+Opens\[2\] The open data series of all bars in a weekly timeframe
 
-Opens\[0\]\[0\] entspricht Open\[0\].
+Opens\[0\]\[0\] is equivalent to Open\[0\].
 
-Siehe auch [*MultiBars*](#multibars) 
+In addition, please see [*MultiBars*](#multibars) for more information.
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries (s. [*Bars*](#bars))
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value for the individual bars within the data series (see [*Bars*](#bars))
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Opens[int barSeriesIndex]
 Opens[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
- Beispiel unter [*Multibars*](#multibars).
+### Example
+See example: [*Multibars*](#multibars).
 
 ## High
 ### Description
-High ist eine [*Datenserien*](#datenserien)  vom Typ[*Datenserien*](#datenserien), in der die historischen Höchstkurse gespeichert sind.
+High is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical high prices are saved.
 
 ### Parameter
-barsAgo	Indexwert (s. [*Bars*](#bars))
+barsAgo IndexValue (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 High
 High[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
+### Example
 ```cs
-// Höchstkurs der aktuellen Periode
+// High values of the current period
 Print(Time[0] + " " + High[0]);
-// Höchstkurs des Bars von vor 5 Perioden
+// High values of the bar from 5 periods ago
 Print(Time[5] + " " + High[5]);
-// aktueller Wert für den SMA 14 über die Höchstkurse (gerundet)
+// the current value for the SMA 14 calculated on the basis of the high prices
 Print("SMA(14) Calculated using the high prices: " + Instrument.Round2TickSize(SMA(High, 14)[0]));
 ```
 
 ## Highs
-### Beschreibung
-Highs ist ein Array von \[*DataSeries*\]\[1\] welches alle High-Datenserien enthält.
+### Description
+Highs is an array of \[*DataSeries*\]\[1\] that contains all high data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of value for indicators or strategies that use data from multiple timeframes.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird
+A new entry is added to the array whenever a new time unit is added to an indicator or strategy.
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Highs\[0\] die High-Dataseries der Chart-Zeiteinheit
-Highs\[1\] die High-Dataseries aller Bars auf Tagesbasis
-Highs\[2\] die High-Dataseries aller Bars auf Wochenbasis
+Highs\[0\] the high data series of the chart timeframe
+Highs\[1\] the high data series of all bars in a daily timeframe
+Highs\[2\] the high data series of all bars in a weekly timeframe
 
-Highs\[0\]\[0\] entspricht High\[0\].
+Highs\[0\]\[0\] is equivalent to High\[0\].
 
 See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index Indexwert der einzelnen Bars innerhalb der Dataseries (s. [*Bars*](#bars))
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value for the individual bars within the data series (see [*Bars*](#bars))
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Highs[int barSeriesIndex]
 Highs[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+Please see examples under [*Multibars*](#multibars).
 
 ## Low
 ### Description
-Low ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien),in der die historischen Tiefstkurse gespeichert sind.
+Low is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical low prices are saved.
 
 ### Parameter
-barsAgo Indexwert (s. [*Bars*](#bars))
+barsAgo IndexValue (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 Low
 Low[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
+### Example
 ```cs
-// Tiefstkurs der aktuellen Periode
+// Lowest value of the current period
 Print(Time[0] + " " + Low[0]);
-// Tiefstkurs des Bars von vor 5 Perioden
+// Lowest value of the bar from 5 periods ago
 Print(Time[5] + " " + Low[5]);
-// aktueller Wert für den SMA 14 über die Tiefstkurse (gerundet)
-Print("SMA(14) berechnet über die Tiefstkurse:  " + Instrument.Round2TickSize(SMA(Low, 14)[0]));
+// The current value for the SMA 14 calculated on the basis of the low prices (smoothed)
+Print("SMA(14) calculated using the high prices: " + Instrument.Round2TickSize(SMA(Low, 14)[0]));
 ```
 
 ## Lows
 ### Description
-Lows ist ein Array von  \[*DatenSerien*\]\[1\] welches alle [*Low*](#low) Datenserien enthält.
+Lows is an array of \[*DataSeries*\]\[1\] that contains all [*Low*](#low) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of value to indicators or strategies that use data from multiple time units.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+A new entry is added whenever a new time unit is added to an indicator or strategy.
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Lows\[0\] die Low-Dataseries der Chart-Zeiteinheit
-Lows\[1\] die Low-Dataseries aller Bars auf Tagesbasis
-Lows\[2\] die Low-Dataseries aller Bars auf Wochenbasis.
+Lows\[0\] the low data series for the chart timeframe
+Lows\[1\] the low data series for all bars in a daily timeframe
+Lows\[2\] the low data series for all bars in a weekly timeframe
 
-Lows\[0\]\[0\] entspricht Low\[0\].
+Lows\[0\]\[0\] is equivalent to Low\[0\].
 
-Siehe auch [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value for the individual bars within the data series
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Lows[int barSeriesIndex]
 Lows[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+See example [*Multibars*](#multibars).
 
 ## Close
-### Beschreibung
-Close ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Schlusskurse gespeichert sind.
+### Description
+Close is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical closing prices are saved.
 
 ### Parameter
-barsAgo Indexwert (s. [*Bars*](#bars))
+barsAgo Index value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 Close
 Close[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Indikatoren werden standardmäßig über die Schlusskurse berechnet. Die Angabe der Input-Serie kann weggelassen werden (siehe Beispiel unten).
+Indicators are usually calculated using the closing prices.
 
-### Beispiel
+### Example
 ```cs
-// Schlusskurs der aktuellen Periode
+// Closing price of the current period
 Print(Time[0] + " " + Close[0]);
-// Schlusskurs des Bars von vor 5 Perioden
+// Closing price of the bar from 5 periods ago
 Print(Time[5] + " " + Close[5]);
-// aktueller Wert für den SMA 14 über die Schlusskurse (gerundet)
-Print("SMA(14) berechnet über die Schlusskurse: " + Instrument.Round2TickSize(SMA(Close, 14)[0]));
-// Close kann auch weggelassen werden, da es per Default verwendet wird.
-Print("SMA(14) berechnet über die Schlusskurse: " + Instrument.Round2TickSize(SMA(14)[0]));
+// Current value for the SMA 14 based on the closing prices
+Print("SMA(14) calculated using the closing prices: " + Instrument.Round2TickSize(SMA(Close, 14)[0]));
+// Close does not need to be mentioned since it is used by default
+Print("SMA(14) calculated using the closing prices: " + Instrument.Round2TickSize(SMA(14)[0]));
 ```
 
 ## Closes
-### Beschreibung
-Closes ist ein Array von \[*DatenSerien*\]\[1\]  welches alle [*Low*](#low) Datenserien enthält.
+### Description
+Closes is an array of \[*DataSeries*\]\[1\] that contains all [*Low*](#low) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of importance to indicators or strategies that use data from multiple time units.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+A new entry is added to the array whenever a timeframe is added to an indicator or strategy.
 
-Mit  **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge.
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Closes\[0\] die Close-Dataseries der Chart-Zeiteinheit
-Closes\[1\] die Close-Dataseries aller Bars auf Tagesbasis
-Closes\[2\] die Close-Dataseries aller Bars auf Wochenbasis.
+Closes\[0\] the close data series of the chart timeframe
+Closes\[1\] the close data series of all bars in a daily timeframe
+Closes\[2\] the close data series of all bars in a weekly timeframe
 
-Closes\[0\]\[0\] entspricht Close\[0\].
+Closes\[0\]\[0\] is equivalent to Close\[0\].
 
-Siehe auch [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries.
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten.
+barsAgo Index value of the individual bars within the data series
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Closes[int barSeriesIndex]
 Closes[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+See example [*Multibars*](#multibars).
 
 ## Median
-### Beschreibung
-Median ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Median-Werte gespeichert sind.
+### Description
+Median is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical median values are saved.
 
-Der Median-Preis eines Bars ergibt sich aus (high + low) / 2
+The median price of a bar is calculated using (high + low) / 2
 
-Siehe auch  [*Typical*](#typical) und [*Weighted*](#weighted).
+See [*Typical*](#typical) & [*Weighted*](#weighted).
 
 ### Parameter
-barsAgo Indexwert (s. [*Bars*](#bars))
+barsAgo Index value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 Median
 Median[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Informationen zu Median, Typical und Weighted:
+Further information about median, typical und weighted:
 [*http://blog.nobletrading.com/2009/12/median-price-typical-price-weighted.html*](http://blog.nobletrading.com/2009/12/median-price-typical-price-weighted.html)
 
-### Beispiel
+### Example
 ```cs
-// Median-Preis der aktuellen Periode
+// Median price for the current period
 Print(Time[0] + " " + Median[0]);
-// Median-Preis des Bars von vor 5 Perioden
+// Median price of the bar from 5 periods ago
 Print(Time[5] + " " + Median[5]);
-// aktueller Wert für den SMA 14 über die Median-Preise (gerundet)
+// Current value for the SMA 14 calculated using the median prices
 Print("SMA(14) calculated using the median prices: " + Instrument.Round2TickSize(SMA(Median, 14)[0]));
 ```
 
 ## Medians
-### Beschreibung
-Medians ist ein Array von \[*DatenSerien*\]\[1\] welches alle [*Median*](#median) Datenserien enthält.
+### Description
+Medians is an array of \[*DataSeries*\]\[1\] that contains all [*Median*](#median) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of value to indicators or strategies that use data from multiple timeframes.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+A new entry is added to the array whenever a new time frame is added to an indicator or strategy.
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Medians\[0\] die Median-Dataseries der Chart-Zeiteinheit
-Medians\[1\] die Median-Dataseries aller Bars auf Tagesbasis
-Medians\[2\] die Median-Dataseries aller Bars auf Wochenbasis.
+Medians\[0\] the median data series of the chart timeframe
+Medians\[1\] the median data series of all bars in a daily timeframe
+Medians\[2\] the median data series of all bars in a weekly timeframe
 
-Medians\[0\]\[0\] entspricht Medians\[0\].
+Medians\[0\]\[0\] is equivalent to Medians\[0\].
 
-Siehe auch [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value for the individual bars within a data series
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Medians[int barSeriesIndex]
 Medians[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Weitere Informationen zum Median: [http://www.investopedia.com/terms/m/median.asp](http://www.investopedia.com/terms/m/median.asp)
+Further information on median: [http://www.investopedia.com/terms/m/median.asp](http://www.investopedia.com/terms/m/median.asp)
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+See example in [*Multibars*](#multibars).
 
 ## Typical
-### Beschreibung
-Typical ist eine [*Datenserien*](#datenserien)) vom Typ [*Datenserien*](#datenserien), in der die historischen Typical-Werte gespeichert sind.
+### Description
+Typical is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical typical values are saved.
 
-Der Typical-Preis eines Bars ergibt sich aus (high + low + close) / 3.
+The typical price of a bar is calculated using (high + low + close) / 3.
 
-Siehe auch [*Median*](#median) und [*Weighted*](#weighted).
+See [*Median*](#median) and [*Weighted*](#weighted).
 
 ### Parameter
-barsAgo Indexwert  (s. [*Bars*](#bars))
+barsAgo Index value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 Typical
 Typical[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Informationen zu Median, Typical und Weighted: [*https://technicianapp.com/resources/typical-price/*](https://technicianapp.com/resources/typical-price/)
+Further information on typical: [*https://technicianapp.com/resources/typical-price/*](https://technicianapp.com/resources/typical-price/)
 
-### Beispiel
+### Example
 ```cs
-// Typical-Preis der aktuellen Periode
+// Typical price for the current period
 Print(Time[0] + " " + Typical[0]);
-// Typical-Preis des Bars von vor 5 Perioden
+// Typical price of the bar from 5 periods ago
 Print(Time[5] + " " + Typical[5]);
-// aktueller Wert für den SMA 14 über die Typical-Preise (gerundet)
-Print("SMA(14) berechnet über die Openkurse: " + Instrument.Round2TickSize(SMA(Typical, 14)[0]));
+// Current value for the SMA 14 calculated using the typical price
+Print("SMA(14) calculated using the typical price: " + Instrument.Round2TickSize(SMA(Typical, 14)[0]));
 ```
 
 ## Typicals
-### Beschreibung
-Typicals ist ein Array von *DataSeries* welches alle [*Typical*](#typical) Datenserien enthält.
+### Description
+Typicals is an array of *DataSeries* that contains all [*Typical*](#typical) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of value to indicators and strategies that make use of multiple timeframes.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Typicals\[0\] die Typical-Dataseries der Chart-Zeiteinheit.
-Typicals\[1\] die Typical-Dataseries aller Bars auf Tagesbasis.
-Typicals\[2\] die Typical-Dataseries aller Bars auf Wochenbasis.
+Typicals\[0\] the typical data series of the chart timeframe
+Typicals\[1\] the typical data series of all bars in a daily timeframe
+Typicals\[2\] the typical data series of all bars in a weekly timeframe
 
-Typicals\[0\]\[0\] entspricht Typicals\[0\].
+Typicals\[0\]\[0\] is equivalent to Typicals\[0\].
 
-Siehe auch [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value of the individual bars within a data series
+barSeriesIndex Index value of the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Typicals[int barSeriesIndex]
 Typicals[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+See example [*Multibars*](#multibars).
 
 ## Weighted
-### Beschreibung
-Weighted ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Weighted-Werte gespeichert sind.
+### Description
+Weighted is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical weighted values are saved.
 
-Der Weighted-Preis eines Bars ergibt sich aus (high + low + 2*close) / gewichtet auf den Schlusskurs.
+The weighted price of a bar is calculated using the formula (high + low + 2*close) / 4 and then weighted on the closing price.
 
-Siehe auch [*Median*](#median) und [*Typical*](#typical).
+See also [*Median*](#median) and [*Typical*](#typical).
 
 ### Parameter
-barsAgo Indexwert (s. [*Bars*](#bars))
+barsAgo Index value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
+## Weighted
 ```cs
 Weighted[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Informationen zu Median, Typical und Weighted: [*http://www.stock-trading-infocentre.com/pivot-points.html*](http://www.stock-trading-infocentre.com/pivot-points.html)
+Information regarding weighted: [*http://www.stock-trading-infocentre.com/pivot-points.html*](http://www.stock-trading-infocentre.com/pivot-points.html)
 
-### Beispiel
+### Example
 ```cs
-// Weighted-Preis der aktuellen Periode
+// Weighted price for the current period
 Print(Time[0] + " " + Weighted[0]);
-// Weighted-Preis des Bars von vor 5 Perioden
+// Weighted price of the bar from 5 periods ago
 Print(Time[5] + " " + Weighted[5]);
-// aktueller Wert für den SMA 14 über die Weighted-Preise (gerundet)
-Print("SMA(14) berechnet über die Openkurse: " + Instrument.Round2TickSize(SMA(Weighted, 14)[0]));
+// Current value for the SMA 14 using the weighted price
+Print("SMA(14) calculated using the weighted price: " + Instrument.Round2TickSize(SMA(Weighted, 14)[0]));
 ```
 
 ## Weighteds
-### Beschreibung
-Weighteds ist ein Array von  \[*DatenSerien*\]\[1\] welches alle [*Weighted*](#weighted) Datenserien enthält.
+### Description
+Weighteds is an array of \[*DataSeries*\]\[1\] that contains all [*Weighted*](#weighted) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+The array is only of value for indicators and strategies that use data from multiple timeframes.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Weighteds\[0\] die Weighted-Dataseries der Chart-Zeiteinheit
-Weighteds\[1\] die Weighted-Dataseries aller Bars auf Tagesbasis
-Weighteds\[2\] die Weighted-Dataseries aller Bars auf Wochenbasis.
+Weighteds\[0\] the weighted data series of the chart timeframe
+Weighteds\[1\] the weighted data series of all bars in a daily timeframe
+Weighteds\[2\] the weighted data series of all bars in a weekly timeframe
 
-Weighteds\[0\]\[0\] entspricht Weighteds\[0\].
+Weighteds\[0\]\[0\] is equivalent to Weighteds\[0\].
 
-Siehe auch [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo der einzelnen Bars innerhalb der Dataseries
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value of the individual bars within a data series
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Weighteds[int barSeriesIndex]
 Weighteds[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter  [*Multibars*](#multibars).
+### Example
+See example under [*Multibars*](#multibars).
 
 ## Time
-### Beschreibung
-Time ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die Zeitstempel der einzelnen Bars gespeichert sind.
+### Description
+Time is a [*DataSeries*](#dataseries) of the type [*DateTimeSeries*](#datatimeseries), in which the timestamps of the individual bars are saved.
 
 ### Parameter
-barsAgo Indexwert (s. [*Bars*](#bars))
+barsAgo Index value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 ```cs
 Time
 Time[int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
+### Example
 ```cs
-// Zeitstempel der aktuellen Periode
+// Timestamp of the current period
 Print(Time[0]);
-// Zeitstempel des Bars von vor 5 Perioden
+// Timestamp of the bar from 5 periods ago
 Print(Time[5]);
 ```
 
 ## Times
-### Beschreibung
-Times ist ein Array von [*Datenserien*](#datenserien) welches alle  [*Time*](#time) Datenserien enthält.
+### Description
+Times is an array of [*DataSeries*](#dataseries) that contains all [*Time*](#time) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of value to indicators and strategies that make use of multiple timeframes.
+A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge.
+Times\[0\] the time data series of the chart timeframe
+Times\[1\] the time data series of all bars in a daily timeframe
+Times\[2\] the time data series of all bars in a weekly timeframe
 
-Times\[0\] die Time-Dataseries der Chart-Zeiteinheit
-Times\[1\] die Time-Dataseries aller Bars auf Tagesbasis
-Times\[2\] die Time-Dataseries aller Bars auf Wochenbasis.
+Times\[0\]\[0\] is equivalent to Times\[0\].
 
-Times\[0\]\[0\] entspricht  Times\[0\].
-
-Siehe auch [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
-barSeriesIndexIndexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value for the individual bars within a data series
+barSeriesIndex Index value for the various timeframes
 
-### Verwendung
+### Usage
 ```cs
 Times[int barSeriesIndex]
 Times[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+See example [*Multibars*](#multibars).
 
 ## Volume
-### Beschreibung
-Volume ist eine  [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in which the historical volume information is saved.
+### Description
+Volume is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical volume information is saved.
 
 ### Parameter
-barsAgo Indexwert (s. [*Bars*](#bars))
+barsAgo Index value (see [*Bars*](#bars))
 
-### Verwendung
+### Usage
 Volume
 
 Volume\[**int** barsAgo\]
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Der vom Indikator [*VOL()*](#vol) zurückgelieferte Wert ist identisch mit dem hier beschriebenen Volumen.
-Z.B. liefert Vol()\[3\] den gleichen Wert wie  Volume\[3\].
+The value returned by the [*VOL()*](#vol) indicator is identical with the volume described here;
+for example, Vol()\[3\] will have the same value as Volume\[3\].
 
-### Beispiel
+### Example
 ```cs
-//Volumen der aktuellen Periode
+// Volume for the current period
 Print(Time[0] + " " + Volume[0]);
-// Volumen des Bars von vor 5 Perioden
+// Volume of the bar from 5 periods ago
 Print(Time[5] + " " + Volume[5]);
-// aktueller Wert für den SMA 14 über das Volumen (gerundet
-Print("SMA(14) berechnet über das Volumen: " + Instrument.Round2TickSize(SMA(Volume, 14)[0]));
+// Current value for the SMA 14 calculated using the volume
+Print("SMA(14) calculated using the volume: " + Instrument.Round2TickSize(SMA(Volume, 14)[0]));
 ```
 
 ## Volumes
 ### Description
-Volumes ist ein Array von [*Datenserien*](#datenserien) welches alle [*Volume*](#volume) Datenserien enthält.
+Volumes is an array of [*DataSeries*](#dataseries) that contains all [*Volume*](#volume) data series.
 
-Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+This array is only of value for indicators or strategies that use data from multiple timeframes.
 
-Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird
+A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
 
-Mit  **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
+With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
 
-Volumes\[0\] die Volume-Dataseries der Chart-Zeiteinheit
-Volumes\[1\] die Volume-Dataseries aller Bars auf Tagesbasis
-Volumes\[2\] die Volume-Dataseries aller Bars auf Wochenbasis
+Volumes\[0\] the volume data series of the chart timeframe
+Volumes\[1\] the volume data series of all bars in the daily timeframe
+Volumes\[2\] the volume data series of all bars in the weekly timeframe
 
-Volumes\[0\]\[0\] entspricht Volumes\[0\].
+Volumes\[0\]\[0\] is equivalent to Volumes\[0\].
 
-Siehe auch  [*MultiBars*](#multibars).
+See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries 
-barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
+barsAgo Index value of the individual bars within a data series
 
-### Verwendung
+barSeriesIndex Index value of the various timeframes
+
+### Usage
 ```cs
 Volumes[int barSeriesIndex]
 Volumes[int barSeriesIndex][int barsAgo]
 ```
 
-### Weitere Informationen
-Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
+### More Information
+The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Beispiel
-Siehe Beispiel unter [*Multibars*](#multibars).
+### Example
+See example [*Multibars*](#multibars).
 
 ## TimeFrame
 ### Description
@@ -1449,32 +1442,32 @@ TimeFrame
 ```
 
 ## TimeFrames
-### Description
-TimeFrames is an array of timeframe objects that contains a timeframe object for each individual bar object.
+### Beschreibung
+TimeFrames ist ein Array von TimeFrame-Objekten, welches für jedes Bar-Objekt ein separates TimeFrame-Objekt  enthält.
 
-This array is only of value for indicators or strategies that use data from multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-TimeFrames \[0\] Timeframe of the primary data series (chart timeframe)
-TimeFrames \[1\] **Print**(TimeFrames\[1\]); // returns "1 Day"
-TimeFrames \[2\] **Print**(TimeFrames\[2\]); // returns "1 Week"
+TimeFrames \[0\] TimeFrame der primären Datenserie (Chart-Zeiteinheit)
+TimeFrames \[1\] **Print**(TimeFrames\[1\]);  // liefert "1 Day"
+TimeFrames \[2\] **Print**(TimeFrames\[2\]); // liefert "1 Week"
 
-TimeFrames \[0\] is equivalent to [*TimeFrame*](#timeframe).
+TimeFrames \[0\] entspricht [*TimeFrame*](#timeframe).
 
-See [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barSeriesIndex Index value for the various timeframes
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 TimeFrames [int barSeriesIndex]
 ```
 
-### Example
+### Beispiel
 ```cs
 if (ProcessingBarSeriesIndex == 0 && ProcessingBarIndex == 0)
 for (int i = BarsArray.Count-1; i >= 0; i--)
@@ -1482,9 +1475,9 @@ Print("The Indicator " + this.Name + " uses Bars of the Timeframe " + TimeFrames
 ```
 
 ##Instruments
-The term "instrument" denotes a tradable value such as a stock, ETF, future etc.
+"Instrument" bezeichnet einen handelbaren Wert, wie z.B. eine Aktie, einen ETF, einen Future, einen CFD usw.
 
-An instrument has various properties that can be used in AgenaScripts created by the user:
+Ein Instrument hat viele Eigenschaften, die in einem selbst erstellten AgenaScript verwendet werden können.
 
 [*Instrument.Compare*](#instrumentcompare)
 
@@ -1516,182 +1509,182 @@ An instrument has various properties that can be used in AgenaScripts created by
 
 [*Instrument.TickSize*](#instrumentticksize)
 
-With the **OnCalculate()** method you can use any properties you wish without having to test for a null reference.
-As soon as the **OnCalculate()** function is called up by AgenaScript, an object will become available. If you wish to use these properties outside of **OnCalculate()**, you should first perform a test for null references using **if** (Bars != **null**)
+Innerhalb von  **OnCalculate()** können diese Eigenschaften verwendet werden, ohne vorher auf Null-Reference testen zu müssen. 
+Sobald die Funktion  **OnCalculate()**  von AgenaScript aufgerufen wird, ist immer auch ein Instrument-Objekt vorhanden. Falls diese Eigenschafte ausserhalb von **OnCalculate()**, verwendet werden, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit **if** (Bars != **null**)
 
 ## Instrument.Compare
-### Description
-The Instrument.Compare function compares two market prices whilst taking into account the correct number of decimal points. The smallest possible price change is displayed by the value TickSize. This function simplifies the otherwise time-consuming comparison using floating-point operations.
+### Beschreibung
+Die Funktion Instrument.Compare vergleicht 2 Kursdaten unter Berücksichtigung der richtigen Anzahl Nachkommastellen. Die kleinstmögliche Preisänderung wird durch den Wert TickSize angegeben. Diese Funktion vereinfacht den sonst etwas aufwändigeren Vergleich mit Hilfe von Floating-Point-Operationen.
 
 ### Parameter
 double value1
 double value2
 
-### Return value
-Type int
+### Rückgabewert
+Typ int
 
-1 - value1 is bigger than value2
--1 - value1 is smaller than value2
-0 - value1 and value2 are equal
+ 1 - Kurs1 ist größer als Kurs2
+-1 - Kurs1 ist kleiner als Kurs2
+ 0 - Kurs1 und Kurs2 sind gleich
 
-### Usage
+### Verwendung
 ```cs
 Instrument.Compare(double Value1, double Value2)
 ```
 
-### More Information
+### Weitere Informationen
 **Be aware this function compares prices based on TickSize.** If the ticksize of your instrument is 0.01 these prices will be rounded and compared on 2 decimal digits. If you want a regular comparation of two numbers, you should use the operator "greater than" (>) or the operator "smaller than" (<).
 
 More infomation about [math.round()](https://msdn.microsoft.com/en-us//library/75ks3aby(v=vs.110).aspx)
 
-If the tick size is 0,00001 – as it usually is with FX values – then the following will be displayed:
+Wenn TickSize z.B. 0,00001 ist, wie bei FX-Werten üblich, dann liefert
 
-Compare(2, 1.99999) a 1, meaning 2 is bigger than 1.99999
-Compare(2, 2.000001) a 0, meaning the values are equal
-Compare(2, 1.999999) a 0, meaning the values are equal
-Compare(2, 2.00001) a -1, meaning 2 is smaller than 2.00001
+Compare(2, 1.99999)	eine 1, d.h. 2 ist größer als 1.99999
+Compare(2, 2.000001)	eine 0, d.h. die Kurse sind gleich
+Compare(2, 1.999999)	eine 0, d.h. die Kurse sind gleich
+Compare(2, 2.00001)	eine -1, d.h. 2 ist kleiner als 2.00001.
 
-### Example
+### Beispiel
 ```cs
 Print(Instrument.Compare(2, 1.999999));
 ```
 
 ## Instrument.Currency
-### Description
-Instrument.Currency outputs a currency object that contains the corresponding currency in which the instrument is traded.
+### Beschreibung
+Instrument.Currency liefert ein Currencies-Objekt zurück, das die jeweilige Währung beinhaltet, in der das Instrument gehandelt wird.
 
 ### Parameter
-None
+keine
 
-### Return Value
-A constant of the type "public enum currencies"
+### Rückgabewert
+eine Konstante vom Typ public enum Currencies
 
-### Usage
+### Verwendung
 Instrument.Currency
 
-### More Information
-The common currencies are: AUD, CAD, EUR, GBP, JPY or USD.
+### Weitere Informationen
+Übliche Währungen sind z.B. AUD, CAD, EUR, GBP, JPY oder USD.
 
-### Example
+### Beispiel
 ```cs
-Print(Instrument.Name + " is traded in " + Instrument.Currency);
+Print(Instrument.Name + "wird in  " + Instrument.Currency + " gehandelt.);
 ```
 
 ## Instrument.Digits
-### Description
-Instrument.Digits outputs the number of decimal points in which the market price of the instrument is traded.
+### Beschreibung
+Instrument.Digits liefert die Anzahl der Nachkommastellen, mit denen der Kurs des Instrument notiert wird.
 
 ### Parameter
-none
+keine
 
-### Return Value
+### Rückgabewert
 int Digits
 
-### Usage
+### Verwendung
 Instrument.Digits
 
-### More Information
-Stocks are usually traded to two decimal points. Forex can be traded (depending on the data provider) with 4 or 5 decimal places.
+### Weitere Informationen
+Aktie werden üblicherweise mit 2 Stellen nach dem Komma gehandelt. Bei Forex sind es je nach Datenanbieter 4 oder 5 Stellen.
 
-This function is especially useful when formatting the output of various instruments that need rounding. Also see [*TickSize*](#ticksize) and [*Instrument.Round2Ticks*](instrumentround2ticks), [*Instrument.Round2TickSize*](#instrumentround2ticksize).
+Die Funktion findet u.a. Verwendung für das Formatieren von Ausgaben oder zur Rundung von Kursdaten. Siehe auch [*TickSize*](#ticksize) und [*Instrument.Round2Ticks*](instrumentround2ticks), [*Instrument.Round2TickSize*](#instrumentround2ticksize).
 
-More information can be found here: *Formatting of Numbers*.
+Ausführliche Anleitung zum: *Formatieren von Zahlen.*.
 
-### Example
+### Beispiel
 ```cs
-Print("The value of " +Instrument.Name + " is noted with a precision of " + Instrument.Digits +" Decimal points.");
+Print("Der Kurs von  " +Instrument.Name + " wird mit einer Genauigkeit von" + Instrument.Digits +" Nachkommastellen angegeben.");
 ```
 
 ## Instrument.ETF
-### Description
-Instrument.ETF is used to differentiate between a stock and an ETF. This is necessary since ETFs are considered to be „stocks" by some exchanges.
+### Beschreibung
+Instrument.ETF dient der Unterscheidung zwischen einer Aktie und einem ETF. Dies ist notwendig, da ETF's von den Börsen auch als "Stock" (dt. Aktie) angesehen werden..
 
 ### Parameter
-none
+keine
 
-### Return Value
-Type bool
+### Rückgabewert
+Typ bool
 
-### Usage
+### Verwendung
 Instrument.ETF
 
-### More Information
-What is an ETF?
+### Weitere Informationen
+Was ist ein ETF?
 
 Wikipedia: [*http://de.wikipedia.org/wiki/Exchange-traded\_fund*](http://de.wikipedia.org/wiki/Exchange-traded_fund*)
 
-### Example
+### Beispiel
 ```cs
 if (Instrument.InstrumentType == InstrumentType.Stock)
 if (Instrument.ETF)
-Print("The value is an ETF.");
+Print("Der Wert ist ein Exchange-traded Fund.");
 else
-Print("The value is a stock.");
+Print("Der Wert ist eine Aktie.");
 ```
 
 ## Instrument.Exchange
-### Description
-Instrument.Exchange outputs the description/definition of the current exchange for the current instrument.
+### Beschreibung
+Instrument.Exchange (Exchange = dt. Börse) liefert die Bezeichnung des Börsenhandelsplatzes für das aktuelle Instrument.
 
 ### Parameter
-none
+keine
 
-### Return Value
-An exchange object of the type "public enum exchanges"
+### Rückgabewert
+ein Exchange-Objekt vom Typ public enum Exchanges
 
-### Usage
+### Verwendung
 Instrument.Exchange
 
-### More Information
-An overview of various exchange: *https://en.wikipedia.org/wiki/List\_of\_stock\_exchanges*
+### Weitere Informationen
+Übersicht Börsenhandelsplätze: *http://www.boersen-links.de/boersen.htm*
 
-### Example
+### Beispiel
 ```cs
-Print("The instrument " + Instrument.Name +" is traded on the " + Instrument.Exchange + " exchange.");
+Print("Das Instrument " + Instrument.Name +"  wird an der Börse " + Instrument.Exchange + " gehandelt.");
 ```
 
 ## Instrument.Expiry
-### Description
-Instrument.Expiry outputs the date (month and year) of the expiry of a financial instrument. Only derivative instruments such as options or futures will have an expiry date.
+### Beschreibung
+Instrument.Expiry gibt das Datum (Monat und Jahr) des Ablauf eines Finanzinstrumentes an. Nur derivative Handelsinstrumente, wie Optionen oder Futures besitzen ein Ablaufdatum, das sog. Verfallsdatum.
 
 ### Parameter
-None
+keine
 
-### Return Value
-Type DateTime
+### Rückgabewert
+Typ DateTime
 
-For instruments without an expiry date the returned value is set to DateTime.MaxValue(= 31.12.9999 23.59:59)
+Für Instrumente ohne Verfallsdatum wird Instrument.Expiry auf DateTime.MaxValue (= 31.12.9999 23.59:59) gesetzt.
 
-### Usage
+### Verwendung
 Instrument.Expiry
 
-### More Information
-The expiry date (expiry) can also be seen within the Instrument Escort:
+### Weitere Informationen
+Das Verfallsdatum (Expiry) ist auch im Instrument Escort ersichtlich:
 
 ![Instrument.Expiry](./media/image5.png)
 
-### Example
+### Beispiel
 ```cs
-Print("The instrument " + Instrument.Name +" will expire on " + Instrument.Expiry);
+Print("Das Instrument " + Instrument.Name +" verfällt am " + Instrument.Expiry);
 ```
 
 ## Instrument.GetCurrencyFactor
-### Description
-Instrument.GetCurrencyFactor returns a conversion factor that can be used to convert an instrument's currency to the account's currency.
+### Beschreibung
+Instrument.GetCurrencyFactor liefert einen Umrechnungsfaktor zurück, mit dessen Hilfe man den Kurs eines Instruments in die Währung des Accounts umrechnen kann.
 
 ### Parameter
-Type Currencies
+Typ Currencies
 
-### Return Value
-Type double
+### Rückgabewert
+ein double
 
-### Usage
+### Verwendung
 Instrument.GetCurrencyFactor(Currencies)
 
-### More Information
-Common currencies are.B. AUD, CAD, EUR, GBP, JPY oder USD.
+### Weitere Informationen
+Übliche Währungen sind z.B. AUD, CAD, EUR, GBP, JPY oder USD.
 
-### Example
+### Beispiel
 ```cs
 Protected override void OnCalculate()
 {
@@ -1701,238 +1694,239 @@ Protected override void OnCalculate()
 ```
 
 ## Instrument.InstrumentType
-### Description
-Instrument.InstrumentType outputs a type object of the trading instrument.
+### Beschreibung
+Instrument.InstrumentType liefert ein Typ-Objekt des Handelsinstrumentes.
 
 ### Parameter
-none
+keine
 
-### Return Value
-Object of the type "public enum instrument"
+### Rückgabewert
+Objekt vom Typ public enum InstrumentType
 
-### Usage
+### Verwendung
 Instrument.InstrumentType
 
-### More Information
-Potential values are: future, stock, index, currency, option, CFD and unknown.
+### Weitere Informationen
 
-There is no ETF type. ETFs are considered to be of the type "stock" – see [*Instrument.ETF*](#instrumentetf).
+Mögliche Werte sind: Future, Stock, Index, Currency, Option, CFD und Unknown.
+Einen Typ ETF gibt es nicht. ETF's sind vom Typ Stock, siehe[*Instrument.ETF*](#instrumentetf).
 
-The instrument type can also be viewed within the Instrument Escort:
+Der Instrument-Typ ist auch im Instrument Escort ersichtlich:
 
 ![Instrument.InstrumentType](./media/image6.png)
 
-### Example
+### Beispiel
 ```cs
-Print("The instrument " + Instrument.Name + " is of the type " + Instrument.InstrumentType);
+Print("Das Instrument  " + Instrument.Name + "  ist vom Typ " + Instrument.InstrumentType);
 ```
 ## Instrument.MainSector
-### Description
-Instrument.MainSector returns the main sector of the trading instrument.
+### Beschreibung
+Instrument.MainSector liefert den Hauptsektor des Handelsinstrumentes zurück.
 
 ### Parameter
-none
+keine
 
-### Return Value
+### Rückgabewert
 String
 
-### Usage
+### Verwendung
 Instrument.MainSector
 
-### More Information
-The main sector is also visible in the instrument escort:
+### Weitere Informationen
+Der  Hauptsektor ist auch im Instrument Escort ersichtlich:
 ![Instrument.InstrumentType](./media/image6.png)
-### Example
+### Beispiel
 ```cs
 Print("Das Instrument " + Instrument.Name + " ist im Sektor " + Instrument.MainSector + " tätig.");
 ```
 
 ## Instrument.Margin
-### Description
-Instrument.MainSector returns the required margin of the trading instrument.
+### Beschreibung
+Instrument.Margin liefert die erforderliche Margin des Handelsinstrumentes zurück.
 
 ### Parameter
-none
+keine
 
-### Return Value
+### Rückgabewert
 int
 
-### Usage
+### Verwendung
 Instrument.Margin
 
-### More Information
-Margin is also visible in the instrument escort:
+### Weitere Informationen
+Margin ist auch im Instrument Escort ersichtlich:
 ![Instrument.InstrumentType](./media/image6.png)
-### Example
+### Beispiel
 ```cs
-Print("Das Instrument " + Instrument.Name + " has a margin of " + Instrument.Margin);
+Print("Das Instrument" + Instrument.Name + " hat eine Margin von  " + Instrument.Margin);
 ```
 ## Instrument.Name
-### Description
-Instrument.Name outputs the name/description of the trading instrument.
+### Beschreibung
+Instrument.Name liefert die Bezeichnung des Handelsinstrumentes.
 
 ### Parameter
-none
+keine
 
-### Return Value
-Type string
+### Rückgabewert
+Typ string
 
-### Usage
+### Verwendung
 Instrument.Name
 
-### More Information
-The instrument name can also be seen within the Instrument Escort:
+### Weitere Informationen
+Der Instrument Name ist auch im Instrument Escort ersichtlich:
 
 ![Instrument.Name](./media/image7.png)
 
-### Example
+### Beispiel
 ```cs
-Print("The currently loaded instrument inside the chart is named " + Instrument.Name);
+Print("Das aktuell im Chart geladene Instrument heißt " + Instrument.Name);
 ```
 
 ## Instrument.PointValue
-### Description
-Instrument.PointValue outputs the monetary value for a full point movement of the instrument.
+### Beschreibung
+Instrument.PointValue liefert den Geldwert für die Bewegung eines Instrumentes von einem vollen Punkt.
 
 ### Parameter
-none
+keine
 
-### Return Value
-double – point value
+### Rückgabewert
+Typ double - Punktwert
 
-### Usage
+### Verwendung
 Instrument.PointValue
 
-### More Information
-**Example for various point values** (per amount, CFD, futures contract, lot etc.)
+### Weitere Informationen
+**Beispiele verschieder Punktwerte**  (je Stück, CDF, Futurekontrakt, Lot usw.)
 
-Stock: generally 1.00 Euro or 1.00 USD.
+Aktie: im .allg. 1,00 Euro bzw. 1,00 USD.
 EUR/USD: 100,000 USD
-DAX future: 25.00 Euro
+Dax-Future:	25,00 Euro
 
-**Tick Value**
+**Tickwert**
 
-The tick value can be calculated by multiplying the point value with the tick size.
+Der Tickwert ergibt sich, wenn man den Punktwert mit der TickGröße (TickSize) multipliziert.
 
-For example, the E-mini S&P 500 has a point value of $50. The tick size equals 0.25. This means that there are 4 ticks in one full point for the E-mini S&P 500.
-Since 50 * 0.25 = 50/4 this means that the tick value is $12.50.
+z.B. hat der E-mini S&P 500 einen Punktwert von $ 50. Die TickSize beträgt 0,25. Es braucht also eine Bewegung von 4 Ticks für einen vollen Punkt.
+Aus 50 * 0,25 = 50 / 4 ergibt sich ein Tickwert von 12,50 $/ je Tick.
 
-The point value can also be viewed within the Instrument Escort:
+Der Punktwert ist auch im Instrument Escort ersichtlich:
 
 ![Instrument.PointValue](./media/image8.png)
 
-### Example
+### Beispiel
 ```cs
-Print("When " + Instrument.Name + " rises for one full point then this is equal to " + Instrument.PointValue + " " + Instrument.Currency);
+Print("Wenn " + Instrument.Name + " einen vollen Punkt steigt, entspricht dies dem Gegenwert von  " + Instrument.PointValue + " " + Instrument.Currency);
 ```
 
 ## Instrument.Round2TickSize
-### Description
-The function Instrument.Round2TickSize rounds the supplied market price to the smallest value divisible by the tick size of the instrument.
+### Beschreibung
+Die Funktion Instrument.Round2TickSize rundet einen übergebenen Kurswert auf den kleinstmöglichen Wert, der durch die Tickgröße (TickSize) des Instrumentes teilbar ist.
 
 ### Parameter
-double – market value
+double - Kurswert
 
-### Return value
+### Rückgabewert
 double
 
-### Usage
+### Verwendung
 ```cs
 Instrument.Round2TickSize(double MarketPrice)
 ```
 
-### More Information
-The number of decimal places to which the price is rounded depends on the instrument.
-If, for example, an instrument is a stock, then the rounding will be performed to 2 decimal places. For a Forex instrument, it may be carried out to 4 or 5 decimal places.
+### Weitere Informationen
+Die Anzahl der Nachkommastellen, auf die gerundet wird, ist je nach Instrument unterschiedlich.
+Ist das Instrument eine Aktie, wird auf 2 Nachkommastellen gerundet, bei einem Forex-Wert auf 4 bzw. 5 Nachkommastellen.
 
-See [*TickSize*](#ticksize) and [*Instrument.Digits*](#instrumentdigits).
+Siehe auch  [*TickSize*](#ticksize) und [*Instrument.Digits*](#instrumentdigits).
 
-Example of professional [*Formatting*](#formatting), *Formatting of Numbers*.
+Beispiele für professionelle  [*Formatting*](#formatting), *Formatting of Numbers*.
 
-### Example
+### Beispiel
 ```cs
 double Price = 12.3456789;
-Print(Price + " rounded for a " + Instrument.Name + " valid value is " + Instrument.Round2TickSize(Price));
+Print(Price + "  gerundet auf einen für " + Instrument.Name + " gültigen Kurs ist " + Instrument.Round2TickSize(Price));
 ```
 
 ## Instrument.Symbol
-### Description
-Instrument.Symbol outputs the symbol that identifies the trading instrument within AgenaTrader. Depending on the symbol, the mappings for the various data feed providers and brokers will be managed in different ways.
+### Beschreibung
+Instrument.Symbol liefert das Symbol, unter welchem das Handelsinstrument in AgenaTrader eindeutig identifizierbar ist. Anhand des Symbols werden die Mappings zu den verschiedenen Datenanbietern und Brokern verwaltet.
 
 ### Parameter
-none
+keine
 
-### Return value
-Type string
+### Rückgabewert
+Typ string
 
-### Usage
+### Verwendung
 Instrument.Symbol
 
-### More Information
-By using symbols, identical stocks being traded on different exchanges can be identified and separated from each other. The symbol BMW.DE is the BMW stock on the XETRA exchange. BMW.CFG is the CFD for the BMW stock.
+### Weitere Informationen
+Mit dem Symbol werden gleiche Aktion an verschiedenen Börsenplätzen unterschieden. Das Symbol BMW.DE ist z.B. die BMW-Aktie an der Xetra, BMW.CFD ist der CFD auf die BMW-Aktie.
 
-The instrument symbol can also be viewed within the Instrument Escort:
+Das Instrument Symbol ist auch im Instrument Escort ersichtlich:
 
 ![Instrument.Symbol](./media/image9.png)
 
-### Example
+### Beispiel
 ```cs
-Print("The instrument currently loaded within the chart has the symbol: " + Instrument.Symbol);
+Print("Das aktuell im Chart geladene Instrument hat das Symbol  " + Instrument.Symbol);
 ```
 
 ## Instrument.TickSize
-### Description
-The tick size is the smallest measurable unit that a financial instrument can move. This is usually called 1 tick.
+### Beschreibung
+Die Tickgröße oder TickSize ist die kleinste mögliche Einheit um die sich ein Finanzinstrument bewegen kann. Dies ist umgangssprachlich 1 Tick.
 
 ### Parameter
-none
+keine
 
-### Return Value
+### Rückgabewert
 double
 
-### Usage
-Instrument.TickSize or simply TickSize
+### Verwendung
+Instrument.TickSize oder vereinfacht TickSize
 
-### More Information
-The keyword [*TickSize*](#ticksize) is equivalent to Instrument.TickSize. Both information requests will produce the same value and are thus interchangeable.
+### Weitere Informationen
+Das Schlüsselwort [*TickSize*](#ticksize) entspricht Instrument.TickSize. Beide Aufrufe liefern identische Werte und sind gegeneinander austauschbar.
 
-### Example
-Stock: 0.01
-ES future: 0.25
-EUR/USD: 0.00001
+### Beispiele
+Aktie:	0,01
+ES-Future: 0,25
+EUR/USD: 0,00001
 
-See [*Instrument.PointValue*](instrumentpointvalue) and [*Instrument.Digits*](#instrumentdigits).
+Siehe auch [*Instrument.PointValue*](instrumentpointvalue) und [*Instrument.Digits*](#instrumentdigits).
 
-Examples of professional [*Formatting*](#formatting), *Formatting of Numbers*.
+Beispiele für professionelle  [*Formatting*](#formatting), *Formatting of Numbers*.
 
-### Example
+### Beispiel
 ```cs
-Print("The value of " + Instrument.Name + " can change for a minimum of " + Instrument.TickSize + " Tick(s).");
+Print("Der Kurs von " + Instrument.Name + "  kann sich minimal um  " + Instrument.TickSize + " Punkt(e) verändern.");
 ```
 
 ## Collections
 ## ChartDrawings
-### Description
-ChartDrawings is a collection containing all drawing objects within the chart. The property hold all drawings which were generated by the script.
-The index for ChartDrawings is the explicit name for the drawing object (string tag).
+### Beschreibung
+ChartDrawings  ist eine Collection, die alle Zeichenobjekte im Chart enthält. In ChartDrawings werden sowohl dem Chart manuell hinzugefügte Zeichenobjekte, als auch von einem Script gezeichnete Objekte aufgenommen.
 
-### Usage
+Der Index für ChartDrawings ist der eindeutige Name der Zeichenobjekte (string tag).
+
+### Verwendung
 ChartDrawings \[string tag\]
 
-### Example
-**Note:** To be able to use the interface definitions you must use the using method.
+### Beispiele
+**Hinweis:**  Um die Interface-Definitionen nutzen zu können, muß in den Using-Anweisungen
 ```cs
 using AgenaTrader.Plugins;
-// Output number of drawing objects within the chart and their tags
-Print("The chart contains " + ChartDrawings.Count + " drawing objects.");
-for each (IDrawObject draw in ChartDrawings) Print(draw.Tag);
-//Draw a black trend line...
+// Anzahl der Zeichenobjekte auf dem Chart und deren Tags ausgeben
+Print("Auf dem Chart befinden sich  " + ChartDrawings.Count + " Zeichenobjekte");
+foreach (IDrawObject draw in ChartDrawings) Print(draw.Tag);
+//Eine schwarze Trendlinie zeichnen ...
 AddChartLine("MyLine", true, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 3);
-// ... and change the color to red
+/ ... und die Farbe auf Rot ändern
 ITrendLine line = (ITrendLine) ChartDrawings["MyLine"];
 if (line != null) line.Pen.Color = Color.Red;
-// Set all lines within the chart to a line strength of 3,
-// and lock it so that it cannot be edited or moved
+// alle vertikalen Linien in Chart auf Linienstärke 3 setzen,
+// und nicht verschiebbar und nicht editierbar machen
 foreach (IDrawObject draw in ChartDrawings)
 if (draw is IVerticalLine)
 {
@@ -1944,61 +1938,61 @@ vline.Pen.Width = 3;
 ```
 
 ## InSeries
-### Description
-InSeries is a [*DataSeries*](#dataseries) object in which the input data for an indicator or strategy is stored.
+### Beschreibung
+InSeries ist ein  [*DatenSerien*](#datenserien) Objekt, in dem die Eingangsdaten für einen Indikator bzw. eine Strategie enthalten sind.
 
-If the indicator is used without any explicit instructions for the input data, then the closing price for the current market prices will be used.
+Wird ein Indikator ohne explizite Angabe von Eingangsdaten aufgerufen, wird immer der Schlusskurs (Close) der aktuell im Chart geladenen Kursdaten verwendet.
 
-When calling up the SMA(20) the smoothing average is calculated on the basis of the closing prices for the current chart price data (this is equivalent to SMA(close,20).
+Bei einem Aufruf von SMA(20) wird der gl. Durchschnitt auf die Schlusskurse der aktuellen Chart-Kursdaten berechnet (dies entspricht SMA(Close, 20).
 
 InSeries\[0\] = Close\[0\].
 
-When calling up the SMA(high, 20) the high price values are loaded and used for the calculation of the smoothing average.
+Bei dem Aufruf von SMA(High, 20) werden die Höchstkurse der geladenen Daten für die Berechnung des gl. Durchschnitts verwendet.
 
 InSeries\[0\] = High\[0\].
 
-This way you can select which data series should be used for the calculation of the indicator.
+So kann jede beliebige Datenreihe als Input für einen Indikator verwendet werden.
 
-**double** d = **RSI**(**SMA**(20), 14, 3)\[0\]; calculates the 14 period RSI using the SMA(20) as the input data series.
+**double** d = **RSI**(**SMA**(20), 14, 3)\[0\]; berechnet beispielsweise den 14-Perioden-RSI über die SMA(20) Werte als Eingangsdatenreihe.
 InSeries\[0\] = SMA(20)\[0\].
 
-### Usage
+### Verwendung
 ```cs
 InSeries
 InSeries[int barsAgo]
 ```
 
-### Example
+### Beispiele
 ```cs
-Print("The input data for the indicators are " + Input[0]);
+Print("Die Eingangsdaten für den Indikator sind " + InSeries[0]);
 ```
 
 ## Lines
-### Description
-Lines is a collection that contains all [*LevelLine*](#levelline) objects of an indicator.
+### Beschreibung
+Lines ist eine Collection, die die  [*LevelLine*](#levelline) Objekte eines Indikators enthält.
 
-When a line object is added to the indicator using the [*Add()*](#add) method, this line is automatically added to the "lines" collection.
+Wenn einem Indikator mit der [*Add()*](#add) Methode ein Line-Objekt hinzugefügt wird, wird dieses automatisch der Collection Lines hinzugefügt.
 
-The order of the add commands determines how these lines are sorted. The first information request of Add() will create Lines\[0\], the next information request will be Lines\[1\] etc.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines[0], der nächste Lines[1] usw.
 
-See [*Plots*](#plots).
+Siehe auch [*Plots*](#plots).
 
-### Usage
+### Verwendung
 ```cs
 Lines[int index]
 ```
 
-### Example
+### Beispiele
 ```cs
 // Add "using System.Drawing.Drawing2D;" for DashStyle
 protected override void OnInit()
 {
-Add(new LevelLine(Color.Blue, 70, "Upper")); // saves into Lines[0]
-Add(new LevelLine(Color.Blue, 30, "Lower")); // saves into Lines[1]
+Add(new LevelLine(Color.Blue, 70, "Upper")); // gespeichert in Lines[0]
+Add(new LevelLine(Color.Blue, 30, "Lower")); // gespeichert in Lines[1]
 }
 protected override void OnCalculate()
 {
-// When the RSI is above 70, properties of the lines will be changed
+// Wenn RSI über 70, Eigenschaften der Linie ändern 
 if (RSI(14 ,3) >= 70)
 {
 Lines[0].Width = 3;
@@ -2015,23 +2009,23 @@ Lines[0].DashStyle = DashStyle.Solid;
 ```
 
 ## PlotColors
-### Description
-PlotColors is a collection that contains all color series of all plot objects.
+### Beschreibung
+PlotColors ist eine Collection, die die ColorSeries aller Plot-Objekte enthält.
 
-When a plot is added using the [*Add()*](#add) method it automatically creates a color series object and is added to the PlotColors collection.
+Wenn einem Indikator mit der [*Add()*](#add) Methode ein Plot hinzugefügt wird, wird automatisch auch ein ColorSeries-Objekt erzeugt und der Collection PlotColors hinzugefügt.
 
-The order of the add commands determines how the plot colors are sorted. The first information request of Add() will create PlotColors\[0\], the following information request will create PlotColors\[1\] etc.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in PlotColors. Der erste Aufruf von Add() erzeugt PlotColors[0], der nächste PlotColors[1] usw.
 
-### Usage
+### Verwendung
 ```cs
 PlotColors[int PlotIndex][int barsAgo]
 ```
 
-### More Information
-More information regarding the collection class:
+### Weitere Informationen
+Informationen zur Klasse Collection:
 [*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
 
-### Example
+### Beispiel
 ```cs
 using System;
 using System.Collections.Generic;
@@ -2049,9 +2043,9 @@ public DataSeries SMA100 { get {return Outputs[2];} }
 private Pen pen;
 protected override void OnInit()
 {
-// Set line strength (width) to 4
+// Linienstärke (Width) auf 4 einstellen
 pen = new Pen(Color.Empty, 4);
-// Add three plots with the defined line strength to the chart
+ // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
 Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
 Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
 Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
@@ -2059,11 +2053,11 @@ IsOverlay = true;
 }
 protected override void OnCalculate()
 {
-// Add values to the three plots
+ // Den drei Plots Werte zuweisen
 SMA20.Set (SMA(20) [0]);
 SMA50.Set (SMA(50) [0]);
 SMA100.Set(SMA(100)[0]);
-// Change colors depending on the trend
+// Farben je nach Kursverlauf ändern
 if (IsSerieRising(Close))
 {
 PlotColors[0][0] = Color.LightGreen;
@@ -2088,21 +2082,21 @@ PlotColors[2][0] = Color.DarkGray;
 ```
 
 ## Plots
-### Description
-Plots is a collection that contains the plot objects of an indicator.
+### Beschreibung
+Plots ist eine Collection, die die Plot-Objekte eines Indikators enthält.
 
-When a plot object is added to an indicator using the Add() method, it is also automatically added to the "plots" collection.
+Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.
 
-The order of the add commands determines how the plots are sorted. The first Add() information request will create Plots\[0\], the following information request will create Plots\[1\] etc.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots[0], der nächste Plots[1] usw.
 
-See [*Lines*](#lines).
+Siehe auch [*Lines*](#lines).
 
-### Usage
+### Verwendung
 ```cs
 Plots[int index]
 ```
 
-### Example
+### Beispiele
 ```cs
 protected override void OnInit()
 {
@@ -2111,7 +2105,7 @@ Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to Plots[0]
 protected override void OnCalculate()
 {
 Value.Set(SMA(20)[0]);
-// If the market price is above the SMA colorize it green, otherwise red
+// Wenn Kurs über SMA, Plot grün färben, sonst rot
 if (Close[0] > SMA(20)[0])
 	Plots[0].PlotColor = Color.Green;
 else
@@ -2120,30 +2114,32 @@ else
 ```
 
 ## Values
-### Description
-Values is a collection that contains the data series objects of an indicator.
+### Beschreibung
+Values ist eine Collection, die die DataSeries-Objekte eines Indikators enthält.
 
-When a plot is added to an indicator using the Add() method, a value object is automatically created and added to the "values" collection.
+Wenn einem Indikator mit der Add()-Methode ein Plot hinzugefügt wird, wird automatisch auch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
 
-The order of the add commands determines how the values are sorted. The first information request will create Values\[0\], the next information request will create Values\[1\] etc.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values[0], der nächste Values[1] usw.
 
-**Value** is always identical to Values\[0\].
+**Value** ist immer identisch mit Values[0].
 
-### Usage
+### Verwendung
 ```cs
 Outputs[int index]
 Outputs[int index][int barsAgo]
 ```
 
-### More Information
-The methods known for a collection, Set() Reset() and Count(), are applicable for values.
+### Weitere Informationen
+Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf Value bzw. Values anwendbar.
 
-Information on the class collection:
+Informationen zur Klasse Collection:
 [*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
 
-### Example
+### Beispiel
 ```cs
-// Check the second indicator value of one bar ago and set the value of the current indicator value based on it.
+// Überpüfung des zweiten Indikatorwertes (d.h. der sekundären DatenSerie)
+// von vor einem Bar
+// und in Abhängigkeit davon Setzen des aktuellen Indikatorwertes
 if (Outputs[1][1] < High[0] - Low[0])
 Value.Set(High[0] - Low[0]);
 else
@@ -2151,12 +2147,13 @@ Value.Set(High[0] - Close[0]);
 ```
 
 ## Multibars
-### Description
-An indicator or a strategy will always have the same underlying timeframe-units as those units being displayed within the chart. The values of an SMA(14) indicator displayed in a 5 minute chart will be calculated based on the last fourteen 5 minute bars. A daily chart, on the other hand, would use the closing prices of the past 14 days in order to calculate this value.
-The same method applies for your self-programmed indicators. A 5 minute chart will call up the [*OnCalculate()*](#oncalculate) for each 5 minute bar.
-If you want your self-created indicator to use a different timeframe, this is possible using multibars.
+### Beschreibung
+Einem Indikator bzw. eine Strategie liegt immer die gleiche Zeiteinheit zugrunde, wie diejenige, in der der Chart angezeigt wird. Wird z.B. ein SMA(14) in einem 5-Minuten-Chart dargestellt, wird der gleitende Durchschnitt über die 14 letzten 5-Minuten-Bars berechnet. Auf einem Tageschart würden entsprechend die Schlusskurse der letzten 14 Tage zur Berechnung herangezogen werden.
 
-### Example
+Das gleiche Prinzip gilt für selbst entwickelte Indikatoren. In einem 5-Minuten-Chart würde die Methode [*OnCalculate()*](#oncalculate)  für jeden 5-Minuten-Bar aufgerufen werden.
+Mit Multibars ist es außerdem möglich, Daten eines anderen Instrumentes zu laden. 
+
+### Beispiel
 ```cs
 using System;
 using System.Collections.Generic;
@@ -2172,7 +2169,7 @@ using AgenaTrader.Helper;
 namespace AgenaTrader.UserCode
 {
     [Description("Multibar Demo")]
-    // The indicator requires daily and weekly data
+    // Der Indikator benötigt Tages- und Wochendaten
     [TimeFrameRequirements("1 Day", "1 Week")]
     public class MultiBarDemo : UserIndicator
     {
@@ -2191,101 +2188,100 @@ namespace AgenaTrader.UserCode
         }
         protected override void OnCalculate()
         {
-            // The current value for the SMA 14 in the timeframe of the chart
+            // aktueller Wert für den SMA 14 auf Tagesbasis
             Print("TF0: " + SMA(Closes[0], 14)[0]);
             // The current value for the SMA 14 in a daily timeframe
             Print("TF1: " + SMA(Closes[1], 14)[0]);
-            // Current value for the SMA 14 in a weekly timeframe
+             // aktueller Wert für den SMA 14 auf Wochenbasis
             Print("TF2: " + SMA(Closes[2], 14)[0]);
         }
     }
 }
 ```
 
-### Additional Notes
-When using additional timeframes, a further entry with the respective data series for the bars of the new timeframe will be added to the arrays [*Opens*](#opens), [*Highs*](#highs), [*Lows*](#lows), [*Closes*](#closes), [*Medians*](#medians), [*Typicals*](#typicals), [*Weighteds*](#weighteds), [*Times*](#times) and [*Volumes*](#volumes). The indexing will occur in the order of the addition of the new timeframes.
-Closes\[0\]\[0\] is equivalent to Close\[0\].
-Closes\[1\]\[0\] equals the current closing price for the daily data series
-Closes\[2\]\[0\] equals the current closing price for the weekly data series
+### Weitere Hinweise
+Bei Verwendung weiterer Zeiteinheiten wird den Arrays [*Opens*](#opens), [*Highs*](#highs), [*Lows*](#lows), [*Closes*](#closes), [*Medians*](#medians), [*Typicals*](#typicals), [*Weighteds*](#weighteds), [*Times*](#times) und [*Volumes*](#volumes)  ein weiterer Eintrag mit den jeweiligen Datenserien der Bars der neuen Zeiteinheit hinzugefügt. Die Indizierung erfolgt in der Reihenfolge des Hinzufügens der Zeiteinheiten.
+Closes\[0\]\[0\] entspricht Close\[0\].
+Closes\[1\]\[0\] entspricht dem aktuellen Schlusskurs der Tagesdatenreihe.
+Closes\[2\]\[0\] entspricht dem aktuellen Schlusskurs der Wochendatenreihe.
 
-"Closes" is, of course, interchangeable with Opens, Highs, Lows etc.
+"Closes"kann in den Beispielen selbstverständlich auch durch Opens, Highs, Lows usw. ersetzt werden.
 
-See [*ProcessingBarIndexes*](#processingbarindexes), [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*TimeFrames*](#timeframes), [*TimeFrameRequirements*](timeframerequirements).
+Siehe auch [*ProcessingBarIndexes*](#processingbarindexes), [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*TimeFrames*](#timeframes), [*TimeFrameRequirements*](timeframerequirements).
 
-Additional syntax methods are available for multibars:
+Es gibt noch eine weitere Schreibweise für Multbars:
 ```cs
-// Declare the variable TF_DAY and define it
+// unter Variablendeklaration wird die Variable TF_Day definiert
 private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
 private static readonly TimeFrame TF_Week = new TimeFrame(DatafeedHistoryPeriodicity.Week, 1);
-// The following instruction is identical to double d = Closes[1][0];
+// Die folgende Anweisung ist identisch mit double d = Closes[1][0];
 double d = MultiBars.GetBarsItem(TF_Day).Close[0];
-// The following instruction is identical to double w = Closes[2][0];
+//  Die folgende Anweisung ist identisch mit double w = Closes[2][0];
 double w = MultiBars.GetBarsItem(TF_Week).Close[0];
 ```
 
 ## ProcessingBarIndexes
-### Description
-ProcessingBarIndexes is an array of int values that contains the number of [*ProcessingBarIndex*](#processingbarindex) for each bar.
+### Beschreibung
+CurrentBars ist ein Array von int-Werten, welches für jedes Bar-Objekt die Nummer von [*ProcessingBarIndex*](#processingbarindex) enthält.
 
-This array is only of value for indicators or strategies that use data from multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-ProcessingBarIndexes\[0\] Current bar for the primary data series (chart timeframe)
-ProcessingBarIndexes\[1\] Current bar for the daily bars
-ProcessingBarIndexes\[2\] Current bar for the weekly bars
+ProcessingBarIndexes\[0\] ProcessingBarIndexes der primären Datenserie (Chart-Zeiteinheit)
+ProcessingBarIndexes\[1\] ProcessingBarIndexes für die Tagesbars
+ProcessingBarIndexes\[2\] ProcessingBarIndexes für die Wochenbars.
 
-ProcessingBarIndexes\[0\] is equivalent to [*ProcessingBarIndex*](#processingbarindex).
+ProcessingBarIndexes\[0\] entspricht [*ProcessingBarIndex*](#processingbarindex).
 
-Also see [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barSeriesIndex Index value for the various timeframes
+barSeriesIndex	Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 ProcessingBarIndexes[int barSeriesIndex]
 ```
 
-### Example
+### Beispiel
 ```cs
-//Ensure that a minimum of 20 bars is loaded
+//Sicherstellen, dass mind. 20 Bars geladen sind
 for (int i=0; i<ProcessingBarIndexes.Count; i++)
 if (ProcessingBarIndexes[i] < 20) return;
 ```
 
 ## ProcessingBarSeriesIndex
 ### Description
-Within a multibars script, multiple bars objects are available. The OnCalculate() method
-will therefore also be called up for every bar within your script. In order to include/exclude events of specific data series, you can use the ProcessingBarSeriesIndex property.
+In einem Multibar-Script, d.h. in einem Indikator (bzw. einer Strategie), der mit mehreren Zeiteinheiten arbeitet, sind mehrere Bars-Objekte vorhanden. Die Methode OnCalculate() wird für jeden Bar im Script aufgerufen. Um Ereignisse bestimmter Datenreihen in die Berechnung einzubeziehen bzw. auszublenden ist BarsInProgress zu verwenden.
 
-ProcessingBarSeriesIndex is only of value for indicators or strategies that use data from multiple timeframes.
-With **\[TimeFrameRequirements("1 Day", "1 Week")\]** two timeframes will be added to the primary chart timeframe.
+ProcessingBarSeriesIndex ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
+Mit **\[TimeFrameRequirements("1 Day", "1 Week")\]** werden 2 weitere Zeiteinheiten zur primären Chart-Zeiteinheit hinzugefügt.
 
-If OnCalculate() is called up by the primary data series, then ProcessingBarSeriesIndex will equal zero. If OnCalculate() is called up by the daily bars, then ProcessingBarSeriesIndex will equal 1. Weekly bars will have a value of 2.
+Wenn OnCalculate() von der primären Datenreihe aufgerufen wird, ist ProcessingBarSeriesIndex=0. Wird OnCalculate() von den Tagesbars aufgerufen, ist ProcessingBarSeriesIndex=1, bei den Wochendaten hat BarsInProgress den Wert 2.
 
-See [*Multibars*](#multibars) and [*ProcessingBarIndexes*](#processingbarindexes).
+Siehe auch [*Multibars*](#multibars) and [*ProcessingBarIndexes*](#processingbarindexes).
 
 ### Parameter
-none
+keine
 
-### Usage
+### Verwendung
 ProcessingBarSeriesIndex
 
-### More Information
-Within a script that only works with primary timeframes, the value will always equal zero.
+### Weitere Informationen
+In einem Script, welches nur auf der primären Zeiteinheit arbeitet, hat BarsInProgress immer den Wert 0.
 
-### Example
+### Beispiel
 ```cs
-// To demonstrate the methodology
-// set CalculateOnClosedBar=false
+// Arbeitsweise veranschaulichen
+// ggf. CalculateOnBarClose=false setzen
 Print(Time[0] + " " + ProcessingBarSeriesIndex);
-// Calculate only for the chart timeframe
+// Berechnungen nur für die Chart-Zeiteinheit
 protected override void OnCalculate()
 {
 if (ProcessingBarSeriesIndex > 0) return;
-// Logic for the primary data series
+// Logik für primäre Datenreihe
 }
 ```

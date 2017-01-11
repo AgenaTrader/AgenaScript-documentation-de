@@ -6,7 +6,7 @@ Further detailed information can be found using the appropriate shortcuts:
 
 [Bars (Candles)](#bars-candles)
 
-[Data series](#data-series)
+[Datenserien](#datenserien)
 
 [Instruments](#instruments)
 
@@ -842,11 +842,11 @@ protected override void OnCalculate()
 ```
 
 
-## Data Series
-### Description
-Data series are interpreted as freely usable data storage containers for your programs. Additionally, they an integrated component of AgenaTrader that saves the price changes for individual bars. We will be focusing on the latter function here.
-In the following section, the concept of data series will be explained in detail and understandably. All price data for the individual bars are organized and saved within data series.
-The following are available:
+## Datenserien
+### Beschreibung
+Datenserien werden in AgenaTrader zum einen unterschieden in die frei für die eigene Programmierung verwendbaren Datenserien zum Speichern von Werten unterschiedlicher Datentypen und zum anderen in die in AgenaTrader fest integrierten Datenserien, die die Kursdaten der einzelnen Bars enthalten. Die letzteren werden hier vorgestellt.
+Das Konzept von Datenserien wird sehr konsequent und durchgängig verfolgt. Alle Kursdaten der einzelnen Bars sind in Datenserien organisiert.
+Folgende Datenserien sind verfügbar:
 
 [*Open*](#open) [*Opens*](#opens)
 
@@ -869,568 +869,566 @@ The following are available:
 [*Volume*](#volume) [*Volumes*](#volumes)
 
 ## Open
-### Description
-Open is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical opening prices are saved.
+### Beschreibung
+Open ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Eröffnungskurse gespeichert sind.
 
 ### Parameter
-BarsAgo Index Value (see [*Bars*](#bars))
+barsAgo	Indexwert(sehen [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 Open
 Open[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationenon
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
+### Beispiel
 ```cs
-// Opening price for the current period
+// Eröffnungskurs der aktuellen Periode
 Print(Time[0] + " " + Open[0]);
-// Opening price for the bars of 5 periods ago
+// Eröffnungskurs des Bars von vor 5 Perioden
 Print(Time[5] + " " + Open[5]);
-// Current value for the SMA 14 that is based on the opening prices (rounded)
+// aktueller Wert für den SMA 14 über die Eröffnungskurse (gerundet)
 Print("SMA(14) calculated using the opening prices: " + Instrument.Round2TickSize(SMA(Open, 14)[0]));
 ```
 
 ## Opens
 ### Description
-Opens is an array of data series that contains all open data series.
+Opens ist ein Array von Datenserien, welches alle Open-Datenserien enthält.
 
-This array is only useful or meaningful for indicators or strategies that use multiple data from multiple timeframes.
-A new entry is entered into the array whenever a new timeframe is added to an indicator or strategy.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Opens\[0\] The open data series of the chart timeframe
-Opens\[1\] The open data series of all bars in a daily timeframe
-Opens\[2\] The open data series of all bars in a weekly timeframe
+Opens\[0\] die Open-Dataseries der Chart-Zeiteinheit
+Opens\[1\] die Open-Dataseries aller Bars auf Tagesbasis
+Opens\[2\]  die Open-Dataseries aller Bars auf Wochenbasis.
 
-Opens\[0\]\[0\] is equivalent to Open\[0\].
+Opens\[0\]\[0\] entspricht Open\[0\].
 
-In addition, please see [*MultiBars*](#multibars) for more information.
+Siehe auch [*MultiBars*](#multibars) 
 
 ### Parameter
-barsAgo Index value for the individual bars within the data series (see [*Bars*](#bars))
-barSeriesIndex Index value for the various timeframes
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries (s. [*Bars*](#bars))
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Opens[int barSeriesIndex]
 Opens[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example: [*Multibars*](#multibars).
+### Beispiel
+ Beispiel unter [*Multibars*](#multibars).
 
 ## High
 ### Description
-High is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical high prices are saved.
+High ist eine [*Datenserien*](#datenserien)  vom Typ[*Datenserien*](#datenserien), in der die historischen Höchstkurse gespeichert sind.
 
 ### Parameter
-barsAgo IndexValue (see [*Bars*](#bars))
+barsAgo	Indexwert (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 High
 High[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
+### Beispiel
 ```cs
-// High values of the current period
+// Höchstkurs der aktuellen Periode
 Print(Time[0] + " " + High[0]);
-// High values of the bar from 5 periods ago
+// Höchstkurs des Bars von vor 5 Perioden
 Print(Time[5] + " " + High[5]);
-// the current value for the SMA 14 calculated on the basis of the high prices
+// aktueller Wert für den SMA 14 über die Höchstkurse (gerundet)
 Print("SMA(14) Calculated using the high prices: " + Instrument.Round2TickSize(SMA(High, 14)[0]));
 ```
 
 ## Highs
-### Description
-Highs is an array of \[*DataSeries*\]\[1\] that contains all high data series.
+### Beschreibung
+Highs ist ein Array von \[*DataSeries*\]\[1\] welches alle High-Datenserien enthält.
 
-This array is only of value for indicators or strategies that use data from multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new time unit is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Highs\[0\] the high data series of the chart timeframe
-Highs\[1\] the high data series of all bars in a daily timeframe
-Highs\[2\] the high data series of all bars in a weekly timeframe
+Highs\[0\] die High-Dataseries der Chart-Zeiteinheit
+Highs\[1\] die High-Dataseries aller Bars auf Tagesbasis
+Highs\[2\] die High-Dataseries aller Bars auf Wochenbasis
 
-Highs\[0\]\[0\] is equivalent to High\[0\].
+Highs\[0\]\[0\] entspricht High\[0\].
 
 See [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value for the individual bars within the data series (see [*Bars*](#bars))
-barSeriesIndex Index value for the various timeframes
+barsAgo Index Indexwert der einzelnen Bars innerhalb der Dataseries (s. [*Bars*](#bars))
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Highs[int barSeriesIndex]
 Highs[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-Please see examples under [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## Low
 ### Description
-Low is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical low prices are saved.
+Low ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien),in der die historischen Tiefstkurse gespeichert sind.
 
 ### Parameter
-barsAgo IndexValue (see [*Bars*](#bars))
+barsAgo Indexwert (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 Low
 Low[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property of [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
+### Beispiel
 ```cs
-// Lowest value of the current period
+// Tiefstkurs der aktuellen Periode
 Print(Time[0] + " " + Low[0]);
-// Lowest value of the bar from 5 periods ago
+// Tiefstkurs des Bars von vor 5 Perioden
 Print(Time[5] + " " + Low[5]);
-// The current value for the SMA 14 calculated on the basis of the low prices (smoothed)
-Print("SMA(14) calculated using the high prices: " + Instrument.Round2TickSize(SMA(Low, 14)[0]));
+// aktueller Wert für den SMA 14 über die Tiefstkurse (gerundet)
+Print("SMA(14) berechnet über die Tiefstkurse:  " + Instrument.Round2TickSize(SMA(Low, 14)[0]));
 ```
 
 ## Lows
 ### Description
-Lows is an array of \[*DataSeries*\]\[1\] that contains all [*Low*](#low) data series.
+Lows ist ein Array von  \[*DatenSerien*\]\[1\] welches alle [*Low*](#low) Datenserien enthält.
 
-This array is only of value to indicators or strategies that use data from multiple time units.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added whenever a new time unit is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Lows\[0\] the low data series for the chart timeframe
-Lows\[1\] the low data series for all bars in a daily timeframe
-Lows\[2\] the low data series for all bars in a weekly timeframe
+Lows\[0\] die Low-Dataseries der Chart-Zeiteinheit
+Lows\[1\] die Low-Dataseries aller Bars auf Tagesbasis
+Lows\[2\] die Low-Dataseries aller Bars auf Wochenbasis.
 
-Lows\[0\]\[0\] is equivalent to Low\[0\].
+Lows\[0\]\[0\] entspricht Low\[0\].
 
-See [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value for the individual bars within the data series
-barSeriesIndex Index value for the various timeframes
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Lows[int barSeriesIndex]
 Lows[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## Close
-### Description
-Close is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical closing prices are saved.
+### Beschreibung
+Close ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Schlusskurse gespeichert sind.
 
 ### Parameter
-barsAgo Index value (see [*Bars*](#bars))
+barsAgo Indexwert (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 Close
 Close[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Indicators are usually calculated using the closing prices.
+Indikatoren werden standardmäßig über die Schlusskurse berechnet. Die Angabe der Input-Serie kann weggelassen werden (siehe Beispiel unten).
 
-### Example
+### Beispiel
 ```cs
-// Closing price of the current period
+// Schlusskurs der aktuellen Periode
 Print(Time[0] + " " + Close[0]);
-// Closing price of the bar from 5 periods ago
+// Schlusskurs des Bars von vor 5 Perioden
 Print(Time[5] + " " + Close[5]);
-// Current value for the SMA 14 based on the closing prices
-Print("SMA(14) calculated using the closing prices: " + Instrument.Round2TickSize(SMA(Close, 14)[0]));
-// Close does not need to be mentioned since it is used by default
-Print("SMA(14) calculated using the closing prices: " + Instrument.Round2TickSize(SMA(14)[0]));
+// aktueller Wert für den SMA 14 über die Schlusskurse (gerundet)
+Print("SMA(14) berechnet über die Schlusskurse: " + Instrument.Round2TickSize(SMA(Close, 14)[0]));
+// Close kann auch weggelassen werden, da es per Default verwendet wird.
+Print("SMA(14) berechnet über die Schlusskurse: " + Instrument.Round2TickSize(SMA(14)[0]));
 ```
 
 ## Closes
-### Description
-Closes is an array of \[*DataSeries*\]\[1\] that contains all [*Low*](#low) data series.
+### Beschreibung
+Closes ist ein Array von \[*DatenSerien*\]\[1\]  welches alle [*Low*](#low) Datenserien enthält.
 
-This array is only of importance to indicators or strategies that use data from multiple time units.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a timeframe is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit  **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge.
 
-Closes\[0\] the close data series of the chart timeframe
-Closes\[1\] the close data series of all bars in a daily timeframe
-Closes\[2\] the close data series of all bars in a weekly timeframe
+Closes\[0\] die Close-Dataseries der Chart-Zeiteinheit
+Closes\[1\] die Close-Dataseries aller Bars auf Tagesbasis
+Closes\[2\] die Close-Dataseries aller Bars auf Wochenbasis.
 
-Closes\[0\]\[0\] is equivalent to Close\[0\].
+Closes\[0\]\[0\] entspricht Close\[0\].
 
-See [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value of the individual bars within the data series
-barSeriesIndex Index value for the various timeframes
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries.
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten.
 
-### Usage
+### Verwendung
 ```cs
 Closes[int barSeriesIndex]
 Closes[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## Median
-### Description
-Median is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical median values are saved.
+### Beschreibung
+Median ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Median-Werte gespeichert sind.
 
-The median price of a bar is calculated using (high + low) / 2
+Der Median-Preis eines Bars ergibt sich aus (high + low) / 2
 
-See [*Typical*](#typical) & [*Weighted*](#weighted).
+Siehe auch  [*Typical*](#typical) und [*Weighted*](#weighted).
 
 ### Parameter
-barsAgo Index value (see [*Bars*](#bars))
+barsAgo Indexwert (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 Median
 Median[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Further information about median, typical und weighted:
+Informationen zu Median, Typical und Weighted:
 [*http://blog.nobletrading.com/2009/12/median-price-typical-price-weighted.html*](http://blog.nobletrading.com/2009/12/median-price-typical-price-weighted.html)
 
-### Example
+### Beispiel
 ```cs
-// Median price for the current period
+// Median-Preis der aktuellen Periode
 Print(Time[0] + " " + Median[0]);
-// Median price of the bar from 5 periods ago
+// Median-Preis des Bars von vor 5 Perioden
 Print(Time[5] + " " + Median[5]);
-// Current value for the SMA 14 calculated using the median prices
+// aktueller Wert für den SMA 14 über die Median-Preise (gerundet)
 Print("SMA(14) calculated using the median prices: " + Instrument.Round2TickSize(SMA(Median, 14)[0]));
 ```
 
 ## Medians
-### Description
-Medians is an array of \[*DataSeries*\]\[1\] that contains all [*Median*](#median) data series.
+### Beschreibung
+Medians ist ein Array von \[*DatenSerien*\]\[1\] welches alle [*Median*](#median) Datenserien enthält.
 
-This array is only of value to indicators or strategies that use data from multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new time frame is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Medians\[0\] the median data series of the chart timeframe
-Medians\[1\] the median data series of all bars in a daily timeframe
-Medians\[2\] the median data series of all bars in a weekly timeframe
+Medians\[0\] die Median-Dataseries der Chart-Zeiteinheit
+Medians\[1\] die Median-Dataseries aller Bars auf Tagesbasis
+Medians\[2\] die Median-Dataseries aller Bars auf Wochenbasis.
 
-Medians\[0\]\[0\] is equivalent to Medians\[0\].
+Medians\[0\]\[0\] entspricht Medians\[0\].
 
-See [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value for the individual bars within a data series
-barSeriesIndex Index value for the various timeframes
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Medians[int barSeriesIndex]
 Medians[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Further information on median: [http://www.investopedia.com/terms/m/median.asp](http://www.investopedia.com/terms/m/median.asp)
+Weitere Informationen zum Median: [http://www.investopedia.com/terms/m/median.asp](http://www.investopedia.com/terms/m/median.asp)
 
-### Example
-See example in [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## Typical
-### Description
-Typical is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical typical values are saved.
+### Beschreibung
+Typical ist eine [*Datenserien*](#datenserien)) vom Typ [*Datenserien*](#datenserien), in der die historischen Typical-Werte gespeichert sind.
 
-The typical price of a bar is calculated using (high + low + close) / 3.
+Der Typical-Preis eines Bars ergibt sich aus (high + low + close) / 3.
 
-See [*Median*](#median) and [*Weighted*](#weighted).
+Siehe auch [*Median*](#median) und [*Weighted*](#weighted).
 
 ### Parameter
-barsAgo Index value (see [*Bars*](#bars))
+barsAgo Indexwert  (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 Typical
 Typical[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Further information on typical: [*https://technicianapp.com/resources/typical-price/*](https://technicianapp.com/resources/typical-price/)
+Informationen zu Median, Typical und Weighted: [*https://technicianapp.com/resources/typical-price/*](https://technicianapp.com/resources/typical-price/)
 
-### Example
+### Beispiel
 ```cs
-// Typical price for the current period
+// Typical-Preis der aktuellen Periode
 Print(Time[0] + " " + Typical[0]);
-// Typical price of the bar from 5 periods ago
+// Typical-Preis des Bars von vor 5 Perioden
 Print(Time[5] + " " + Typical[5]);
-// Current value for the SMA 14 calculated using the typical price
-Print("SMA(14) calculated using the typical price: " + Instrument.Round2TickSize(SMA(Typical, 14)[0]));
+// aktueller Wert für den SMA 14 über die Typical-Preise (gerundet)
+Print("SMA(14) berechnet über die Openkurse: " + Instrument.Round2TickSize(SMA(Typical, 14)[0]));
 ```
 
 ## Typicals
-### Description
-Typicals is an array of *DataSeries* that contains all [*Typical*](#typical) data series.
+### Beschreibung
+Typicals ist ein Array von *DataSeries* welches alle [*Typical*](#typical) Datenserien enthält.
 
-This array is only of value to indicators and strategies that make use of multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Typicals\[0\] the typical data series of the chart timeframe
-Typicals\[1\] the typical data series of all bars in a daily timeframe
-Typicals\[2\] the typical data series of all bars in a weekly timeframe
+Typicals\[0\] die Typical-Dataseries der Chart-Zeiteinheit.
+Typicals\[1\] die Typical-Dataseries aller Bars auf Tagesbasis.
+Typicals\[2\] die Typical-Dataseries aller Bars auf Wochenbasis.
 
-Typicals\[0\]\[0\] is equivalent to Typicals\[0\].
+Typicals\[0\]\[0\] entspricht Typicals\[0\].
 
-See [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value of the individual bars within a data series
-barSeriesIndex Index value of the various timeframes
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Typicals[int barSeriesIndex]
 Typicals[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## Weighted
-### Description
-Weighted is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical weighted values are saved.
+### Beschreibung
+Weighted ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die historischen Weighted-Werte gespeichert sind.
 
-The weighted price of a bar is calculated using the formula (high + low + 2*close) / 4 and then weighted on the closing price.
+Der Weighted-Preis eines Bars ergibt sich aus (high + low + 2*close) / gewichtet auf den Schlusskurs.
 
-See also [*Median*](#median) and [*Typical*](#typical).
+Siehe auch [*Median*](#median) und [*Typical*](#typical).
 
 ### Parameter
-barsAgo Index value (see [*Bars*](#bars))
+barsAgo Indexwert (s. [*Bars*](#bars))
 
-### Usage
-## Weighted
+### Verwendung
 ```cs
 Weighted[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
 
-Information regarding weighted: [*http://www.stock-trading-infocentre.com/pivot-points.html*](http://www.stock-trading-infocentre.com/pivot-points.html)
+Informationen zu Median, Typical und Weighted: [*http://www.stock-trading-infocentre.com/pivot-points.html*](http://www.stock-trading-infocentre.com/pivot-points.html)
 
-### Example
+### Beispiel
 ```cs
-// Weighted price for the current period
+// Weighted-Preis der aktuellen Periode
 Print(Time[0] + " " + Weighted[0]);
-// Weighted price of the bar from 5 periods ago
+// Weighted-Preis des Bars von vor 5 Perioden
 Print(Time[5] + " " + Weighted[5]);
-// Current value for the SMA 14 using the weighted price
-Print("SMA(14) calculated using the weighted price: " + Instrument.Round2TickSize(SMA(Weighted, 14)[0]));
+// aktueller Wert für den SMA 14 über die Weighted-Preise (gerundet)
+Print("SMA(14) berechnet über die Openkurse: " + Instrument.Round2TickSize(SMA(Weighted, 14)[0]));
 ```
 
 ## Weighteds
-### Description
-Weighteds is an array of \[*DataSeries*\]\[1\] that contains all [*Weighted*](#weighted) data series.
+### Beschreibung
+Weighteds ist ein Array von  \[*DatenSerien*\]\[1\] welches alle [*Weighted*](#weighted) Datenserien enthält.
 
-The array is only of value for indicators and strategies that use data from multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Weighteds\[0\] the weighted data series of the chart timeframe
-Weighteds\[1\] the weighted data series of all bars in a daily timeframe
-Weighteds\[2\] the weighted data series of all bars in a weekly timeframe
+Weighteds\[0\] die Weighted-Dataseries der Chart-Zeiteinheit
+Weighteds\[1\] die Weighted-Dataseries aller Bars auf Tagesbasis
+Weighteds\[2\] die Weighted-Dataseries aller Bars auf Wochenbasis.
 
-Weighteds\[0\]\[0\] is equivalent to Weighteds\[0\].
+Weighteds\[0\]\[0\] entspricht Weighteds\[0\].
 
-See [*MultiBars*](#multibars).
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value of the individual bars within a data series
-barSeriesIndex Index value for the various timeframes
+barsAgo der einzelnen Bars innerhalb der Dataseries
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Weighteds[int barSeriesIndex]
 Weighteds[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example under [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter  [*Multibars*](#multibars).
 
 ## Time
-### Description
-Time is a [*DataSeries*](#dataseries) of the type [*DateTimeSeries*](#datatimeseries), in which the timestamps of the individual bars are saved.
+### Beschreibung
+Time ist eine [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in der die Zeitstempel der einzelnen Bars gespeichert sind.
 
 ### Parameter
-barsAgo Index value (see [*Bars*](#bars))
+barsAgo Indexwert (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 ```cs
 Time
 Time[int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
+### Beispiel
 ```cs
-// Timestamp of the current period
+// Zeitstempel der aktuellen Periode
 Print(Time[0]);
-// Timestamp of the bar from 5 periods ago
+// Zeitstempel des Bars von vor 5 Perioden
 Print(Time[5]);
 ```
 
 ## Times
-### Description
-Times is an array of [*DataSeries*](#dataseries) that contains all [*Time*](#time) data series.
+### Beschreibung
+Times ist ein Array von [*Datenserien*](#datenserien) welches alle  [*Time*](#time) Datenserien enthält.
 
-This array is only of value to indicators and strategies that make use of multiple timeframes.
-A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird.
 
-Times\[0\] the time data series of the chart timeframe
-Times\[1\] the time data series of all bars in a daily timeframe
-Times\[2\] the time data series of all bars in a weekly timeframe
+Mit **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge.
 
-Times\[0\]\[0\] is equivalent to Times\[0\].
+Times\[0\] die Time-Dataseries der Chart-Zeiteinheit
+Times\[1\] die Time-Dataseries aller Bars auf Tagesbasis
+Times\[2\] die Time-Dataseries aller Bars auf Wochenbasis.
 
-See [*MultiBars*](#multibars).
+Times\[0\]\[0\] entspricht  Times\[0\].
+
+Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value for the individual bars within a data series
-barSeriesIndex Index value for the various timeframes
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
+barSeriesIndexIndexwert der unterschiedlichen Zeiteinheiten
 
-### Usage
+### Verwendung
 ```cs
 Times[int barSeriesIndex]
 Times[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## Volume
-### Description
-Volume is a [*DataSeries*](#dataseries) of the type [*DataSeries*](#dataseries), in which the historical volume information is saved.
+### Beschreibung
+Volume ist eine  [*Datenserien*](#datenserien) vom Typ [*Datenserien*](#datenserien), in which the historical volume information is saved.
 
 ### Parameter
-barsAgo Index value (see [*Bars*](#bars))
+barsAgo Indexwert (s. [*Bars*](#bars))
 
-### Usage
+### Verwendung
 Volume
 
 Volume\[**int** barsAgo\]
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft [*CalculateOnClosedBar*](#calculateonclosebar).
 
-The value returned by the [*VOL()*](#vol) indicator is identical with the volume described here;
-for example, Vol()\[3\] will have the same value as Volume\[3\].
+Der vom Indikator [*VOL()*](#vol) zurückgelieferte Wert ist identisch mit dem hier beschriebenen Volumen.
+Z.B. liefert Vol()\[3\] den gleichen Wert wie  Volume\[3\].
 
-### Example
+### Beispiel
 ```cs
-// Volume for the current period
+//Volumen der aktuellen Periode
 Print(Time[0] + " " + Volume[0]);
-// Volume of the bar from 5 periods ago
+// Volumen des Bars von vor 5 Perioden
 Print(Time[5] + " " + Volume[5]);
-// Current value for the SMA 14 calculated using the volume
-Print("SMA(14) calculated using the volume: " + Instrument.Round2TickSize(SMA(Volume, 14)[0]));
+// aktueller Wert für den SMA 14 über das Volumen (gerundet
+Print("SMA(14) berechnet über das Volumen: " + Instrument.Round2TickSize(SMA(Volume, 14)[0]));
 ```
 
 ## Volumes
 ### Description
-Volumes is an array of [*DataSeries*](#dataseries) that contains all [*Volume*](#volume) data series.
+Volumes ist ein Array von [*Datenserien*](#datenserien) welches alle [*Volume*](#volume) Datenserien enthält.
 
-This array is only of value for indicators or strategies that use data from multiple timeframes.
+Dieses Array ist nur in Indikatoren bzw. Strategien von Bedeutung, die Daten aus mehreren Zeiteinheiten verarbeiten.
 
-A new entry is added to the array whenever a new timeframe is added to an indicator or strategy.
+Ein neuer Eintrag wird dem Array immer dann hinzugefügt, wenn dem Indikator bzw. der Strategie eine neue Zeiteinheit hinzugefügt wird
 
-With **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** the array will contain 3 entries:
+Mit  **\[TimeFrameRequirements(("1 Day"), ("1 Week"))\]** enthält das Array 3 Einträge:
 
-Volumes\[0\] the volume data series of the chart timeframe
-Volumes\[1\] the volume data series of all bars in the daily timeframe
-Volumes\[2\] the volume data series of all bars in the weekly timeframe
+Volumes\[0\] die Volume-Dataseries der Chart-Zeiteinheit
+Volumes\[1\] die Volume-Dataseries aller Bars auf Tagesbasis
+Volumes\[2\] die Volume-Dataseries aller Bars auf Wochenbasis
 
-Volumes\[0\]\[0\] is equivalent to Volumes\[0\].
+Volumes\[0\]\[0\] entspricht Volumes\[0\].
 
-See [*MultiBars*](#multibars).
+Siehe auch  [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo Index value of the individual bars within a data series
+barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries 
+barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
-barSeriesIndex Index value of the various timeframes
-
-### Usage
+### Verwendung
 ```cs
 Volumes[int barSeriesIndex]
 Volumes[int barSeriesIndex][int barsAgo]
 ```
 
-### More Information
-The returned value is dependent upon the property [*CalculateOnClosedBar*](#calculateonclosebar).
+### Weitere Informationen
+Der zurückgegebene Wert ist abhängig von der Eigenschaft  [*CalculateOnClosedBar*](#calculateonclosebar).
 
-### Example
-See example [*Multibars*](#multibars).
+### Beispiel
+Siehe Beispiel unter [*Multibars*](#multibars).
 
 ## TimeFrame
 ### Description

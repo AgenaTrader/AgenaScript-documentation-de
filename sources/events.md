@@ -1,10 +1,10 @@
 
-#Events
-AgenaTrader is an *event-oriented* application by definition.
+#Ereignisse
+AgenaTrader ist nach der Definition der Softwaretechnik eine ereignisorientierte Applikation.
 
-Programming in AgenaTrader using the various application programming interface (*API*) methods is based initially on the *Overwriting* of routines predefined for event handling.
+Die Programmierung in AgenaTrader mit Methoden des Application Programming Interface (*API*) beruht initial auf dem *Überschreiben* von vordefinierten Routinen zur Ereignisbehandlung.
 
-The following methods can be used and therefore overwritten:
+Folgende Methoden können verwendet, d.h. überschrieben werden:
 
 -   [*OnCalculate()*](#oncalculate)
 -   [*OnBrokerConnect()*](#onbrokerconnect)
@@ -20,51 +20,53 @@ The following methods can be used and therefore overwritten:
 
 ## OnCalculate()
 ### Description
-The OnCalculate() method is called up whenever a bar changes; depending on the variables of [*CalculateOnClosedBar*](#CalculateOnClosedBar), this will happen upon every incoming tick or when the bar has completed/closed.
-OnCalculate is the most important method and also, in most cases, contains the largest chunk of code for your self-created indicators or strategies.
-The editing begins with the oldest bar and goes up to the newest bar within the chart. The oldest bar has the number 0. The indexing and numbering will continue to happen; in order to obtain the numbering of the bars you can use the current bar variable. You can see an example illustrating this below.
+Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  [*CalculateOnClosedBar*](#CalculateOnClosedBar),wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
+OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Teil des Codes selbsterstellter Indikatoren bzw. Strategien enthält.
+Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.
 
-**Caution:**
-**the numbering/indexing is different from the bar index – see [*Bars*](#Bars).**
+**Achtung:**
+**Diese Nummerierung unterscheidet sich vom BarIndex, siehe [*Bars*](#Bars).**
 
 More information can be found here: [*Events*](#events).
 
 ### Parameter
-none
+keiner
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnCalculate()
 ```
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
-    Print("Calling of OnCalculate for the bar number " + ProcessingBarIndex + " from " +Time[0]);
+    Print("Aufruf von OnBarUpdate für Bar Nr. " + ProcessingBarIndex + " von " +Time[0]);
 }
 ```
 ## OnBrokerConnect()
 ### Description
-OnBrokerConnect() method is invoked each time the connection to the broker is established.  With the help of OnBrokerConnect(), it is possible to reassign the existing or still open orders to the strategy in the event of a connection abort with the broker and thus allow it to be managed again.
+Die Methode OnBrokerConnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker hergestellt wurde.
 
-More information can be found here: [*Events*](#events).
+Mit Hilfe von OnBrokerConnect() besteht die Möglichkeit, bei einem Verbindungsabbruch mit dem Broker, die bestehenden bzw. noch offenen Orders wieder der Strategie zuzuordnen und somit von dieser wieder verwalten zu lassen
+
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-none
+keine
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnBrokerConnect()
 ```
 
-### Example
+### Beispiel
 ```cs
 private IOrder _takeProfit = null;
 private IOrder _trailingStop = null;
@@ -82,42 +84,42 @@ protected override void OnBrokerConnect()
 ```
 
 ## OnBrokerDisconnect()
-### Description
-OnBrokerDisconnect() method is invoked each time the connection to the broker is interrupted.
+### Beschreibung
+Die Methode OnBrokerDisconnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker unterbrochen wurde.
 
-More information can be found here: [*Events*](#events).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-An object from *TradingDatafeedChangedEventArgs*
+Ein Objekt vom Typ  *TradingDatafeedChangedEventArgs*
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnBrokerDisconnect(TradingDatafeedChangedEventArgs e)
 ```
 
-### Example
+### Beispiel
 ```cs
 protected override void OnBrokerDisconnect(TradingDatafeedChangedEventArgs e)
 {
    if (e.Connected)
-       Print("The connection to the broker will be disconnected.");
+       Print("Die Verbindung zum Broker wird getrennt.");
    else
-       Print("The connection to the broker was disconnected.");
+       Print("Die Verbindung zum Broker wurde getrennt.");
 }
 ```
 
 
 ## OnChartPanelMouseMove()
-### Description
-In an indicator, or strategy, the current position of the mouse can be evaluated and processed. For this, it is necessary to program an EventHandler as a method and add this method to the Chart.ChartPanelMouseMove event.
+### Beschreibung
+In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event  Chart.ChartPanelMouseMove hinzufügt.
 
-### Attention!
-It is important to remove the EventHandler from the OnDispose() method, otherwise the EventHandler will still be executed even if the indicator has been removed from the chart.
+### Achtung!
+Es ist wichtig, den EventHandler innerhalb der OnDispose() Methode wieder aus dem Event zu entfernen, da sonst der EventHandler selbst dann noch ausgeführt wird, wenn der Indikator aus dem Chart entfernt wurde!
 
-### Example
+### Beispiel
 ```cs
 using System;
 using System.Collections.Generic;
@@ -165,13 +167,13 @@ namespace AgenaTrader.UserCode
 ```
 
 ## OnChartPanelMouseDown()
-### Description
-In an indicator, or strategy, the click event of the mouse can be processed. For this, it is necessary to program an EventHandler as a method and add this method to the Chart.ChartPanelMouseDown event.
+### Beschreibung
+In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event ChartControl.ChartPanelMouseDown hinzufügt.
 
-### Attention!
-It is important to remove the EventHandler from the OnDispose() method, otherwise the EventHandler will still be executed even if the indicator has been removed from the chart.
+### Achtung!
+Es ist wichtig, den EventHandler innerhalb der OnDispose() Methode wieder aus dem Event zu entfernen, da sonst der EventHandler selbst dann noch ausgeführt wird, wenn der Indikator aus dem Chart entfernt wurde!
 
-### Example
+### Beispiel
 ```cs
 using System;
 using System.Collections.Generic;
@@ -221,26 +223,25 @@ namespace AgenaTrader.UserCode
 ```
 
 ## OnOrderExecution()
-### Description
-The OnOrderExecution() method is called up when an order is executed (filled).
-The status of a strategy can be changed by a strategy-managed order. This status change can be initiated by the changing of a volume, price or the status of the exchange (from “working” to “filled”). It is guaranteed that this method will be called up in the correct order for all events.
+### Beschreibung
+Die Methode OnOrderExecution() wird jedesmal dann aufgerufen, wenn eine Order ausgeführt (filled) wurde oder sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.
 
-OnOrderExecution() will always be executed AFTER [*OnOrderChanged()*](#onorderchanged).
+OnOrderExecution() wird immer nach [*OnOrderChanged()*](#onorderchanged) aufgerufen.
 
-More information can be found here: [*Events*](#events).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-An execution object of the type *IExecution*
+Ein execution-Objekt vom Type  *IExecution*
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnOrderExecution(IExecution execution)
 ```
 
-### Example
+### Beispiel
 ```cs
 private IOrder entry = null;
 protected override void OnCalculate()
@@ -250,7 +251,7 @@ protected override void OnCalculate()
 }
 protected override void OnOrderExecution(IExecution execution)
 {
-    // Example
+    // Beispiel 
     if (entry != null && execution.Order == entry)
     {
     	Print(execution.Price.ToString());
@@ -261,26 +262,27 @@ protected override void OnOrderExecution(IExecution execution)
 
 ## OnLevel1()
 ### Description
-The OnLevel1() method is called up when a change in level 1 data has occurred, meaning whenever there is a change in the bid price, ask price, bid volume, or ask volume, and of course in the last price after a real turnover has occurred.
-In a multibar indicator, the rocessingBarSeriesIndex property identifies the data series that was used for an information request for OnLevel1().
-OnLevel1() will not be called up for historical data.
-More information can be found here: [*Events*](#events).
+Die Methode OnLevel1() wird bei jeder Änderung in den Level-I-Daten aufgerufen, d.h. bei einer Änderung des Bid-Preises, Ask-Preises, des Bid-Volumens, des Ask-Volumens und natürlich des Last-Preises nachdem ein realer Umsatz stattfand.
+In a multibar indicator, the ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnLevel1() aufgerufen wurde.
 
-**Notes regarding data from Yahoo (YFeed)**
+OnLevel1() wird nicht für historische Daten aufgerufen
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
-The field "LastPrice" equals – as usual – either the bid price or the ask price, depending on the last revenue turnover.
+**Hinweis zu Daten von Yahoo (YFeed)**
 
-The MarketDataType" field always equals the "last" value
+Das Feld "LastPrice" entspricht - wie gewohnt - je nach letztem Handelsumsatz entweder dem "BidPrice" oder dem "AskPrice".
 
-The fields "Volume", "BidSize" and "AskSize" are always 0.
+Das Feld "MarketDataType" ist immer "Last".
 
-### Usage
+Die Felder "Volumen", "BidSize" und "AskSize" sind immer 0.
+
+### Verwendung
 ```cs
 protected override void OnLevel1(Level1Args e)
 ```
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
 ### Parameter
 ```cs
@@ -288,7 +290,7 @@ none
 ```
 
 
-### Example
+### Beispiel
 ```cs
 protected override void OnLevel1(Level1Args e)
 {
@@ -306,56 +308,55 @@ protected override void OnLevel1(Level1Args e)
 ```
 
 ## OnLevel2()
-### Description
-The OnLevel2() method is called up whenever there is a change in the level 2 data (market depth).
-In a multibar indicator, the ProcessingBarSeriesIndex property identifies the data series for which the OnLevel2() method is called up.
-OnLevel2 is not called up for historical data.
+### Beschreibung
+Die Methode OnLevel2() wird bei jeder Änderung in den Level-II-Daten (Markttiefe) aufgerufen.
+In einem Multibar-Indikator kann mit  ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnMarketDepth() aufgerufen wurde.
+OnLevel2 wird nicht für historische Daten aufgerufen.
 
-More information can be found here: [*Events*](#events).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnLevel2(Level2Args e)
 ```
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
 ### Parameter
-An object from *Level2Args*
+Ein Objekt von *Level2Args*
 
-### Example
+### Beispiel
 ```cs
 protected override void OnLevel2(Level2Args e)
 {
-    // Current Bit-Price
+    // Ausgabe des jeweils aktuellen Ask-Kurses
     if (e.MarketDataType == MarketDataType.Bit)
     	Print("The current bit is " + e.Price );
 }
 ```
 
 ## OnOrderChanged()
-### Description
-The OnOrderChanged() method is called up whenever the status is changed by a strategy-managed order.
-A status change can therefore occur due to a change in the volume, price or status of the exchange (from “working” to “filled”). It is guaranteed that this method will be called up in the correct order for the relevant events.
+### Beschreibung
+Die Methode OnOrderChanged()  wird jedesmal dann aufgerufen, wenn sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.
 
-**Important note:**
-**If a strategy is to be controlled by order executions, we highly recommend that you use OnOrderExecution() instead of OnOrderChanged(). Otherwise there may be problems with partial executions.**
+**wichtiger Hinweis:**
+**Wenn eine Strategie durch Orderausführungen gesteuert werden soll, ist es ratsamer,  OnOrderExecution() anstelle von OnOrderChanged() zu verwenden.  Es kann sonst zu Problemen bei Teilausführungen kommen..**
 
-More information can be found here: [*Events*](#events).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-An order object of the type IOrder
+Ein Order-Objekt vom Type IOrder
 
-### Return Value
-None
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnOrderChanged(IOrder order)
 ```
 
-### Example
+### Beispiel
 ```cs
 private IOrder entry = null;
 protected override void OnCalculate()
@@ -380,25 +381,25 @@ protected override void OnOrderChanged(IOrder order)
 
 ## OnStart()
 ### Description
-The OnStart() method can be overridden to initialize your own variables, perform license checks or call up user forms etc.
-OnStart() is only called up once at the beginning of the script, after [*OnInit()*](#oninit) and before [*OnCalculate()*](#oncalculate) are called up.
+Die Methode OnStart() kann überschrieben werden, um eigene Variablen zu initialisieren, Lizenzchecks auszuführen, UserForms aufzurufen usw.
+OnStart() wird nur einmal am Beginn des Scrips nach [*OnInit()*](#oninit) und vor [*OnCalculate()*](#oncalculate) aufgerufen.
 
-See [*OnDispose()*](#ondispose).
+Siehe auch [*OnDispose()*](#ondispose).
 
-More information can be found here: [*Events*](#events).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-none
+keiner
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnStart()
 ```
 
-### Example
+### Beispiel
 ```cs
 private myForm Window;
 protected override void OnStart()
@@ -412,29 +413,29 @@ protected override void OnStart()
 ```
 
 ## OnDispose()
-### Description
-The OnDispose() method can also be overridden in order to once again free up all the resources used in the script.
+### Beschreibung
+Die Methode  OnDispose() kann überschrieben werden, um alle im Script verwendeten Ressourcen wieder freizugeben.
 
-See [*OnInit()*](#oninit) and [*OnStart()*](#onstart).
+Siehe auch [*OnInit()*](#oninit) und [*OnStart()*](#onstart).
 
-More information can be found here: [*Events*](#events).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-none
+keiner
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnDispose()
 ```
 
-### More Information
-**Caution:**
-**Please do not override the Dispose() method since this can only be used much later within the script. This would lead to resources being used and held for an extended period and thus potentially causing unexpected consequences for the entire application.**
+### Weitere Informationen
+**Achtung:**
+**Bitte überschreiben Sie nicht die Dispose() Methode, da diese erst sehr viel später aufgerufen werden kann. Ressourcen bleiben zu lange erhalten und können zu unerwartetem und unvorhersehbarem Verhalten der gesamten Anwendung führen.**
 
-### Example
+### Beispiel
 ```cs
 protected override void OnDispose()
 {

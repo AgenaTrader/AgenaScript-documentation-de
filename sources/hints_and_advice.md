@@ -1,13 +1,14 @@
 # Hints & Advice
 
 ## Bar Numbering Within the Chart
-The following example demonstrates the usage of the plot method and the properties of the [*Chart*](#chart) object.
+Das Beispiel zeigt die Verwendung der Plot-Methode und der Eigenschaften des [*Chart*](#chart) Objekts.
 
 ![Bar Numbering Within the Chart](./media/image30.png)
 
-**Note:**
-For demonstration purposes, each time Paint is called up within the "Bar Numbering" section, "New" and "Dispose" will also be called up multiple times.
-From a performance point of view, this solution can be better implemented by using constant variable declarations and calling up "Dispose" within the OnDispose statement.
+**Hinweis:**
+Hinweis:
+Zu Demonstrationszwecken wird innerhalb des Teils "Bar-Nummerierung" für jeden Aufruf von Paint jeweils einige male new und Dispose aufgerufen.
+Aus Performance-Sicht ist die Lösung im Teil "Eigenschaften von ChartControl" mit einer festen Variablendeklaration und den Aufrufen von Dispose in OnTermination wesentlich besser.
 ```cs
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ protected override void OnCalculate()
 public override void OnPaint(Graphics g, Rectangle r, double min, double max)
 {
 if (Bars == null || Chart == null) return;
-// Properties of Chart
+// Eigenschaften von Chart
 string s;
 s = "bounds: "+r.X.ToString()+" "+r.Y.ToString()+" "+r.Height.ToString()+" "+r.Width.ToString();
 g.DrawString(s, font, brush, 10, 50, sf);
@@ -60,7 +61,7 @@ s = "BarsPainted: "+Chart.BarsPainted.ToString() + " FirstBarPainted: "+Chart.Fi
 g.DrawString(s, font, brush, 10, 130, sf);
 s = "BarsVisible: "+Chart.BarsVisible.ToString() + " FirstBarVisible: "+Chart.FirstBarVisible.ToString() + " LastBarVisible: "+Chart.LastBarVisible.ToString();
 g.DrawString(s, font, brush, 10, 150, sf);
-// Bar numbering
+// Bar Nummerierung
 StringFormat _sf = new StringFormat();
 SolidBrush _brush = new SolidBrush(Color.Blue);
 Font _font = new Font("Arial", 8);
@@ -86,9 +87,11 @@ return Math.Max(0,Bars.Count-idx-1-(CalculateOnClosedBar?1:0));
 }
 ```
 
-## Custom Chart Background Image
-The plot method allows you to add a background image to the chart.
-The following example uses an image with the JPG format located in the main directory on the hard drive (C:).
+## Eigenes Chart-Hintergrundbild
+Durch die Plot-Methode ist es sehr leicht möglich, dem Chart ein eigenes Hintergrundbild hinzuzufügen.
+
+Das folgende Beispiel verwendet ein Bild im JPG-Format im Hauptverzeichnis auf der Festplatte (C:).
+
 ```cs
 using System;
 using System.Drawing;
@@ -114,9 +117,10 @@ g.DrawImage(img,r);
 
 ![Custom Chart Background Image](./media/image31.png)
 
-## File Selection in the Properties
-To enable file selection within the properties dialog of an indicator, you will need a type converter.
-The following example displays how a selection of WAV files can be programmed for an alert:
+## File-Auswahl in den Properties
+Um in den Properties (Eigenschaften) eines Indikators eine File-Auswahl zu ermöglichen, benötigt man einen Typ-Converter.
+
+Das folgende Beispiel zeigt, wie eine Auswahl von WAV-Dateien für einen Alarm programmiert werden kann:
 ```cs
 using System;
 using System.IO;
@@ -163,25 +167,25 @@ set { _soundFile = value; }
 }
 ```
 
-## Formatting of Numbers
-### Formatting of Numbers
-**General information on formatting in C\#**
+## Formatieren von Zahlen
+### Formatieren von Zahlen
+**Generelles zur Formatierung in C#**
 
 ```cs
 double d = 123.4567890;
-Print("Without formatting : " + d.ToString()); // 123.456789
-Print("As a currency : " + d.ToString("C")); // 123.46 €
+Print("Ohne Formatierung : " + d.ToString()); // 123.456789
+Print("als Währung : " + d.ToString("C")); // 123.46 €
 Print("Exponential : " + d.ToString("E")); // 1.234568E+002
-Print("As a fixed point : " + d.ToString("F2")); // 123.46
-Print("General : " + d.ToString("G")); // 123.456789
-Print("As a percentage : " + d.ToString("P0")); // 12.346%
-Print("To 2 decimal places : " + d.ToString("N2")); // 123.45
-Print("To 3 decimal places : " + d.ToString("N3")); // 123.457
-Print("To 4 decimal places : " + d.ToString("N4")); // 123.4568
+Print("als Festkommazahl : " + d.ToString("F2")); // 123.46
+Print("Generell : " + d.ToString("G")); // 123.456789
+Print("als Prozentzahl : " + d.ToString("P0")); // 12.346%
+Print("Tmit 2 Nachkommastellen : " + d.ToString("N2")); // 123.45
+Print("mit 3 Nachkommastellen : " + d.ToString("N3")); // 123.457
+Print("mit 4 Nachkommastellen : " + d.ToString("N4")); // 123.4568
 ```
 
-### Useful Functions
-Returns the currency symbol for the current instrument:
+### Nützliche Funktionen
+Liefert das Währungssymbol des aktuellen Instruments:
 
 ```cs
 public string getWaehrungssymbol() {
@@ -197,20 +201,20 @@ return s;
 }
 ```
 
-Converts a number into a currency with a thousands separator and 2 decimal places.
-The block separation per 1000 units can be set in "Culture".
+Wandelt eine Zahl in eine Währung mit Tausendertrennung und 2 Nachkommastellen um
+Das Tausendertrennzeichen ist abhängig von eingestellter "Culture".
 ```cs
 public string getWaehrungOhneSymbol(double d) {
-// Separate 1000s and two decimal points
+// Tausender Trennzeichen (abh. von eingestellter Culture) und 2 Nachkommastellen
 return d.ToString("\#,\#\#0.00");
 }
 ```
 
-Converts a number into a currency with a thousands separator and 2 decimal places and a currency symbol:
+Wandelt eine Zahl in eine Währung mit Tausendertrennung, 2 Nachkommastellen und einem Währungssymbol um.
 
 ```cs
 public string getWaehrungMitSymbol(double d) {
-// Dollar is prefixed, everything else is added afterwards
+// Dollar wird vorangestellt. Alles andere kommt hintendran
 string s=getWaehrungOhneSymbol(d);
 string w=getWaehrungssymbol();
 if (w=="$") s=w+" "+s; else s+=" "+w;
@@ -218,20 +222,20 @@ return s;
 }
 ```
 
-Converts a number into a currency with a thousands separator and 2 decimal places as well as a currency symbol, and fills up to a fixed length with empty spaces.
-The function is great for outputting values into a table.
+Wandelt eine Zahl in eine Währung mit Tausendertrennung, 2 Nachkommastellen und einem Währungssymbol um und füllt bis zu einer festen Länge mit führenden Leerzeichen auf.
+Diese Funktion ist sehr gut für eine tabellarische Ausgabe geeignet.
 
 ```cs
 public string getWaehrungMitSymbol(double d, int Laenge) {
-// Leading spaces until a fixed length has been reached
+// fuehrende Leerzeichen bis feste Laenge erreicht ist
 string s=getWaehrungMitSymbol(d);
 for (int i=s.Length; i<Laenge; i++) s=" "+s;
 return s;
 }
 ```
 
-Converts a number into a percentage. Nothing is calculated, only formatted.
-Leading plus sign, a decimal place and a percent sign.
+Wandelt eine Zahl in eine Prozentangabe um. Es wird nicht gerechnet, nur formatiert.
+Führendes Pluszeichen, eine Nachkommastelle und Prozentzeichen
 
 ```cs
 public string getPercent(double d) {
@@ -241,22 +245,22 @@ return s+d.ToString("0.0")+"%";
 }
 ```
 
-Formats the market price depending on the number of decimal places to which the currency is notated.
-This includes a thousands separator and fixed length, meaning that zeros are filled on the right hand side.
-Because Culture Info is being used, you must integrate the NameSpace **System.Globalization**.
+Formatiert einen Kurswert in Abhängigkeit von der Anzahl der Nachkommastellen, in der der Wert notiert wird.
+Mit Tausendertrennzeichen und fester Länge, d.h. es wird auch rechts ggf. mit Nullen aufgefüllt.
+Wegen der Verwendung von CultureInfo muß der NameSpace  **System.Globalization**  eingebunden sein.
 ```cs
 public string format(double d)
 {
 int tickLength = 0;
-// ticksize.ToString() is for example 6J = "1E-06" and length is then 5
-// and not 8 as it should be with "0.000001")
+// ticksize.ToString() ist z.B. bei 6J = "1E-06" und Length ist dann 5
+// und nicht richtigerweise 8 wie bei "0,000001")
 if (TickSize < 1) tickLength = TickSize.ToString("0.\#\#\#\#\#\#\#\#\#\#\#").Length - 2;
 string f = "{0:n"+tickLength.ToString()+"}";
 return string.Format(CultureInfo.CurrentCulture, f, d);
 }
 ```
 
-### Example
+### Beispiele
 ```cs
 double profit = 1234.567890;
 Print("getCurrencyWithoutSymbol ": + getWaehrungOhneSymbol(Gewinn)); // 1234.57
@@ -268,17 +272,18 @@ double price = 123.4567;
 Print("getPrice :" + getKurs(Kurs)); // 123.46
 ```
 
-## Index Conversion
-There are two types of indexing in AgenaTrader.
+## Index-Convertierung
+Es gibt 2 Arten der Indizierung in AgenaTrader.
 
-1.  The bars are numbered from youngest to oldest.
-This type is used in the OnCalculate() method.
-The last bar has an index of 0, while the oldest bar has the index Bars.Count-1.
+1. Die Bars werden vom jüngsten zum ältesten Bar nummeriert.
+Diese Art wird in der OnBarUpdate()-Methode verwenden.
+Der jeweils letzte Bar bekommt den Index 0, der älteste hat den Index Bars.Count-1.
 
-2.  The bars are numbered from oldest to youngest.
-This type is most commonly used in the OnPaint() method in "for" loops.
-The oldest Bbar receives an index of 0, while the youngest bar has the index Bars.Count-1.
-The following function can be used to recalculate the index types:
+2. Die Bars werden vom ältesten zum jüngsten Bar nummeriert.
+Diese Art wird häufig in der OnPaint()-Methode in for-Schleifen verwendet.
+Der älteste Bar bekommt den Index 0, der jüngste Bar hat den Index Bars.Count-1.
+
+Die folgende Funktion kann zur Umrechnung der Index-Arten verwendet werden:
 ```cs
 private int Convert(int idx)
 {
@@ -286,8 +291,9 @@ return Math.Max(0,Bars.Count-idx-1-(CalculateOnClosedBar?1:0));
 }
 ```
 
-## Overwriting Indicator Names
-The name of an indicator (or a strategy) is displayed within the properties dialog and at the top edge of the chart. Use the ToString() method and DisplayName property to overwrite it.
+## Indikatornamen überschreiben
+Der Namen des Indikators (bzw. einer Strategie), der im Eigenschaftendialog und am oberen Rand des Charts angezeigt wird. Verwenden Sie die ToString() Methode und die Eigenschaft DisplayName, um sie zu überschreiben.
+
 ```cs
 public override string ToString()
 {
@@ -305,12 +311,13 @@ public override string DisplayName
      }
 ```
 
-**Important tip:**
-Always use both override methods in your scripts to assure that your special name is used on all AgenaTrader forms.
+**Hinweis:**
+Verwenden Sie immer beide Methoden in Ihren Skripts, um sicherzustellen, dass Ihr spezieller Name auf allen AgenaTrader-Formularen verwendet wird.
 
-## Rectangle with Rounded Corners
-By using the graphics methods, you can create interesting forms and place them onto the chart.
-One example of this is the RoundedRectangle class, which is a rectangle with rounded corners.
+## Rechteck mit abgerundeten Ecken
+Durch die Verwendung der Graphics Methoden können sehr interessante Formen in einen Chart gezeichnet werden.
+Ein Beispiel hierfür ist die Klasse RoundedRectangle, die Rechtecke mit abgerundeten Ecken zeichnet.
+Das Ergebnis sieht sehr viel "moderner" aus, als ein klassisches Rectangle.
 
 ![Rectangle with Rounded Corners](./media/image32.png)
 
@@ -340,11 +347,11 @@ protected override void OnCalculate() {}
 public override void OnPaint(Graphics g, Rectangle r, double min, double max)
 {
 GraphicsPath path;
-// draws a rectangle with rounded corners
+// zeichnet ein Rechteck mit abgerundeten Ecken
 path = RoundedRectangle.Create(30, 50, 100, 100,8);
 g.DrawPath(Pens.Black, path);
-// draws a filled rectangle with a radius of 20
-// only round the upper left and lower right corner
+// zeichnet ein ausgefülltes Rechteck mit Radius 20
+ // abgerundet sind nur die linke obere und rechte untere Ecke
 path = RoundedRectangle.Create(160, 50, 100, 100, 20,
 RoundedRectangle.RectangleCorners.TopLeft|RoundedRectangle.RectangleCorners.BottomRight);
 g.FillPath(Brushes.Orange, path);

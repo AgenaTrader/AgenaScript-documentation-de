@@ -2,441 +2,445 @@
 #DrawingObjects
 
 ## AddChartAndrewsPitchfork()
-### Description
-This drawing object draws an Andrew’s Pitchfork.
+### Beschreibung
+AddChartAndrewsPitchfork() zeichnet ein Andrew's Pitchfork.
 
-Information concerning its usage:
+Informationen zur Verwendung:
 -   [*vtad.de*](http://vtadwiki.vtad.de/index.php/Andrews\_Pitchfork)
 -   [*hvolumen-analyse.de*](http://www.volumen-analyse.de/blog/?p=917)
 -   [*Godmode-Trader.de*](http://www.godmode-trader.de/wissen/index.php/Chartlehrgang:Andrews\_Pitchfork)
 
-### Usage
+### Verwendung
 ```cs
 AddChartAndrewsPitchfork(string name, bool autoScale, int start1BarsBack, double start1Y, int start2BarsBack, double start2Y, int start3BarsBack, double start3Y, Color color, DashStyle dashStyle, int width)
 AddChartAndrewsPitchfork(string name, bool autoScale, DateTime start1Time, double start1Y, DateTime start2Time, double start2Y, DateTime start3Time, double start3Y, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
+### Rückgabewert
 A drawing object of the type IAndrewsPitchfork (interface)
 
 ### Parameter
 |                |                                                                                         |
 |----------------|-----------------------------------------------------------------------------------------|
-| name           | A clearly identifiable name for the drawing object                                      |
-| autoScale      | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| start1BarsBack | Number of bars ago for start point 1 (x-axis)                                           |
-| start1Time     | Date/time for start point 1 (x-axis)                                                    |
-| start1Y        | y-value for start point 1                                                               |
-| start2BarsBack | Number of bars ago for start point 2 (x-axis)                                           |
-| start2Time     | Date/time for start point 2 (x-axis)                                                    |
-| start2Y        | y-value for start point 2                                                               |
-| start3BarsBack | Number of bars ago for start point 3 (x-axis)                                           |
-| start3Time     | Date/time for start point 3 (x-axis)                                                    |
-| start3Y        | y-value for start point 3                                                               |
-| color          | Color of the object                                                                     |
-| dashStyle      | LevelLine styles:                                                                            |
+| name           | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale      | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist.    |
+| start1BarsBack | Anzahl der rückwärtigen Bars für Ankerpunkt1 (x-Achse)                                  |
+| start1Time     | Datum/Zeit für Ankerpunkt1 (x-Achse)                                                    |
+| start1Y        | y-Wert für Ankerpunkt1                                                                  |
+| start2BarsBack | Anzahl der rückwärtigen Bars für Ankerpunkt2 (x-Achse)                                  |
+| start2Time     | Datum/Zeit für Ankerpunkt2(x-Achse)                                                     |
+| start2Y        | y-Wert für Ankerpunkt2                                                                  |
+| start3BarsBack | Anzahl der rückwärtigen Bars für Ankerpunkt3 (x-Achse)                                  |
+| start3Time     | Datum/Zeit für Ankerpunk3 (x-Achse)                                                     |
+| start3Y        | -Wert für Ankerpunkt3                                                                   |
+| color          | Farbe des Zeichenobjekts                                                                |
+| dashStyle      | Linienart:                                                                              |
 |                |  DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot DashStyle.Solid |
-|                | You need to integrate:                                                                  |
-|                | using System.Drawing.Drawing2D;.                                                        |
-| width          | LevelLine strength in points                                                                 |
+|                | Es muß:                                                                                 |
+|                | using System.Drawing.Drawing2D; mit eingebunden sein.                                   |
+| width          | Linienstärke in Punkten                                                                 |
 
-### Example
+### Beispiel
 ```cs
-// Draw the Andrew’s Pitchfork (“MyAPF”)
+// zeichnet ein Andrew's Pitchfork ("Mistgabel")
 AddChartAndrewsPitchfork("MyAPF", true, 4, Low[4], 3, High[3], 1, Low[1], Color.Black, DashStyle.Solid, 2);
 ```
 
 ## AddChartArc()
-### Description
-AddChartArc() draws a circular arc.
+### Beschreibung
+AddChartArc() zeichnet einen Kreisbogen.
 
-### Usage
+### Verwendung
 ```cs
 AddChartArc(string name, int barsBackStart, double startY, int barsBackEnd, double endY, Color color)
 AddChartArc(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY, Color color, DashStyle dashStyle, int width)
 AddChartArc(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
-A drawing object of the type IArc (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IArc (Interface)
 
 ### Parameter
 |              |                                                                                         |
 |--------------|-----------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart| Number of bars ago for the starting point                                               |
-| startTime    | Date/time for the starting point                                                        |
-| startY       | y-value for the starting point                                                          |
-| barsBackEnd  | Number of bars ago for the end point                                                    |
-| endTime      | Date/time for the end point                                                             |
-| endY         | y-value for the end point                                                               |
-| color        | Color of the drawing object                                                             |
-| dashStyle    | LevelLine style                                                                              |                                                                                           
+| name         |Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                            |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu               |
+| barsBackStart| Anzahl der rückwärtigen Bars für den Startpunkt                                         |
+| startTime    | Datum/Uhrzeit für den Startpunkt                                                        |
+| startY       | y-Wert für den Startpunkt                                                               |
+| barsBackEnd  | Anzahl der rückwärtigen Bars für den Endpunkt                                           |
+| endTime      | Datum/Uhrzeit für den Endpunkt                                                          |
+| endY         | y-Wert für den Endpunkt                                                                 |
+| color        | Farbe des Zeichenobjekts                                                                |
+| dashStyle    | Linienart                                                                               |                                                                                           
 |              |  DashStyle.Dash                                                                         |  
 |              |  DashStyle.DashDot                                                                      |  
 |              |  DashStyle.DashDotDot                                                                   |  
 |              |  DashStyle.Dot                                                                          |  
 |              |  DashStyle.Solid                                                                        |  
 |              |                                                                                         |  
-|              |  You may have to integrate:                                                             |  
-|              |  using System.Drawing.Drawing2D;                                                        |
-| width        | LevelLine strength in points                                                                 |
+|              |  ggf. muß                                                                               |  
+|              |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| width        | Linienstärke in Punkten                                                                 |
 
-### Example
+### Beispiel
 ```cs
-// AddChart a blue arc
+// zeichnet einen blauen Kreisbogen
 AddChartArc("MyArc", true, 10, 10, 0, 20, Color.Blue, DashStyle.Solid, 3);
 ```
 
 ## AddChartArrowDown()
-### Description
-AddChartArrowDown() draws an arrow pointing downwards:
+### Beschreibung
+AddChartArrowDown()  zeichnet einen nach unten gerichteten Pfeil:
 
 ![AddChartArrowDown()](./media/image21.png)
 
-See [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+ DrawArrowUp(), DrawDiamond(), DrawDot(), DrawSquare(), DrawTriangleUp(),  [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
 
-### Usage
+### Verwendung
 ```cs   
 AddChartArrowDown(string name, bool autoScale, int barsAgo, double y, Color color)
 AddChartArrowDown(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
+### Rückgabewert
 A drawing object of the type IArrowDown (interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Sets the preceding bar on which the arrow should be drawn (0 = current bar)             |
-| time      | Date/time of the bar on which the arrow should be drawn                                 |
-| y         | y-value for the arrow                                                                   |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen         |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar der Pfeil gezeichnet werden soll 
+(0=aktueller Bar)|
+| time      | Datum/Uhrzeit des Bars, an dem der Pfeil gezeichnet werden soll                         |
+| y         |  y-Wert für den Pfeil                                                                  |
+| color     | Farbe des Zeichenobjekts                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws a red arrow 3 ticks above the high for the current bar
+// zeichnet am akt. Bar einen roten Pfeil 3 Ticks über dem Hoch
 AddChartArrowDown("MyArrow", true, 0, High[0] + 3*TickSize, Color.Red);
-// Draws a red arrow on a three-bar reversal pattern
+// Zeichnet einen roten Pfeil auf einem Dreistufen-Umkehrmuster
 if(High[2] > High[3] && High[1] > High[2] && Close[0] < Open[0])
 AddChartArrowDown(ProcessingBarIndex.ToString(), true, 0, High[0] + 3*TickSize, Color.Red);
 ```
 
 ## AddChartArrowLine()
-### Description
-AddChartArrowLine() draws an arrow:
+### Beschreibung
+AddChartArrowLine() zeichnet einen Pfeil.
 
 ![AddChartArrowLine()](./media/image22.png)
 
-### Usage
+### Verwendung
 ```cs
  AddChartArrowLine (string name,  int  barsBackStart,  double  startY,  int  barsBackEnd,  double  endY, Color color)
  AddChartArrowLine (string name,  bool  autoScale,  int  barsBackStart,  double  startY,  int  barsBackEnd,  double  endY, Color color, DashStyle dashStyle,  int  width)
  AddChartArrowLine (string name,  bool  autoScale, DateTime startTime,  double  startY, DateTime endTime,  double  endY, Color color, DashStyle dashStyle,  int  width)
 ```
 
-### Return Value
-A drawing object of the type IArrowLine (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IArrowLine (Interface)
 
 ### Parameter
 |              |                                                                                         |
 |--------------|-----------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart| Sets the preceding bar at which the arrow should start (0 = current bar)                |
-| startTime    | Date/time of the bar at which the arrow should start                                    |
-| startY       | y-value for the starting point of the arrow                                             |
-| barsBackEnd  | Sets the preceding bar at which the arrow should end (0 = current bar)                  |
-| endTime      | Date/time at which the arrow should end                                                 |
-| endY         | y-value at which the arrow should end                                                   |
-| color        | Color of the drawing object                                                             |
-| dashStyle    | LevelLine style                                                                              |                                                                                           
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar der Pfeil beginnen soll (0=aktueller Bar)       |
+| startTime    | Datum/Uhrzeit des Bars, an dem der Pfeil beginnen soll                                  |
+| startY       | y-Wert, an dem der Pfeil beginnen soll                                                  |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar der Pfeil enden soll (0=aktueller Bar)          |
+| endTime      | Datum/Uhrzeit des Bars, an dem der Pfeil enden                                          |
+| endY         | y-Wert, an dem der Pfeil enden soll                                                     |
+| color        | Farbe des Zeichenobjekts                                                                |
+| dashStyle    | Linienart                                                                               |                                                                                           
 |              |  DashStyle.Dash                                                                         |  
 |              |  DashStyle.DashDot                                                                      |  
 |              |  DashStyle.DashDotDot                                                                   |  
 |              |  DashStyle.Dot                                                                          |  
 |              |  DashStyle.Solid                                                                        |  
 |              |                                                                                         |  
-|              |  You may have to integrate:                                                             |  
-|              |  using System.Drawing.Drawing2D;                                                        |
-| width        | LevelLine strength in points                                                                 |
+|              |  ggf. muß                                                                               |  
+|              |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| width        | Linienstärke in Punkten                                                                 |
 
-### Example
+### Beispiel
 ```cs
-// Draws a black arrow
+// zeichnet einen schwarzen Pfeil
 AddChartArrowLine("MyArrow", false, 10, 10, 0, 5, Color.Black, DashStyle.Solid, 4);
 ```
 
 ## AddChartArrowUp()
 ### Description
-AddChartArowUp() draws an arrow pointing upwards:
+AddChartArowUp() zeichnet einen nach oben gerichteten Pfeil:
 
 ![AddChartArrowUp()](./media/image23.png)
 
-See [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
 
-### Usage
+### Verwendung
 ```cs
 AddChartArrowUp(string name, bool autoScale, int barsAgo, double y, Color color)
 AddChartArrowUp(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
+### Rückgabewert
 A drawing object of the type IArrowUp (interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Sets the preceding bar on which the arrow should be drawn (0 = current bar)             |
-| time      | Date/time at which the arrow should be drawn                                            |
-| y         | y-value for the arrow                                                                   |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen         |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar der Pfeil gezeichnet werden soll 
+(0=aktueller Bar)|
+| time      | Datum/Uhrzeit des Bars, an dem der Pfeil gezeichnet werden soll                         |
+| y         |  y-Wert für den Pfeil                                                                  |
+| color     | Farbe des Zeichenobjekts                                                                |
 
 ### Example
 ```cs
-// Draws a green arrow for the current bar 3 ticks below the low
+// zeichnet einen grünen Pfeil am akt. Bar 3 Ticks unter dem Tief
 AddChartArrowUp("MyArrow", true, 0, Low[0] - 3*TickSize, Color.Green);
 ```
 
 ## AddChartDiamond()
 ### Description
-AddChartDiamond() draws a diamond:
+AddChartDiamond() zeichnet einen Diamanten:
 
 ![AddChartDiamond()](./media/image24.png)
 
-See [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
 
-### Usage
+### Verwendung
 ```cs
 AddChartDiamond(string name, bool autoScale, int barsAgo, double y, Color color)
 AddChartDiamond(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
-A drawing object of the type IDiamond (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IDiamond (Interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Defines the preceding bar on which the diamond should be drawn                          |
-| time      | Date/time of the bar on which the diamond should be drawn                               |
-| y         | y-value on which the diamond should be drawn                                            |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen         |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar der Pfeil gezeichnet werden soll 
+(0=aktueller Bar)|
+| time      | Datum/Uhrzeit des Bars, an dem der Pfeil gezeichnet werden soll                         |
+| y         |  y-Wert für den Pfeil                                                                   |
+| color     | Farbe des Zeichenobjekts                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws a light blue diamond for the current bar 5 ticks below the low
+// zeichnet einen hellblauen Diamanten am akt. Bar 5 Ticks unter dem Tief
 AddChartDiamond("MyDiamond", true, 0, Low[0] - 5*TickSize, Color.SteelBlue);
 ```
 
 ## AddChartDot()
-### Description
-AddChartDot() draws a dot:
+### Beschreibung
+AddChartDot() zeichnet einen Punkt:
 
 ![AddChartDot()](./media/image25.png)
 
-See [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
 
-### Usage
+### Verwendung
 ```cs
 AddChartDot(string name, bool autoScale, int barsAgo, double y, Color color)
 AddChartDot(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
-A drawing object of the type IDot (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IDot (Interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Defines the preceding bar on which the dot should be drawn (0 = current bar)            |
-| time      | The date/time at which the dot should be drawn                                          |
-| y         | y-value at which the dot should be drawn                                                |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen         |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar der Pfeil gezeichnet werden soll 
+(0=aktueller Bar)|
+| time      | Datum/Uhrzeit des Bars, an dem der Pfeil gezeichnet werden soll                         |
+| y         |  y-Wert für den Pfeil                                                                   |
+| color     | Farbe des Zeichenobjekts                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws an orange dot for the current bar 5 ticks above the high
+// zeichnet einen orangen Punkt am akt. Bar 5 Ticks über dem Hoch
 AddChartDot("MyDot", true, 0, High[0] + 5*TickSize, Color.Orange);
 ```
 
 ## AddChartEllipse()
-### Description
-AddChartEllipse() draws an ellipse.
+### Beschreibung
+AddChartEllipse() zeichnet eine Ellipse.
 
-### Usage
+### Verwendung
 ```cs
 AddChartEllipse(string name, int barsBackStart, double startY, int barsBackEnd, double endY, Color color)
 AddChartEllipse(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY, Color color, Color areaColor, int areaOpacity)
 AddChartEllipse(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY, Color color, Color areaColor, int areaOpacity)
 ```
-### Return Value
-A drawing object of the type IEllipse (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IEllipse (Interface)
 
 ### Parameter
 |              |                                                                                         |
 |--------------|-----------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart| Sets the preceding bar at which the ellipse should start                                |
-| startTime    | Date/time at which the ellipse should start                                             |
-| startY       | y-value for the start of the ellipse                                                    |
-| barsBackEnd  | Sets the preceding bar at which the ellipse should end (0 = current bar)                |
-| endTime      | Date/time at which the ellipse should end                                               |
-| endY         | y-value for the end of the ellipse                                                      |
-| color        | Border color of the drawing object                                                      |
-| areaColor    | Fill color of the drawing object                                                        |
-| areaOpacity  | Transparency of the fill color value between 0 and 255 (0 = completely transparent , 255 = completely opaque) |
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar die Ellipse beginnen soll (0=aktueller Bar)     |
+| startTime    | Datum/Uhrzeit des Bars, an dem die Ellipse beginnen soll                                |
+| startY       | Wert, an dem die Ellipse beginnen soll                                                  |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar die Ellipse enden soll (0=aktueller Bar)        |
+| endTime      | Datum/Uhrzeit des Bars, an dem die Ellipse enden soll                                   |
+| endY         | y-Wert, an dem die Ellipse enden soll                                                      |
+| color        | Randfarbe des Zeichenobjekts                                                            |
+| areaColor    | Füllfarbe des Zeichenobjekts                                                            |
+| areaOpacity  | Transparenz der Füllfarbe. Wert zwischen 0 und 255 (0 = komplett transparent; 255 = keine Transparenz) |
 
-### Example
+### Beispiel
 ```cs
-// Draws a yellow ellipse from the current bar to 5 bars ago
+// zeichnet eine gelbe Ellipse vom akt. Bar bis 5 Bars zurück
 AddChartEllipse("MyEllipse", true, 5, High[5], 0, Close[0], Color.Yellow, Color.Yellow, 1);
 ```
 
 ## AddChartExtendedLine()
-### Description
-AddChartExtendedLine() draws a line with an infinite end point.
+### Beschreibung
+AddChartExtendedLine() zeichnet eine Linie mit unendlichem Endpunkt.
 
-See [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartRay()*](#drawray).
+Siehe auch [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartRay()*](#drawray).
 
-### Usage
+### Verwendung
 ```cs
 AddChartExtendedLine(string name, int barsBackStart, double startY, int barsBackEnd, double endY, Color color)
 AddChartExtendedLine(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY, Color color, DashStyle dashStyle, int width)
 AddChartExtendedLine(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
-A drawing object of the type IExtendedLine (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IExtendedLine (Interface)
 
 ### Parameter
 |              |                                                                                                         |
 |--------------|---------------------------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety                 |
-| barsBackStart| Number of bars ago for the start point                                                                  |
-| startTime    | Date/time for the start point                                                                           |
-| startY       | y-value for the start point                                                                             |
-| barsBackEnd  | Number of bars ago for the second point (a true end point does not exist; the line extends to infinity) |
-| endTime      | Date/time for the end point                                                                             |
-| endY         | y-value for the end point                                                                               |
-| color        | Color of the drawing object                                                                             |
-| dashStyle    | LevelLine style                                                                               |                                                                                           
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist                     |
+| barsBackStart| Anzahl der rückwärtigen Bars für den Startpunkt                                                         |
+| startTime    | Datum/Uhrzeit für den Startpunkt                                                                        |
+| startY       | y-Wert für den Startpunkt                                                                               |
+| barsBackEnd  | Anzahl der rückwärtigen Bars für den zweiten Punkt (Einen Endpunkt gibt es bei diesem Zeichenobjekt nicht |
+| endTime      | Datum/Uhrzeit für den Endpunkt                                                                          |
+| endY         | y-Wert für den Endpunkt                                                                                 |
+| color        | Farbe des Zeichenobjekts                                                                                |
+| dashStyle    | Linienart                                                                               |                                                                                           
 |              |  DashStyle.Dash                                                                                         |  
 |              |  DashStyle.DashDot                                                                                      |  
 |              |  DashStyle.DashDotDot                                                                                   |  
 |              |  DashStyle.Dot                                                                                          |  
 |              |  DashStyle.Solid                                                                                        |  
 |              |                                                                                                         |  
-|              |  You may have to integrate:                                                                             |  
-|              |  using System.Drawing.Drawing2D;                                                                        |
-| width        | LevelLine strength in points                                                                                 |
+|              |  ggf. muß                                                                                               |  
+|              |  using System.Drawing.Drawing2D;  mit eingebunden werden.                                               |
+| width        | Linienstärke in Punkten                                                                                 |
 
-### Example
+### Beispiel
 ```cs
-// Draws a line without an end point
+// zeichnet eine Linie ohne Endpunkt
 AddChartExtendedLine("MyExt.LevelLine", false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
 ```
 
 ## AddChartFibonacciCircle()
-### Description
-AddChartFibonacciCircle() draws a Fibonacci circle.
+### Beschreibung
+AddChartFibonacciCircle() zeichnet Fibonacci-Kreise.
 
-### Usage
+### Verwendung
 ```cs
 AddChartFibonacciCircle(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY)
 AddChartFibonacciCircle(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY)
 ```
 
-### Return Value
-A drawing object of the type IFibonacciCircle (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IFibonacciCircle (Interface)
 
 ### Parameter
 |              |                                                                                         |
 |--------------|-----------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart| Defines the starting point in terms of bars ago                                         |
-| startTime    | Date/time of the bar for the starting point                                             |
-| startY       | y-value for the start of the Fibonacci circle                                           |
-| barsBackEnd  | Defines the end point in terms of bars ago                                              |
-| endTime      | Date/time for the end of the Fibonacci circle                                           |
-| endY         | y-value for the end point of the Fibonacci circle                                       |
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar die Fibonacci-Kreise beginnen sollen.           |
+| startTime    | Datum/Uhrzeit des Bars, an dem die Fibonacci-Kreise beginnen sollen                     |
+| startY       | y-Wert, an dem die Fibonacci-Kreise beginnen sollen                                     |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar die Fibonacci-Kreise enden sollen (0=aktueller Bar)                                             |
+| endTime      | Datum/Uhrzeit des Bars, an dem die Fibonacci-Kreise enden sollen                        |
+| endY         | y-Wert, an dem die Fibonacci-Kreise enden sollen                                       |
 
-### Example
+### Beispiel
 ```cs
-//Draws a Fibonacci circle
+// zeichnet Fibonacci-Kreise
 AddChartFibonacciCircle("MyFibCircle", true, 5, Low[5], 0, High[0]);
 ```
 
 ## AddChartFibonacciExtensions()
-### Description
-AddChartFibonacciExtensions() draws Fibonacci extensions.
+### Beschreibung
+AddChartFibonacciExtensions() zeichnet Fibonacci Extensions
 
-### Usage
+### Verwendung
 ```cs
 AddChartFibonacciExtensions(string name, bool autoScale, int start1BarsAgo, double start1Y, int start2BarsAgo, double start2Y, int start3BarsAgo, double start3Y)
 AddChartFibonacciExtensions(string name, bool autoScale, DateTime start1Time, double start1Y, DateTime start2Time, double start2Y, DateTime start3Time, double start3Y)
 ```
 
-### Return Value
-A drawing object of the type IFibonacciExtensions (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IFibonacciExtensions (Interface)
 
 ### Parameter
 |                |                                                                                         |
 |----------------|-----------------------------------------------------------------------------------------|
-| name           | A clearly identifiable name for the drawing object                                      |
-| autoScale      | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| start1BarsAgo  | Number of bars ago for start point 1                                                    |
-| start1Time     | Date/time for start point 1                                                             |
-| start1Y        | y-value for start point 1                                                               |
-| start2BarsAgo  | Number of bars ago for start point 2                                                    |
-| start2Time     | Date/time for start point 2                                                             |
-| start2Y        | y-value for the start point 2                                                           |
-| start3BarsAgo  | Number of bars ago for start point 3                                                    |
-| start3Time     | Date/time for start point 3                                                             |
-| start3Y        | y-value for start point 3                                                               |
+| name           | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale      | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist.    |
+| start1BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt1 (x-Achse)                                  |
+| start1Time     | Datum/Zeit für Ankerpunkt1 (x-Achse)                                                    |
+| start1Y        | y-Wert für Ankerpunkt1                                                                  |
+| start2BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt2 (x-Achse)                                  |
+| start2Time     | Datum/Zeit für Ankerpunkt2(x-Achse)                                                     |
+| start2Y        | y-Wert für Ankerpunkt2                                                                  |
+| start3BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt3 (x-Achse)                                  |
+| start3Time     | Datum/Zeit für Ankerpunk3 (x-Achse)                                                     |
+| start3Y        | y-Wert für Ankerpunkt3                                                                  |
 
-### Example
+### Beispiel
 ```cs
-// Draws Fibonacci extensions
+// zeichnet FibonacciExtensions
 AddChartFibonacciExtensions("MyFibExt", true, 4, Low[4], 3, High[3], 1, Low[1]);
 ```
 ## AddChartFibonacciProjections()
-### Description
-Draw Fibonacci Projections () sketches Fibonacci Projections.
+### Beschreibung
+Draw Fibonacci Projections () zeichnet Fibonacci Projections.
 
-### Usage
+### Verwendung
 ```cs
 AddChartFibonacciProjections(string name, bool autoScale, DateTime start1Time, double start1Y,DateTime start2Time, double start2Y, DateTime start3Time, double start3Y)
 ```
 
-### Return Value
-A drawing object of the type IFibonacciProjections (Interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IFibonacciProjections (Interface)
 
 ### Parameter
 |                |                                                                                         |
 |----------------|-----------------------------------------------------------------------------------------|
-| name           | A clearly identifiable name for the drawing object                                      |
-| autoScale      | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| start1Time     | Date/time for start point 1                                                             |
-| start1Y        | y-value for start point 1                                                               |
-| start2Time     | Date/time for start point 2                                                             |
-| start2Y        | y-value for the start point 2                                                           |
-| start3Time     | Date/time for start point 3                                                             |
-| start3Y        | y-value for start point 3                                                               |
+| name           | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale      | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist.    |
+| start1Time     | Datum/Zeit für Ankerpunkt1 (x-Achse)                                                    |
+| start1Y        | y-Wert für Ankerpunkt1                                                                  |
+| start2Time     | Datum/Zeit für Ankerpunkt2(x-Achse)                                                     |
+| start2Y        | y-Wert für Ankerpunkt2                                                                  |
+| start3Time     | Datum/Zeit für Ankerpunk3 (x-Achse)                                                     |
+| start3Y        | y-Wert für Ankerpunkt3                                                                  |
 
-### Example
+### Beispiel
 ```cs
 // zeichnet FibonacciProjections
 AddChartFibonacciProjections("MyFibPro", true, Low[4], 3, High[3], 1, Low[1], 2);
@@ -444,269 +448,268 @@ AddChartFibonacciProjections("MyFibPro", true, Low[4], 3, High[3], 1, Low[1], 2)
 ```
 
 ## AddChartFibonacciRetracements()
-### Description
-AddChartFibonacciRetracements() draws Fibonacci retracements.
+### Beschreibung
+AddChartFibonacciRetracements() dzeichnet Fibonacci Retracements.
 
-### Usage
+### Verwendung
 ```cs
 AddChartFibonacciRetracements(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY)
 AddChartFibonacciRetracements(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY)
 ```
 
-### Return Value
+### Rückgabewert
 A drawing object of the type IFibonacciRetracements (interface)
 
 ### Parameter
 |              |                                                                                         |
 |--------------|-----------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart| Defines how many bars ago the starting point of the Fibonacci retracement is located    |
-| startTime    | Date/time of the bar at which the Fibonacci retracement should begin                    |
-| startY       | y-value at which the Fibonacci retracement will begin                                   |
-| barsBackEnd  | Defines how many bars ago the end point of the Fibonacci retracement is located         |
-| endTime      | Date/time at which the Fibonacci retracement should end                                 |
-| endY         | y-value at which the Fibonacci retracement should end                                   |
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar die Fibonacci Retracements beginnen sollen.     |
+| startTime    | Datum/Uhrzeit des Bars, an dem die Fibonacci Retracements beginnen sollen               |
+| startY       | y-Wert, an dem die Fibonacci Retracements beginnen sollen                               |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar die Fibonacci Retracements enden sollen (0=aktueller Bar)                                             |
+| endTime      | Datum/Uhrzeit des Bars, an dem die Fibonacci Retracements enden sollen                 |
+| endY         | y-Wert, an dem die Fibonacci Retracements enden sollen                                 |
 
-### Example
+### Beispiel
 ```cs
-// Draws Fibonnaci retracements
+// zeichnet Fibonnaci Retracements
 AddChartFibonacciRetracements("MyFibRet", true, 10, Low[10], 0, High[0]);
 ```
 
 ## AddChartFibonacciTimeExtensions()
-### Description
-AddChartFibonacciTimeExtensions() draws Fibonacci time extensions.
+### Beschreibung
+AddChartFibonacciTimeExtensions() zeichnet Fibonacci Retracements.
 
-### Usage
+### Verwendung
 ```cs
 AddChartFibonacciTimeExtensions(string name, int barsBackStart, double startY, int barsBackEnd, double endY)
 AddChartFibonacciTimeExtensions(string name, DateTime startTime, double startY, DateTime endTime, double endY)
 ```
 
-### Return Value
-A drawing object of the type IFibonacciTimeExtensions (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IFibonacciTimeExtensions (Interface)
 
 ### Parameter
-|              |                                                       |
-|--------------|-------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object    |
-| barsBackStart| Defines how many bars ago the extensions should start |
-| startTime    | Date/time at which the extensions should start        |
-| startY       | y-value at which the extensions should start          |
-| barsBackEnd  | Defines how many bars ago the extensions should end   |
-| endTime      | Date/time at which the extensions should end          |
-| endY         | y-value at which the extensions should end            |
+|              |                                                                                         |
+|--------------|-----------------------------------------------------------------------------------------|
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar die Fibonacci TimeExtensions beginnen sollen.   |
+| startTime    | Datum/Uhrzeit des Bars, an dem die Fibonacci TimeExtensions beginnen sollen             |
+| startY       | y-Wert, an dem die Fibonacci-Kreise beginnen sollen                                     |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar die Fibonacci TimeExtensions enden sollen (0=aktueller Bar)                                             |
+| endTime      | Datum/Uhrzeit des Bars, an dem die Fibonacci TimeExtensions enden sollen                |
+| endY         | y-Wert, an dem die Fibonacci TimeExtensions enden sollen                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws Fibonacci time extensions
+// zeichnet Fibonacci TimeExtensions
 AddChartFibonacciTimeExtensions("MyFibTimeExt", 10, Low[10], 0, High[0]);
 ```
 
 ## AddChartGannFan()
-### Description
-AddChartGannFan() draws a Gann fan.
+### Beschreibung
+AddChartGannFan() zeichnet Fibonacci Retracements.
 
-### Usage
+### Verwendung
 ```cs
 AddChartGannFan(string name, bool autoScale, int barsAgo, double y)
 AddChartGannFan(string name, bool autoScale, DateTime time, double y)
 ```
 
-### Return Value
-A drawing object of the type IGannFan (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IGannFan (Interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Sets the preceding bar on which the Gann fan should be drawn                            |
-| time      | Date/time at which the Gann fan should start                                            |
-| y         | y-value for the Gann fan                                                                |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar der GannFan gezeichnet werden soll              |
+| time      | Datum/Uhrzeit des Bars, an dem der GannFan gezeichnet werden soll                       |
+| y         | y-Wert, an dem der GannFan gezeichnet werden soll                                       |
 
-### Example
+### Beispiel
 ```cs
-// Shows a Gann fan at the low of the bar from 10 periods ago
+// zeichnet einen Gann Fan am Tief des Bars von vor 10 Perioden
 AddChartGannFan("MyGannFan", true, 10, Low[10]);
 ```
 
 ## AddChartLine()
-### Description
-AddChartLine() draws a (trend) line.
+### Beschreibung
+AddChartLine()  zeichnet eine (Trend-) Linie.
 
-See [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+Siehe auch  [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
 
-### Usage
+### Verwendung
 ```cs
 AddChartLine(string name, int barsBackStart, double startY, int barsBackEnd, double endY, Color color)
 AddChartLine(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY, Color color, DashStyle dashStyle, int width)
 AddChartLine(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
-A drawing object of the type ITrendLine (interface).
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITrendLine (Interface)
 
 ### Parameter
 |              |                                                                                         |
 |--------------|-----------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                      |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart| Number of bars ago for the starting point                                               |
-| startTime    | Date/time for the starting point                                                        |
-| startY       | y-value for the starting point                                                          |
-| barsBackEnd  | Number of bars ago for the end point                                                    |
-| endTime      | Date/time for the end point                                                             |
-| endY         | y-value for the end point                                                               |
-| color        | Color of the drawing object                                                             |
-| dashStyle    | LevelLine style                                                                              |                                                                                           
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsBackStart| Anzahl der rückwärtigen Bars für den Startpunkt                                         |
+| startTime    | Datum/Uhrzeit für den Startpunkt                                                        |
+| startY       | y-Wert für den Startpunkt                                                               |
+| barsBackEnd  | Anzahl der rückwärtigen Bars für den zweiten Punkt (Einen Endpunkt gibt es bei diesem Zeichenobjekt nicht)                                                    |
+| endTime      | Datum/Uhrzeit für den Endpunkt                                                          |
+| endY         | y-Wert für den Endpunkt                                                                 |
+| color        | Farbe des Zeichenobjekts                                                                |
+| dashStyle    | Linienart                                                                               |                                                                                           
 |              |  DashStyle.Dash                                                                         |  
 |              |  DashStyle.DashDot                                                                      |  
 |              |  DashStyle.DashDotDot                                                                   |  
 |              |  DashStyle.Dot                                                                          |  
 |              |  DashStyle.Solid                                                                        |  
 |              |                                                                                         |  
-|              |  You may have to integrate:                                                             |  
-|              |  using System.Drawing.Drawing2D;                                                        |
-| width        | LevelLine strength in points                                                                 |
+|              |  ggf. muß                                                                               |  
+|              |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| width        | Linienstärke in Punkten                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws a line
+// zeichnet eine Linie
 AddChartLine("MyLine", false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
 ```
 
 ## AddChartHorizontalLine()
-### Description
-AddChartHorizontalLine() draws a horizontal line in the chart.
+### Beschreibung
+AddChartHorizontalLine() zeichnet eine horizontale Linie in den Chart.
 
-See [*AddChartLine()*](#drawline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+Siehe auch [*AddChartLine()*](#drawline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
 
-### Usage
+### Verwendung
 ```cs
 AddChartHorizontalLine(string name, double y, Color color)
 AddChartHorizontalLine(string name, bool autoScale, double y, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
-A drawing object of the type IHorizontalLine (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IHorizontalLine (Interface)
 
 ### Parameter
-|           |                                                                                         |
-|-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| y         | Any double value of your choice                                                         |
-| color     | LevelLine color                                                                              |
-| dashStyle | LevelLine style                                                                              |                                                                                           
-|           |  DashStyle.Dash                                                                         |  
-|           |  DashStyle.DashDot                                                                      |  
-|           |  DashStyle.DashDotDot                                                                   |  
-|           |  DashStyle.Dot                                                                          |  
-|           |  DashStyle.Solid                                                                        |  
-|           |                                                                                         |  
-|           |  You may have to integrate:                                                             |  
-|           |  using System.Drawing.Drawing2D;                                                        |
-| width     | LevelLine strength                                                                           |
+|              |                                                                                         |
+|--------------|-----------------------------------------------------------------------------------------|
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| y            | ein beliebiger double-Wert                                                              |
+| color        | Linienfarbe                                                                             |
+| dashStyle    | Linienart                                                                               |                                                                                           
+|              |  DashStyle.Dash                                                                         |  
+|              |  DashStyle.DashDot                                                                      |  
+|              |  DashStyle.DashDotDot                                                                   |  
+|              |  DashStyle.Dot                                                                          |  
+|              |  DashStyle.Solid                                                                        |  
+|              |                                                                                         |  
+|              |  ggf. muß                                                                               |  
+|              |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| width        | Linienstärke                                                                            |
 
-### Example
+### Beispiele
 ```cs
-// Draws a horizontal line at y=10
+// zeichnet eine horizontale Linie bei y=10
 AddChartHorizontalLine("MyHorizontalLine", 10, Color.Black);
 ```
 
 ## AddChartRay()
-### Description
-AddChartRay() draws a (trend) line and extends it to infinity.
+### Beschreibung
+AddChartRay() zeichnet eine (Trend-) Linie, die zu einer Seite ins Unendliche verlängert wird.
 
-See [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline).
+Siehe auch [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline).
 
-### Usage
+### Verwendung
 ```cs
 AddChartRay(string name, int start1BarsAgo, double start1Y, int start2BarsAgo, double start2Y, Color color)
 AddChartRay(string name, bool autoScale, int start1BarsAgo, double start1Y, int start2BarsAgo, double start2Y, Color color, DashStyle dashStyle, int width)
 AddChartRay(string name, bool autoScale, DateTime start1Time, double start1Y, DateTime start2Time, double start2Y, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
-A drawing object of the type IRay (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IRay (Interface)
 
 ### Parameter
 |                |                                                                                         |
 |----------------|-----------------------------------------------------------------------------------------|
-| name           | A clearly identifiable name for the drawing object                                      |
-| autoScale      | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| start1BarsAgo  | Number of bars ago for start point 1                                                    |
-| start1Time     | Date/time for anstartchor point 1                                                       |
-| start1Y        | y-value for start point 1                                                               |
-| start2BarsAgo  | Number of bars ago for start point 2                                                    |
-| start2Time     | Date/time for start point 2                                                             |
-| start2Y        | y-value for start point 2                                                               |
-| color          | Color of the drawing object                                                             |
-| dashStyle      | LevelLine style                                                                              |                                                                                           
+| name           | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale      | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist.    |
+| start1BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt1 (x-Achse)                                  |
+| start1Time     | Datum/Zeit für Ankerpunkt1 (x-Achse)                                                    |
+| start1Y        | y-Wert für Ankerpunkt1                                                                  |
+| start2BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt2 (x-Achse)                                  |
+| start2Time     | Datum/Zeit für Ankerpunkt2(x-Achse)                                                     |
+| start2Y        | y-Wert für Ankerpunkt2                                                                  |
+| color          | Farbe des Zeichenobjekts                                                                |
+| dashStyle      | Linienart                                                                               |                                                                                           
 |                |  DashStyle.Dash                                                                         |  
 |                |  DashStyle.DashDot                                                                      |  
 |                |  DashStyle.DashDotDot                                                                   |  
 |                |  DashStyle.Dot                                                                          |  
 |                |  DashStyle.Solid                                                                        |  
 |                |                                                                                         |  
-|                |  You may have to integrate:                                                             |  
-|                |  using System.Drawing.Drawing2D;                                                        |
-| width          | LevelLine strength                                                                           |
+|                |  ggf. muß                                                                               |  
+|                |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| width          | Linienstärke                                                                            |
 
-### Example
+### Beispiele
 ```cs
-// Draws a line from the bar from 10 periods ago to the current bar (x-axis)
-// --> line is extended to the right
-// from y=3 to y=7
+// zeichnet eine Linie vom Bar von vor 10 Perioden über den aktuellen Bar (x-Achse)
+// --> Linie wird nach rechts verlängert
+// von y=3 über y=7
 AddChartRay("MyRay", 10, 3, 0, 7, Color.Green);
-// Draws a line from the current bar to the bar from 10 periods ago
-// --> line is extended to the left
-// from y=3 to y=7
+// zeichnet eine Linie vom akt. Bar über den Bar von vor 10 Perioden
+// --> Linie wird nach links verlängert
+// von y=3 über y=7
 AddChartRay("MyRay", 0, 3, 10, 7, Color.Green);
 ```
 
 ## AddChartRectangle()
-### Description
-AddChartRectangle() draws a rectangle.
+### Beschreibung
+AddChartRectangle() zeichnet ein Rechteck.
 
-### Usage
+### Verwendung
 ```cs
 AddChartRectangle(string name, int barsBackStart, double startY, int barsBackEnd, double endY, Color color)
 AddChartRectangle(string name, bool autoScale, int barsBackStart, double startY, int barsBackEnd, double endY, Color color, Color areaColor, int areaOpacity)
 AddChartRectangle(string name, bool autoScale, DateTime startTime, double startY, DateTime endTime, double endY, Color color, Color areaColor, int areaOpacity)
 ```
-### Return Value
-A drawing object of the type IRectangle (interface)
-
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IRectangle (Interface)
 ### Parameter
 |              |                                                                                                        |
 |--------------|--------------------------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                                     |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety                |
-| barsBackStart| Sets the preceding bar at which the one corner of the rectangle should be located (0 = current bar)    |
-| startTime    | Date/time at which the start of the one rectangle corner should be located                             |
-| startY       | y-value at which the one corner of the rectangle should be located                                     |
-| barsBackEnd  | Sets the preceding bar at which the second corner of the rectangle should be located (0 = current bar) |
-| endTime      | Date/time of the second rectangle corner                                                               |
-| endY         | y-value of the second rectangle corner                                                                 |
-| color        | Color of the drawing object                                                                            |
-| areaColor    | Fill color of the drawing object                                                                       |
-| areaOpacity  | Transparency of the fill color. Value between 0 and 255 (0 = completely transparent, 255 = completely opaque) |
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                                          |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist.                   |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar sich die eine Ecke des Rechtecks befinden soll (0=aktueller Bar)   |
+| startTime    | Datum/Uhrzeit des Bars, an dem sich die eine Ecke des Rechtecks befinden soll                          |
+| startY       | y-Wert, an dem die sich die eine Ecke des Rechtecks befinden soll                                      |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar sich die zweite Ecke des Rechtecks befinden soll (0=aktueller Bar) |
+| endTime      | Datum/Uhrzeit des Bars, an dem sich die zweite Ecke des Rechtecks befinden soll                        |
+| endY         | y-Wert, an dem die sich die zweite Ecke des Rechtecks befinden soll                                    |
+| color        | Farbe des Zeichenobjekts                                                                               |
+| areaColor    | Füllfarbe des Zeichenobjekts                                                                           |
+| areaOpacity  | Transparenz der Füllfarbe. Wert zwischen 0 und 255 (0 =  komplett transparent, 255 = keine Transparenz)|
 
-### Example
+### Beispiel
 ```cs
-// Draws a green rectangle from the low of 10 periods ago to the high of 5 periods ago
-// with a fill color of pale green and a transparency of 2
+// zeichnet ein grünes Rechteck vom Tief von vor 10 Perioden zum Hoch von vor 5 Perioden
+// mit der Füllfarbe PaleGreen und einer Transparenz von 2
 AddChartRectangle("MyRect", true, 10, Low[10], 5, High[5], Color.PaleGreen, Color.PaleGreen, 2);
 ```
 
 ## AddChartRegion()
-### Description
-AddChartRegion() fills a specific area on a chart.
+### Beschreibung
+AddChartRegion() DrawRegion() füllt einen bestimmten Bereich auf einem Chart aus.
 
-### Usage
+### Verwendung
 ```cs
 AddChartRegion(string name, int barsBackStart, int barsBackEnd, IDataSeries series, double y, Color outlineColor, Color areaColor, int areaOpacity)
 AddChartRegion(string name, int barsBackStart, int barsBackEnd, IDataSeries series1, IDataSeries series2, Color outlineColor, Color areaColor, int areaOpacity)
@@ -714,112 +717,114 @@ AddChartRegion(string name, DateTime startTime, DateTime endTime, IDataSeries se
 AddChartRegion(string name, DateTime startTime, DateTime endTime, IDataSeries series1, IDataSeries series2, Color outlineColor, Color areaColor, int areaOpacity)
 ```
 
-### Return Value
-A drawing object of the type IRegion (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IRegion (Interface)
 
 ### Parameter
-|                  |                                                                                   |
-|------------------|-----------------------------------------------------------------------------------|
-| name             | A clearly identifiable name for the drawing object                                |
-| barsBackStart    | Sets the preceding bar at which the drawing should begin (0 = current bar)        |
-| startTime        | Start time for the drawing                                                        |
-| barsBackEnd      | Sets the preceding bar at which the drawing should end (0 = current bar)          |
-| endTime          | End time for the drawing                                                          |
-| series1, series2 | Every data series, for example an indicator, close, high, low and so on. The respective value of the data series for the current bar is used as a y-value.  |
-| y                | Any double value                                                                  |
-| outlineColor     | Color for the border                                                              |
-| areaColor        | Fill color for the area                                                           |
-| areaOpacity      | Transparency of the fill color. Value between 0 and 255 (0 = completely transparent, 255 = completely opaque) |
+|              |                                                                                                        |
+|--------------|--------------------------------------------------------------------------------------------------------|
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                                          |
+| barsBackStart| Gibt an, an welchem zurückliegenden Bar sich die eine Ecke des Rechtecks befinden soll (0=aktueller Bar)   |
+| startTime    | Datum/Uhrzeit des Bars, an dem sich die eine Ecke des Rechtecks befinden soll                          |
+| barsBackEnd  | Gibt an, an welchem zurückliegenden Bar sich die zweite Ecke des Rechtecks befinden soll (0=aktueller Bar) |
+| endTime      | Datum/Uhrzeit des Bars, an dem sich die zweite Ecke des Rechtecks befinden soll                        |
+| series1, series2  | jedes Datenserie, wie z.B. ein Indikator, Close, High, Low usw.
+ Der jeweilige Wert der Datenserie für den aktuellen Bar wird als y-Wert herangezogen                       |
+| y            | ein beliebiger double-Wert                                                              |
+| outlineColor | Farbe für die Umrandung des Bereichs                                                                   |
+| areaColor    | Füllfarbe des Zeichenobjekts                                                                           |
+| areaOpacity  | Transparenz der Füllfarbe. Wert zwischen 0 und 255 (0 =  komplett transparent, 255 = keine Transparenz)|
 
-### Example
+### Beispiel
 ```cs
-// Fills the area between the upper and lower Bollinger Bands
+// füllt den Bereich zwischen dem oberen und dem unteren Bollinger Band
 AddChartRegion("MyRegion", ProcessingBarIndex, 0, Bollinger(2, 14).Upper, Bollinger(2, 14).Lower, Color.Empty, Color.Lime, 100);
 ```
 
 ## AddChartRegressionChannel()
-### Description
-AddChartRegressionChannel() draws a regression channel.
+### Beschreibung
+AddChartRegressionChannel()zeichnet einen Regressionskanal.
 
-### Usage
+### Verwendung
 ```cs
 AddChartRegressionChannel(string name, int barsBackStart, int barsBackEnd, Color color)
 AddChartRegressionChannel(string name, bool autoScale, int barsBackStart, int barsBackEnd, Color upperColor, DashStyle upperDashStyle, int upperWidth, Color middleColor, DashStyle middleDashStyle, int middleWidth, Color lowerColor, DashStyle lowerDashStyle, int lowerWidth)
 AddChartRegressionChannel(string name, bool autoScale, DateTime startTime, DateTime endTime, Color upperColor, DashStyle upperDashStyle, int upperWidth, Color middleColor, DashStyle middleDashStyle, int middleWidth, Color lowerColor, DashStyle lowerDashStyle, int lowerWidth)
 ```
 
-### Return Value
-A drawing object of the type IRegressionChannel (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IRegressionChannel (Interface)
 
 ### Parameter
 |                  |                                                                                         |
 |------------------|-----------------------------------------------------------------------------------------|
-| name             | A clearly identifiable name for the drawing object                                      |
-| autoScale        | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsBackStart    | Sets the preceding bar at which the regression channel should start (0 = current bar)   |
-| startTime        | Start time for the regression channel                                                   |
-| barsBackEnd      | Sets the preceding bar at which the regression channel should end (0 = current bar)     |
-| endTime          | End time for the regression channel                                                     |
-| color            | Color of the drawing object                                                             |
+| name             | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale        | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist.    |
+| barsBackStart    | Gibt an, an welchem zurückliegenden Bar der Regressionskanal beginnen soll (0=aktueller Bar)   |
+| startTime        | Datum/Uhrzeit des Bars, an dem der Regressionskanal beginnen soll                       |
+| barsBackEnd      | Gibt an, an welchem zurückliegenden Bar der Regressionskanal enden soll (0=aktueller Bar)     |
+| endTime          | Datum/Uhrzeit des Bars, an dem der Regressionskanal enden soll                          |
+| color            | Farbe des Zeichenobjekts                                                            |
 | upperDashStyle, middleDashStyle, lowerDashStyle    |                                                                              
-| dashStyle        | LevelLine style                                                                              |                                                                                           
+| dashStyle        | Linienart                                                                            |                                                                                           
 |                  |  DashStyle.Dash                                                                         |  
 |                  |  DashStyle.DashDot                                                                      |  
 |                  |  DashStyle.DashDotDot                                                                   |  
 |                  |  DashStyle.Dot                                                                          |  
 |                  |  DashStyle.Solid                                                                        |  
 |                  |                                                                                         |  
-|                  |  You may have to integrate:                                                             |  
-|                  |  using System.Drawing.Drawing2D;                                                        |
-| upperColor,  middleColor,    lowerColor        | LevelLine color                                                                              |
-| upperWidth,   middleWidth,  lowerWidth        | LevelLine strength                                                                           |
+|                  |  ggf. muß:                                                                              |  
+|                  |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| upperColor,  middleColor,    lowerColor        | jeweilige Linienfarbe                                                                              |
+| upperWidth,   middleWidth,  lowerWidth        | jeweilige Linienstärke                                                                           |
 
-### Example
+### Beispiel
 ```cs
-// Draws a regression channel from the low of the bar from 10 days ago to the high of the bar from 5 days ago.
+// zeichnet einen Regressionskanal vom Tief des Bars von vor 10 Tagen
+// zum Hoch des Bars von vor 5 Tagen
 AddChartRegressionChannel("MyRegChannel", 10, 0, Color.Black);
 ```
 
 ## AddChartSquare()
-### Description
-AddChartSquare() draws a square:
+### Beschreibung
+AddChartSquare()  zeichnet ein Quadrat:
 
 ![AddChartSquare()](./media/image26.png)
 
-See [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
 
-### Usage
+### Verwendung
 ```cs
 DrawSqare(string name, bool autoScale, int barsAgo, double y, Color color)
 DrawSqare(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
-A drawing object of the type ISquare (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ISquare (Interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Sets the preceding bar at which the square should be drawn (0 = current bar)            |
-| Time      | Date/time of the bar at which the square should be drawn                                |
-| Y         | y-value for the square                                                                  |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen         |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar das Quadrat gezeichnet werden soll (0=aktueller Bar)      |
+| Time      | Datum/Uhrzeit des Bars, an dem das Quadrat gezeichnet werden soll                       |
+| Y         | y-Wert, an dem das Quadrat gezeichnet werden soll                                       |
+| color     | Farbe des Zeichenobjekts                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws a dark red square at the current bar 10 ticks above the high
+// zeichnet ein durnkelrotes Quadrat am akt. Bar 10 Ticks über dem Hoch
 AddChartSquare("MySquare", true, 0, High[0] + 10*TickSize, Color.DarkRed);
 ```
 
 ## AddChartText()
-### Description
-AddChartText() writes whatever text you want onto the chart using price and datetime coordinates.
+### Beschreibung
+AddChartText() schreibt einen beliebigen Text auf den Chart.
 
-See [*AddChartTextFixed()*](#addcharttextfixed).
+Siehe auch [*AddChartTextFixed()*](#addcharttextfixed).
 
-### Usage
+### Verwendung
 ```cs   
 AddChartText(string tag, string text, int barsAgo, double y, Color color);
 AddChartText(string tag, string text, TextPosition textPosition, Color textColor, Font font, Color outlineColor, Color areaColor, int areaOpacity);
@@ -831,52 +836,51 @@ AddChartText(string tag, bool autoScale, string text, int barsAgo, double y, int
 AddChartText(string tag, bool autoScale, string text, DateTime x, double y, int pixelOffset, Color textColor, Font font, StringAlignment alignment, HorizontalAlignment hAlign, VerticalAlignment vAlign, Color outlineColor, Color areaColor);   
 ```
 
-**Important note:**
-When using signatures that contain horizontal alignment and vertical alignment, you need to add the following lines:
+**wichtiger Hinweis:**
+Bei Verwendung der Signaturen, die HorizontalAlignment und VerticalAlignment enthalten, sind die folgenden beiden Zeilen dem Programmcode hinzuzufügen:
 ```cs
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 ```
 
-### Return Value
-A drawing object of the type IText (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IText (Interface)
 
 ### Parameter
 |              |                                                                                             |
 |--------------|---------------------------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                                          |
-| autoScale    | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety     |
-| Text         | Text to be displayed (may contain escape sequences)                                         |
-| barsAgo      | Sets how many bars ago the text should be displayed                                         |
-| Time         | Date/time of the bar at which the text should begin                                         |
-| Y            | y-value at which the text should be written                                                 |
-| yPixelOffset | Vertical offset of the text; positive numbers move it up, and negative numbers move it down |
-| textColor    | Text color                                                                                  |
-| Font         | Font                                                                                        |
-| Alignment    | Possible values are: StringAlignment.Center, StringAlignment.Far, StringAlignment.Near     |
-| HAlign       | Possible values are: HorizontalAlign.Left, HorizontalAlign.Center, HorizontalAlign.Right   |
-| VAlign       | Possible values are: VerticalAlign.Top, VerticalAlign.Center, VerticalAlign.Bottom   |
-| outlineColor | Border color around the text (for no border, select Color.Empty)  |
-| areaColor    | Fill color for the text box    |
-| areaOpacity  | Transparency of the fill color
-Value between 0 and 255 (0 = completely transparent, 255 = completely opaque)    |
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                               |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist         |
+| Text         | Der auszugebende Text (Der Text darf auch den Zeilenumbruch "\n" enthalten.)                |
+| barsAgo      | Gibt an, an welchem zurückliegenden Bar der Text ausgegeben werden soll (0=aktueller Bar)
+(Welcher Bar den Index 0 hat, ist abhängig von CalculateOnBarClose.)                                         |
+| Time         | Datum/Uhrzeit des Bars, an dem der Text beginnen soll                                       |
+| Y            | y-Wert, an dem der Text geschrieben werden soll                                             |
+| yPixelOffset | vertikale Verschiebung des Textes. Positive Werte verschieben den Text nach oben, negative Werte nach unten. |
+| textColor    | Textfarbe                                                                                   |
+| Font         | Schriftart für den Text                                                                     |
+| Alignment    | mögliche Werte sind: StringAlignment.Center, StringAlignment.Far, StringAlignment.Near      |
+| HAlign       | mögliche Werte sind: HorizontalAlign.Left, HorizontalAlign.Center, HorizontalAlign.Right    |
+| VAlign       | mögliche Werte sind: VerticalAlign.Top, VerticalAlign.Center, VerticalAlign.Bottom          |
+| outlineColor | Farbe des Rahmens um den Text (Für keinen Rahmen Color.Empty verwenden)                     |
+| areaColor    | Füllfarbe der Textbox (Für keine Füllung Color.Empty verwenden)                             |
+| areaOpacity  | Transparenz der Füllfarbe. Wert zwischen 0 und 255 (0 =  komplett transparent, 255 = keine Transparenz)|
 
-### Example
+### Beispiele
 ```cs
-// writes text at y=3.0
+// schreibt einen Text bei y=3.0 
 AddChartText("MyText", "This is sample text.", 10, 3, Color.Black);
-// writes red text in the font Arial 7
+// schreibt einen roten Text in Schriftgröße Arial 7
 AddChartText("MyText", false, "This is sample text.", Time[0], Close[0]+50*TickSize, 0,
 Color.Red, new Font("Arial",7), StringAlignment.Center, Color.Blue, Color.DarkOliveGreen, 10);
 ```
 
-This leads to the following result:
+Nachstehende Anweisung führt zu diesem Ergebnis:
 
 ![AddChartText()](./media/image27.png)
 
 ```cs
-AddChartText("MyTag",true,"Text",1,
-// barsAgo
+AddChartText("MyTag",true,"Text",1, // barsAgo
 High[1], // y
 10, // yPixelOffset
 Color.Blue, // Text color
@@ -890,53 +894,53 @@ Color.Yellow, // Fill color
 ```
 
 ## AddChartTextFixed()
-### Description
-AddChartTextFixed() writes text into one of 5 predetermined locations on the chart.
+### Beschreibung
+AddChartTextFixed() schreibt Text an eine von 5 möglichen festen Stellen im Chart.
 
-See [*AddChartText()*](#addcharttext).
+Siehe auch [*AddChartText()*](#addcharttext).
 
-### Usage
+### Verwendung
 ```cs
 AddChartTextFixed(string tag, string text, TextPosition textPosition);
 AddChartTextFixed(string tag, string text, TextPosition textPosition, Color textColor, Font font, Color outlineColor, Color areaColor);
 AddChartTextFixed(string tag, string text, TextPosition textPosition, Color textColor, Font font, Color outlineColor, Color areaColor, int areaOpacity);
 ```
 
-### Return Value
-A drawing object of the type ITextFixed (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITextFixed (Interface)
 
 ### Parameter
 |              |                                                                            |
 |--------------|----------------------------------------------------------------------------|
-| name         | A clearly identifiable name for the drawing object                         |
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung              |
 | text         | The text to be displayed                                                   |
 | TextPosition | TextPosition.BottomLeft, TextPosition.BottomRight, TextPosition.Center, TextPosition.TopLeft, TextPosition.TopRight  |
-| textColor    | Text color                                                                 |
-| font         | Font                                                                       |
-| outlineColor | Color for the border around the text. For no border color, use Color.Empty |
-| areaColor    | Fill color of the text box. For no fill color, use Color.Empty   |
-| areaOpacity  | Transparency of the fill color. Value between 0 and 255 (0 = completely transparent, 255 = completely opaque)  |
+| textColor    | Textfarbe                                                                  |
+| font         | Schriftart für den Text                                                    |
+| outlineColor | Farbe des Rahmens um den Text (Für keinen Rahmen Color.Empty verwenden)    |
+| areaColor    | Füllfarbe der Textbox (Für keine Füllung Color.Empty verwenden)            |
+| areaOpacity  | Transparenz der Füllfarbe. Wert zwischen 0 und 255 (0 =  komplett transparent, 255 = keine Transparenz)|
 
-### Example
+### Beispiele
 ```cs
-// Writes text into the middle of the chart
-AddChartTextFixed("MyText", "This is sample text.", TextPosition.Center);
-// Writes red text with a blue border into the middle of the chart
-AddChartTextFixed("MyText", "This is sample text.", TextPosition.Center, Color.Red, new Font("Arial",35), Color.Blue, Color.Empty, 10);
+// schreibt einen Text in die Mitte des Charts
+AddChartTextFixed("MyText", ""Das ist ein Beispieltext.", TextPosition.Center);
+// schreibt einen roten Text mit einem blauen Rand in die Mitte des Charts
+AddChartTextFixed("MyText", "Das ist ein Beispieltext.", TextPosition.Center, Color.Red, new Font("Arial",35), Color.Blue, Color.Empty, 10);
 ```
 
 ## AddChartTrendChannel()
-### Description
-AddChartTrendChannel() draws a trend channel.
+### Beschreibung
+AddChartTrendChannel() zeichnet einen Trendkanal.
 
-### Usage
+### Verwendung
 ```cs
 AddChartTrendChannel(string name, bool autoScale, int start1BarsAgo, double start1Y, int start2BarsAgo, double start2Y, int start3BarsAgo, double start3Y)
 AddChartTrendChannel(string name, bool autoScale, DateTime start1Time, double start1Y, DateTime start2Time, double start2Y, DateTime start3Time, double start3Y)
 ```
 
-### Return Value
-A drawing object of the type ITrendChannel (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITrendChannel (Interface)
 
 ### Parameter
 |                |                                                                                         |
@@ -960,142 +964,139 @@ AddChartTrendChannel("MyTrendChannel", true, 10, Low[10], 0, High[0], 10, High[1
 ```
 
 ## AddChartTriangle()
-### Description
-AddChartTriangle() draws a triangle.
+### Beschreibung
+AddChartTriangle() zeichnet ein Dreieck.
 
-### Usage
+### Verwendung
 ```cs
 AddChartTriangle(string name, int start1BarsAgo, double start1Y, int start2BarsAgo, double start2Y, int start3BarsAgo, double start3Y, Color color)
 AddChartTriangle(string name, bool autoScale, int start1BarsAgo, double start1Y, int start2BarsAgo, double start2Y, int start3BarsAgo, double start3Y, Color color, Color areaColor, int areaOpacity)
 AddChartTriangle(string name, bool autoScale, DateTime start1Time, double start1Y, DateTime start2Time, double start2Y, DateTime start3Time, double start3Y, Color color, Color areaColor, int areaOpacity)
 ```
 
-### Return Value
-A drawing object of the type ITriangle (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITriangle (Interface)
 
 ### Parameter
 |                |                                                                                         |
 |----------------|-----------------------------------------------------------------------------------------|
-| name           | A clearly identifiable name for the drawing object                                      |
-| autoScale      | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| start1BarsAgo  | Number of bars ago for start point 1 (x-axis)                                           |
-| start1Time     | Date/time for start point 1 (x-axis)                                                    |
-| start1Y        | y-value for start point 1                                                               |
-| start2BarsAgo  | Number of bars ago for start point 2 (x-axis)                                           |
-| start2Time     | Date/time for start point 2 (x-axis)                                                    |
-| start2Y        | y-value for start point 2                                                               |
-| start3BarsAgo  | Number of bars ago for start point 3 (x-axis)                                           |
-| start3Time     | Date/time for start point 3 (x-axis)                                                    |
-| start3Y        | y-value for start point 3                                                               |
-| color          | Color of the drawing object                                                             |
-| areaColor      | Fill color of the drawing object                                                        |
-| areaOpacity    | Transparency of the fill color
-Value between 0 and 255
-                  0 = completely transparent
-                  255 = completely opaque                                                                   |
+| name           | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale      | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| start1BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt1 (x-Achse)                                  |
+| start1Time     | Datum/Zeit für Ankerpunkt1 (x-Achse)                                                    |
+| start1Y        | y-Wert für Ankerpunkt1                                                                  |
+| start2BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt2 (x-Achse)                                  |
+| start2Time     | Datum/Zeit für Ankerpunkt2 (x-Achse)                                                    |
+| start2Y        | y-Wert für Ankerpunkt2                                                                  |
+| start3BarsAgo  | Anzahl der rückwärtigen Bars für Ankerpunkt3 (x-Achse)                                  |
+| start3Time     | Datum/Zeit für Ankerpunkt3 (x-Achse)                                                    |
+| start3Y        | y-Wert für Ankerpunkt3                                                                  |
+| color          | Farbe des Zeichenobjekts                                                                |
+| areaColor      | Füllen Sie Farbe des Zeichnungsobjekt                                                   |
+| areaOpacity    | Transparenz der Füllfarbe. Wert zwischen 0 und 255 (0 =  komplett transparent, 255 = keine Transparenz)|
 
-### Example
+### Beispiel
 ```cs
-// Draws a green triangle
+// zeichnet ein grünes Dreieck
 AddChartTriangle("tag1", 4, Low[4], 3, High[3], 1, Low[1], Color.Green);
 ```
 
 ## AddChartTriangleUp()
-### Description
-AddChartTriangleUp() draws a small upwards-pointing triangle:
+### Beschreibung
+AddChartTriangleUp() zeichnet ein kleines aufwärtsgerichtetes Dreieck.
 
 ![AddChartTriangleUp()](./media/image28.png)
 
-See [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleDown()*](#addcharttriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleDown()*](#addcharttriangledown).
 
-### Usage
+### Verwendung
 ```cs
 AddChartTriangleUp(string name, bool autoScale, int barsAgo, double y, Color color)
 AddChartTriangleUp(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
-A drawing object of the type ITriangleUp (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITriangleUp (Interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Sets how many bars ago the triangle should be drawn                                     |
-| time      | Date/time for the bar at which the triangle should be drawn                             |
-| y         | y-value at which the triangle should be drawn                                           |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar das Dreieck gezeichnet werden soll              |
+| time      | Datum/Uhrzeit des Bars, an dem das Dreieck gezeichnet werden soll                       |
+| y         | y-Wert, an dem das Dreieck gezeichnet werden                                            |
+| color     | Farbe des Zeichenobjekts                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws a small light green triangle at the current bar 10 ticks below the low
+// zeichnet ein kleines hellgrünes Dreieck am akt. Bar 10 Ticks unter dem Tief
 AddChartTriangleUp("MyTriangleUp", true, 0, Low[0] - 10*TickSize, Color.LightGreen);
 ```
 
 ## AddChartTriangleDown()
-### Description
-AddChartTriangleDown() draws a small downwards-pointing triangle:
+### Beschreibung
+AddChartTriangleDown() zeichnet ein kleines abwärtsgerichtetes Dreieck.
 
 ![AddChartTriangleDown()](./media/image29.png)
 
-See [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup).
 
-### Usage
+### Verwendung
 ```cs
 AddChartTriangleDown(string name, bool autoScale, int barsAgo, double y, Color color)
 AddChartTriangleDown(string name, bool autoScale, DateTime time, double y, Color color)
 ```
 
-### Return Value
-A drawing object of the type ITriangleDown (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITriangleDown (Interface)
 
 ### Parameter
 |           |                                                                                         |
 |-----------|-----------------------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                                      |
-| autoScale | Adjusts the scale of the y-axis so that drawing objects can be viewed in their entirety |
-| barsAgo   | Sets how many bars ago the triangle should be drawn                                     |
-| time      | Date/time for the bar at which the triangle should be drawn                             |
-| Y         | y-value at which the triangle should be drawn                                           |
-| color     | Color of the drawing object                                                             |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar das Dreieck gezeichnet werden soll              |
+| time      | Datum/Uhrzeit des Bars, an dem das Dreieck gezeichnet werden soll                       |
+| y         | y-Wert, an dem das Dreieck gezeichnet werden                                            |
+| color     | Farbe des Zeichenobjekts                                                                |
 
-### Example
+### Beispiel
 ```cs
-// Draws a small red triangle at the current bar 10 ticks above the high
+// zeichnet ein kleines rotes Dreieck am akt. Bar 10 Ticks über dem Hoch
 AddChartTriangleDown("MyTriangleDown", true, 0, High[0] + 10*TickSize, Color.Red);
 ```
 
 ## AddChartVerticalLine()
-### Description
-AddChartVerticalLine() draws a vertical line in the chart.
+### Beschreibung
+AddChartVerticalLine() zeichnet eine vertikale Linie in den Chart.
 
-See [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+Siehe auch [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
 
-### Usage
+### Verwendung
 ```cs
 AddChartVerticalLine(string name, int barsAgo, Color color)
 AddChartVerticalLine(string name, int barsAgo, Color color, DashStyle dashStyle, int width)
 AddChartVerticalLine(string name, DateTime time, Color color, DashStyle dashStyle, int width)
 ```
 
-### Return Value
-A drawing object of the type IVerticalLine (interface)
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IVerticalLine (Interface)
 
 ### Parameter
 |           |                                                                            |
 |-----------|----------------------------------------------------------------------------|
-| name      | A clearly identifiable name for the drawing object                         |
-| barsAgo   | Sets how many bars ago the vertical line should be drawn (0 = current bar) |
-| time      | Date/time of the bar at which the vertical line should be drawn            |
-| color     | LevelLine color                                                                 |
-| dashStyle | LevelLine style: DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot, DashStyle.Solid
-You may have to integrate:
-using System.Drawing.Drawing2D;                                             |
-| width     | LevelLine strength                                                              |
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung              |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar die vertikale Linie gezeichnet werden soll (0=aktueller Bar) |
+| time      | Datum/Uhrzeit des Bars, an dem die vertikale Linie gezeichnet werden soll  |
+| color     | Linienfarbe                                                                |
+| dashStyle | Linienart: DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot, DashStyle.Solid
+ggf. muß
+using System.Drawing.Drawing2D;  mit eingebunden werden.                                 |
+| width     | Linienstärkeh                                                              |
 
-### Example
+### Beispiele
 ```cs
-// Draws a vertical line at the bar from 10 periods ago
+// zeichnet eine vertikale Linie am Bar von vor 10 Perioden
 AddChartVerticalLine("MyVerticalLine", 10, Color.Black);
 ```

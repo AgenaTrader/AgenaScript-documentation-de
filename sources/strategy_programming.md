@@ -1,51 +1,51 @@
 # Strategy Programming
 
 ## Account
-### Description
-Account is an object containing information about the account with which the current strategy is working.
+### Beschreibung
+Account ist ein Objekt, welches Informationen zu dem Konto enthält, mit dem die aktuelle Strategie arbeitet.
 
-The individual properties are:
+Die einzelnen Eigenschaften sind:
 
 -   **Account.AccountConnection**
-    Name for the broker connection used (the name assigned under the account connection submenu)
+    Name der verwendeten Brokerverbindung (der Name, der unter Kontoverbindungen vergeben wurde).
 
 -   **Account.AccountType**
-    Type of account (live account, simulated account etc.)
+    Art des Kontos (Livokonto, Simkonto usw.)
 
 -   **Account.Broker**
-    Name/definition for the broker
+    Bezeichnung des Brokers
 
 -   **Account.BuyingPower**
-    The current account equity in consideration of the leverage provided by the broker (IB leverages your account equity by a factor of 4, meaning that with 10000€ your buying power is equal to 40000€)
+    Der Kontostand unter Berücksichtigung des vom Broker gewährten Hebels.(IB hebelt das Kontoguthaben z.B. aktuell mit 4. Ein Guthaben von 10.000 Euro hat so eine "Kaufkraft" von 40.000 Euro.
 
 -   **Account.CashValue**
-    Amount (double)
+    Betrag (double)
 
 -   **Account.Currency**
-    Currency in which the account is held
+    Währung, in der das Konto geführt wird
 
 -   **Account.ExcessEquity**
-    Excess
+    Überschuss
 
 -   **Account.InitialMargin**
-    Initial margin (depends on the broker, double)
+    Initial Margin (abh. vom jeweiligen Broker, double)
 
 -   **Account.InstrumentType**
-    Type of trading instrument (type AgenaTrader.Plugins.InstrumentTypes)
+    Art des Handelsinstrumentes (Typ AgenaTrader.Plugins.InstrumentTypes)
 
 -   **Account.IsDemo**
-    True, if the account is a demo account
+    true, wenn es sich um ein Demokonto handelt
 
 -   **Account.Name**
-    Name of the account (should be identical to Account.AccountConnection)
+    Name des Kontos (i.d.R. mit Account. AccountConnection identisch)
 
 -   **Account.OverNightMargin**
-    Overnight margin (depends on the broker, double)
+    Übernacht-Margin (abh. vom jeweiligen Broker, double)
 
 -   **Account.RealizedProfitLoss**
-    Realized profits and losses (double)
+    realisierter Gewinn bzw. Verlust (double)
 
-### Example
+### Beispiel
 ```cs
 Print("AccountConnection " + Account.AccountConnection);
 Print("AccountType " + Account.AccountType);
@@ -63,16 +63,16 @@ Print("RealizedProfitLoss " + Account.RealizedProfitLoss);
 ```
 
 ## BarsCountFromTradeOpen()
-### Description
-The property "BarsCountFromTradeOpen" returns the number of bars that have occurred since the last entry into the market.
+### Beschreibung
+Die Eigenschaft "BarsCountFromTradeOpen"  liefert die Anzahl der Bars, die seit dem letzten Einstieg (Entry) in den Markt vergangen sind.
 
-### Usage
+### Verwendung
 ```cs
 BarsCountFromTradeOpen()
 BarsCountFromTradeOpen(string strategyName)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 
 ```cs
 BarsCountFromTradeOpen(int multibarSeriesIndex, string strategyName, int entriesAgo)
@@ -81,26 +81,26 @@ BarsCountFromTradeOpen(int multibarSeriesIndex, string strategyName, int entries
 ### Parameter
 |                     |                                                                                                           |
 |---------------------|-----------------------------------------------------------------------------------------------------------|
-| strategyName          | The strategy name (string) that has been used to clearly label the entry within an entry method.            |
-| multibarSeriesIndex | For *[Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index for the data series for which the entry order was executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| entriesAgo          | Number of entries in the past. A zero indicates the number of bars that have formed after the last entry. |
+| strategyName          | Der Signalname (string), der in einer Einstiegsmethode zur eindeutigen Kennzeichnung des Einstiegs vergeben wurde.            |
+| multibarSeriesIndex | Für *[Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.Index der Datenreihe, für die die Einstiegsorder ausgeführt wurde. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| entriesAgo          | Anzahl der in der Vergangenheit liegenden Einstiege. Eine 0 (Null) an dieser Stelle liefert die Anzahl der Bars, die sich nach dem letzten Einstieg ausgebildet haben. |
 
-### Example
+### Beispiel
 ```cs
-Print("The last entry was " + BarsCountFromTradeOpen() + " bars ago.");
+Print("Der letzte Einstieg liegt " + BarsCountFromTradeOpen() + " Bars zurück.");
 ```
 
 ## BarsCountFromTradeClose()
-### Description
-The property "BarsCountFromTradeClose" outputs the number of bars that have occurred since the last exit from the market.
+### Beschreibung
+Die Eigenschaft  "BarsCountFromTradeClose" liefert die Anzahl der Bars, die seit dem letzten Ausstieg (Exit) aus dem Markt vergangen sind.
 
-### Usage
+### Verwendung
 ```cs
 BarsCountFromTradeClose()
 BarsCountFromTradeClose(string strategyName)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 BarsCountFromTradeClose(int multibarSeriesIndex, string strategyName, int exitsAgo)
 ```
@@ -108,28 +108,28 @@ BarsCountFromTradeClose(int multibarSeriesIndex, string strategyName, int exitsA
 ### Parameter
 |                     |                                                                                                                           |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | The Strategy name (string) that has been used to clearly label the exit within the exit method.    |
-| multibarSeriesIndex | For *[Multibar*](#multibar)[*MultiBars*](#multibars) strategies. Index of the data series for which the exit order has been executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| exitsAgo            | Number of exits that have occurred in the past. A zero indicates the number of bars that have formed after the last exit. |
+| strategyName          | Der Signalname (string), der in einer Ausstiegsmethode zur eindeutigen Kennzeichnung des Ausstiegs vergeben wurde    |
+| multibarSeriesIndex | Für *[Multibar*](#multibar)[*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt wurde. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| exitsAgo            | Anzahl der in der Vergangenheit liegenden Ausstiege. Eine 0 (Null) an dieser Stelle liefert die Anzahl der Bars, die sich nach dem letzten Ausstieg ausgebildet haben. |
 
-### Example
+### Beispiel
 ```cs
-Print("The last exit was " + BarsCountFromTradeClose() + " bars ago.");
+Print("Der letzte Ausstieg liegt " + BarsCountFromTradeClose() + " Bars zurück.");
 ```
 ## CancelAllOrders()
-### Description
-CancelAllOrders deletes all oders (cancel) managed by the strategy.
-A cancel request is sent to the broker. Whether an or there is really deleted, can not be guaranteed. It may happen that an order has received a partial execution before it is deleted.
-Therefore we recommend that you check the status of the order with [*OnOrderChanged()*](#onorderupdate).
+### Beschreibung
+CancelAllOrders  löscht alle Oders (cancel), die von der Strategie verwaltet werden.
+Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit [*OnOrderChanged()*](#onorderupdate) zu kontrollieren.
 
-### Usage
+### Verwendung
 ```cs
 CancelAllOrders()
 ```
 ### Parameter
-None
 
-### Example
+kein Parameter
+
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
@@ -138,32 +138,32 @@ protected override void OnCalculate()
 }
 ```
 ## CancelOrder()
-### Description
-Cancel order deletes an order.
+### Beschreibung
+Cancel order löscht eine Oder (cancel).
 
-A cancel request is sent to the broker. There is no guarantee that the order will actually be deleted there. It may occur that the order receives a partial execution before it is deleted. Therefore we recommend that you check the status of the order with [*OnOrderChanged()*](#onorderupdate).
+Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit [*OnOrderChanged()*](#onorderupdate) zu kontrollieren.
 
-### Usage
+### Verwendung
 ```cs
 CancelOrder(IOrder order)
 ```
 
 ### Parameter
-An order object of the type "IOrder"
+Ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 private IOrder entryOrder = null;
 private int barNumber = 0;
 protected override void OnCalculate()
 {
-    // Place an entry stop at the high of the current bar
+   // An das Hoch des aktuellen Bars einen Einstiegsstop legen
     if (entryOrder == null)
     {
         entryOrder = OpenLongStop(High[0], "stop long");
         barNumber = ProcessingBarIndex;
     }
-    // Delete the order after 3 bars
+    // Nach 3 Bars die Order löschen
     if (Position.PositionType == PositionType.Flat &&
     ProcessingBarIndex > barNumber + 3)
         CancelOrder(entryOrder);
@@ -171,10 +171,10 @@ protected override void OnCalculate()
 ```
 
 ## ReplaceOrder()
-### Description
-Change order, as the name suggests, changes an order.
+### Beschreibung
+ChangeOrder ändert eine Order.
 
-### Usage
+### Verwendung
 ```cs
 ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
 ```
@@ -182,17 +182,17 @@ ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
 ### Parameter
 |            |                                          |
 |------------|------------------------------------------|
-| iOrder     | An order object of the type "IOrder"     |
-| quantity   | Number of units to be ordered            |
-| limitPrice | Limit price. Set this to 0 if not needed |
-| stopPrice  | Stop price. Set this to 0 if not needed  |
+| iOrder     | ein Order -Objekt vom Typ IOrder         |
+| quantity   | zu ordernde Stückzahl                    |
+| limitPrice | Limitpreis. Wenn nicht benötigt, auf 0 setzen|
+| stopPrice  | Stoppreis. Wenn nicht benötigt, auf 0 setzen  |
 
-### Example
+### Beispiel
 ```cs
 private IOrder stopOrder = null;
 protected override void OnCalculate()
 {
-// If the position is profiting by 10 ticks then set the stop to break-even
+ // Wenn die Position 10 Ticks im Gewinn liegt, Stopp auf Einstand anheben
 if (stopOrder != null
     && Close[0] >= Position.AvgPrice + (10 * TickSize)
         && stopOrder.StopPrice < Position.AvgPrice)
@@ -200,18 +200,18 @@ ReplaceOrder(stopOrder, stopOrder.Quantity, stopOrder.LimitPrice, Position.AvgPr
 }
 ```
 ## CreateIfDoneGroup()
-### Description
-If two orders are linked to one another via a CreateIfDoneGroup, it means that if the one order has been executed, the second linked order is activated.
+### Beschreibung
+Wenn zwei Orders über eine CreateIfDoneGroup miteinander verknüpft werden, so bedeutet dies, dass wenn die eine Order ausgeführt wurde, die zweite verbundene Order aktiviert wird.
 
-### Usage
+### Verwendung
 ```cs
 CreateIfDoneGroup(IEnumerable<IOrder> orders)
 ```
 
 ### Parameter
-An order object of type IOrder as a list
+Ein order-Objekt vom Typ IOrder als List
 
-### Example
+### Beispiel
 ```cs
 private IOrder oopenlong = null;
 private IOrder oenterlong = null;
@@ -235,18 +235,18 @@ protected override void OnCalculate()
 ```
 
 ## CreateOCOGroup()
-### Description
-If two orders are linked via a CreateOCOGroup, it means that once the one order has been executed, the second linked order is deleted.
+### Beschreibung
+Wenn zwei Orders über eine CreateOCOGroup miteinander verknüpft werden, so bedeutet dies, dass sobald die eine Order ausgeführt wurde, die zweite verbundene Order gelöscht wird.
 
-### Usage
+### Verwendung
 ```cs
 CreateOCOGroup(IEnumerable<IOrder> orders)
 ```
 
 ### Parameter
-An order object of type IOrder as a list
+Ein order-Objekt vom Typ IOrder als List
 
-### Example
+### Beispiel
 ```cs
 private IOrder oopenlong = null;
 private IOrder oEnterShort = null;
@@ -271,17 +271,18 @@ protected override void OnCalculate()
 ```
 
 ## CreateOROGroup()
-### Description
-If two orders are linked via a CreateOROGroup, it means that once the one order has been executed, the order size of the second order is reduced by the order volume of the first order.
-### Usage
+### Beschreibung
+Wenn zwei Orders über eine CreateOROGroup miteinander verknüpft werden, so bedeutet dies, dass sobald die eine Order ausgeführt wurde, die Ordergröße der zweiten Order um das Ordervolumen der ersten Order reduziert wird.
+
+### Verwendung
 ```cs
 CreateOROGroup(IEnumerable<IOrder> orders)
 ```
 
 ### Parameter
-An order object of type IOrder as a list
+Ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 private IOrder oStopLong = null;
 private IOrder oLimitLong = null;
@@ -305,20 +306,18 @@ protected override void OnCalculate()
 
 ## DataSeriesConfigurable
 ## DefaultOrderQuantity
-### Description
-Change order changes an order.
+### Beschreibung
+DefaultQuantity legt die in einer Strategie zu verwendende Stückzahl fest. DefaultQuantity wird in der [*OnInit()*](#oninit)-Methode angegeben.
 
-Default quantity defines the amount to be used in a strategy. Default quantity is set within the [*OnInit()*](#oninit) method.
-
-### Usage
+### Verwendung
 ```cs
 ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
 ```
 
 ### Parameter
-An int value containing the amount (stocks, contracts etc.)
+ein int-Wert, der die Stückzahn (Aktien, Kontrakte usw.) enthält
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -327,53 +326,51 @@ DefaultOrderQuantity = 100;
 ```
 
 ## OpenLong()
-### Description
-Enter long creates a long position (buy).
+### Beschreibung
+Open long  erzeugt eine Marketorder um eine Long Position einzugehen (zu kaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-If a signature not containing an amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Siehe auch [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
 
-See [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
-
-### Usage
+### Verwendung
 ```cs
 OpenLong()
 OpenLong(string strategyName)
 OpenLong(int quantity)
 OpenLong(int quantity, string strategyName)
 
-//For multi-bar strategies
+//Für Multibar-Strategieen
 OpenLong(int multibarSeriesIndex, int quantity, string strategyName)
 ```
 
 ### Parameter
 |                     |                                                                                               |
 |---------------------|-----------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                                           |
-| quantity            | The amount of stocks/contracts                                                                |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies.  Index of the data series for which the entry order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| strategyName          | ein eindeutiger Name                                                                           |
+| quantity            | zu ordernde Stückzahl                                                                |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.  Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
 
-### Return Value
-an order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 
-// if the EMA14 crosses the SMA50 from below to above
-// the ADX is rising its values
+// Eine Longposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
 if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
     OpenLong("SMACrossesEMA");
 
 ```
 
 ## OpenLongLimit()
-### Description
-Enter long limit creates a limit order for entering a long position (buy).
+### Beschreibung
+OpenLongLimit() erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Siehe auch [*OpenLong()*](#openlong), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
 
-See [*OpenLong()*](#openlong), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
-
-### Usage
+### Verwendung
 ```cs
 OpenLongLimit(double limitPrice)
 OpenLongLimit(double limitPrice, string strategyName)
@@ -381,7 +378,7 @@ OpenLongLimit(int quantity, double limitPrice)
 OpenLongLimit(int quantity, double limitPrice, string strategyName)
 ```
 
-For Multibar-Strategies
+Für Multibar-Strategieen
 ```cs
 OpenLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName)
 ```
@@ -389,32 +386,32 @@ OpenLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, do
 ### Parameter
 |             |                  |     
 |---------------------|-------------|
-| strategyName          | An unambiguous name |
-| quantity            | Amount of stocks/contracts/etc.  |
-| multibarSeriesIndex | For [*Multibar*](#multibar) and [*MultiBars*](#multibars) strategies. Index of the data series for which the entry order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| limitPrice          | A double value for the limit price |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until removed with [*CancelOrder*](#cancelorder) or until it reaches its expiry (see [*TimeInForce*](#timeinforce)). |
+| strategyName          | ein eindeutiger Name |
+| quantity            | zu ordernde Stückzahl  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar) und [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| limitPrice          | ein double-Wert für den Limit Preis |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*CancelOrder*](#cancelorder) gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// if the EMA14 crosses the SMA50 from below to above
-// the ADX is rising its values
+// Eine Longposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
 if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
     OpenLongLimit("SMACrossesEMA");
 ```
 
 ## OpenLongStop()
 ### Description
-Enter long stop creates a limit order for entering a long position (buy).
+Open long stop erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen)
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStopLimit()*](#openlongstoplimit).
+Siehe auch [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStopLimit()*](#openlongstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 OpenLongStop(double stopPrice)
 OpenLongStop(double stopPrice, string strategyName)
@@ -422,40 +419,40 @@ OpenLongStop(int quantity, double stopPrice)
 OpenLongStop(int quantity, double stopPrice, string strategyName)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 OpenLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName)
 ```
 
 ### Parameter
-| |   |
-|---------------------|-------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name    |
-| quantity            | Amount of stocks or contracts etc.                                                                                                                                                    |
-| multibarSeriesIndex | For [*Multibar*](#multibar) and [*MultiBars*](#multibars) strategies Index of the data series for which an entry order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| stopPrice           | A double value for the stop price                                                                                                                                                     |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted with the [*CancelOrder*](#cancelorder) command or until it reaches its expiry time (see [*TimeInForce*](#timeinforce)). |
+|             |                  |     
+|---------------------|-------------|
+| strategyName          | ein eindeutiger Name |
+| quantity            | zu ordernde Stückzahl  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar)  Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| stopPrice          | ein double-Wert für den Stop Preis |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*CancelOrder*](#cancelorder) gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 private IOrder stopOrder = null;
-// Place an entry order at the high of the current bar
+// An das Hoch des aktuellen Bars einen Einstiegsstop legen
 if (stopOrder == null)
     stopOrder = OpenLongStop(Low[0], "Stop Long");
 ```
 
 ## OpenLongStopLimit()
 ### Description
-Enter long stop limit creates a buy stop limit order for entering a long position.
+Open long stop limit erzeugt eine Buy-Stop-Limitorder um eine Long Position einzugehen (zu kaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop).
+Siehe auch  [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop).
 
-### Usage
+### Verwendung
 ```cs
 OpenLongStopLimit(double limitPrice, double stopPrice)
 OpenLongStopLimit(double limitPrice, double stopPrice, string strategyName)
@@ -463,7 +460,7 @@ OpenLongStopLimit(int quantity, double limitPrice, double stopPrice)
 OpenLongStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 OpenLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName)
 ```
@@ -471,17 +468,17 @@ OpenLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity
 ### Parameter
 |    |     |
 |--------------|-------------------------|
-| strategyName          | An unambiguous name       |
-| quantity            | Amount of stocks or contracts to be ordered   |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the entry order is to be executed.  See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| stopPrice           | A double value for the stop price |
-| limitPrice          | A double value for the limit price |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until canceled with the CancelOrder command or until it reaches its expiry (see [*TimeInForce*](#timeinforce)). |
+| strategyName          | ein eindeutiger Name      |
+| quantity            | zu ordernde Stückzahl  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| stopPrice           | ein double-Wert für den Stop Preis |
+| limitPrice          | ein double-Wert für den Limit Preis |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*CancelOrder*](#cancelorder) gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 private IOrder stopOrder = null;
 // Place an entry stop at the high of the current bar
@@ -492,51 +489,50 @@ if (stopOrder == null)
 
 ## OpenShort()
 ### Description
-Enter short creates a market order for entering a short position (naked sell).
+open short erzeugt eine Marketorder um eine Short Position einzugehen (leerzuverkaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
+Siehe auch [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
 
-### Usage
+### Verwendung
 ```cs
 OpenShort()
 OpenShort(string strategyName)
 OpenShort(int quantity)
 OpenShort(int quantity, string strategyName)
-For multi-bar strategies
+
+Für Multibar-Strategieen
 OpenShort(int multibarSeriesIndex, int quantity, string strategyName)
 ```
 
 ### Parameter
 |                     |                                                                      |
 |---------------------|----------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                  |
-| quantity            | Amount of stocks/contracts etc.                                      |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies
-Index of the data series for which the entry order is to be executed
-See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).     |
+| strategyName          | ein eindeutiger Name                                              |
+| quantity            | zu ordernde Stückzahl                                  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).    |
 
-### Return Value
-an order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// if the EMA14 crosses the SMA50 from above to below
-// the ADX is rising its values
+// Eine Shortposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
 if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
     OpenShort("'EMACrossesSMA");
 ```
 
 ## OpenShortLimit()
-### Description
-Enter short limit creates a limit order for entering a short position (naked short).
+### Beschreibung
+open short limit erzeugt eine Limitorder um eine Short Position einzugehen (leerzuverkaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity)bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*OpenShort()*](#openshort), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
+Siehe auch [*OpenShort()*](#openshort), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
 
-### Usage
+### Verwendung
 ```cs
 OpenShortLimit(double limitPrice)
 OpenShortLimit(double limitPrice, string strategyName)
@@ -544,7 +540,7 @@ OpenShortLimit(int quantity, double limitPrice)
 OpenShortLimit(int quantity, double limitPrice, string strategyName)
 ```
 
-For Multibar-Strategies
+Für Multibar-Strategieen
 ```cs
 OpenShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName)
 ```
@@ -552,29 +548,30 @@ OpenShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, d
 ### Parameter
 |    |  |
 |---------------------|-------------------------------------------------|
-| strategyName          | An unambiguous name     |
-| quantity            | Amount to be ordered   |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the entry order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
-| limitPrice          | A double value for the limit price   |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted with the CancelOrder command or until it reaches its expiry (see [*TimeInForce*](#timeinforce)). |
+| strategyName          | ein eindeutiger Name     |
+| quantity            | zu ordernde Stückzahl  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
+| limitPrice          | ein double-Wert für den Limit Preis  |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
 
-### Return Value
-an order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter a short position if the last entry is 10 bars in the past and two SMAs have crossed each other
+// Eine Shortposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
 if (BarsCountFromTradeOpen() > 10 && CrossBelow(SMA(10), SMA(20), 1))
 OpenShortLimit("SMA cross entry");
 ```
 
 ## OpenShortStop()
-### Description
-Enter short stop creates a limit order for entering a short position.
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
-See [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStopLimit()*](#openshortstoplimit)..
+### Beschreibung
+Open short stop erzeugt eine Limitorder um eine Short Position einzugehen (leerzuverkaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
+Siehe auch [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStopLimit()*](#openshortstoplimit)..
 
-### Usage
+### Verwendung
 ```cs
 OpenShortStop(double stopPrice)
 OpenShortStop(double stopPrice, string strategyName)
@@ -587,35 +584,36 @@ For multi-bar strategies
 OpenShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName)
 ```
 
-### Parameter
+### Für Multibar-Strategieen
 |                     |                                                                                                               |
 |---------------------|---------------------------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                                                           |
-| quantity            | Amount to be ordered                                                                                          |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the entry order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| stopPrice           | A double value for the stop price                                                                             |
-| liveUntilCancelled  | The order will remain active until canceled using the CancelOrder command or until it reaches its expiry time |
+| strategyName          | ein eindeutiger Name                                                                                       |
+| quantity            | zu ordernde Stückzahl                                                                                         |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| stopPrice           | ein double-Wert für den Stop Preis                                                                            |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 private IOrder stopOrder = null;
-// Place an entry stop at the High of the current bar
+// An das Tief des aktuellen Bars einen Einstiegsstop legen
 if (stopOrder == null)
     stopOrder = OpenShortStop(High[0], "stop short");
 ```
 
 ## OpenShortStopLimit()
-### Description
-Enter short stop limit creates a sell stop limit order for entering a short position.
+### Beschreibung
+Open short stop limit  erzeugt eine Sell-Stop-Limitorder um eine Short Position einzugehen (leerzuverkaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity)bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop).
+Siehe auch [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop).
 
-### Usage
+### Verwendung
 ```cs
 OpenShortStopLimit(double limitPrice, double stopPrice)
 OpenShortStopLimit(double limitPrice, double stopPrice, string strategyName)
@@ -623,7 +621,7 @@ OpenShortStopLimit(int quantity, double limitPrice, double stopPrice)
 OpenShortStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 
 ```cs
 OpenShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName)
@@ -632,19 +630,19 @@ OpenShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantit
 ### Parameter
 |                     |                                                                                                                                                              |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name      |
-| quantity   | Amount to be ordered       |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies.
-Index of the data series for which an entry order is to be placed.
-See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).       |
-| stopPrice           | A double value for the stop price                                                                                                                            |
-| limitPrice          | A double value for the limit price                                                                                                                           |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name    |
+| quantity   | zu ordernde Stückzahl      |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll
+Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).       |
+| stopPrice           | ein double-Wert für den Stop Preis           |
+| limitPrice          | ein double-Wert für den Limit Preis                                                                                                                          |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist.|
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
 private IOrder stopOrder = null;
 // Place an entry stop at the low of the current bar; if the low is reached then place a limit order 2 ticks below the low
@@ -653,23 +651,24 @@ if (stopOrder == null)
 ```
 
 ## EntriesPerDirection
-### Description
-Entries per direction defines the maximum number of entries permitted in one direction (long or short).
+### Beschreibung
+Die Eigenschaft EntriesPerDirection legt die maximal erlaubte Anzahl von Einstiegen in eine Richtung (long bzw. short) fest.
 
-Whether the name of the entry signal is taken into consideration or not is defined within [*EntryHandling*](#entryhandling).
+Ob dabei der Name des Einstiegssignals berücksichtigt werden soll oder nicht wird von  [*EntryHandling*](#entryhandling) festgelegt.
 
-Entries per direction is defined with the [*OnInit()*](#oninit) method.
+EntriesPerDirection wird in der [*OnInit()*](#oninit) -Methode angegeben.
 
-### Usage
+### Verwendung
 **EntriesPerDirection**
 
 ### Parameter
-An int value for the maximum entries permitted in one direction.
+ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung
 
 ### Example
 ```cs
-// Example 1
-// If one of the two entry conditions is true and a long position is opened, then the other entry signal will be ignored
+// Beispiel 1 
+// Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
+// wird das jeweils andere Einstiegssignal ignoriert
 protected override void OnInit()
 {
 EntriesPerDirection = 1;
@@ -682,7 +681,8 @@ protected override void OnCalculate()
         OpenLong("SMA cross entry");
 }
 
-// Example 2
+// Beispiel 2 
+// Es wird für jedes unterschiedlich benannte Einstiegssignal eine Long-Position eröffnet
 
 
 protected override void OnCalculate()
@@ -695,38 +695,39 @@ protected override void OnCalculate()
 ```
 
 ## EntryHandling
-### Description
-Entry handling decides how the maximum number of entries permitted in one direction is interpreted ([*EntriesPerDirection*](#entriesperdirection)).
+### Beschreibung
+EntryHandling legt fest, auf welche Weise die maximal erlaubte Anzahl von Einstiegen in eine Richtung ([*EntriesPerDirection*](#entriesperdirection)) interpretiert wird.
 
-Entry handling is defined with the [*OnInit()*](#oninit) method.
+EntryHandling wird in der  [*OnInit()*](#oninit) Methode angegeben.
 
 **EntryHandling.AllEntries**
 
-AgenaTrader continues to create entry orders until the maximum number of entries permitted (defined in [*EntriesPerDirection*](#entriesperdirection)) per direction (long or short) is reached, regardless of how the entry signals are named.
+AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit [*EntriesPerDirection*](#entriesperdirection)) je Richtung (long bzw. short) erreicht ist, unabhängig von der jeweiligen Benennung des Einstiegssignals.
 
-If entries per direction = 2, then enter long ("SMA crossover") and enter long ("range breakout") combined will reach the maximum number of long entries permitted.
+Ist EntriesPerDirection = 2, dann ist mit EnterLong("SMA Crossover") und EnterLong("Range Breakeout") diese max. Anzahl von Long-Einstiegen erreicht.
 
 **EntryHandling.UniqueEntries**
 
-AgenaTrader continues to generate entry orders until the maximum number of entries (defined in entries per direction) in one direction (long or short) for the differently named entry signals has been reached.
-If entries per direction = 2, then it is possible for two signals for enter long ("SMA crossover") *and* 2 signals for enter long ("range breakout") to be traded.
+AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit EntriesPerDirection) je Richtung (long bzw. short) für jedes unterschiedlich benannte Einstiegssignal erreicht ist.
 
-### Usage
+Ist EntriesPerDirection = 2, dann ist es möglich, 2 Signale für EnterLong("SMA Crossover") und 2 Signale für EnterLong("Range Breakeout") zu handeln.
+
+### Verwendung
 **EntryHandling**
 
-### Example
-See [*EntriesPerDirection*](#entriesperdirection).
+### Beispiel
+Siehe unter [*EntriesPerDirection*](#entriesperdirection).
 
 ## ExcludeTradeHistoryInBacktest
 ## CloseLong()
-### Description
-Exit long creates a sell market order for closing a long position (sell).
+### Beschreibung
+CloseLong() erzeugt eine Sell-Marketorder um eine Long Position zu schließen (zu verkaufen).
 
-If a signature not containing a set amount is used, the amount is set by [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity)bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
+Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 CloseLong()
 CloseLong(int quantity)
@@ -735,7 +736,7 @@ CloseLong(string strategyName, string fromEntry signal)
 CloseLong(int quantity, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseLong(int multibarSeriesIndex, int quantity, string strategyName, string fromEntry signal)
 ```
@@ -743,33 +744,35 @@ CloseLong(int multibarSeriesIndex, int quantity, string strategyName, string fro
 ### Parameter
 |                     |                                                                      |
 |---------------------|----------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                  |
-| quantity            | The quantity to be sold                                              |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
-| fromEntry signal    | The name of the attached entry signal                                |
+| strategyName          | ein eindeutiger Name                                                |
+| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                              |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll.
+Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                               |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenLong("EMACrossesSMA");
 
-// Close position
+// Position schließen
 if (CrossBelow(EMA(14), SMA(50), 2))
     CloseLong();
 ```
 
 ## CloseLongLimit()
-### Description
-Exit long limit creates a sell limit order for closing a long position (i.e. for selling).
+### Beschreibung
+Close long limit  erzeugt eine Sell-Limitorder um eine Long Position zu schließen (zu verkaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
-See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
+Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 CloseLongLimit(double limitPrice)
 CloseLongLimit(int quantity, double limitPrice)
@@ -778,7 +781,7 @@ CloseLongLimit(double limitPrice, string strategyName, string fromEntry signal)
 CloseLongLimit(int quantity, double limitPrice, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName, string fromEntry signal)
 ```
@@ -786,35 +789,35 @@ CloseLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, d
 ### Parameter
 |                     |                                                                                                                                                              |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                                                                                                          |
-| fromEntry signal    | The name of the attached entry signal                                                                                                                        |
-| quantity            | Order quantity to be sold                                                                                                                                    |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| limitPrice          | A double value for the limit price                                                                                                                           |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name                                                                                                                                          |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                        |
+| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                 |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| limitPrice          | ein double-Wert für den Limit Preis                                                                                                                       |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
 
-### Return Value
-an order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenLong("EMACrossesSMA");
 
-// Close position
+// Position schließen
 if (CrossBelow(EMA(14), SMA(50), 2))
     CloseLongLimit(Low[0]);
 ```
 
 ## CloseLongStop()
-### Description
-Exit long stop creates a sell stop order for closing a long position (short).
+### Beschreibung
+Close long stop creates  erzeugt eine Sell-Stoporder um eine Long Position zu schließen (zu verkaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
-See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
+Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 CloseLongStop(int quantity, double stopPrice)
 CloseLongStop(double stopPrice, string fromEntry signal)
@@ -822,7 +825,7 @@ CloseLongStop(double stopPrice, string strategyName, string fromEntry signal)
 CloseLongStop(int quantity, double stopPrice, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName, string fromEntry signal)CloseLongStop
 ```
@@ -830,36 +833,37 @@ CloseLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, do
 ### Parameter
 |                     |                                                                                                                                                              |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                                                                                                          |
-| fromEntry signal    | The name of the associated entry signal                                                                                                                      |
-| quantity            | The quantity to be sold                                                                                                                                      |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| stopPrice           | A double value for the stop price                                                                                                                            |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name                                                                                                                                          |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                   |
+| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                     |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| stopPrice           | ein double-Wert für den Stop Preis                                                                                                                           |
+| liveUntilCancelled  |  Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
 
-### Return Value
-an order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenLong("EMACrossesSMA");
 
-// Close position
+// Position schließen
 if (CrossBelow(EMA(14), SMA(50), 2))
     CloseLongStop(Low[0]);
 ```
 
 ## CloseLongStopLimit()
-### Description
-Exit long stop limit creates a sell stop limit order for closing a long position (i.e. selling).
+### Beschreibung
+Close long stop limit erzeugt eine Sell-Stop-Limitorder um eine Long Position zu schließen (zu verkaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
+Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 CloseLongStopLimit(double limitPrice, double stopPrice)
 CloseLongStopLimit(int quantity, double limitPrice, double stopPrice)
@@ -868,7 +872,7 @@ CloseLongStopLimit(double limitPrice, double stopPrice, string strategyName, str
 CloseLongStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
 ```
 
-For Multibar-Strategies
+Für Multibar-Strategieen
 ```cs
 CloseLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
 ```
@@ -876,24 +880,25 @@ CloseLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantit
 ### Parameter
 |                     |                                                                                                                                                              |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                                                                                                          |
-| fromEntry signal    | The name of the associated entry signal                                                                                                                      |
-| quantity            | The quantity to be sold                                                                                                                                      |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| limitPrice          | A double value for the limit price                                                                                                                           |
-| stopPrice           | A double value for the stop price                                                                                                                            |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name                                                                                                                                          |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                      |
+| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                      |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) .
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| limitPrice          | ein double-Wert für den Limit Preis                                                                                                                           |
+| stopPrice           | ein double-Wert für den Stop Preis                                                                                                                          |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenLong("EMACrossesSMA");
 
-// Close position
+// Position schließen
 if (CrossBelow(EMA(14), SMA(50), 2))
     CloseLongStopLimit(Low[0] - (15 * TickSize), Low[0]);
 ```
@@ -901,13 +906,14 @@ if (CrossBelow(EMA(14), SMA(50), 2))
 ## ExitOnClose
 ## ExitOnCloseSeconds
 ## CloseShort()
-### Description
-Exit short creates a buy-to-cover market order for closing a short position (buy).
+### Beschreibung
+Close short erzeugt eine Buy-to-Cover Marketorder um eine Short Position zu schließen (zu kaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
-See [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-### Usage
+Siehe auch  [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+
+### Verwendung
 ```cs
 CloseShort()
 CloseShort(int quantity)
@@ -916,7 +922,7 @@ CloseShort(string strategyName, string fromEntry signal)
 CloseShort(int quantity, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseShort(int multibarSeriesIndex, int quantity, string strategyName, string fromEntry signal)
 ```
@@ -924,34 +930,35 @@ CloseShort(int multibarSeriesIndex, int quantity, string strategyName, string fr
 ### Parameter
 |                     |                                                                      |
 |---------------------|----------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                  |
-| Quantity            | Order quantity to be bought                                          |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| fromEntry signal    | The name of the associated entry signal                              |
+| strategyName          | ein eindeutiger Name                                                  |
+| Quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                      |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                              |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenShort("EMACrossesSMA");
 
-// Close
+// Position schließen
 if (CrossAbove(EMA(15), SMA(50), 2))
     CloseShort();
 ```
 
 ## CloseShortLimit()
-### Description
-Exit short limit creates a buy-to-cover limit order for closing a short position (buy).
+### Beschreibung
+Close short limit erzeugt eine Buy-to-Cover Limitorder um eine Short Position zu schließen (zu kaufen).
 
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+Siehe auch [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 CloseShortLimit(double limitPrice)
 CloseShortLimit(int quantity, double limitPrice)
@@ -960,7 +967,7 @@ CloseShortLimit(double limitPrice, string strategyName, string fromEntry signal)
 CloseShortLimit(int quantity, double limitPrice, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName, string fromEntry signal)
 ```
@@ -968,34 +975,36 @@ CloseShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, 
 ### Parameter
 |                     |                                                                                                                                                              |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | An unambiguous name                                                                                                                                          |
-| fromEntry signal    | The name of the associated entry signal                                                                                                                      |
-| quantity            | Order quantity to be bought                                                                                                                                  |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| limitPrice          | A double value for the limit price                                                                                                                           |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name                                                                                                                                          |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                     |
+| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                 |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| limitPrice          | ein double-Wert für den Limit Preise                                                                                                                           |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenShort("EMACrossesSMA");
-// Close
+// Position schließen
 if (CrossAbove(EMA(15), SMA(50), 2))
     CloseShortLimit(High[0] + (Ticksize * 2));
 ```
 
 ## CloseShortStop()
 ### Description
-Exit short stop creates a buy-to-cover stop order for closing a short position.
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+Close short stop erzeugt eine Buy-to-Cover Stoporder um eine Short Position zu schließen (zu kaufen).
 
-See [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-### Usage
+Siehe auch [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+
+### Verwendung
 ```cs
 CloseShortStop(int quantity, double stopPrice)
 CloseShortStop(double stopPrice, string fromEntry signal)
@@ -1003,41 +1012,42 @@ CloseShortStop(double stopPrice, string strategyName, string fromEntry signal)
 CloseShortStop(int quantity, double stopPrice, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName, string fromEntry signal)CloseLongStop
 ```
 
 ### Parameter
 |  |                                                                                                                                                              |  |---------------------|---------------------------------------------------------------|
-| strategyName          | An unambiguous name    |
-| fromEntry signal    | The name of the associated entry signal    |
-| quantity            | Order quantity to be bought    |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| stopPrice           | A double value for the stop price    |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name    |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals    |
+| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)   |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| stopPrice           | ein double-Wert für den Stop Preis    |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit  erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-/// Enter if two EMA crosses SMA and the ADX is rising
+// Einstieg wenn zwei SMA' sich kreuzen
 if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenShort("EMACrossesSMA");
-// Close
+// Position schließen
 if (CrossAbove(EMA(15), SMA(50), 2))
     CloseShortStop(High[0] + (Ticksize * 2));
 ```
 
 ## CloseShortStopLimit()
-### Description
-Exit short stop limit creates a buy-to-cover stop limit order for closing a short position.
-If a signature not containing a set amount is used, the amount is set by the [*DefaultOrderQuantity*](#defaultorderquantity) or taken from the strategy dialog window.
+### Beschreibung
+Close short stop  erzeugt eine Buy-to-Cover Stop-Limitorder um eine Short Position zu schließen (zu kaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
 
-See [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
+Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
 
-### Usage
+### Verwendung
 ```cs
 CloseShortStopLimit(double limitPrice, double stopPrice)
 CloseShortStopLimit(int quantity, double limitPrice, double stopPrice)
@@ -1046,7 +1056,7 @@ CloseShortStopLimit(double limitPrice, double stopPrice, string strategyName, st
 CloseShortStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
 ```
 
-For multi-bar strategies
+Für Multibar-Strategieen
 ```cs
 CloseShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
 ```
@@ -1054,40 +1064,41 @@ CloseShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quanti
 ### Parameter
 |    |     |
 |---------------------|----------------------------------|
-| strategyName          | An unambiguous name      |
-| fromEntry signal    | The name of the associated entry signal    |
-| quantity            | Order quantity to be bought      |
-| multibarSeriesIndex | For [*Multibar*](#multibar), [*MultiBars*](#multibars) strategies. Index of the data series for which the exit order is to be executed. See [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| limitPrice          | A double value for the limit price    |
-| stopPrice           | A double value for the stop price      |
-| liveUntilCancelled  | The order will not be deleted at the end of the bar, but will remain active until deleted using the CancelOrder command or until it reaches its expiry time. |
+| strategyName          | ein eindeutiger Name      |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals    |
+| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)      |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| limitPrice          | ein double-Wert für den Limit Preis    |
+| stopPrice           | ein double-Wert für den Stop Preis      |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit erreicht ist. |
 
-### Return Value
-An order object of the type "IOrder"
+### Rückgabewert
+ein order-Objekt vom Typ IOrder
 
-### Example
+### Beispiel
 ```cs
-/// Enter if two EMA crosses SMA and the ADX is rising
+// Eingabe, wenn zwei EMA den SMA kreuzt und der ADX steigt
 if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
      OpenShort("EMACrossesSMA");
-// Close
+// Position schließen
 if (CrossAbove(EMA(15), SMA(50), 2))
     CloseShortStopLimit(High[0] + ( TickSize * 2 ), High[0]);
 ```
 
 ## GetAccountValue()
-### Description
-Get account value outputs information regarding the account for which the current strategy is being carried out.
+### Beschreibung
+GetAccountValue() liefert Informationen über das Konto, für das die Strategie ausgeführt wird.
 
-See [*GetProfitLoss()*](#getprofitloss).
+Siehe auch  [*GetProfitLoss()*](#getprofitloss).
 
-### Usage
+### Verwendung
 ```cs
 GetAccountValue(AccountItem accountItem)
 ```
 
 ### Parameter
-Possible values for account item are:
+Mögliche Werte für accountItem sind 
 
 AccountItem.BuyingPower
 
@@ -1095,10 +1106,11 @@ AccountItem.CashValue
 
 AccountItem.RealizedProfitLoss
 
-### Return Value
-A double value for the account item for historical bars, a zero (0) is returned
 
-### Example
+### Rückgabewert
+ein double-Wert für das jeweilige AccountItem, Für historische Bars wird eine 0 (Null) zurückgegeben.
+
+### Beispiel
 ```cs
 Print("The current account cash value is " + GetAccountValue(AccountItem.CashValue));
 Print("The current account cash value with the leverage provided by the broker is " + GetAccountValue(AccountItem.BuyingPower));
@@ -1106,94 +1118,96 @@ Print("The current P/L already realized is " + GetAccountValue(AccountItem.Reali
 ```
 
 ## GetProfitLoss()
-### Description
-Get profit loss outputs the currently unrealized profit or loss for a running position.
+### Beschreibung
+GetProfitLoss() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position.
 
-See [*GetAccountValue()*](#getaccountvalue).
+Siehe auch [*GetAccountValue()*](#getaccountvalue).
 
 ### Usage
 ```cs
 GetProfitLoss(int pLType);
 ```
 
-### Parameter
-Potential values for the P/L type are:
+### Verwendung
 
-0 – Amount: P/L as a currency amount
+Mögliche Werte für pLType sind 
 
-1 – Percent: P/L in percent
+0 - Amount, P/L als Währungsbetrag 
 
-2 – Risk: P/L in Van Tharp R-multiples [*www.vantharp.com*](http://www.vantharp.com/tharp-concepts/risk-and-r-multiples.asp)
+1 - Percent, P/L in Prozent
 
-3 – P/L in ticks
+2 – Risk, P/L in Van Tharp R-Multiples  [*www.vantharp.com*](http://www.vantharp.com/tharp-concepts/risk-and-r-multiples.asp)
 
-### Return Value
-A double value for the unrealized profit or loss
+3 – P/L in Ticks
 
-### Example
+### Rückgabewert
+ein double-Wert für den unrealisierten Gewinn bzw. Verlust 
+
+### Beispiel
 ```cs
 Print("The current risk for the strategy " + this.Name + " is " + GetProfitLoss(1) + " " + Instrument.Currency);
 Print("This equals "+ string.Format( "{0:F1} R.", GetProfitLoss(3)));
 ```
 ## GetScriptedCondition()
-### Description
-This method allows user to communicate between scripts.
+### Beschreibung
+Mit dieser Methode können Benutzer zwischen Skripte zu kommunizieren.
 
 
 
 ## GetProfitLossAmount()
-### Description
-GetProfitLossAmount () provides the current unrealized gain or loss of a current position as the currency amount.
+### Beschreibung
+GetProfitLossAmount() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position als Währungsbetrag.
 
-See [*GetAccountValue()*](#getaccountvalue).
+Siehe auch [*GetAccountValue()*](#getaccountvalue).
 
-### Usage
+### Verwendung
 ```cs
 GetProfitLossAmount(double profitLoss);
 ```
 
 ### Parameter
-Double
+Ein Objekt vom Typ double
 
-### Return Value
-A double value for the unrealized profit or loss
+### Rückgabewert
+ein double-Wert für den unrealisierten Gewinn bzw. Verlust 
 
-### Example
+### Beispiel
 ```cs
 Print("the current P&L " + this.Name + " is " + GetProfitLossAmount(Position.OpenProfitLoss) + " " + Instrument.Currency);
 ```
 
 ## GetProfitLossRisk()
-### Description
-GetProfitLossRisk () returns the current unrealized gain or loss of a current position in R-multiples.
+### Beschreibung
+GetProfitLossRisk() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position in R-Multiplen.
 
-See [*GetAccountValue()*](#getaccountvalue).
+Siehe auch  [*GetAccountValue()*](#getaccountvalue).
 
-### Usage
+### Verwendung
 ```cs
 GetProfitLossRisk();
 ```
 
 ### Parameter
-None
-### Return Value
-A double value for the R-Multiple
+keine
 
-### Example
+### Rückgabewert
+ein double-Wert für denie R-Multiple 
+
+### Beispiel
 ```cs
 Print("the current P&L " + this.Name + " is " + string.Format( "{0:F1} R.", GetProfitLossRisk()));
 ```
 
 ## IsAutomated
-### Description
-IsAutomated determines whether orders are activated automatically. IsAutomated is specified in the [*OnInit()*](#oninit) method.
+### Beschreibung
+IsAutomated legt fest ob Orders automatisch aktiviert werden. IsAutomated wird in der  [*OnInit()*](#oninit)-Methode angegeben.
 
-If IsAutomated = true, then orders are automatically activated (default). If IsAutomated is assigned the value false, the corresponding order must be activated with order.[*ConfirmOrder()*](#confirmorder).
+Ist IsAutomated = true, dann werden Orders automatisch aktiviert (Default). Wenn IsAutomated der Wert false zugewiesen wurde, dann muss die entsprechende Order mit order. [*ConfirmOrder()*](#confirmorder) aktiviert werden.
 
 ### Parameter
-Bool value
+ein bool-Wert
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -1202,44 +1216,44 @@ protected override void OnInit()
 ```
 
 ## Order
-### Description
-IOrder is an object that contains information about an order that is currently managed by a strategy.
+### Beschreibung
+IOrder ist ein Objekt, welches Informationen zu einer Order enthält, die aktuell von einer Strategie verwaltet wird.
 
 
-The individual properties are:
+Die einzelnen Eigenschaften sind:
 
 -   Action
-    **One of four possible positions in the market:**
+    **Eine der vier möglichen Aktionen:**
     -   OrderAction.Buy
     -   OrderAction.BuyToCover
     -   OrderAction.Sell
     -   OrderAction.SellShort
 
 -   **AvgFillPrice**
-    **The average purchase or selling price of a position.For positions without partial executions, this corresponds to the entry price.**
+    **Der durchschnittliche Kauf- bzw. Verkaufspreis einer Position. Bei Positionen ohne Teilausführungen entspricht dies dem Einstiegskurs.**
 
 -   **Filled**
-    For partial versions, Filled is less than Quantity
+    Bei Teilausführungen ist Filled kleiner als Quantity
 
 -   **FromEntrySignal**
-    The trading instrument in which the position exists... See *Instruments*.
+    Das Handelsinstrument, in welchem die Position besteht. siehe auch *Instruments*.
 
 -   **LimitPrice**
 
 -   **Name**
-    The unique SignalName  (maybe mistake SignalName)
-
+    Der eindeutige SignalName  
+    
 -   **OrderId**
-    The unique OrderId
+    Die eindeutige OrderId
 
 -   **OrderMode**
-    One of three possible positions in the market:
+    Eines der drei möglichen Optionen:
     -   OrderMode.Direct
     -   OrderMode.Dynamic
     -   OrderMode.Synthetic
 
 -   **OrderState**
-    The current status of the order can be queried (see *OnOrderExecution* and *OnOrderChanged*)
+    Hiermit kann der aktuelle Zustand der Order abgefragt werden (siehe  *OnOrderExecution* und *OnOrderChanged*)
     -   OrderState.Accepted
     -   OrderState.Cancelled
     -   OrderState.CancelRejected
@@ -1254,65 +1268,65 @@ The individual properties are:
     -   OrderState.Working
 
 -   **OrderType**
-    Possible order types:
+    Mögliche Orderarten:
     -   OrderType.Limit
     -   OrderType.Market
     -   OrderType.Stop
     -   OrderType.StopLimit
 
 -   **Quantity**
-    The quantity to be ordered
+    Die zu ordernde Stückzahl
 
 -   **StopPrice**
 
 -   **Time**
-    Time stamp
+    Zeitstempel
 
 -   **TimeFrame**
-    The TimeFrame, which is valid for the order.
-
+    Der TimeFrame, der für die Order gültig ist.
+    
 -   **TimeFrame**
 
-Possible Methods:
+Mögliche Methoden:
 
 -   **order CancelOrder()**
-    Delete the Order
+    Löscht die Order
 
 -   **order.ConfirmOrder()**
-    Confirm the order. This method have to be executed if IsAutomated is set to false and you want to run the order automatically. This is, for example, the case when an OCO or IfDone fabrication is to be produced.
+    Bestätig die Order. Diese Methode muss ausgeführt werden, wenn IsAutomated auf false gesetzt wird und man die Order dennoch automatisch ausführen möchte. Dies ist z. B. dann der Fall, wenn eine OCO- oder IfDone-Verküpfung hergestellt werden soll.
 
 
 ## PositionType
-See [*Position.PositionType*](#positionpositiontype).
+Siehe [*Position.PositionType*](#positionpositiontype).
 
 ## Performance
-### Description
-Performance is an object containing information regarding all trades that have been generated by a strategy.
+### Beschreibung
+Performance ist ein Objekt, welches Informationen zu allen Trades enthält, die von einer Strategie generiert wurden.
 
-The trades are sorted into multiple lists. With the help of these lists it is easier to create a performance evaluation.
+Es gibt mehrere Listen, in denen die Trades eingeordnet sind. Mit Hilfe dieser Listen ist es leicht, weitere Performance-Auswertungen zu erstellen.
 
-See Performance Characteristics.
+Siehe Performance-Kennzahlen.
 
-The individual lists are:
+Die einzelnen Listen sind:
 
 -   **Performance.AllTrades**
-    A [*Trade*](#trade) collection object containing all trades generated by a strategy.
+    Ist ein  [*Trade*](#trade) Collection Objekt, das alle von einer Strategie generierten Trades enthält.
 
 -   **Performance.LongTrades**
-    A [*Trade*](#trade) collection object containing all long trades generated by a strategy.
+    Ist ein [*Trade*](#trade) Collection Objekt, das alle von einer Strategie generierten Long-Trades enthält.
 
 -   **Performance.ShortTrades**
-    A [*Trade*](#trade) collection object containing all short trades generated by a strategy.
+    Ist ein [*Trade*](#trade) Collection Objekt, das alle von einer Strategie generierten ShortTrades enthält.
 
 -   **Performance.WinningTrades**
-    A [*Trade*](#trade) collection object containing all profitable trades generated by a strategy.
+    Ist ein [*Trade*](#trade) Collection Objekt, das alle von einer Strategie generierten Gewinntrades enthält.
 
 -   **Performance.LosingTrades**
-    A [*Trade*](#trade) collection object containing all loss trades generated by a strategy.
+    Ist ein [*Trade*](#trade) Collection Objekt, das alle von einer Strategie generierten Verlusttrades enthält.
 
-### Example
+### Beispiel
 ```cs
-// When exiting a strategy, create a performance evaluation
+// beim Verlassen der Strategie eine Auswertung erstellen
 protected override void OnDispose()
 {
 Print("Performance evaluation of the strategy : " + this.Name);
@@ -1327,45 +1341,45 @@ Print("Result: " + Account.RealizedProfitLoss + " " + Account.Currency);
 ```
 
 ## Position
-### Description
-Position is an object containing information regarding the position currently being managed by a strategy.
+### Beschreibung
+Position ist ein Objekt, welches Informationen zu einer Position enthält, die aktuell von einer Strategie verwaltet wird.
 
-The individual properties are:
+Die einzelnen Eigenschaften sind:
 
 -   **Position.AvgPrice**
-    The average buy or sell price of a position.
-    For positions without partial executions, this is equal to the entry price.
+    Der durchschnittliche Kauf- bzw. Verkaufspreis einer Position.
+    Bei Positionen ohne Teilausführungen entspricht dies dem Einstiegskurs.
 
 -   **Position.CreatedDateTime**
-    Date and time at which the position was opened.
+    Datum und Uhrzeit der Positionseröffnung.
 
 -   **Position.Instrument**
-    The trading instrument in which the position exists.
-    See *Instruments*.
+    Das Handelsinstrument, in welchem die Position besteht.
+    siehe auch *Instruments*.
 
 -   **Position.PositionType**
-    One of three possible positions in the market:
+    Eines der drei möglichen Positionierungen im Markt:
     -   PositionType.Flat
     -   PositionType.Long
     -   PositionType.Short
 
 -   **Position.OpenProfitLoss**
-    The currently not yet realized profit or loss.
-    See [*GetProfitLoss()*](#getprofitloss).
+    Der aktuell noch unrealisierte Gewinn bzw. Verlust.
+    siehe auch [*GetProfitLoss()*](#getprofitloss).
 
 -   **Position.ProfitCurrency**
-    Profit (or loss) displayed as a currency amount.
+    Gewinn (bzw. Verlust) ausgewiesen als Währungsbetrag.
 
 -   **Position.ProfitPercent**
-    Profit (or loss) displayed in percent.
+    Gewinn (bzw. Verlust) ausgewiesen in Prozent.
 
 -   **Position.ProfitPoints**
-    Profit (or loss) displayed in points or pips.
+    Gewinn (bzw. Verlust) ausgewiesen in Punkten bzw. Pips.
 
 -   **Position.Quantity**
-    Amount of stocks, contracts, CFDs etc. within a position.
+    Stückzahl der Aktien, Kontrakte, CFD's o.ä. in der Position.
 
-### Example
+### Beispiel
 ```cs
 if (Position.PositionType != PositionType.Flat)
 {
@@ -1382,16 +1396,16 @@ Print("Pieces " + Position.Quantity);
 ```
 
 ## Quantity
-See [*Position.Quantity*](#positionquantity), [*Position.PositionType*](#positionpositiontype).
+siehe unter [*Position.Quantity*](#positionquantity), [*Position.PositionType*](#positionpositiontype).
 
 ## SetUpProfitTarget()
 ### Description
-Set profit target immediately creates a "take profit" order after an entry order is generated. The order is sent directly to the broker and becomes active immediately.
-If the profit target is static, you can also define SetUpProfitTarget() with the OnInit() method.
+Serzeugt sofort nach Ausführung einer Einstiegsorder eine Profit Target-Order um eine laufende Position zu einem bestimmten Kurs im Gewinn zu schließen. Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam.
+Wenn das Gewinnziel statisch ist, kann SetUpProfitTarget() in der OnInit() Methode angegeben werden.
 
-See [*SetUpStopLoss()*](#setupstoploss), [*SetUpTrailStop()*](#setuptrailstop).
+Siehe auch  [*SetUpStopLoss()*](#setupstoploss), [*SetUpTrailStop()*](#setuptrailstop).
 
-### Usage
+### Verwendung
 ```cs
 SetUpProfitTarget(double currency)
 SetUpProfitTarget(CalculationMode mode, double value)
@@ -1401,32 +1415,32 @@ SetUpProfitTarget(string fromEntry signal, CalculationMode mode, double value)
 ### Parameter
 |    |           |
 |------------------|------------------------------------|
-| currency         | Sets the profit target in a currency, for example 500€.  |
-| mode             | Possible values are:
--   CalculationMode.Percent (display in percent)
--   CalculationMode.Price (display as price value)
--   CalculationMode.Ticks (display in ticks or pips)      |
-| value  | The distance between entry price and profit target. This is dependent upon the „mode" but generally refers to a monetary value, a percentage or a value in ticks. |
-| fromEntry signal | The name of the entry signal for which the profit target is to be generated. The amount is taken from the entry order referenced.   |
+| currency         | Gibt das Gewinnziel in einer Währung an, z.B. 500,- Euro.  |
+| mode             | Mögliche Werte sind:
+-   CalculationMode.Percent (Angabe in Prozent)
+-   CalculationMode.Price (Angabe  als Kurswert)
+-   CalculationMode.Ticks (Angabe in Ticks bzw. Pips)      |
+| value  | Ein Wert, der den Abstand zwischen Einstiegskurs und Gewinnziel angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks. |
+| fromEntry signal | Der Name eines Einstiegssignals, für das eine Profit Target-Order generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.   |
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
-// Creates a Target Order 20 ticks above the market
+// Erzeugt eine Profit Target-Order 10 Ticks über Einstand
 SetUpProfitTarget(CalculationMode.Ticks, 20);
 }
 ```
 
 ## SetUpStopLoss()
-### Description
-Set stop loss creates a stop loss order after an entry order is placed. The order is sent directly to the broker and becomes effective immediately.
+### Beschreibung
+Set up stop loss erzeugt sofort nach Ausführung einer Einstiegsorder eine StopLoss-Order um eine laufende Position zu einem bestimmten Kurs zu schließen. Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam (wenn sie nicht simuliert wird, s.u.).
 
-If the stop loss is static, then SetUpStopLoss() can be defined with the OnInit() method.
+Wenn der StopLoss-Kurs statisch ist, kann SetUpStopLoss() in der OnInit() Methode angegeben werden.
 
-See [*SetUpProfitTarget()*](#setupprofittarget), [*SetUpTrailStop()*](#setuptrailstop).
+Siehe auch [*SetUpProfitTarget()*](#setupprofittarget), [*SetUpTrailStop()*](#setuptrailstop).
 
-### Usage
+### Verwendung
 ```cs
 SetUpStopLoss(double currency)
 SetUpStopLoss(double currency, bool simulated)
@@ -1437,59 +1451,59 @@ SetUpStopLoss(string fromEntry signal, CalculationMode mode, double value, bool 
 ### Parameter
 |      |      |
 |------------------|---------------------------------------|
-| currency         | The difference between the stop loss and the entry price (=risk) in a currency, such as 500€     |
-| mode             | Potential values can be:
--   CalculationMode.Percent (display in percent)
--   CalculationMode.Price (display as price value)
--   CalculationMode.Ticks (display in ticks or pips)    |
-| simulated        | When set to "true," the stop order does not go live (as a market order) until the price has „touched" it for the first time (meaning that it is executed just as it would be under real market conditions). |
-| value            | The distance between stop price and profit target. This is dependent upon the „mode" but generally refers to a monetary value, a percentage or a value in ticks.                                            |
-| fromEntry signal | The name of the entry signal for which the stop order is to be generated. The amount is taken from the entry order referenced.                                                                              |
+| currency         | Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.    |
+| mode             | Mögliche Werte sind:
+-   CalculationMode.Percent ( Angabe in Prozent)
+-   CalculationMode.Price (Angabe als Kurswert)
+-   CalculationMode.Ticks (Angabe in Ticks bzw. Pips)    |
+| simulated        | Wenn "simulated" auf "true" gesetzt ist, wird die Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte). |
+| value            | Ein Wert, der den Abstand zwischen Einstiegskurs und Stoppkurs angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.                                            |
+| fromEntry signal | Der Name eines Einstiegssignals, für das eine Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.                                                                              |
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
-// Sets profitTarget 15 Ticks above the market
+// Sets profitTarget 15 Ticks über dem Markt
 SetUpStopLoss("MACDEntry", CalculationMode.Ticks, 15, true);
 }
 ```
 
 ## SetUpTrailStop()
-### Description
-Set trail stop creates a trail stop order after an entry order is generated. Its purpose is to protect you from losses, and after reaching break-even, to protect your gains.
+### Beschreibung
+SetTrailStop() erzeugt sofort nach Ausführung einer Einstiegsorder eine Trail Stop-Order um eine laufende Position zunächst im Verlust zu schützen bzw. nach dem BreakEven den Gewinn zu sichern.
 
-The order is sent directly to the broker and becomes effective immediately.
+Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam (wenn sie nicht simuliert wird, s.u.).
 
-If the stop loss price and the offset value are static, you can define SetUpTrailStop() with the OnInit() method.
+Wenn der StopLoss-Kurs und der Offset-Wert statisch ist, kann  SetUpTrailStop() in der OnInit() Methode angegeben werden.
 
-If you use SetUpTrailStop() within the [*OnCalculate()*](#oncalculate) method, you must make sure that the parameters are readjusted to the initial value, otherwise the most recently used settings will be used for the new position.
+Sollte SetUpTrailStop() in der [*OnCalculate()*](#oncalculate) Methode verwendet werden, um sie dynamisch dem Kursverlauf anpassen zu können, ist darauf zu achten, die Parameter vor einer weiteren (neuen) Position auf die gewünschten Initialwerte zurückzusetzten, da die zuletzt gesetzten Werte ansonsten auch für die neue Position wirksam sind.
 
-**Functionality:**
+**Funktionsweise:**
 
-Assuming that you have SetUpTrailStop(CalculationMode.Ticks, 30) selected:
+Angenommen es ist  SetUpTrailStop(CalculationMode.Ticks, 30) gesetzt:
 
-In a long position, the stop will be 30 ticks from the previously reached high. If the market makes a new high, the stop will be adjusted. However, the stop will no longer be moved downwards.
+In einer Long-Position wird der Stop nun 30 Ticks vom jeweils letzten erreichten Hoch entfernt gesetzt. Macht der Markt ein neues Hoch, wird der Stop angepasst. Der Stop wird jedoch nicht mehr nach unten verändert.
 
-In a short position, this behavior starts with the most recent low.
+In einer Shortposition ist das Verhalten analog vom erreichten tiefsten Tief ausgehend.
 
-**Tips:**
+**Hinweise:**
 
-It is not possible to use SetUpStopLoss and SetUpTrailStop for the same position at the same time within one strategy. The SetUpStopLoss() method will always have precedence over the other methods.
+Es ist nicht möglich, in einer Strategie für ein und dieselbe SetUpStopLoss und SetUpTrailStop gleichzeitig zu verwenden. Es wird immer SetUpStopLoss() der Vorrang eingeräumt
 
-However, it is possible to use both variants parallel to each other in the same strategy if they are referencing different entry signals.
+Es ist aber möglich, in einer Strategie beide Varianten parallel zu verwenden, wenn sie auf unterschiedliche Einstiegssignale referenzieren
 
-Partial executions of a single order will cause a separate trading stop for each partial position.
+Bei Teilausführungen einer einzelnen Order wird für jede Teilposition ein separater Trailing Stop angelegt.
 
-If a SetUpProfitTarget() is used in addition to a SetUpTrailStop(), then both orders will be automatically linked to form an OCO order.
+Wird zusätzlich zu SetUpProfitTarget() auch SetUpTrailStop(), verwendet, werden beide Orders automatisch OCO-verknüpft (OCO = one cancels the other)
 
-It is always a stop market order that is generated, and not a stop limit order.
+Es wird immer eine Stop-Market oder erzeugt, keine Stop-Limit-Order.
 
-If a position is closed by a different exit order within the strategy, then the TrailingStopOrder is automatically deleted.
+Wird die Position innerhalb der Strategie von einer anderen Ausstiegsorder geschlossen, so wird die Trailing-Stoporder automatisch gelöscht.
 
-See [*SetUpStopLoss()*](#setupstoploss), [*SetUpProfitTarget()*](#setupprofittarget).
+Siehe auch [*SetUpStopLoss()*](#setupstoploss), [*SetUpProfitTarget()*](#setupprofittarget).
 
-### Usage
+### Verwendung
 ```cs
 SetUpTrailStop(double currency)
 SetUpTrailStop(double currency, bool simulated)
@@ -1500,30 +1514,30 @@ SetUpTrailStop(string fromEntry signal, CalculationMode mode, double value, bool
 ### Parameter
 |           |      |
 |------------------|---------------------------------------------------|
-| currency         | The distance between the stop loss and the entry price      |
-| mode             | Possible values are:  
+| currency         | Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.  |
+| mode             | Mögliche Werte sind: 
 -   CalculationMode.Percent
 -   CalculationMode.Ticks   |
-| simulated        | When set to "true," the stop order does not go live (as a market order) until the price has „touched" it for the first time (meaning that it is executed just as it would be under real market conditions). |
-| value            | The distance between stop price and profit target. This is dependent upon the „mode" but generally refers to a monetary value, a percentage or a value in ticks.                                            |
-| fromEntry signal | The name of the entry signal for which the stop order is to be generated. The amount is taken from the entry order referenced.                                                                              |
+| simulated        | Wenn "simulated" auf "true" gesetzt ist, wird die Trail-Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte). |
+| value            | Ein Wert, der den Abstand zwischen Einstiegskurs und Stoppkurs angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.                                           |
+| fromEntry signal | Der Name eines Einstiegssignals, für das eine Trail-Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.                                                                              |
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
-// Sets a trailing at the low of the last candle
+// Setzt einen Trailing Stop von 30 Ticks
     SetUpTrailStop(CalculationMode.Price, Low[0]);
 }
 ```
 
 ## SubmitOrder()
-### Description
-Submit order creates a user-defined order. For this order, no stop or limit order is placed in the market. All AgenaTrader control mechanisms are switched off for this order type. The user is responsible for managing the various stop and target orders, including partial executions.
+### Beschreibung
+Submit order erzeugt eine benutzerdefinierte Oder. Für diese Order wird kein Stop und kein Limit in den Markt gelegt. Alle Kontrollmechanismen von AgenaTrader sind für diese Orderart abgeschaltet. Der Nutzer ist für die Verwaltung, Stop, Target und für die Behandlung von Teilausführungen selbst verantwortlich und kann sich ein Ordermanagement nach seinen eigenen Wünschen selbst erstellen.
 
-See [*OnOrderChanged()*](#onorderchanged), [*OnOrderExecution()*](#onorderexecution).
+Siehe auch  [*OnOrderChanged()*](#onorderchanged), [*OnOrderExecution()*](#onorderexecution).
 
-### Usage
+### Verwendung
 ```cs
 SubmitOrder(int multibarSeriesIndex, OrderAction orderAction, OrderType orderType, int quantity, double limitPrice, double stopPrice, string ocoId, string strategyName)
 ```
@@ -1531,32 +1545,32 @@ SubmitOrder(int multibarSeriesIndex, OrderAction orderAction, OrderType orderTyp
 ### Parameter
 |                     |                                                                    |
 |---------------------|--------------------------------------------------------------------|
-| multibarSeriesIndex | For multi-bar strategies.
-Index of the data series for which the order is to be executed.
-See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                                 |
-| orderAction         | Possible values are:
+| multibarSeriesIndex | Für Multibar-Strategieen.
+Index der Datenreihe, für die die Order ausgeführt werden soll.
+Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                                 |
+| orderAction         | Mögliche Werte sind:
 OrderAction.Buy
-Buy order for a long entry
+Kauforder zum Long-Einstieg
 
 OrderAction.Sell
-Sell order for closing a long position
+Verkaufsorder zum Schließen einer Long-Position
 
 OrderAction.SellShort
-Sell order for a short entry
+Verkaufsorder zum Short-Einstieg
 
 OrderAction.BuyToCover
-Buy order for closing a short position                              |
-| orderType           | Possible values: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit                                                 |
-| quantity            | Amount                                                             |
-| limitPrice          | Limit value. Inputting a 0 makes this parameter irrelevant         |
-| stopPrice           | Stop value. Inputting a 0 makes this parameter irrelevant          |
-| ocoId               | A unique ID (string) for linking multiple orders into an OCO group |
-| strategyName          | An unambiguous signal name (string)                                |
+Kauforder zum Schließen einer Short-Position                             |
+| orderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit                                                 |
+| quantity            | Stückzahl                                                             |
+| limitPrice          | Limit-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist.        |
+| stopPrice           | Stop-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist          |
+| ocoId               | Eine eindeutige ID (string) zur Verknüpfung mehrerer Orders zu einer OCO-Gruppe |
+| strategyName          | Ein eindeutiger Signalname (string)                               |
 
-### Return Value
+### Rückgabewert
 an order object of the type "IOrder"
 
-### Example
+### Beispiel
 ```cs
 private IOrder entryOrder = null;
 protected override void OnCalculate()
@@ -1568,12 +1582,12 @@ if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
 ```
 
 ## TimeInForce
-### Description
-The time in force property determines how long an order is valid for. The validity period is dependent upon which values are accepted by a broker.
+### Beschreibung
+Die Eigenschaft TimeInForce bestimmt die Gültigkeitsdauer einer Order. Die Gültigkeitsdauer ist davon abhängig, welche Werte von einem Broker akzeptiert werden.
 
-TimeInForce is specified with the [*OnInit()*](#oninit) method.
+TimeInForce wird in der [*OnInit()*](#oninit) Methode angegeben.
 
-Permitted values are:
+Mögliche Werte sind:
 TimeInForce.day
 TimeInForce.loc
 TimeInForce.gtc (GTC = good till canceled)
@@ -1581,10 +1595,10 @@ TimeInForce.gtd
 
 **Default:** TimeInForce.GTC
 
-### Usage
+### Verwendung
 **TimeInForce**
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -1593,11 +1607,11 @@ TimeInForce = TimeInForce.Day;
 ```
 
 ## PrintOrders
-### Description
-The trace orders property is especially useful for keeping track of orders generated by strategies. It also provides an overview of which orders were generated by which strategies.
-Trace orders can be specified with the [*OnInit()*](#oninit) method.
+### Beschreibung
+Die Eigenschaft TraceOrders ist sehr nützlich, um Orders, die von Strategien generiert werden, nachzuverfolgen.
+TraceOrders wird in der [*OnInit()*](#oninit) Methode angegeben.
 
-When PrintOrders is activated, each order will display the following values in the output window:
+Wenn TraceOrders eingeschaltet ist, werden für jede Order die folgenden Werte im OutputWindow ausgegeben:
 
 -   Instrument
 -   Time frame
@@ -1608,19 +1622,19 @@ When PrintOrders is activated, each order will display the following values in t
 -   Quantity
 -   Name
 
-This information is useful when creating and debugging strategies.
+Diese Informationen sind z.B. bei der Erstellung von Strategien und für das Debugging sehr nützlich. 
 
-### Usage
+### Verwendung
 PrintOrders
 
 ### Parameter
-none
+keine
 
-### Return Value
-**true** Tracing is currently switched on
-**false** Tracing is switched off
+### Rückgabewert
+**true** Tracing ist aktuell eingeschaltet
+**false** Tracing ist abgeschaltet
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -1630,74 +1644,74 @@ PrintOrders = true;
 ```
 
 ## Trade
-### Description
-Trade is an object containing information about trades that have been executed by a strategy or are currently running.
+### Beschreibung
+Trade ist ein Objekt, welches Informationen zu einem Trade enthält, der von einer Strategie ausgeführt wurde bzw. der aktuell läuft.
 
-The individual properties are:
+Die einzelnen Eigenschaften sind:
 
 -   **Trade.AvgPrice**
-    Average entry price
+    durchschnittlicher Einstiegskurs
 
 -   **Trade.ClosedProfitLoss**
-    Profit or loss already realized
+    bereits realisierter Gewinn bzw. Verlust
 
 -   **Trade.Commission**
-    Commissions
+    Gebühren (Kommissionen)
 
 -   **Trade.CreatedDateTime**
-    Time at which the trade was created
+    Zeitpunkt der Eröffnung eines Trades
 
 -   **Trade.EntryReason**
-    Description of the entry signal
-    For strategies: signal entry name
+    Bezeichnung des Einstiegssignals
+    bei Strategien: Name der Strategie
 
 -   **Trade.ExitDateTime**
-    Time at which the trade was closed
+    Zeitpunkt, an dem der Trade geschlossen wurde
 
 -   **Trade.ExitPrice**
-    Exit price
+    Ausstiegskurs
 
 -   **Trade.ExitReason**
-    Description of the exit signal
-    For strategies: name of the strategy
+    Bezeichnung des Ausstiegssignals
+    bei Strategien: Name der Strategie
 
 -   **Trade.Instrument**
-    Description of the trading instrument
+    Bezeichnung des Handelsinstrumentes
 
 -   **Trade.PositionType**
-    Positioning within the market
+    Positionierung im Markt
     -   PositionType.Flat
     -   PositionType.Long
     -   PositionType.Short
 
 -   **Trade.OpenProfitLoss**
-    Unrealized profit/loss of a running position
+    noch unrealisierter Gewinn bzw. Verlust in einer laufenden Position
 
 -   **Trade.ProfitCurrency**
-    Profit or loss in the currency that the account is held in
+    Gewinn bzw. Verlust in der Währung, in der das Handelskonto geführt wird
 
 -   **Trade.ProfitLoss**
-    Profit or loss
+    Gewinn bzw. Verlust
 
 -   **Trade.ProfitPercent**
-    Profit or loss in percent
+    Gewinn bzw. Verlust in Prozent
 
 -   **Trade.ProfitPercentWithCommission**
-    Profit or loss in percent with commissions
+    Gewinn bzw. Verlust in Prozent mit Gebühren
 
 -   **Trade.ProfitPoints**
-    Profit or loss in points/pips
+    Gewinn bzw. Verlust in Punkten bzw. Pips
 
 -   **Trade.Quantity**
-    Quantity of stocks/contracts/ETFs/etc.
+    Stückzahl von Aktien, CFD, Kontrakten usw.
 
 -   **Trade.TimeFrame**
-    Timeframe in which the trade was opened
+    Zeiteinheit, in der der Trade eröffnet wurde
 
 -   **Trade.Url**
-    URL for the snapshot of the chart at the moment of creation
+    URL zum Snapshot des Charts zum Zeitpunkt der Eröffnung
 
-### Example
+### Beispiel
 ```cs
 protected override void OnDispose()
 {
@@ -1706,25 +1720,25 @@ protected override void OnDispose()
   {
     Print("Trade #"+trade.Id);
     Print("--------------------------------------------");
-    Print("Average price " + trade.AvgPrice);
-    Print("Realized P/L " + trade.ClosedProfitLoss);
-    Print("Commissions " + trade.Commission);
-    Print("Time of entry " + trade.CreatedDateTime);
-    Print("Entry reason " + trade.EntryReason);
-    Print("Time of exit " + trade.ExitDateTime);
-    Print("Exit price " + trade.ExitPrice);
-    Print("Exit reason " + trade.ExitReason);
+    Print("Durchschnittspreis " + trade.AvgPrice);
+    Print("realisierter G/V " + trade.ClosedProfitLoss);
+    Print("Gebühren " + trade.Commission);
+    Print("Zeitpunkt Einstieg " + trade.CreatedDateTime);
+    Print("Bezeichnung Einst " + trade.EntryReason);
+    Print("Zeitpunkt Ausstieg  " + trade.ExitDateTime);
+    Print("Ausstiegskurs  " + trade.ExitPrice);
+    Print("Bezeichnung Ausstieg  " + trade.ExitReason);
     Print("Instrument " + trade.Instrument);
-    Print("Positioning " + trade.PositionType);
-    Print("Unrealized P/L " + trade.OpenProfitLoss);
-    Print("P/L (currency) " + trade.ProfitCurrency);
-    Print("P/L " + trade.ProfitLoss);
-    Print("P/L (in percent) " + trade.ProfitPercent);
-    Print("P/L (% with commission)" + trade.ProfitPercentWithCommission);
-    Print("PL (in points) " + trade.ProfitPoints);
-    Print("Quantity " + trade.Quantity);
-    Print("Timeframe " + trade.TimeFrame);
-    Print("URL for the snapshot " + trade.Url);
+    Print("Positionierung " + trade.PositionType);
+    Print("unrealisierter G/V " + trade.OpenProfitLoss);
+    Print("G/V (Währung) " + trade.ProfitCurrency);
+    Print("G/V " + trade.ProfitLoss);
+    Print("G/V (in Prozent) " + trade.ProfitPercent);
+    Print("G/V (in % mit Gebühren)" + trade.ProfitPercentWithCommission);
+    Print("GV (in Punkten) " + trade.ProfitPoints);
+    Print("Stückzahl " + trade.Quantity);
+    Print("Zeiteinheit " + trade.TimeFrame);
+    Print("URL zum Snapshot " + trade.Url);
   }
 }
 ```
@@ -1733,77 +1747,77 @@ protected override void OnDispose()
 # Backtesting and Optimization
 
 ## Performance Characteristics
-Performance characteristics are the various factors that can be calculated for a list of trades. The trades can be generated by a strategy in real-time or based on a backtest.
+Unter Performance-Kennzahlen werden verschiedene Kennzahlen verstanden, die jeweils für eine Liste von Trades berechnet werden können. Die Trades können von einer Strategie in Realtime generiert worden sein oder von einem Backtestlauf stammen.
 
-The following are available:
+Es stehen folgende Listen zur Verfügung:
 
--   all trades
--   all long trades
--   all short trades
--   all winning trades
--   all losing trades
+-   alle trades
+-   alle long trades
+-   alle short trades
+-   alle winning trades
+-   alle losing trades
 
-See [*Performance*](#performance).
+Siehe hierzu  [*Performance*](#performance).
 
-The individual factors are:
+Die einzelnen Kennzahlen sind:
 
 -   **AvgEtd**
-    The average drawdown at the end of a trade
+    der durchschnittliche DrawDown am Ende eines Trades (avg end trade drawdown)
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgEtd
     ```cs
     Print("Average ETD of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgEtd);
     ```
 -   **AvgMae**
-    Average maximum adverse excursion
+    der durchschnittliche max. Kursrückgang nach den Einstiegen (avg maximum adverse excursion)
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMae
     ```cs
     Print("Average MAE of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgMae);
     ```
 -   **AvgMfe**
-    Average maximum favorable excursion
+    der durchschnittliche max Kursanstieg im Verlauf der Trades (avg maximum favorable excursion)
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMfe
     ```cs
     Print("Average MFE of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgMfe);
     ```
 -   **AvgProfit**
-    Average profit for all trades
+    der durchschnittliche Gewinn über alle Trades (avg profit)
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgProfit
     ```cs
     Print("Average profit of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgProfit);
     ```
 -   **CumProfit**
-    The cumulative winnings over all trades
+    der Gesamtgewinn über alle Trades
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.CumProfit
     ```cs
     Print("Average cumulative profit of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.CumProfit);
     ```
 -   **DrawDown**
-    The drawdown for all trades
+    der DrawDown über alle Trades
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.DrawDow
     ```cs
     Print("Drawdown of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.DrawDown);
     ```
 -   **LargestLoser**
-    The largest losing trade
+    der größte Verlust
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestLoser
     ```cs
     Print("Largest loss of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.LargestLoser);
     ```
 -   **LargestWinner**
-    The largest winning trade
+    der größte Gewinn
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestWinner
     ```cs
     Print("Largest win of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.LargestWinner);
     ```
 -   **ProfitPerMonth**
-    The total performance (wins/losses) for the month (also in percent)
+    hochgerechneter Gewinn/Verlust im Monat (auch in Prozent)
     &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.ProfitPerMonth
     ```cs
     Print("Profit per month of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.ProfitPerMonth);
     ```
 -   **StdDev**
-    The standard deviation for the wins/losses. With this, you are able to identify outliers. The smaller the standard deviation, the higher the expectation of winnings.
+    die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkannt werden. Je besser ein Handelssystem ist, desto kleiner ist die Standardabweichung und desto höher ist die Erwartung von Gewinnen.
 
-**All factors are double values.**
+**Alle Kennzahlen sind double-Werte.**
 
 ![Performance Characteristics](./media/image10.png)

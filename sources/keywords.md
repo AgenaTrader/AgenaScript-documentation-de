@@ -2,15 +2,15 @@
 #Keywords
 
 ## Add()
-### Description
-The add method allows you to add plots or line objects to the chart. When a new plot object is added using Add(), this automatically creates a data series of the type DataSeries, which is attached to this object. The value collection allows you to reference and access this data series.
-Add() can be used with the OnInit() and the OnCalculate() methods.
+### Beschreibung
+Mit der Methode Add() werden dem Chart Plot - bzw. Line-Objekte  hinzugefügt. Wenn mit Add() ein neues Plot-Objekt hinzugefügt wird, wird automatisch auch eine Datenserie vom Typ DataSeries erzeugt, die diesem Plot zugeordnet ist. Auf diese Datenserie kann über die Value-Collection zugegriffen werden.
+Add() kann in der  OnInit() Methode und in der OnCalculate() Methode verwendet werden..
 
 ### Parameter
-plot – a *OnPaint* object
-line – a *LevelLine* object
+plot – ein *OnPaint* Objekt
+line – ein *LevelLine* Objekt
 
-### Usage
+### Verwendung
 ```cs
 Add(OnPaint plot)
 Add(LevelLine line)
@@ -38,25 +38,27 @@ namespace AgenaTrader.UserCode
   {
     protected override void OnInit()
     {
-    // Two blue lines will be placed into the chart, one at 70 and the other at 30
+    // 2 blaue Linien in den Chart legen, eine bei 70 und eine bei 30
     Add(new LevelLine(Color.Blue, 70, "UpperLine"));
     Add(new LevelLine(Color.Blue, 30, "LowerLine"));
 
-    // Add 2 plots
+   // 2 Plots hinzufügen
     Add(new OnPaint(Color.Red, "myFastSMA"));
     Add(new OnPaint(Color.Blue, "mySlowSMA"));
     }
 
     protected override void OnCalculate()
     {
-    //The set method is assigned to the value of the current bar
-    FastSMA.Set( SMA(8)[0] ); // is identical with Outputs[0].Set( SMA(8)[0] );
-    SlowSMA.Set( SMA(50)[0] ); // is identical with Outputs[1].Set( SMA(50)[0] );
+   //Mit der Set-Methode wird der Wert für den aktuellen Bar zugewiesen.
+    FastSMA.Set( SMA(8)[0] ); // ist identisch mit Values[0].Set( SMA(8)[0] );
+    SlowSMA.Set( SMA(50)[0] );// ist identisch mit Values[1].Set( SMA(50)[0] );
     }
 
-    // Two data series are made available here
-    // These are not necessary for the display of the indicator // With the help of these series, one indicator can access the other
-    // For example: double d = MyIndicator.FastSMA[0] - MyIndicator.SlowSMA[0];
+    / Hier werden 2 Datenserien zur Verfügung gestellt.
+		// Zur Darstellung des Indikators auf dem Chart sind diese nicht notwendig.
+		// Mit Hilfe dieser Datenserien kann von anderen Indikatoren aus auf diesen Indikator 
+		// zugegriffen werden.
+		// Z.B. mit double d = MeinIndikator.FastSMA[0] - MeinIndikator.SlowSMA[0]; 
     [Browsable(false)]
     [XmlIgnore()]
     public DataSeries FastSMA
@@ -75,34 +77,34 @@ namespace AgenaTrader.UserCode
 ```
 
 ## ShowAlert()
-### Description
-The ShowAlert method creates an acoustic and/or visual alarm.
+### Beschreibung
+Mit der Methode  ShowAlert wird ein akustischer und/oder visueller Alarm erzeugt.
 
-### Usage
+### Verwendung
 ```cs
 ShowAlert(string message, bool showMessageBox, string soundLocation);
-//Due to compatability reasons, an old signature is still used here. When using this method, the color settings and the "re-arm seconds" parameter are ignored.
+//Aus Kompatibilitätsgründen ist noch eine veraltete Signatur enthalten. Bei Nutzung dieses Aufrufvariante werden die Farbangaben und "rearmSeconds" ignoriert.
 ShowAlert(string id, AlertPriority priority, string message, string soundLocation, int rearmSeconds, Color backColor, Color forColor);
 ```
 
-### Return Value
-None
+### Rückgabewert
+keiner
 
 ### Parameter
 |                |                                                                                                                       |
 |----------------|-----------------------------------------------------------------------------------------------------------------------|
-| message        | Alert text displayed within the messages tab                                                                          |
-| soundLocation  | Name of a sound file in the \*.wav format. If no path is specified, then "My Documents\\AgenaTrader\\Sounds\\ is used |
-| showMessageBox | If set to "true", a message box will be displayed in addition to the sound                                            |
+| message        | Nachrichtentext, der im Messages-Tab angezeigt wird.                                                                          |
+| soundLocation  | Name eines Sound-Files im *.wav Format. Ist kein Pfad angegeben, wird "Eigene Dokumente\AgenaTrader\Sounds" verwendet.|
+| showMessageBox | wenn true, wird zusätzlich zum Sound eine Messagebox auf dem Bildschim angezeigt.                                           |
 
-### Example
+### Beispiel
 ```cs
-// Message will be outputted if the SMA(20) crosses below the SMA(50)
+// Hinweis ausgeben, wenn der SMA(20) unter SMA(50) kreuzt
 if (CrossBelow(SMA(20), SMA(50), 1))
 Alert("Check short signal!", true, "Alert4.wav");
 ```
 
-To use music files in a different path, you need to specify the path:
+Um Musikdateien in anderen Verzeichnissen wiederzugeben, muss der vollständige Pfad angegeben werden, z.B.:
 
 ```cs
 string pathOfSoundfile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\\MyAlertSounds\\";
@@ -111,20 +113,20 @@ Alert("Message text", true, pathOfSoundfile + nameOfSoundFile);
 ```
 
 ## AllowRemovalOfChartDrawings
-### Description
-"AllowRemovalOfChartDrawings" is a property of indicators that can be set under [*OnInit()*](#oninit).
+### Beschreibung
+AllowRemovalOfDrawObjects ist eine Eigenschaft von Indikatoren, die in der Methode [*OnInit()*](#oninit) gesetzt werden kann..
 
 **AllowRemovalOfChartDrawings = true**
 
-Drawing objects that are drawn by an indicator or a strategy can be manually removed from the chart.
+Zeichenobjekte (DrawObjects), die von einem Indikator bzw. einer Strategie in einen Chart gezeichnet wurden, können manuell aus dem Chart entfernt werden.
 
 **AllowRemovalOfChartDrawings = false (default)**
 
-Drawing objects that have been created by a strategy or indicator CANNOT be manually removed from the chart. They are removed once the indicator or strategy is removed.
+Zeichenobjekte (DrawObjects), die von einem Indikator bzw. einer Strategie in einen Chart gezeichnet wurden, können nicht manuell aus dem Chart entfernt werden. Sie werden erst dann vom Chart entfernt, wenn auch der Indikator bzw. die Strategie entfernt wird.
 
-This property can be queried and will return "true" or "false".
+Die Eigenschaft kann abgefragt werden, und liefert "true" bzw. "false".
 
-### Usage
+### Verwendung
 ```cs
 AllowRemovalOfChartDrawings
 ```
@@ -134,18 +136,18 @@ AllowRemovalOfChartDrawings
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//Drawing objects can be manually removed from the chart
+//DrawObjects können aus dem Chart manuell entfernt werden
 AllowRemovalOfChartDrawings = true;
 }
 ```
 
 ## Attribute
-Attribute is a component of the C\# language. Within AgenaScript, indicators, and strategies, you can use these attributes in the same manner as you would in C\#.
-Information regarding the usage of attributes can be found here:
+Attribute sind Bestandteil der Programmiersprache C#. In eigenen AgenaScript-Indikatoren bzw. Strategien können Attribute genauso verwendet werden, wie es auch in C# selbst möglich ist.
+Informationen über Die Verwendung von Attributen finden Sie u.a. hier:
 
 [*http://msdn.microsoft.com/de-de/library/z0w1kczw%28v=vs.80%29.aspx*](http://msdn.microsoft.com/de-de/library/z0w1kczw%28v=vs.80%29.aspx)
 
-The most commonly used attributes in AgenaScript are:
+Die in AgenaScript am häufigsten verwendeten Attribute sind:
 
 -   [*Browsable*](#browsable)
 -   [*Category*](#category)
@@ -156,17 +158,19 @@ The most commonly used attributes in AgenaScript are:
 -   [*XmlIgnore*](#xmlignore)
 
 ## Browsable
-Browsable is an [Attribute](#attribute) within AgenaScript.
+Browsable ist ein  [Attribute](#attribute)  in AgenaScript.
 
-AgenaScript uses public variables for entering parameters for indicators (such as periods for the SMA) and for outputting events and calculations within indicators (for example, data series).
-Variables used for entering parameters must be displayed in the properties dialog. Data series are exempt from this.
-Public variables with the browsable attribute set to false are not displayed within the properties dialog.
+In AgenaScript werden öffentliche Variablen (public variables) zum einen für die Eingabe von Parametern für Indikatoren genutzt (z.B. die Periode für einen SMA) und zum anderen für die Ausgabe von Ergebnissen einer Berechnung innerhalb eines Indikators (z.B. Datenserien).
+Variablen, die der Eingabe von Parametern dienen, müssen im Eigenschaften-Dialog angezeigt werden. Datenserien hingegen nicht.
 
-By default, browsable is set to true. Therefore, within a variable containing an entry parameter, the attribute does not need to be specified.
+Eine public Variable, die mit dem Attribut Browsable=false gekennzeichnet wurde, wird nicht im Eigenschaftendialog von AgenaTrader angezeigt.
 
-**Example for a parameter:**
+Standardmäßig wird Browsable = true angenommen. Daher kann bei einer Variable, die einen Eingabeparameter beinhaltet, das Attribut Browsable auch weggelassen weren.
 
-The parameter should be displayed and queried in the properties window. Therefore browsable should be set to true.
+**Beispiel für einen Parameter:**
+
+Der Parameter soll im Eigenschaftsfenster angezeigt und abgefragt werden. Daher ist "Browsable = true" zu setzen oder das Attribut kann entfallen.
+
 ```cs
 [Description("Numbers of bars used for calculations")]
 [Category("Parameters")]
@@ -177,7 +181,7 @@ set { period = Math.Max(1, value); }
 }
 ```
 
-**Example for a data series:**
+**Beispiel für eine Datenserie:**
 ```cs
 [Browsable(false)]
 [DisplayName("Lower band")]
@@ -189,12 +193,14 @@ get { return Outputs[0]; }
 ```
 
 ## Category
-Category is an [Attribute](#attribute) in AgenaScript and can be used on properties and classes.
+Category ist ein [Attribute](#attribute) in AgenaScript.
 
-The category attribute on properties defines under which category in the properties dialog the parameter is shown.
-If this attribute is missing, the parameters category is accepted as the standard.
+Das Attribut Category gibt für einen Parameter an, unter welcher Kategorie im Eigenschaften-Dialog der Parameter erscheint.
 
-The following example shows how to create the new category "My Parameters" in the properties dialog:
+Wenn das Attribut fehlt, wird standardmäßig die Kategorie "Parameters" angenommen.
+
+Das folgende Beispiel erzeugt im Eigenschaften-Dialog die neue Kategorie "My Parameters".
+
 ```cs
 [Category("My Parameters")]
 [DisplayName("Period number")]
@@ -224,11 +230,12 @@ namespace AgenaTrader.UserCode
 ```
 
 ## ConditionalValue
-Conditional value is an [Attribute](#attribute) in AgenaScript.
+ConditionalValue ist ein [Attribute](#attribute) in AgenaScript.
 
-Normally, when making comparisons within the ConditionEscort, the data series generated by indicators are used. One such example would be checking whether a moving average lies above or below a specific price value.
-An indicator can also yield values that are not contained within data series, such as values of the type int, double, char, Boolean, string, etc.
-To use these values within the scanner or ConditionEscort, they have to be labeled with the conditional value attribute.
+Normalerweise werden im ConditionEscort für Vergleiche die von Indikatoren bereitgestellten Datenserien (DataSeries) benutzt. Beispielsweise wird geprüft, ob ein gleitender Durchschnitt über oder unter einem bestimmten Kurswert liegt.
+Ein Indikator kann aber auch Werte als Ergebnis haben, die keine Datenserien sind, also z.B. Werte vom Typ int, double, char, boolean, string usw.
+
+Um diese Werte im Scanner oder im Condition-Escort nutzen zu können, müssen sie mit dem Attribut "ConditionalValue" gekennzeichnet sein.
 ```cs
 [Browsable(false)]
 [XmlIgnore]
@@ -244,15 +251,18 @@ return _internVariable;
 ```
 
 ## Description
-Description is an [Attribute](#attribute) in AgenaScript.
+Description ist ein  [Attribute](#attribute) in AgenaScript.
 
-The description attribute is used in AgenaScript for classes and public variables.
-As an attribute of the class, the text is a description of the function of the entire indicator.
+Das Attribute Description wird In AgenaScript für die Klasse und für public-Variablen verwendet.
+
+Als Attribut der Klasse ist der Text eine Beschreibung der Funktion des gesamten Indikators (bzw. der Strategie usw.)
 ```cs
 [Description("Displays the tick count of a bar.")]
 public class TickCounter : UserIndicator
 {
-//As an attribute of a public variable, the text is a description of the function of the parameter.
+```
+As an attribute of a public variable, the text is a description of the function of the parameter.
+```cs
 [Description("Number of standard deviations")]
 [DisplayName("# of std. dev.")]
 public double NumStdDev
@@ -263,14 +273,15 @@ set { numStdDev = Math.Max(0, value); }
 }
 ```
 
-The descriptions are displayed in the relevant properties dialog.
+Die Beschreibungen werden jeweils im Eigenschaften-Dialog angezeigt.
+
 
 ## DisplayName
-Display name is an [Attribute](#attribute) in AgenaScript.
+DisplayName ist ein [Attribute](#attribute) in AgenaScript.
 
-The display name attribute defines the text shown in the properties dialog for the parameter.
+Das Attribute DisplayName legt den Text fest, der im Eigenschaften-Dialog für den Parameter verwendet werden soll.
 
-If this attribute is not specified, the name of the public variable is used.
+Wird dieses Attribut nicht angegeben, wird der Name der public Variable verwendet.
 ```cs
 [Description("Number of standard deviations")]
 [DisplayName("# of std. dev.")]
@@ -282,31 +293,35 @@ set { numStdDev = Math.Max(0, value); }
 ```
 
 ## TimeFrameRequirements
-Timeframe requirements is an [Attribute](#attribute) in AgenaScripts.
+TimeFrameRequirements ist ein [Attribute](#attribute) in AgenaScript.
 
-If you want a script to use data from various timeframes, the class requires the attribute „TimeFrameRequirements". You can specify multiple timeframes here:
+Sollen in einem AgenaScript Daten verschiedener Zeiteinheiten verwendet werden, ist der Klasse das Attribut "TimeFrameRequirements" voranzustellen. Es können hier auch mehrere Zeiteinheiten angegeben werden:
 
 ```cs
 [TimeFrameRequirements("1 day")]
 [TimeFrameRequirements("15 minutes", "1 day", "1 week")]
 ```
 
-The amount of data provided for the other timeframes will always be the same as the number of actual candles loaded into the chart. If there are 500 candles for a 5-minute chart, then 500 candles of another timeframe will also be loaded. In the first example above, 500 daily candles will be loaded. In the second example, 500 15-minute candles, 500 daily candles and 500 weekly candles will be loaded.
-The amount of data can become rather large very quickly, thus you should take precautions when using this attribute.
+Es werden immer so viele Daten der anderen Zeiteinheit(en) bereitgestellt, wie auch Kerzen im Chart geladen sind.
+Sind in einem 5 Minuten-Chart beispielsweise 500 Kerzen geladen, werden auch 500 Kerzen einer anderen Zeiteinheit geladen.
+Im Beispiel oben also 500 Tageskerzen bzw. im 2. Beispiel 500 15-Minuen-Kerzen, 500 Tageskerzen und 500 Wochenkerzen.
+Die Datenmengen können schnell sehr groß werden. Das Attribut ist daher mit Umsicht zu verwenden.
 
-See [*MultiBars*](#multibars).
+siehe auch [*MultiBars*](#multibars).
 
-**Important:**
+**Wichtig:**
 
-If a class uses a different indicator that requires one or more secondary timeframes, then the "TimeFrameRequirements" attribute must be set for the class retrieving the data. An example for this can be seen here: [*GetDayBar*](#getdaybar).
+Wenn in einer Klasse ein anderer Indikator verwendet wird, der seinerseits eine (oder mehrere) sekundäre Zeiteinheit(en) erfordert, muß für die aufrufende Klasse ebenfalls das Attribut "TimeFrameRequirements" angegeben werden. Ein Beispiel hierzu siehe unter [*GetDayBar*](#getdaybar).
 
 ## XMLIgnore
-XML ignore is an [Attribute](#attribute) in AgenaScript.
+XML ignore st ein [Attribute](#attribute) in AgenaScript.
 
-AgenaTrader saves all parameter settings for the indicators in a template. The template files are saved in an XML format. In order to avoid a parameter being saved as part of the template, the attribute XML ignore can be set.
+AgenaTrader speichert in einem Template u.a. auch alle Parameter-Einstellungen eines Indikators. Die Template-Files liegen im XML-Format vor. Um zu verhindern, dass ein Parameter als Teil eines Templates gespeichert wird, kann das Attribut "XmlIgnore" angegeben werden.
 
-To save parameters in an XML file, the values must be serialized. Under most circumstances, AgenaTrader performs this automatically. Self-defined data types cannot be serialized automatically, so in this case the programmer is responsible for the correct serialization.
-In the following example, the color and font are used as parameters of an indicator. AgenaTrader has two methods for serializing color and font information (TextColorSerialize and TextFontSerialize). Both parameters – TextColor and TextFont – thus need to be marked with the XML ignore parameter.
+Um Parameter in einem XML-File speichern zu können, müssen die Werte zuvor serialisiert werden. In den meisten Fällen, d.h. für alle gängigen Variablentypen geschieht dies durch AgenaTrader automatisch. Selbst definierte Datentypen können jedoch nicht automatisch serialisiert werden. Der Programmierer muß selbst für die korrekte Serialisierung sorgen.
+
+Im Beispiel werden Farbe und Schriftart als Parameter eines Indikators verwendet. In AgenaTrader existieren für die Serialisierung von Farb- und Schriftart-Informationen 2 Methoden (TextColorSerialize und TextFontSerialize), die die Serialisierung übernehmen. Die beiden Parameter "TextColor" und "TextFont" sind daher mit dem Attribute "XmlIgnore" zu kennzeichnen.
+
 ```cs
 private Color _textColor = Color.Blue;
 private Font _textFont = new Font("Arial", 12, FontStyle.Bold);
@@ -338,90 +353,91 @@ set { _textFont = SerializableFont.FromString(value); }
 }
 ```
 
-## IsAutoScale
-### Description
+## IsAutoAdjustableScale
+### Beschreibung
 Auto scale is a property of indicators that can be set within the OnInit() method.
 
 ```cs
-IsAutoScale = true (default)
+IsAutoAdjustableScale = true (default)
 ```
 
-The price axis (y-axis) of the chart is set so that all plots and lines of an indicator are visible.
+Die Preisachse (y-Achse) des Charts wird so eingestellt, dass alle Plots und Lines eines Indikators bzw. einer Strategie im Chart sichtbar sind.
 
 ```cs
-IsAutoScale = false
+IsAutoAdjustableScale = false
 ```
 
-Plots and lines of an indicator or strategy are not accounted for in the scaling of the y-axis. Therefore they may lie outside of the visible chart area.
+Plots und Lines eines Indikators bzw. einer Strategie werden nicht in die Skalierung der Preisachse (y-Achse) eines Charts mit einbezogen. Sie können auch ausserhalb des sichtbaren Chartbereichs liegen.
 
-This property can be queried and will return either "true" or "false".
+Die Eigenschaft kann abgefragt werden, und liefert "true" bzw. "false".
 
-### Usage
-IsAutoScale
+### Verwendung
+IsAutoAdjustableScale
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//Scale the chart so that all drawing objects are visible
-IsAutoScale = true;
+///Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
+IsAutoAdjustableScale = true;
 }
 ```
 
 ## RequiredBarsCount
-### Description
-The property "RequiredBarsCount" determines how many historical bars are required for an indicator or a strategy to call up the OnCalculate() method for the first time and thus begin the calculations. Bars required should be set within the OnInit() method.
-The setting should be chosen carefully. If you require 100 days for the calculation of a moving average, then you should ensure that at least 100 days of historical data are loaded.
-The property can be queried in the script and will return an int value.
+### Beschreibung
+Die Eigenschaft BarsRequired gibt an, wieviele historische Bars mindestens benötigt werden, damit ein Indikator bzw. eine Strategie erstmal die Methode OnCalculate() aufrufen und mit den Berechnungen beginnen kann. BarsRequired sollte in der OnInit() Methode angegeben werden.
+Die Einstellung sollte sorgfältig gewählt werden. Z.B. braucht man zur Berechnung eines gleitenden Durchschnittes über 100 Tage auch mindestens 100 Tage historische Daten, damit das Ergebnis korrekt ist.
 
-When OnCalculate is called up for the first time, the ProcessingBarIndex property is 0 regardless of the value of RequiredBarsCount.
+Die Eigenschaft kann im Script abgefragt werden und liefert einen int-Wert.
 
-### Usage
+Wenn OnBarUpdate erstmals aufgerufen wird, ist  ProcessingBarIndex property = 0, unabhängig vom Wert von RequiredBarsCount.
+
+### Verwendung
 RequiredBarsCount
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//The indicator requires a minimum of 50 bars loaded into the history
+//Der Indikator benötigt mindestens 50 Bars Historie
 RequiredBarsCount = 50;
 }
 ```
 
 ## CalculateOnClosedBar
-### Description
-The property "CalculateOnClosedBar" determines the events for which AgenaTrader can call up the OnCalculate() method.
+### Beschreibung
+Die Eigenschaft "CalculateOnClosedBar" legt fest, für welche Ereignisse AgenaTrader die Methode  OnCalculate() aufrufen soll.
 
 ```cs
 CalculateOnClosedBar = true
 ```
 
-**OnCalculate()** is called up when a bar is closed and the next incoming tick creates a new bar.
+**OnCalculate()**  wird aufgerufen, wenn ein Bar beendet ist, und der nächste hereinkommende Tick einen neuen Bar entstehen läßt.
 
 ```cs
 CalculateOnClosedBar = false
 ```
 
-OnCalculate() is called up for each new incoming tick.
-If you are running AgenaTrader on older hardware, this may cause performance issues with instruments that are highly liquid.
-The property can be queried in the script and will return a value of the type Boolean (true or false).
-CalculateOnClosedBar can be used within OnInit() and also within OnCalculate().
-OnCalculate is only called up for the closing price of each bar with historical data, even if CalculateOnClosedBar is set to false.
-When an indicator is called up by another indicator, the CalculateOnClosedBar property of the retrieved indicator overwrites the indicator performing the retrieving.
+OnCalculate() wird für jeden neu hereinkommenden Tick aufgerufen.
+Achtung bei älterer Hardware: dies führt bei sehr liquiden Werten zu einer erhöhten Rechnerbelastung.
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
+CalculateOnClosedBar  kann sowohl in OnInit() aals auch in OnCalculate() eingesetzt werden..
+OnCalculate wird für historische Daten immer nur für den Schlusskurs eines jeden Bars aufgerufen, auch wenn CalculateOnClosedBar=false gesetzt ist.
+Wird ein Indikator von einem anderen Indikator aufgerufen, so wird die Eigenschaft  CalculateOnClosedBar des aufgerufenen Indikators vom aufrufenden Indikator überschrieben.
 
-### Usage
+### Verwendung
 CalculateOnClosedBar
 
-### More Information
-See [*Bars*](#bars).
+### Weitere Informationen
+Siehe auch die Beschreibung zu [*Bars*](#bars).
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
-//Indicator calculation should only occur when a bar has closed/finished
+//Indikatorberechnung nur, wenn ein Bar fertig ausgeprägt ist
 CalculateOnClosedBar = true;
 }
 ```
@@ -452,9 +468,10 @@ Occurred.Set(0);
 ```
 
 ## Chart
-Chart control is an object that provides reading access of various properties for the chart.
+Chart  ist ein Objekt, über welches der lesende Zugriff auf verschiedene Eigenschaften des Charts möglich ist. 
 
-The important properties are:
+
+Die wichtigsten Eigenschaften sind:
 
 -   ChartFontColor, BackColor
 -   UpColor, DownColor
@@ -467,156 +484,160 @@ The important properties are:
 -   FirstBarVisible, LastBarVisible
 -   GetXByBarIdx, GetYByValue
 
-An example can be seen here: [*PlotSample*](#plotsample).
+Zur Verwendung der wichtigsten Eigenschaften von Chart siehe Beispiel [*PlotSample*](#plotsample).
 
 **BarsPainted und BarsVisible:**
 
-BarsPainted contains the number of bars that a chart *could* display from the left to right border with the current width and distance of the candles.
-BarsVisible contains the number of bars actually visible.
+BarsPainted enthält die Anzahl der Bars, die ein Chart von seinem linken Rand zu seinem rechten Rand mit der momentanen Breite der
+
+Kerzen und dem Abstand der Kerzen zueinander anzeigen *könnte*.
+
+BarsVisible enthält die Anzahl der Bars, die tatsächlich zu sehen sind.
 
 **FirstBarPainted und FirstBarVisible:**
 
-FirstBarPainted contains the number of the bar that *would* be displayed on the left border of the chart.
+FirstBarPainted enthält die Nummer des Bars, der am linken Rand des Charts angezeigt werden *würde*. 
 
-FirstBarVisible contains the number of the bar that is actually shown as the first bar on the left side of the chart area.
+FirstBarVisible  enthält die Nummer des Bars, der tatsächlich als erster Bar links im Chart angezeigt wird.
 
-Example: the chart has been moved so that the first bar of the chart is now in the middle of the chart.
+Beispiel: der Chart ist so verschoben, dass der erste Bar des Charts erst in der Mitte des Charts angezeigt wird.
 
-FirstBarPainted would be negative.
+FirstBarPainted wäre in diesem Fall negativ. 
 
-FirstBarVisible would be 0.
+FirstBarVisible  wäre 0.
 
 **LastBarPainted und LastBarVisible:**
 
-LastBarPainted contains the number of the bar that *would* be displayed on the right border of the chart.
+LastBarPainted enthält die Nummer des Bars, der am rechten Rand des Charts angezeigt werden *würde*.
 
-LastBarVisible contains the number of the bar that is actually displayed on the right side of the chart.
+LastBarVisible  enthält die Nummer des Bars, der tatsächlich als letzter Bar rechts im Chart angezeigt wird.
 
-Example: the chart has been moved so that the last bar of the chart is displayed in the middle section.
+Beispiel: der Chart ist so verschoben, dass der letzte Bar des Charts bereits in der Mitte des Charts angezeigt wird.
 
-LastBarPainted would be larger than Bars.Count.
+LastBarPainted wäre in diesem Fall größer als Bars.Count. 
 
-LastBarVisible would be Bars.Count -1.
+LastBarVisible wäre in Bars.Count -1.
 
 ## ClearOutputWindow()
-### Description
-The ClearOutputWindow() method empties the output window. The method can be used within OnInit() as well as within OnCalculate().
-The output window contains all outputs that have been created with the [*Print()*](#print) command.
-Using the output window is a great method for code debugging.
+### Beschreibung
+Die Methode ClearOutputWindow() leert das Output-Fenster. Die Methode kann sowohl in OnInit() als auch in OnCalculate() eingesetzt werden.
+Das OutputWindow beinhaltet alle Ausgaben, die mit dem [*Print()*](#print) -Befehl erstellt wurden.
+Der Einsatz des OutputWindows ist eine sehr gute Möglichkeit für Code-Debugging.
 
-### Usage
+### Verwendung
 ```cs
 ClearOutputWindow()
 ```
 
 ### Parameter
-none
+keiner
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
-// Delete the content of the output window
+//Inhalt des OutputWindow löschen
 ClearOutputWindow();
 }
 ```
 
 ## CrossAbove()
-### Description
-The CrossAbove() method allows you to check whether a crossing of two values has occurred (from bottom to top) within a predefined number of periods. The values can be a market price, an indicator, a data series or a constant value.
+### Beschreibung
+Mit der Methode CrossAbove() kann geprüft werden, ob es innerhalb einer festgelegten Anzahl von Perioden eine Überkreuzung zweier Werte von unten nach oben gab. Die Werte können dabei der Kurs, ein Indikator, jede beliebige Datenserie oder ein fester Wert sein.
 
-See [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+Siehe auch [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
 
-### Usage
+### Verwendung
 ```cs
 CrossAbove(IDataSeries series1, double value, int lookBackPeriod)
 CrossAbove(IDataSeries series1, IDataSeries series2, int lookBackPeriod)
 ```
 
-### Return Value
-**true** a cross has occurred
-**false** a cross has not occurred
+### Rückgabewert
+**true** eine Überkreuzung hat stattgefunden
+**false** eine Überkreuzung hat nicht stattgefunden
 
 ### Parameter
 |                     |                                                          |
 |---------------------|----------------------------------------------------------|
-| lookBackPeriod      | Number of bars within which a cross will be searched for |
-| series1 und series2 | A data series such as an indicator, close, high, etc.    |
-| value               | A constant value of the type double                      |
+| lookBackPeriod      | Anzahl der Bars innerhalb derer nach dem Aufterten einer Überkreuzung gesucht wird |
+| series1 und series2 | eine Datenserie, wie z.B. ein Indikator, Close, High o.ä    |
+| value               | ein fester Wert vom Typ double                      |
 
-### Example
+### Beispiele
 ```cs
-// Puts out a notice if the SMA(20) crosses above the SMA(50)
+// Hinweis ausgeben, wenn der SMA(20) über SMA(50) kreuzt
 if (CrossAbove(SMA(20), SMA(50), 1))
 Print("SMA(20) has risen above SMA(50)!");
-// Puts out a notice if the SMA(20) crosses above the value of 40
+// Hinweis ausgeben, wenn der SMA(20) über den Wert 40 steigt
 if (CrossAbove(SMA(20), 40, 1))
 Print("SMA(20) has risen above 40!");
-// Put out a notice for a long entry if the SMA(20) has crossed above the SMA(50) within the last 5 bars.
+// Hinweis auf Long-Einstieg ausgeben, wenn innerhalb der letzten 5 Bars
+// der SMA(20) über SMA(50) kreuzt und der Kurs innerhalb des letzten Bars gestiegen ist
 if (CrossAbove(SMA(20), SMA(50), 1) && Close[0] > Close[1])
 Print("Long entry !!!");
 ```
 
 ## CrossBelow()
-### Description
-Using the CrossBelow() method, you can test whether or not a cross below has occurred within a predefined number of periods. The values can be the market price, an indicator, any data series, or a constant value.
+### Beschreibung
+Mit der Methode CrossBelow() kann geprüft werden, ob es innerhalb einer festgelegten Anzahl von Perioden eine Überkreuzung zweier Werte von oben nach unten gab. Die Werte können dabei der Kurs, ein Indikator, jede beliebige Datenserie oder ein fester Wert sein.
 
-See [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+Siehe auch [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
 
-### Usage
+### Verwendung
 ```cs
 CrossBelow(IDataSeries series1, double value, int lookBackPeriod)
 CrossBelow(IDataSeries series1, IDataSeries series2, int lookBackPeriod)
 ```
 
-### Return Value
-**true** a cross has occurred
-**false** a cross has not occurred
+### Rückgabewert
+**true** eine Überkreuzung hat stattgefunden
+**false** eine Überkreuzung hat nicht stattgefunden
 
 ### Parameter
 |                     |                                                          |
 |---------------------|----------------------------------------------------------|
-| lookBackPeriod      | Number of Bars within which a cross will be searched for |
-| series1 und series2 | A data series such as an indicator, close, high etc.     |
-| value               | A constant value of the type double                      |
+| lookBackPeriod      | Anzahl der Bars innerhalb derer nach dem Aufterten einer Überkreuzung gesucht wird |
+| series1 und series2 | eine Datenserie, wie z.B. ein Indikator, Close, High o     |
+| value               | ein fester Wert vom Typ double                     |
 
-### Example
+### Beispiele
 ```cs
-// Puts out a notice if the SMA(20) crosses below the SMA(50)
+// Hinweis ausgeben, wenn der SMA(20) unter SMA(50) kreuzt
 if (CrossBelow(SMA(20), SMA(50), 1))
 Print("SMA(20) has fallen below SMA(50)!");
-// Puts out a notice if the SMA(20) falls below the value of 40
+// Hinweis ausgeben, wenn der SMA(20) unter den Wert 40 fällt
 if (CrossBelow(SMA(20), 40, 1))
 Print("SMA(20) has fallen below 40!");
-// Puts out a notice for a short entry if a crossing of the SMA(20) below the SMA(50) has occurred within the last 5 bars.
-.
+// Hinweis auf Short-Einstieg ausgeben, wenn innerhalb der letzten 5 Bars
+// der SMA(20) unter SMA(50) kreuzt und der Kurs innerhalb des letzten Bars gefallen ist.
 if (CrossBelow(SMA(20), SMA(50), 1) && Close[1] > Close[0])
 Print("Short entry !!!");
 ```
 
 ## ProcessingBarIndex
-### Description
-Current bar is a method of indexing bars used in the OnCalculate() method. If a chart contains 500 bars and an indicator is to be calculated on the basis of these, then AgenaTrader will begin calculating from the oldest bar. The oldest bar receives the number 0. Once the calculation for this bar has been completed, the OnCalculate() method is called up for the next bar, which in turn receives the number 1. This continues until the last bar, which receives a value of 500.
+### Beschreibung
+ ProcessingBarIndex  ist eine Nummerierung von Bars, die in der Methode OnCalculate()  verwendet wird. Wenn in einem Chart z.B. 500 Bars dargestellt werden und auf diese ein Indikator berechnet werden soll, so beginnt AgenaTrader mit der Berechnung (also dem Aufruf von OnCalculate() bei dem ältesten Bar. Dieser bekommt die Nummer 0. Ist die Berechnung für diesen Bar abgeschlossen, wird OnCalculate() für den nächsten Bar aufgerufen. Dieser bekommt dann die Nummer 1 usw. bis zum letzten Bar, der die Nummer 499 bekommt.
 
 ### Parameter
-none
+keiner
 
-### Return Value
-Current bar is a variable of the type int, which always contains the number of the bar currently being used.
+### Rückgabewert
+ ProcessingBarIndex ist eine Variable vom Typ int, die immer die Nummer des sich gerade in Bearbeitung befindenden Bars enthält.
 
-### Usage
+### Verwendung
 ProcessingBarIndex
 
-### More Information
-The OnCalculate() method uses numbering different from that of ProcessingBarIndex in terms of the [*Barindex*](#barindex) and [*Bars*](#bars). Understanding this difference is of great importance, which is why we ask you to please read the following paragraph carefully:
+### Weitere Informationen
+Die in der Methode  OnCalculate() verwendete Nummerierung mit ProcessingBarIndex unterscheidet sich vom [*Barindex*](#barindex) und [*Bars*](#bars). Das Verständnis dieses Unterschiedes ist sehr wichtig! Bitte das folgende genau lesen!
 
-ProcessingBarIndex numbers continuously from the oldest to youngest bar starting with 0. The BarIndex for the youngest bar is always 0. In the example referenced below this paragraph, Time\[0\] stands for the timestamp of the current bar. The index of the oldest bar always has 1 added to it. Thus a logical numbering of barsAgo is possible. The timestamp for the bar of 5 periods ago is Time\[5\].
-For using multiple timeframes (multi-bars) in an indicator, see ProcessingBarIndexes.
+ProcessingBarIndex nummeriert fortlaufend vom ältesten zum jüngsten Bar beginnend bei 0. Der Barindex ist für den jüngsten Bar immer 0. Im Beispiel unten steht Time\[0\] für den Zeitstempel des aktuellen Bars. Der Index des ältesten Bars wird mit jedem neu hinzukommenden Damit wird eine logische Zählung für barsAgo möglich. Der Zeitstempel für den Bar von vor 5 Perioden ist damit Time\[5\].
+Bei Verwendung mehrerer Zeiteinheiten (multi-bars)in einem Indikator siehe ProcessingBarIndexes.
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
@@ -648,8 +669,8 @@ protected override void OnCalculate()
 ```
 
 ## DatafeedHistoryPeriodicity
-### Description
-Datafeed history periodicity is a data type.
+### Beschreibung
+DatafeedHistoryPeriodicity ist ein Datentyp.
 
 ### Definition
 public enum DatafeedHistoryPeriodicity
@@ -671,18 +692,18 @@ public enum DatafeedHistoryPeriodicity
 -   DatafeedHistoryPeriodicity.PointAndFigure
 -   DatafeedHistoryPeriodicity.Custom
 
-See *TimeFrame*, *TimeFrames*.
+Siehe *TimeFrame*, *TimeFrames*.
 
 ## DataSeries
-### Description
-Data series (data rows) are an easy yet powerful method of saving additional values for individual bars. For example, when calculating the smoothing average, each bar is assigned the value calculated for this bar.
-A data series is an array that contains as many elements as there are bars displayed in a chart. AgenaTrader ensures that data series are correctly synchronized with the bars.
-Data series are used in exactly the same way as the close or time series. They can therefore also be used for the input data for various indicators.
-In the table below you will find 4 newly created data series (highlighted). Each data series has exactly one value of a special data type (int, bool, string) attached to it per bar. The indexing with barsAgo is thus identical to the data series provided by the system.
+### Beschreibung
+Datenserien (DataSeries) sind eine sehr komfortable und sehr mächtige Möglichkeit, zusätzliche Werte für jeden einzelnen Bar zu speichern. Z.B. wird bei der Berechnung eines gleitenden Durchschnitts jedem Bar der für diesen Bar errechnete Wert zugeordnet.
+Eine Datenserie ist ein Array, welches exakt so viele Elemente enthält, wie Bars im Chart angezeigt werden. AgenaTrader sorgt dafür, dass die Datenserien zu jedem Zeitpunkt korrekt mit den Bars synchronisiert sind.
+Datenserien werden exakt so benutzt, wie z.B. die Serien Close oder Time. Sie können deshalb natürlich auch als Eingangsdaten (Input) für weitere Indikatoren verwendet werden.
+In der Tabelle ist zu sehen, dass 4 neue Datenserien (farbig markiert) angelegt worden sind. Jede dieser Datenserien kann genau einen Wert eines speziellen Datentyps (int, bool, string, DateTime) je Bar aufnehmen. Die Indizierung mit barsAgo ist dabei identisch mit den vom System bereitgestellten Datenserien..
 
 ![DataSeries](./media/image12.png)
 
-### Usable Data Series in AgenaTrader
+### In AgenaTrader verwendbare Datenserien
 [*BoolSeries*](#boolseries)
 
 [*DataSeries*](#dataseries)
@@ -697,31 +718,31 @@ In the table below you will find 4 newly created data series (highlighted). Each
 
 [*StringSeries*](#stringseries)
 
-In addition, there are also data series such as ColorSeries, although these are only used for internal purposes and should not be used directly.
-To change the color of plots, please use [*PlotColors*](#plotcolors).
+Darüberhinaus gibt es die Datenserie ColorSeries, die jedoch nur für interne Zwecke bestimmt ist und nicht direkt verwendet werden sollte.
+Um die Farbe von Plots zu ändern, verwenden Sie bitte [*PlotColors*](#plotcolors).
 
 ### Set(), Reset() und ContainsValue()
-Each data series contains a **Set()**, **Reset()** and **ContainsValue()** method.
-With Set(value) or Set(int barsAgo, value) you can place values into the data series for the current position, or in this case into the barsAgo position.
-With Reset() or Reset(int barsAgo) you can delete a value from the data series for the current position or for the barsAgo position. This has the result that no valid value exists at this position any more.
-Programming with the help of the reset method can simplify otherwise complex logic. This is especially true for Boolean series, where only "true" or "false" values can be included.
-The ContainsValue() checks whether a data series has a value for a specific position.
+Jede Datenserie verfügt über die Methoden  **Set()**, **Reset()** und **ContainsValue()**.
+Mit Set(value) bzw. Set(int barsAgo, value) werden Werte in die Datenserie an der aktuellen Position bzw. an der Position "barsAgo" übernommen.
+Mit Reset() bzw. Reset(int barsAgo) kann an der aktuellen Position  bzw. an der Position "barsAgo" ein Wert aus der Datenserie gelöscht werden, d.h. an dieser Position existiert kein gültiger Wert mehr.
+Die Programmierung mit Hilfe der Reset-Methode kann eine ansonsten sehr komplexe Logik spürbar vereinfachen.Insbesondere bei Bool-Serien, die nur true oder false enthalten können, ist diese Eigenschaft extrem hilfreich.
+Mit ContainsValue() kann geprüft werden, ob die Datenserie an einer bestimmten Position einen gültigen Wert enthält.
 
-### Information about Data Types
+### Informationen zu den einzelnen Datentypen
 [*http://msdn.microsoft.com/de-de/library/s1ax56ch%28v=vs.80%29.aspx*](http://msdn.microsoft.com/de-de/library/s1ax56ch%28v=vs.80%29.aspx)
 
 ## BoolSeries
-### Description
-Bool series is a data series that contains a Boolean value for each bar. The number of elements in this series correlates with the exact number of bars within the chart.
+### Beschreibung
+BoolSeries ist eine Datenserie, die für jeden Bar einen boolschen Wert (true oder false) aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-### Create New Bool Series
-In the area for the declaration of variables, simply declare a new variable:
+### Neue BoolSeries anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 
 ```cs
-//Variable declaration
+//Variablendeklaration
 private BoolSeries myBoolSeries;
 ```
-With the OnInit() method, this variable assigns a new instance of the Bool series:
+In der Methode OnInit()dieser Variable eine neue Instanz von BoolSeries zuweisen:
 ```cs
 protected override void OnInit()
 {
@@ -730,42 +751,42 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the data series for the current position:
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 
 ```cs
 myBoolSeries.Set(true);
 ```
 
-Writing a value in the past into the data series:
+Einen Wert in der Vergangenheit in die Datenserie schreiben:
 
 ```cs
 myBoolSeries.Set(int barsAgo, bool Value);
 ```
 
-### Delete Values
-Removing the current value for the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 
 ```cs
 myBoolSeries.Reset();
 ```
 
-Removing a value in the past from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 ```cs
 myBoolSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myBoolSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print ("For the bar of " + Time[0] + " ago the value of the data series is: " + myBoolSeries[0]);
+Print ("Für den Bar von " + Time[0] + " ist der Wert der Datenserie: " + myBoolSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
@@ -777,19 +798,19 @@ myBoolSeries.Set(false);
 ```
 
 ## DataSeries
-### Description
-Data series is a [*DataSeries*](#dataseries) that can contain a double value for each bar. The number of elements in this series corresponds to the exact number of bars within the charts.
+### Beschreibung
+DataSeries ist eine [*DataSeries*](#dataseries) die für jeden Bar einen double-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-Data series for double values are the data series most commonly used for indicators.
+Datenserien für double-Werte sind die für Indikatoren am häufigsten genutzen Datenserien.
 
-### Create a New Data Series
-In the declaration area for variables:
+### Neue DatenSerie anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 
 ```cs
-//Variable declaration
+//Variablendeklaration
 private DataSeries myDataSeries;
 ```
-With the OnInit() method, this variable is assigned a new instance:
+In der Methode OnInit()  dieser Variable eine neue Instanz von DataSeries zuweisen:
 
 ```cs
 protected override void OnInit()
@@ -799,58 +820,58 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the data series for the current position:
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 
 ```cs
 myDataSeries.Set(Bars[0].Close);
 ```
 
-Writing a value in the past into the data series:
+Einen Wert in der Vergangenheit in die Datenserie schreiben:
 ```cs
 myDataSeries.Set(int barsAgo, double Value);
 ```
 
-### Delete Values
-Removing the current value from the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 
 ```cs
 myDataSeries.Reset();
 ```
 
-Removing a value in the past from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myDataSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print ("For the bar from " + Time[0] + " ago the value for the data series is: " + myDataSeries[0]);
+Print ("Für den Bar von  " + Time[0] + "ist der Wert der Datenserie: " + myDataSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
-//Saves the span between the high and low of a bar
+//Speichert die Spanne zwischen dem Hoch und dem Tief eines Bars
 myDataSeries.Set(Math.Abs(High[0]-Low[0]));
 ```
 
 ## DateTimeSeries
-### Description
-Date time series is a [*DataSeries*](#dataseries) that can record a date time value for each bar. The number of elements in this series corresponds to the number of bars in the chart.
+### Beschreibung
+Date time series  ist eine [*DataSeries*](#dataseries) die für jeden Bar einen DateTime-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-### Create a New Data Series
-Create a new variable in the declaration area:
+### Neue DatenSerie anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 
 ```cs
-//Variable declaration
+//Variablendeklaration
 private DateTimeSeries myDataSeries;
 ```
-Assign a new instance of DateTimeSeries for the variable with the OnInit() method:
+In der Methode OnInit() dieser Variable eine neue Instanz von StringSeries zuweisen:
 
 ```cs
 protected override void OnInit()
@@ -860,60 +881,60 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the current position of the data series:
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 
 ```cs
 myDataSeries.Set(DateTime Value);
 ```
 
-Writing a value from the past into the data series:
+Einen Wert in der Vergangenheit in die Datenserie schreiben:
 
 ```cs
 myDataSeries.Set(int barsAgo, DateTime Value);
 ```
 
-### Delete Values
-Removing the current value from the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 
 ```cs
 myDataSeries.Reset();
 ```
 
-Remove a past value from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 
 ```cs
 myDataSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myDataSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print ("For the bar from " + Time[0] + " ago the value of the data series is: " + myDataSeries[0]);
+Print ("Für den Bar von" + Time[0] + " ist der Wert der Datenserie: " + myDataSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
-//Saves the difference of -6 hours (eastern time, New York) for a time zone conversion
+//Speichert einen Versatz von -6 Stunden (Eastern Time, New York) für eine Zeitzonenumrechnung
 myDataSeries.Set(Time[0].AddHours(-6));
 ```
 
 ## FloatSeries
-### Description
-Float series is a DataSeries that contains a float value for each bar in the chart. The number of elements in this series corresponds to the number of bars within the chart.
+### Beschreibung
+FloatSeries ist eine Datenserie, die für jeden Bar einen Float-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-### Create a New Data Series
-Create a new variable in the declaration area:
+### Neue DatenSerie anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 
 ```cs
-//Variable declaration
+//Variablendeklaration
 private FloatSeries myDataSeries;
 ```
-Assign a new instance of the FloatSeries to the variable with the OnInit() method:
+In der Methode OnInit() dieser Variable eine neue Instanz von StringSeries zuweisen:
 
 ```cs
 protected override void OnInit()
@@ -923,58 +944,58 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the current position of the data series
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 
 ```cs
 myDataSeries.Set(float Value);
 ```
 
-Writing a value from the past into the data series:
+Einen Wert in der Vergangenheit in die Datenserie schreiben:
 ```cs
 myDataSeries.Set(int barsAgo, float Value);
 ```
 
-### Delete Values
-Removing the current value from the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset();
 ```
 
-Removing a value located in the past from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myDataSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print ("For the bar from " + Time[0] + " ago the value for the data series is: " + myDataSeries[0]);
+Print ("Für den Bar von" + Time[0] + " ist der Wert der Datenserie: " + myDataSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
-//Saves the span between the high and the low of a bar
+//Speichert die Spanne zwischen dem Hoch und dem Tief eines Bars
 myDataSeries.Set(Math.Abs((float) High[0] - (float) Low[0]));
 ```
 
 ## IntSeries
-### Description
-Int series is a data series that can assign an integer value for each bar. The number of elements in this series corresponds to the number of bars within the chart.
+### Beschreibung
+IntSeries ist eine Datenserie, die für jeden Bar einen Integer-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-### Create a New Data Series
-Create a new variable in the declaration area:
+### Neue DatenSerie anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 
 ```cs
-//Variable declaration
+//Variablendeklaration
 private IntSeries myDataSeries;
 ```
 
-Assign an instance of the int series to the variable with the OnInit() method:
+In der Methode OnInit() dieser Variable eine neue Instanz von StringSeries zuweisen:
 
 ```cs
 protected override void OnInit()
@@ -984,55 +1005,55 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the current position of the data series
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 ```cs
 myDataSeries.Set(int Value);
 ```
 
-Writing a value from the past into the data series:
+Einen Wert in der Vergangenheit in die Datenserie schreiben:
 ```cs
 myDataSeries.Set(int barsAgo, int Value);
 ```
 
-### Delete Values
-Removing the current value from the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset();
 ```
 
-Removing a value located in the past from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myDataSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print (For the bar from + Time[0] + the value of the data series is:+ myDataSeries[0]);
+Print ("Für den Bar von " + Time[0] + "ist der Wert der Datenserie"+ myDataSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
-//Saves the span in ticks between high and low for each bar
+//Speichert für jeden Bar die Spanne in Ticks zwischen dem Hoch und dem Tief
 myDataSeries.Set((int) ((High[0] - Low[0]) / TickSize));
 ```
 
 ## LongSeries
-### Description
-Long series is a data series that can include an integer value for each bar. The number of elements in this series corresponds to the number of bars within the chart.
+### Beschreibung
+LongSeries ist eine Datenserie, die für jeden Bar einen Integer-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-### Create a New Data Series
-Create a new variable in the declaration area:
+### Neue DatenSerie anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 ```cs
-//Variable declaration
+//Variablendeklaration
 private LongSeries myDataSeries;
 ```
-Assign a new instance of the long series to the variable with the OnInit() method:
+In der Methode OnInit() dieser Variable eine neue Instanz von LongSeries zuweisen:
 ```cs
 protected override void OnInit()
 {
@@ -1041,57 +1062,57 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the current position of the data series:
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 ```cs
 myDataSeries.Set(long Value);
 ```
 
-Writing a value from the past into the data deries:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 ```cs
 myDataSeries.Set(int barsAgo, long Value);
 ```
 
-### Delete Values
-Removing the current value from the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset();
 ```
 
-Removing a value located in the past from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 ```cs
 myDataSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myDataSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print (For the bar from + Time[0] + the value of the data series is:+ myDataSeries[0]);
+Print ("Für den Bar von " + Time[0] + "ist der Wert der Datenserie: " + myDataSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
-//Saves the span of ticks between high and low for each bar
+//Speichert für jeden Bar die Spanne in Ticks zwischen dem Hoch und dem Tief
 myDataSeries.Set((long) ((High[0] - Low[0]) / TickSize));
 ```
 
 ## StringSeries
-### Description
-String series is a data series for string values that are saved for each bar. The number of elements in this series corresponds to the number of bars within the chart.
+### Beschreibung
+StringSeries ist eine Datenserie, die für jeden Bar einen String-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
 
-### Create a New Data Series
-Create a new variable in the declaration area:
+### Neue DatenSerie anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
 
 ```cs
-//Variable declaration
+//Variablendeklaration
 private StringSeries myDataSeries;
 ```
 
-Assign an instance of string series to the variable with the OnInit() method:
+In der Methode OnInit() dieser Variable eine neue Instanz von StringSeries zuweisen:
 
 ```cs
 protected override void OnInit()
@@ -1101,58 +1122,58 @@ CalculateOnClosedBar = true;
 }
 ```
 
-### Assign Values
-Assigning a value to the current position of the data series:
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
 
 ```cs
 myDataSeries.Set(string Value);
 ```
 
-Writing a value from the past into the data series:
+Einen Wert in der Vergangenheit in die Datenserie schreiben:
 
 ```cs
 myDataSeries.Set(int barsAgo, string Value);
 ```
 
-### Delete Values
-Remove the current value from the data series:
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
 
 ```cs
 myDataSeries.Reset();
 ```
 
-Remove a value located in the past from the data series:
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
 
 ```cs
 myDataSeries.Reset(int barsAgo);
 ```
 
-### Check Values for their Validity
+### Werte auf Gültigkeit prüfen
 ```cs
 myDataSeries.ContainsValue(int barsAgo);
 ```
 
-### Read Value
+### Wert auslesen
 ```cs
-Print (For the bar from + Time[0] + the value of the data series is:+ myDataSeries[0]);
+Print ("Für den Bar von " + Time[0] + "ist der Wert der Datenserie: " + myDataSeries[0]);
 ```
 
-### Example
+### Beispiel
 ```cs
-//Save the current calendar day for each bar (Monday… Tuesday etc.)
+//Speichert für jeden Bar den Wochentag (Montag, Dienstag ...)
 myDataSeries.Set(string.Format("{0:dddd}", Time[0]));
 ```
 
 ## DayOfWeek
-### Description
-"DayOfWeek" outputs the date-time value (such as a timestamp) for each bar.
+### Beschreibung
+"DayOfWeek" gibt den zu einem DateTime-Wert, wie z.B. dem Zeitstempel eines Bars, gehörenden Wochentag aus.
 
-Of course, all other methods defined within the C\# language for usage of date-time objects are also available, such as day, month, year, hour, minute, second, day of week etc.
+Darüberhinaus sind natürlich auch alle Methoden verwendbar, die in C# für DateTime-Objekte definiert sind, z.B. Day, Month, Year, Hour, Minute, Second, DayOfWeek usw.
 
-See [*http://msdn.microsoft.com/de-de/library/03ybds8y.aspx*](http://msdn.microsoft.com/de-de/library/03ybds8y.aspx)
+Siehe [*http://msdn.microsoft.com/de-de/library/03ybds8y.aspx*](http://msdn.microsoft.com/de-de/library/03ybds8y.aspx)
 
 ### Definition
-Property DayOfWeek
+Eigenschaft DayOfWeek
 
 public enum DayOfWeek
 -   DayOfWeek.Monday
@@ -1163,19 +1184,19 @@ public enum DayOfWeek
 -   DayOfWeek.Saturday
 -   DayOfWeek.Sunday
 
-### Example
+### Beispiele
 ```cs
-//Outputs the weekday for each bar
+//Ausgabe des Wochentages für jeden Bar
 Print(Time[0].DayOfWeek);
-//Do not execute trades on a Friday
+//An einem Freitag keine Trades ausführen
 if (Time[0].DayOfWeek == DayOfWeek.Friday)
 return;
 ```
 
 ## Displacement
-### Description
-By implementing "Displacement", you can shift a drawn indicator line right or left along the x-axis.
-This property can be queried within the script and will return an int value.
+### Beschreibung
+Mit der Angabe Displacement kann eine gezeichnete Indikatorlinie auf der Zeitachse (x-Achse) nach links bzw. rechts verschoben werden.
+Die Eigenschaft kann im Script abgefragt werden und liefert einen int-Wert.
 
 Blue line: Displacement = 0 (Original)
 Red line: Displacement = -5
@@ -1183,13 +1204,13 @@ Green line: Displacement = +5
 
 ![Displacement](./media/image13.png)
 
-### Usage
+### Verwendung
 Displacement
 
 ### Parameter
-int Offset Number of bars by which the indicator is to be moved.
+int Offfset	Anzahl Bars, um die der Indikator verschoben werden soll.
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -1200,113 +1221,115 @@ Displacement = 1;
 ```
 
 ## IsShowInDataBox
-### Description
-The property "IsShowInDataBox" states whether the value of an indicator is contained in the data box of the chart or not.
+### Beschreibung
+Die Eigenschaft  "IsShowInDataBox" gibt an, ob die Werte des Indikators (Datenserien) in der DataBox des Charts enthalten sein sollen oder nicht.
 
-The property can be queried in the script and returns a value of the type Boolean (true or false).
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false)
 ```cs
 IsShowInDataBox = true (default)
 ```
 
-The indicator values are displayed in the data box.
+Die Indikatorwerte werden in der DataBox angezeigt.
 ```cs
 IsShowInDataBox = false
 ```
 
-The indicator values are not displayed in the data box.
+Die Indikatorwerte werden nicht in der DataBox angezeigt.
 
-The following image displays the values of 3 smoothed averages in the data box.
+
+Im Bild werden die Werte von 3 gleitenden Durchschnitten in der DataBox angezeigt.
 
 ![IsShowInDataBox](./media/image14.png)
 
-### Usage
+### Verwendung
 IsShowInDataBox
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//Values will not be shown in the data box
+//Werte sollen nicht in der DataBox angezeigt werden
 IsShowInDataBox = false;
 }
 ```
 
 ## IsAddDrawingsToPricePanel
-### Description
-The property "IsAddDrawingsToPricePanel" determines the panel in which the drawing objects are drawn.
+### Beschreibung
+Die Eigenschaft  "IsAddDrawingsToPricePanel" legt fest, in welchem Panel Zeichenobjekte gezeichnet werden.
 ```cs
 IsAddDrawingsToPricePanel = true (default)
 ```
 
-Drawing objects are shown in the price chart
+Zeichenobjekte werden im Preischart gezeichnet
 ```cs
 IsAddDrawingsToPricePanel = false
 ```
 
-Drawing objects are drawn in the panel (subchart) assigned to the indicator
+Zeichenobjekte werden in dem Panel (Subchart) gezeichnet, das dem Indikator zugeordnet ist.
 
-If the indicator is already assigned to the price chart (overlay = true) then this property has no effect, meaning that no additional subchart is opened.
-The property can be queried within the script and returns a Boolean value.
+Ist der Indikator bereits dem Preischart zugeordnet (Overlay = true) ist diese Eigenschaft wirkungslos, d.h. es wird in diesem Fall kein neuer Subchart geöffnet.
 
-### Usage
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false)
+
+### Verwendung
 IsAddDrawingsToPricePanel
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
-// Indicator is drawn in a new subchart
+// Indikator in einem neuen Subchart zeichnen
 IsOverlay = false;
 Add(new OnPaint(Color.Red, "MyPlot1"));
-// Drawing object is drawn in the price chart
+// Zeichenobjekte im Preischart zeichnen
 IsAddDrawingsToPricePanel = true;
 }
 protected override void OnCalculate()
 {
-// Draws a vertical line in the price chart for the bar from 5 minutes ago
+// zeichnet im Preischart eine vertikale Linie am Bar von vor 5 Perioden
 AddChartVerticalLine("MyVerticalLine", 5, Color.Black);
 }
 ```
 
-## IsSerieFalling()
+## IsSeriesFalling()
 ### Description
-The IsSerieFalling() method allows you to test whether an "is falling" condition exists, i.e. whether the current value is smaller than the value of the previous bar.
+Mit der Methode  IsSeriesFalling() kann geprüft werden, ob eine "ist fallend"-Bedingung vorliegt, d.h. ob der aktuelle Wert kleiner ist als der Wert des vorhergehenden Bars.
 
-See [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+Siehe auch  [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
 
-### Usage
+### Verwendung
 ```cs
 IsSerieFalling(IDataSeries series)
 ```
 
-### Return Value
-**true** If the data series is falling
-**false** If the data series is not falling
+### Rückgabewert 
+**true** wenn die Datenreihe fällt 
+**false** wenn die Datenreihe nicht fällt
 
 ### Parameter
-series a data series such as an indicator, close, high etc.
+series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä
 
-### Example
+### Beispiele
 ```cs
-// Check whether SMA(20) is falling
+// Prüfen, ob der SMA(20) fällt
 if (IsSerieFalling(SMA(20)))
 Print("The SMA(20) is currently falling.");
 ```
 
 ## Colors
-AgenaScript provides you with the following commands for defining colors and making color changes to the chart:
+In AgenaSript stehen die folgenden Befehle für Farbfestlegungen bzw. -änderungen im Chart zur Verfügung:
 
-[*BarColor*](#barcolor) Color of a bar
+[*BarColor*](#barcolor) Farbe eines Bars
 
-[*BackColor*](#backcolor) Background color of the chart
+[*BackColor*](#backcolor) Hintergrundfarbe des Kurs-Charts
 
-[*BackColorAll*](#backcolorall) Background color of the chart and all panels
+[*BackColorAll*](#backcolorall) Hintergrundfarbe des Kurs-Charts und aller Indikator-Panels
 
-Chart.UpColor Color of up ticks (up bars)
-Chart.DownColor Color of down ticks (down bars)
+Chart.UpColor Farbe für Up Ticks (Up Bars)
+Chart.DownColor Farbe für Down Ticks (Down Bars)
 
-For each bar, its colors are saved in the following data series. If these data series are written in, the color of the referenced bar will change.
+Für jeden Bar werden seine Farben in folgenden Dataserien gespeichert. Wird in diese Datenserien geschrieben, ändern sich die Farben des referenzierten Bars.
 
 [*BarColorSeries*](#barcolorseries)
 
@@ -1317,40 +1340,40 @@ For each bar, its colors are saved in the following data series. If these data s
 [*BackColorAllSeries*](#backcolorallseries)
 
 ## BarColor
-### Description
-Bar color changes the color of a bar.
+### Beschreibung
+BarColor ändert die Farbe eines Bars 
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-a color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
-### Usage
+### Verwendung
 BarColor
 
-### Example
+### Beispiel
 ```cs
-// If the closing price is above the SMA(14), color the bar orange
+// Wenn der Schlusskurs über dem SMA(14) liegt, den Bar orange einfärben
 if (Close[0] > SMA(14)[0]) BarColor = Color.Orange;
 ```
 
 ![BarColor](./media/image15.png)
 
 ## BackColor
-### Description
-Back color changes the background color of a bar or gives the current background color of a bar when queried.
+### Beschreibung
+BackColor ändert die Hintergrundfarbe eines Bars bzw. gibt die aktuelle Hintergrundfarbe eines Bars zurück.
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-A color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
-### Usage
+### Verwendung
 BackColor
 
-### Example
+### Beispiele
 ```cs
-// Every Monday, change the bar background color to blue
+// immer montags Bar-Hintergrundfarbe auf Blau ändern
 if (Time[0].DayOfWeek == DayOfWeek.Monday)
 BackColor = Color.Blue;
 ```
@@ -1358,29 +1381,28 @@ BackColor = Color.Blue;
 ![BackColor](./media/image16.png)
 
 ```cs
-// Changing the bar background color depending on a smoothing average
-// Market price above the SMA(14) to green
-// Market price below the SMA(14) to maroon
+// Ändern der Bar-Hintergrundfarbe in Abhängigkeit von einem gl. Durchschnitt
+// Kurs über SMA(14) --> Grün
+// Kurs unter SMA(14) --> Maroon
 BackColor = SMA(14)[0] >= Close[0] ? Color.Maroon : Color.LimeGreen;
 ```
 
 ![BackColor](./media/image17.png)
 
 ## BackColorAll
-### Description
-Back color all changes the background color of a bar within the chart window and in all subcharts.
-
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+### Beschreibung
+BackColorAll ändert die Hintergrundfarbe eines Bars im Chartfenster und in allen Subcharts bzw. gibt die aktuelle Hintergrundfarbe eines Bars zurück.
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-A color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
-### Usage
+### Verwendung
 BackColorAll
 
-### Example
+### Beispiel
 ```cs
-// Every Monday, change the bar background color to blue
+// immer montags Bar-Hintergrundfarbe auf Blau ändern
 if (Time[0].DayOfWeek == DayOfWeek.Monday)
 BackColorAll = Color.Blue;
 ```
@@ -1388,37 +1410,37 @@ BackColorAll = Color.Blue;
 ![BackColorAll](./media/image18.png)
 
 ## BarColorSeries
-### Description
-Bar color series is a data series containing the color for each bar.
+### Beschreibung
+BarColorSeries ist eine Datenserie, die für jeden Bar die Farbe speichert.
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch[*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-a color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
 int barsAgo
 
-### Usage
+### Verwendung
 BarColorSeries
 
 BarColorSeries\[**int** barsAgo\]
 
-When using the method with an index \[**int** barsAgo\] the color for the referenced bar will be changed or returned.
+Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Farbe für den referenzierten Bar geändert bzw. ausgegeben.
 
-**Caution: Only the color of a bar whose color has been explicitly changed beforehand will be returned. In all other cases, the "Color.Empty" value will be returned.**
+**Achtung: Es wird nur die Farbe eines Bars zurückgegeben, dessen Farbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
 if (ProcessingBarIndex == Bars.Count-1-(CalculateOnClosedBar?1:0))
 {
-// Color the current bar blue
-// This is identical to BarColor = color.Blue
+// Farbe des aktuellen Bars auf Blau setzen
+// Dies ist identisch mit BarColor = Color.Blue
 BarColorSeries[0] = Color.Blue;
-// Color the previous bars green
+// Farbe des vorhergehenden Bars auf Grün setzen
 BarColorSeries[1] = Color.Orange;
-// Color the third bar yellow
+// Farbe des 3. Bars auf Gelb setzen
 BarColorSeries[2] = Color.Yellow;
 }
 }
@@ -1427,72 +1449,72 @@ BarColorSeries[2] = Color.Yellow;
 ![BarColorSeries](./media/image19.png)
 
 ## BackColorSeries
-### Description
-Back color series is a data series containing the background color for each bar. If the background color for the subcharts is to be included, please use "BackColorAllSeries" instead.
+### Beschreibung
+BackColorSeries ist eine Datenserie, die für jeden Bar die Hintergrundfarbe speichert. Soll die Hintergrundfarbe von Subcharts mit berücksichtigt werden, ist "BackColorAllSeries" zu verwenden.
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-a color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
 int barsAgo
 
-### Usage
+### Verwendung
 ```cs
 BackColorSeries
 BackColorSeries[int barsAgo]
 ```
 
-When using this method with an index \[**int** barsAgo\] the background color for the referenced bar will be outputted.
+ei Verwendung der Methode mit einem Index \[**int** barsAgo\]  wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
 
-### Example
+### Beispiele
 ```cs
-// Which background color does the current bar have?
+// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format) 
 Print (BackColorSeries[0]);
-// Set the current bar’s background color to blue
-// This is identical to BackColor = Color.Blue
+// Hintergrundfarbe des aktuellen Bars auf Blau setzen
+// Dies ist identisch mit BackColor = Color.Blue
 BackColorSeries[3] = Color.Blue;
-// Set background color for the previous bar to green
+// Hintergrundfarbe des vorhergehenden Bars auf Grün setzen
 BackColorSeries[1] = Color.Green;
 ```
 
 ## BackColorAllSeries
-### Description
-Back color all series is a data series containing the background color for each bar. The difference to BackColorSeries is that the background color of the subchart is included.
+### Beschreibung
+BackColorAllSeries ist eine Datenserie, die für jeden Bar die Hintergrundfarbe speichert. Im Unterschied zu BackColorSeries wird die Hinterrundfarbe der Subcharts mit berücksichtigt.
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-a color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
 int barsAgo
 
-### Usage
+### Verwendung
 ```cs
 BackColorAllSeries
 BackColorAllSeries[int barsAgo]
 ```
 
-When using the method with an index \[**int** barsAgo\] the background color for the referenced bar will be changed or returned.
+Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
 
-### Example
-See [*BackColorSeries*](#backcolorseries).
+### Beispiel
+siehe [*BackColorSeries*](#backcolorseries).
 
 ## CandleOutlineColor
-### Description
-Candle outline color changes the border/outline color (including the wick) of a bar.
+### Beschreibung
+CandleOutlineColor ändert die Randfarbe (incl. "Dochte" und "Lunte") eines Bars.
 
-If the color of the bar is changed using BarColor and the outline is not changed using CandleOutlineColor, the outline color is adjusted to match the color of the bar.
+Wenn die Farbe eines Bars mit BarColor geändert wird, und die Umrandung des Bars wurde nicht mit CandleOutlineColor verändert, wird die Randfarbe auf die Farbe des Bars angepasst.
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch[*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-a color object of the type "public struct color"
+ein Color-Objekt vom Typ  public struct Color
 
-### Usage
+### Verwendung
 CandleOutlineColor
 
-### Example
+### Beispiel
 ```cs
 if (SMA(14)[0] > SMA(200)[0])
 CandleOutlineColor = Color.LimeGreen;
@@ -1503,47 +1525,46 @@ CandleOutlineColor = Color.Red;
 ![CandleOutlineColor](./media/image20.png)
 
 ## CandleOutlineColorSeries
-### Description
-Candle outline color series is a data series that saves the outline color for each bar.
+### Beschreibung
+CandleOutlineColorSeries ist eine Datenserie, die für jeden Bar die Randfarbe speichert.
 
-See [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
 ### Parameter
-a color object of the type "public struct color"
-
+ein Color-Objekt vom Typ  public struct Color
 int barsAgo
 
-### Usage
+### Verwendung
 ```cs
 CandleOutlineColorSeries
 CandleOutlineColorSeries[int barsAgo]
 ```
 
-When using this method with an index \[**int** barsAgo\] the border color for the referenced bar will be outputted.
+Bei Verwendung der Methode mit einem Index  \[**int** barsAgo\] wird die Randfarbe für den referenzierten Bar ausgegeben.
 
-**Caution: Color.Empty will be outputted for a bar unless it has been previously changed.**
+**Achtung: Es wird nur die RandFarbe eines Bars zurückgegeben, dessen Randfarbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
 
-### Example
+### Beispiel
 ```cs
-// Set the outline color of the current bar to blue
+// Randfarbe des aktuellen Bars auf Blau setzen
 CandleOutlineColorSeries[0] = Color.Blue;
-// Change the outline color to the chart default value
+// Randfarbe auf Chart-default zurücksetzen
 CandleOutlineColorSeries[0] = Color.Empty;
 ```
 ## Email function
-### Description
-Override method which allows to send mail.
+### Beschreibung
+Override-Methode zum Senden von E-Mails.
 
 ### Parameter
-None
+keine
 
-### Return value
+### Rückgabewert
 string
 
-### Usage
-used for complicated calculation on a last bar
+### Verwendung
+Verwendet für komplizierte Berechnung auf einem letzten Bar
 
-### Example
+### Beispiel
 ```cs
 protected override void OnOrderExecution(IExecution execution)
 {
@@ -1566,19 +1587,20 @@ execution.Instrument.Symbol +" order " + execution.Name + " executed. Profit:" +
 }
 ```
 ## FirstTickOfBar
-### Description
-FirstTickOfBar is a property of the type "bool" that returns "true" if the currently incoming tick is associated with a new bar. This means that this tick is the first tick of a new bar.
-This property can only be meaningfully applied when the indicator or strategy is running in the tick-by-tick mode, meaning that CalculateOnClosedBar = false and the data feed is able to output real-time values.
-When using end-of-day data in a daily chart, the "FirstTickOfBar" is always true for the last bar.
-FirstTickOfBar should not be used outside of the OnCalculate() method.
-See [*Bars.TicksCountForLastBar*](#barstickscountforlastbar).
+### Beschreibung
+FirstTickOfBar ist eine Eigenschaft, vom Type bool, die immer dann "true" ergibt, wenn der aktuell hereinkommende Tick einem neuen Bar zugeordnet wird, dieser Tick also der erste Tick eines neuen Bars ist.
+Die Eigenschaft kann nur sinnvoll eingesetzt werden, wenn der Indikator bzw. die Startegie im Tick-by-Tick-Modus läuft, d.h. wenn CalculateOnClosedBar = false gesetzt ist und der verwendete Datenfeed Realtime-Kurse liefert. 
+Bei Verwendung von EoD-Daten in einem Tageschart ist FirstTickOfBar für den letzten Bar immer true.
+FirstTickOfBar sollte nicht außerhalb der OnCalculate() Methode verwendet werden..
 
-### Usage
+siehe auch [*Bars.TicksCountForLastBar*](#barstickscountforlastbar).
+
+### Verwendung
 FirstTickOfBar
 
-### Example
+### Beispiel
 ```cs
-// Within a tick-by-tick strategy, execute one part bar-by-bar only
+// Innerhalb einer Tick-By-Tick-Strategie einen Teil nur Bar-by-Bar ausführen
 if (FirstTickOfBar)
 {
 if (CCI(20)[1] < -250)
@@ -1588,70 +1610,70 @@ return;
 ```
 
 ## FirstTickOfBarMtf
-### Description
-FirstTickOfBarMtf is the **multi-time frame** variant of the [*FirstTickOfBar*](#firsttickofbar) property.
+### Beschreibung
+FirstTickOfBarMtf ist die  **multi-time frame** Variante von [*FirstTickOfBar*](#firsttickofbar).
 
-The setting of CalculateOnClosedBar only affects the primary timeframe (chart timeframe). When working with multi-bars, the ticks of the secondary timeframes are provided on a tick-by-tick basis independently of the CalculateOnClosedBar setting.
-With the help of FirstTickOfBarMtf, it is possible to determine when a new bar has begun in a secondary timeframe.
+Die Einstellung von CalculateOnClosedBar wirkt sich nur auf die primäre Zeiteinheit (Chart-Zeiteinheit) aus. Wenn jedoch mit multi-bars gearbeitet wird, werden die Ticks der sekundären Zeiteinheit(en) unabhängig von der Einstellung von CalculateOnClosedBar  immer Tick-by-Tick bereitgestellt.
+Mit Hilfe von FirstTickOfBarMtf, ist es möglich, festzustellen, wann in einer sekundären Zeiteinheit ein neuer Bar beginnt.   
 
-### Usage
+### Verwendung
 FirstTickOfBarMtf(ProcessingBarSeriesIndex)
 
 ### Parameter
 FirstTickOfBarMtf(ProcessingBarSeriesIndex).
 
-See [*ProcessingBarSeriesIndex*](#processingbarseriesindex).
+siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).
 
-### Example
+### Beispiel
 ```cs
 if (FirstTickOfBarMtf(ProcessingBarSeriesIndex))
 Print("A new bar has begun.");
 ```
 
 ## GetCurrentAsk()
-### Description
-The GetCurrentAsk() method returns the current value of the ask side of the order book. If no level 1 data is available to AgenaTrader, then this function simply outputs the last trade value.
+### Beschreibung
+Die Methode GetCurrentAsk() liefert den aktuellen Kurs auf der Ask-Seite des Orderbuchs. Wenn AgenaTrader keine Level1-Daten zur Verfügung stehen, liefert die Funktion den Kurs des letzten Umsatzes.
 
-See [*GetCurrentBid()*](#getcurrentbid) and [*OnLevel1()*](#onlevel1).
+siehe auch  [*GetCurrentBid()*](#getcurrentbid) und [*OnLevel1()*](#onlevel1).
 
-### Usage
+### Verwendung
 GetCurrentAsk()
 
-### Return Value
+### Rückgabewert
 double value
 
 ### Parameter
-none
+keiner
 
-### Example
+### Beispiel
+Wenn eine Einstiegsbedingung erfüllt ist, soll 1 Kontrakt zum aktuellen Ask-Kurs verkauft werden.
 ```cs
-If an entry condition is fulfilled, then 1 contract should be sold at the current ask price:
 private IOrder entryOrder = null;
 protected override void OnCalculate()
 {
-// Entry condition
+// Einstiegsbedingung
 if (Close[0] < SMA(20)[0] && entryOrder == null)
-// Sell 1 contract at the current ask price
+// Verkauf 1 Kontrakt zum aktuellen AskKurs
 entryOrder = SubmitOrder(0, OrderAction.SellShort, OrderType.Limit, 1, GetCurrentAsk(), 0, "", "Enter short");
 }
 ```
 
 ## GetCurrentAskVolume()
-### Description
-The GetCurrentAskVolume () method returns the current volume on the Ask page of the order book. This function is only executable if the data provider provides level 2 data.
+### Beschreibung
+Die Methode GetCurrentAskVolume() liefert das aktuelle Volumen auf der Ask-Seite des Orderbuchs. Diese Funktion ist nur lauffähig, wenn der Datenanbieter Level2-Daten liefert.
 
-See [*GetCurrentBidVolume()*](#getcurrentbidvolume), [*GetCurrentBid()*](#getcurrentbid) and [*OnLevel1()*](#onlevel1).
+siehe auch [*GetCurrentBidVolume()*](#getcurrentbidvolume), [*GetCurrentBid()*](#getcurrentbid) und [*OnLevel1()*](#onlevel1).
 
-### Usage
+### Verwendung
 GetCurrentAskVolume()
 
-### Return Value
+### Rückgabewert
 Long  value
 
 ### Parameter
-none
+keiner
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
@@ -1661,50 +1683,50 @@ protected override void OnCalculate()
 ```
 
 ## GetCurrentBid()
-### Description
-The GetCurrentBid() method returns the current value of the bid side of the order book. If no level 1 data is available to AgenaTrader, then the function outputs the last traded price.
+### Beschreibung
+Die Methode GetCurrentBid() liefert den aktuellen Kurs auf der Bid-Seite des Orderbuchs. Wenn AgenaTrader keine Level1-Daten zur Verfügung stehen, liefert die Funktion den Kurs des letzten Umsatzes.
 
-See [*GetCurrentAsk()*](#getcurrentask) and [*OnLevel1()*](#onlevel1).
+siehe auch [*GetCurrentAsk()*](#getcurrentask) und [*OnLevel1()*](#onlevel1).
 
-### Usage
+### Verwendung
 GetCurrentBid()
 
-### Return Value
+### Rückgabewert
 double value
 
 ### Parameter
 none
 
-### Example
-If an entry condition is fulfilled, then 1 contract should be sold at the current bid price:
+### Beispiel
+Wenn eine Einstiegsbedingung erfüllt ist, soll 1 Kontrakt zum aktuellen Bid-Kurs gekauft werden.
 
 ```cs
 private IOrder entryOrder = null;
 protected override void OnCalculate()
 {
-// Entry condition
+// Einstiegsbedingung
 if (Close[0] > SMA(20)[0] && entryOrder == null)
-// Sell 1 contract at the current bid price
+// Kauf 1 Kontrakt zum aktuellen BidKurs
 entryOrder = SubmitOrder(0, OrderAction.Buy, OrderType.Limit, 1, GetCurrentBid(), 0, "", "Enter long");
 }
 ```
 
 ## GetCurrentBidVolume()
-### Description
-The GetCurrentBidVolume () method returns the current volume on the Bid page of the order book. This function is only executable if the data provider provides level 2 data.
+### Beschreibung
+Die Methode GetCurrentBidVolume() liefert das aktuelle Volumen auf der Bid-Seite des Orderbuchs. Diese Funktion ist nur lauffähig, wenn der Datenanbieter Level2-Daten liefert.
 
-See [*GetCurrentAskVolume*](#getcurrentaskvolume), [*GetCurrentBid()*](#getcurrentbid) and [*OnLevel1()*](#onlevel1).
+siehe auch [*GetCurrentAskVolume*](#getcurrentaskvolume), [*GetCurrentBid()*](#getcurrentbid) und [*OnLevel1()*](#onlevel1).
 
-### Usage
+### Verwendung
 GetCurrentBidVolume()
 
-### Return Value
+### Rückgabewert
 Long value
 
 ### Parameter
-none
+keiner
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
@@ -1714,22 +1736,23 @@ protected override void OnCalculate()
 ```
 
 ## GetCurrentPrice()
-### Description
-The GetCurrentPrice() method returns the current price (Latest). If AgenaTrader does not have Level1 data, the function returns the price of the last sales
+### Beschreibung
+Die Methode GetCurrentPrice() liefert den aktuellen Kurs (Latest). Wenn AgenaTrader keine Level1-Daten zur Verfügung stehen, liefert die Funktion den Kurs des letzten Umsatzes.
 
-See [*GetCurrentAsk*](#getcurrentask), [*GetCurrentBid()*](#getcurrentbid) and [*OnLevel1()*](#onlevel1).
+siehe auch [*GetCurrentAsk*](#getcurrentask), [*GetCurrentBid()*](#getcurrentbid) und [*OnLevel1()*](#onlevel1).
 
-### Usage
+### Verwendung
 GetCurrentPrice()
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
 ### Parameter
-double
+double value
 
 ### Example
-If an initial condition is fulfilled, 1 contract should be purchased at the current exchange rate.
+Wenn eine Einstiegsbedingung erfüllt ist, soll 1 Kontrakt zum aktuellen Kurs gekauft werden.
+
 ```cs
 private IOrder entryOrder = null;
 
@@ -1742,22 +1765,22 @@ protected override void OnCalculate()
 }
 ```
 ## GetCurrentSpread()
-### Description
-The GetCurrentSpare () method returns the current spread.
+### Beschreibung
+Die Methode GetCurrentSpread() liefert den aktuellen Spread.
 
-See [*GetCurrentAsk*](#getcurrentask), [*GetCurrentBid()*](#getcurrentbid) and [*OnLevel1()*](#onlevel1).
+siehe auch [*GetCurrentAsk*](#getcurrentask), [*GetCurrentBid()*](#getcurrentbid) and [*OnLevel1()*](#onlevel1).
 
-### Usage
+### Verwendung
 GetCurrentSpread()
 
-### Return Value
+### Rückgabewert
 none
 
 ### Parameter
 double
 
-### Example
-If an initial condition is fulfilled, 1 contract should be purchased at the current exchange rate.
+### Beispiel
+Wenn eine Anfangsbedingung erfüllt ist, sollte ein Vertrag zum aktuellen Wechselkurs gekauft werden.
 ```cs
 protected override void OnCalculate()
 {
@@ -1767,72 +1790,72 @@ protected override void OnCalculate()
 
 ## GetSerieHighestValue
 ### Description
-The GetSerieHighestValue() method searches within a predetermined number of periods for the highest bar and outputs how many bars ago it can be found.
+Die Methode GetSerieHighestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem höchsten Bar und gibt an, vor wievielen Bars dieser höchste Bar zu finden ist
 
-See [*GetSerieLowestValue()*](#getserielowestvalue).
+Siehe auch [*GetSerieLowestValue()*](#getserielowestvalue).
 
 ### Parameter
-period Number of bars within which the bar is searched for
+period Anzahl von Bars, innerhalb derer gesucht werden soll
 
-series Every data series, such as close, high, low, etc.
+series Jede Datenserie, wie Close, High, Low usw.
 
-### Return Value
+### Rückgabewert
 ```cs
-int barsAgo How many bars ago the high occurred
+int barsAgo Vor wievielen Bars trat das Hoch auf
 ```
 
-### Usage
+### Verwendung
 ```cs
 GetSerieHighestValue(IDataSeries series, int period)
 ```
 
-### Example
+### Beispiele
 ```cs
-// How many bars ago was the highest high for the current session?
+// Vor wievielen Bars lag das höchste Hoch der aktuellen Session?
 Print(GetSerieHighestValue(High, Bars.BarsCountForSession - 1));
-// What value did the market price have at the highest high of the session?
+// Welchen Kurs hatte das bisher höchste Open der aktuellen Session?
 Print("The highest price for the session was: " + Open[GetSerieHighestValue(High, Bars.BarsCountForSession - 1)]);
 ```
 
 ## Historical
-### Description
-Historical allows you to check whether AgenaScript is working with historical or real-time data.
-As long as OnCalculate() is called up for historical data, then historical = true. As soon as live data is being used, then historical = false.
-During a backtest, historical is always true.
+### Beschreibung
+Mit Historical läßt sich überprüfen, ob AgenaScript mit historen Daten oder mit Real-Time-Daten arbeitet.
+Solange OnCalculate() für historische Daten aufgerufen wird, ist Historical = true, in dem Moment, in dem die Verarbeitung von Live-Daten beginnt, wird Historical = false.
+Während ein Backtest ausgeführt wird, ist Historical immer true.
 
-### Usage
+### Verwendung
 Historical
 
-### Return Value
-**true** when using historical data
-**false** when using real-time data
+### Rückgabewert
+**true** bei Verarbeitung von historischen Daten
+**false** bei Verarbeitung von Real-Time-Daten
 
-### Example
+### Beispiele
 ```cs
 protected override void OnCalculate()
 {
-// only execute for real-time data
+// Nur für realtime-Daten ausführen
 if (IsHistoricalMode) return;
-// Trading technique
+// irgendeine Handelslogik
 }
 ```
 
 ## OnInit()
-### Description
-The OnInit() method is called up once at the beginning of an indicator or strategy calculation. This method can be used to set indicator properties, initialize your own variables, or add plots.
+### Beschreibung
+Die OnInit()-Methode wird einmal zu Beginn einer Indikator- bzw. Strategieberechnung aufgerufen. Die Methode kann verwendet werden um Indikatoreigenschaften zu setzen, eigene Variablen zu initialisieren oder Plots hinzuzufügen.
 
 ### Parameter
-none
+keiner
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 protected override void OnInit()
 ```
 
-### Important Keywords
+### wichtige Schlüsselworte
 -   [*Add()*](#add)
 -   [*AllowRemovalOfChartDrawings*](#allowremovalofchartdrawings)
 -   [*IsAutoScale*](#isautoscale)
@@ -1848,7 +1871,7 @@ protected override void OnInit()
 -   [*SessionBreakLines*](#sessionbreaklines)
 -   [*IsShowChartVerticalGrid*](#isshowchartverticalgrid)
 
-**Additional Keywords for Strategies**
+**zusätzlich für Strategien**
 
 -   [*DefaultOrderQuantity*](#defaultorderquantity)
 -   [*EntriesPerDirection*](#entriesperdirection)
@@ -1859,12 +1882,12 @@ protected override void OnInit()
 -   [*TimeInForce*](#timeinforce)
 -   [*PrintOrders*](#printorders)
 
-### More Information
-**Caution:**
-The OnInit() method is not only called up at the beginning of an indicator or strategy calculation, but also if the chart is reloaded unexpectedly or if the properties dialog of indicators is opened and so on.
-Developers of custom AgenaScripts should NOT use this method for running their own routines, opening forms, performing license checks, etc. The OnStart() method should be used for these kind of tasks.
+### Weitere Informationen
+**Achtung:**
+Die OnInit()-Methode wird nicht nur am Beginn einer Indikator- bzw. Strategieberechnung aufgerufen, sondern auch unerwartet z.B. wenn ein Chart neu geladen wird oder der Eigenschaftsdialog von Indikatoren geöffnet wird usw.
+Entwickler von eigenen AgenaScripts sollten diese Methode NICHT verwenden, um eigene Routinen laufen zu lassen, Forms zu öffnen, Lizenzchecks auszuführen u. dgl. mehr. Hierzu ist die Methode  OnStart() zu verwenden.
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -1879,17 +1902,18 @@ CalculateOnClosedBar = true;
 ```
 
 ## OnBarsRequirements()
-### Description
-The OnBarsRequirements() method is called up once at the beginning of an indicator and/or strategy calculation. This method is only necessary when using multi-bars.
-Within OnBarsRequirements, no other programming commands are executed. For initializing, the OnInit() or OnStart() method should be used.
+### Beschreibung
+Die OnBarsRequirements() Methode wird einmal zu Beginn einer Indikator- bzw. Strategieberechnung aufgerufen. Die Methode ist nur bei Verwendung von MultiBars notwendig.
+Innerhalb von InitRequirements werden keine weiteren Programmierbefehle ausgeführt.
+Für eigene Initialisierungen sind die MethodenOnInit() bzw. OnStart() zu verwenden.
 
 ### Parameter
-none
+keiner
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Example
+### Beispiel
 ```cs
 protected override void OnBarsRequirements()
 {
@@ -1899,20 +1923,20 @@ Add(DatafeedHistoryPeriodicity.Week, 1);
 ```
 
 ## InputPriceType
-### Description
-The input price type property determines which price series is used by default when calculating an indicator, if no other data series is explicitly stated.
-InputPriceType can be set with the OnInit() method; this specification is then valid for all further calculations.
-If InputPriceType is in OnCalculate(), these changes are only valid starting with the next instruction.
-Every further appearance of InputPriceType will be ignored!
+### Beschreibung
+Die Eigenschaft InputPriceType legt fest, welche Kursreihe bei der Berechnung in Indikatoren als Standard verwendet werden soll, wenn keine Datenreihe explizit angegeben ist.
+InputPriceType kann in der OnInit()-Methode stehen. Die Angabe hat dann für alle weiteren Berechnungen im Indikator Gültigkeit.
+Steht InputPriceType in OnCalculate(), gilt die Änderung der Eingangsdatenreihe ab der nächsten Anweisung.
+Jedes weitere Auftreten von InputPriceType wird ignoriert!
 
-See [*PriceType*](#pricetype)
+Siehe auch  [*PriceType*](#pricetype)
 
-### Usage
+### Verwendung
 ```cs
 InputPriceType
 ```
 
-### Example1
+### Beispiel1
 ```cs
 protected override void OnInit()
 {
@@ -1921,89 +1945,89 @@ InputPriceType = PriceType.Low;
 }
 protected override void OnCalculate()
 {
-// The input data series for the indicator (InSeries) is low
+// Die Eingangsdatenreihe für den Indikator (Input) ist Low
 Print(Low[0] + " " + InSeries[0] + " " + InputPriceType);
 }
 ```
 
-### Example2
+### Beispiel2
 ```cs
 protected override void OnCalculate()
 {
-// These values are identical
-// since close is used as the input data series by default
+// Diese Werte sind identisch,
+     // da standardmäßig Close als Inputdatenreihe verwendet wird
 Print(SMA(20)[0] + " " + SMA(Close, 20)[0]);
 InputPriceType = PriceType.Low;
-// From here on out, low is used instead of close
-// Both values are identical
+// ab hier wird Low anstatt Close als Standard verwendet
+// Die beiden Werte sind identisch
 Print(SMA(20)[0] + " " + SMA(Low, 20)[0]);
 InputPriceType = PriceType.High;
-// The instructions will be ignored
-// InSeries = low is still in effect
+// Diese Anweisung wird ignoriert. 
+     // Es gilt weiterhin Input = Low !!!
 }
 ```
 
 ## Instrument
-### Description
-With "instrument", information concerning the trading instrument (stock, future etc.) is made available.
+### Beschreibung
+Mit Instrument werden Informationen zum Handelsinstrument (Aktie, Future etc.) bereitgestellt, für welches ein Indikator, eine Strategie usw. gerade läuft.
 
-Detailed information can be found here: *Instruments*.
+Ausführliche Details finden sich unter *Instruments*.
 
 ## LevelLine()
-### Description
-A line object is used for drawing a horizontal line in the chart. Usually, these are upper and lower trigger lines for indicators such as the RSI (70 and 30).
-The lines described here are not to be confused with lines from the drawing objects (see "AddChartHorizontalLine").
-LevelLine objects can be added to an indicator with the help of the Add() method, and with this, added to the lines collection.
+### Beschreibung
+EinA LevelLine object wird genutzt, um eine horizontale Linie in einen Chart zu zeichnen. Üblicherweise sind dies obere und untere Triggerlinien wie z.B. beim RSI-Indikator die 70 und die 30 Linie.
+Diese hier beschriebenen Linien sind nicht zu verwechseln mit der Linie aus den Zeichenobjekten  (siehe "AddChartHorizontalLine").
+LevelLine objectwerden einem Indikator mit Hilfe der Add()-Methode hinzugefügt und damit in die Lines-Collection aufgenommen.
 
-See [*OnPaint*](#onpaint).
+Siehe auch [*OnPaint*](#onpaint).
 
 ### Parameter
 |       |                                                              |
 |-------|--------------------------------------------------------------|
-| Color | LevelLine color                                                   |
-| Name  | Description                                                  |
-| Pen   | A pen object                                                 |
-| Value | Defines which value on the y-axis the line will be drawn for |
+| Color | Linienfarbe                                                  |
+| Name  | Bezeichnung                                                  |
+| Pen   | ein Pen-Objekt                                               |
+| Value | Gibt an, bei welchem Wert auf der y-Achse (Preisachse) die Linie gezeichnet werden soll |
 
-### Usage
+### Verwendung
 ```cs
 LevelLine(Color color, double value, string name)
 LevelLine(Pen pen, double value, string name)
 ```
 
-### More Information
-Information on the pen class: [*http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx)
+### Weitere Informationen
+Informationen zur Klasse Pen: [*http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx)
 
-### Example
+### Beispiele
 ```cs
-// Example 1
-// A new line with standard values drawn at the value of 70
+// Beispiel 1
+// Eine Linie mit Standardwerten bei 70 in den Chart zeichnen
 Add(new LevelLine(Color.Black, 70, "Upper"));
-// Example 2
-// A new line with self-defined values
+// Beispiel 2
+// Eine Linie mit selbstdefinierten Werten in den Chart zeichnen
 private LevelLine line;
 private Pen pen;
 protected override void OnInit()
 {
-// Define a red pen with the line strength 1
+// einen roten Stift mit der Linienstärke 1 definieren
 pen = new Pen(Color.Red, 1);
-// Define a horizontal line at 10
+// eine horizontale Linie bei 10 definieren
 line = new LevelLine(pen, 10, "MyLine");
-// add the defined line to the indicator
+// die oben def. Linie dem Indikator hinzufügen
 Add(line);
 }
-// Example 3
-// Short form for the line in example 2
+// Beispiel 3
+// Kurzform für die Linie aus Bespiel 2
 Add(new LevelLine(new Pen(Color.Red, 1), 10, "MyLine"));
 ```
 
 ## Log()
-### Description
-Log() allows you to write outputs in the AgenaTrader log file (log tab). 5 different log levels are supported.
+### Beschreibung
+Mit Log() ist es möglich, Ausgaben in das LogFile (Log Tab) von AgenaTrader zu schreiben. Es werden 5 verschiedene LogLevel unterstützt.
 
-Note: If the log tab is not viewable, it can be displayed using the tools log.
+Hinweis: Ist der Log-Tab nicht sichtbar, kann er mit Tools-Log angezeigt werden.
 
-### Usage
+### Verwendung
 ```cs
 **Log**(string message, LogLevel logLevel)
 ```
@@ -2012,17 +2036,17 @@ Note: If the log tab is not viewable, it can be displayed using the tools log.
 |          |                      |
 |----------|----------------------|
 | message  | Text (message)       |
-| logLevel | Possible values are: InfoLogLevel.Info, InfoLogLevel.Message, InfoLogLevel.Warning, InfoLogLevel.ShowAlert, InfoLogLevel.Error |
+| logLevel | Mögliche Werte sind: InfoLogLevel.Info, InfoLogLevel.Message, InfoLogLevel.Warning, InfoLogLevel.ShowAlert, InfoLogLevel.Error |
 
-### Example
+### Beispiel
 ```cs
 //Tab protocol
-Log("This is information.", InfoLogLevel.Info); //white
-Log("This is a message.", InfoLogLevel.Message); // white
-Log("This is a warning.", InfoLogLevel.Warning); // blue
-Log("This is an alarm.", InfoLogLevel. AlertLog); //green
-Log("This is a mistake.", InfoLogLevel.Error); // red
-//Tab messags
+Log("Das ist eine Information.", InfoLogLevel.Info); //white
+Log("Das ist eine Nachricht.", InfoLogLevel.Message); // white
+Log("Das ist eine Warnung.", InfoLogLevel.Warning); // blue
+Log("Das ist ein Alarm.", InfoLogLevel. AlertLog); //green
+Log("Das ist ein Fehler.", InfoLogLevel.Error); // red
+//Tab messages
 Log("This is a message (messages).", InfoLogLevel.Message); //white
 //PopUp & protocoll
 Log("This is an alert popup window.", InfoLogLevel.ShowAlert); //green
@@ -2045,141 +2069,141 @@ Crossreference:
 a crossreference to Print() and ShowAlert()
 
 ## GetSerieLowestValue
-### Description
-The GetSerieLowestValue() method attempts to find the lowest bar within a predefined number of periods.
+### Beschreibung
+Die Methode  GetSerieLowestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem tiefsten Bar und gibt an, vor wievielen Bars dieser tiefste Bar zu finden ist.
 
-See [*GetSerieHighestValue()*](#getseriehighestvalue).
+Siehe auch [*GetSerieHighestValue()*](#getseriehighestvalue).
 
 ### Parameter
-period Number of bars that will be searched for the lowest bar
+period Anzahl von Bars, innerhalb derer gesucht werden soll
 
-series Every data series, such as close, high, low etc.
+series Jede Datenserie, wie Close, High, Low usw.
 
-### Return Value
-**int** barsAgo How many bars ago the low occurred
+### Rückgabewert
+**int** barsAgo Vor wievielen Bars trat das Tief auf
 
-### Usage
+### Verwendung
 ```cs
 GetSerieLowestValue(IDataSeries series, int period)
 ```
 
-### Example
+### Beispiele
 ```cs
-// How many bars ago was the lowest low of the session?
+// Vor wievielen Bars lag das tiefste Tief der aktuellen Session?
 Print(GetSerieLowestValue(Low, Bars.BarsCountForSession - 1));
-// Which price did the lowest open of the current session have?
+// Welchen Kurs hatte das bisher tiefste Open der aktuellen Session?
 Print("The lowest open price of the current session was: " + Open[GetSerieLowestValue(Low, Bars.BarsCountForSession - 1)]);
 ```
 
 ## Level1Args
-### Description
-The data type Level1Args represents a change in the level 1 data and is used as a parameter of the OnLevel1() function.
+### Beschreibung
+Der Datentyp MarketDataEventArgs repräsentiert eine Änderung in den Level-I-Daten und wird als Parameter in der Funktion OnLevel1() verwendet.
 
 |                |                                                                                                                                  |
 |----------------|----------------------------------------------------------------------------------------------------------------------------------|
-| AskSize        | Current order volume on the ask side                                                                                             |
-| AskPrice       | Current ask price                                                                                                                |
-| BidSize        | Current order volume on the bid side                                                                                             |
-| BidPrice       | Current bid price.                                                                                                               |
-| Instrument     | An object of the type instrument that contains the trading instrument for which the level 1 data is outputted. See *Instruments* |
-| LastPrice      | Last traded price                                                                                                                |
-| MarketDataType | Potential values are: MarketDataType.Ask, MarketDataType.AskSize, MarketDataType.Bid, MarketDataType.BidSize, MarketDataType.Last, MarketDataType.Volume     |
-| Price          | This is equal to last price. This field only exists for compatability reasons                                                    |
-| Time           | A date-time value containing the timestamp of the change                                                                         |
-| Volume         | A long value that shows the volume                                                                                               |
+| AskSize        | Das aktuelle Ordervolumen auf der Ask-Seite.                                                                                            |
+| AskPrice       | Der aktuelle Ask-Kurs                                                                                                             |
+| BidSize        | Das aktuelle Ordervolumen auf der Bid-Seite                                                                                            |
+| BidPrice       | Der aktuelle Bid-Kurs.                                                                                                              |
+| Instrument     | Ein Objekt des Types IInstrument, das das Handelsinstrument beinhaltet, für welches die Level-I-Daten geliefert werden. Siehe *Instruments* |
+| LastPrice      | Der letzte durch einen Umsatz entstandene Kurs                                                                                                                |
+| MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.AskSize, MarketDataType.Bid, MarketDataType.BidSize, MarketDataType.Last, MarketDataType.Volume     |
+| Price          | Tenthält den gleichen Wert wie LastPrice. Das Feld ist nur aus Kompatibilitätsgründen vorhanden.                                                   |
+| Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet.                                                                        |
+| Volume         | Ein long-Wert, der das Volumen, d.h. den letzten realen Umsatz angiebt.                                                                                               |
 
-### Example
-See [*OnLevel1()*](#onlevel1).
+### Beispiel
+siehe Beispiel unter [*OnLevel1()*](#onlevel1).
 
-## Level1Args
-### Description
-The data type Level1Args represents a change in the level 2 data (market depth) and is used as a parameter within OnLevel2().
+## Level2Args
+### Beschreibung
+Der Datentyp  Level2Args repräsentiert eine Änderung in den Level-II-Daten (Markttiefe) und wird als Parameter in der Funktion OnLevel2() verwendet.
 
 |                |                                                                |
 |----------------|----------------------------------------------------------------|
-| MarketDataType | Potential values are: MarketDataType.Ask, MarketDataType.Bid                                              |
-| MarketMaker    | A string value containing the market maker ID                  |
-| Position       | An int value that defines the position within the market depth |
-| Operation      | Represents the action caused by a change in the order book.                                                                  
-                  Values can be: Operation.Insert, Operation.Remove, Operation.Update                                                |
-| Price          | A double value that displays the bid/ask price                 |
-| Time           | A date-time value containing the timestamp of the change       |
-| Volume         | A long value that shows the volume                             |
+| MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.Bid                                              |
+| MarketMaker    | Ein string-Wert, der die Market Maker ID enthällt                  |
+| Position       | Ein int-Wert, der die Position innerhalb der Markttiefe angiebt |
+| Operation      | Steht für die Aktion, die durch die Änderung in einem Orderbuch ausgelöst wird.                                                                
+                  Mögliche Werte sind: Operation.Insert, Operation.Remove, Operation.Update                                           |
+| Price          | Eine double-Wert, der den jeweiligen Bid/Ask-Kurs                 |
+| Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet     |
+| Volume         | Ein long-Wert, der das Volumen angiebt                             |
 
-### Example
-See [*OnLevel2()*](#onlevel2).
+### Beispiel
+siehe Beispiel unter [*OnLevel2()*](#onlevel2).
 
 ## IsOverlay
-### Description
-The overlay property defines whether the indicator outputs are displayed in the price chart above the bars or whether a separate chart window is opened below the charting area.
+### Beschreibung
+Die Eigenschaft Overlay legt fest, ob die Indikatorausgaben, wie Plots und Linien, im Preischart über die Kursbars gezeichnet werden oder ob ein neues separates Chartfenster unterhalb des Preischarts geöffnet wird.
 
 ```cs
 IsOverlay = true
 ```
 
-The indicator is drawn above the price (for example an *SMA*)
+Es wird über den Kurs gezeichnet (wie z.B. ein *SMA*)
 
 ```cs
 IsOverlay = false (default)
 ```
 
-A separate chart window is opened (RSI)
+Es wird ein separates Chartfenster geöffnet (wie z.B. ein *RSI*)
 
-This property can be queried within the script and outputs a value of the type Boolean (true or false).
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
 
-### Usage
+### Verwendung
 IsOverlay
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//The indicator should be displayed within a separate window
+//Der Indikator soll in einem separaten Fenster dargestellt werden
 IsOverlay = false;
 }
 ```
 
 ## IsShowPriceMarkers
-### Description
-The paint price markers property defines whether the so-called price markers for the indicator outputs are displayed on the right-hand chart border (in the price axis) or not. In some cases it makes sense to switch these off for a better overview in the chart.
+### Beschreibung
+Die Eigenschaft PaintPriceMarkers legt fest, ob für die Indikatorausgaben, am rechten Chartrand (in der Preisachse) die sog. PriceMarkers angezeigt werden sollen oder nicht. In manchen Fällen ist es sinnvoll, dies für eine bessere Übersicht im Chart auszuschalten.
 **IsShowPriceMarkers = true (default)**
 
-Price markers are shown in the price axis
+PriceMarkers werden in der Preisachse angezeigt.
 
 **IsShowPriceMarkers = false**
 
-Price markers are not shown in the price axis
+PriceMarkers werden nicht in der Preisachse angezeigt.
 
-This property can be queried within the script and returns a value of the type Boolean (true or false).
+Die Eigenschaft kann imScript abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
 
-### Usage
+### Verwendung
 IsShowPriceMarkers
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//Do not show price markers in the price axis
+//IsShowPriceMarkers sollen nicht angezeigt werden
 IsShowPriceMarkers = false;
 }
 ```
 
 ## PlaySound()
-### Description
-This method allows you to play a wav file.
+### Beschreibung
+Die Methode PlaySound() dient dazu, ein Wav-File abzuspielen.
 
-### Usage
+### Verwendung
 **PlaySound**(wavFile)
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
 ### Parameter
-wavFile File name of the wav file to be played
+wavFile Dateiname der Wav-Datei zum Abspielen
 
-### Example
+### Beispiel
 ```cs
 using System.IO;
 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -2188,16 +2212,16 @@ PlaySound(path + file);
 ```
 
 ## Parameter()
-### Description
-Attribute which used for indicator customization
+### Beschreibung
+Attribut, das für die Anpassung der Indikatoren verwendet wird
 
-### Return Value
-None
+### Rückgabewert
+keiner
 
 ### Parameter
-None
+keiner
 
-### Example
+### Beispiele
 ```cs
 [Description("Period for the medium mean average")]
 [Category("Parameters")]
@@ -2213,19 +2237,19 @@ _ma_medium = value;
 ```
 
 ## OnPaint()
-### Description
-A plot (drawing) is used to visually display indicators in a chart. OnPaint objects are assigned to an indicator with the help of the Add() method and attached to the plots collection.
-See [*LevelLine*](#levelline).
+### Beschreibung
+EinOnPaint (drawing)wird genutzt, um einen Indikator in einem Chart graphisch darzustellen. Plot-Objekte werden einem Indikator mit Hilfe der Add()-Methode hinzugefügt und damit in die Plots-Collection aufgenommen.
+Siehe auch  [*LevelLine*](#levelline).
 
 ### Parameter
 |           |                        |
 |-----------|------------------------|
-| Color     | Drawing color          |
-| Pen       | Pen object             |
-| PlotStyle | LevelLine type: PlotStyle.Bar, PlotStyle.Block, PlotStyle.Cross, PlotStyle.Dot, PlotStyle.Hash, PlotStyle.LevelLine, PlotStyle.Square, PlotStyle.TriangleDown, PlotStyle.TriangleUp  |
-| Name      | Description            |
+| Color     | Zeichenfarbe           |
+| Pen       | ein Pen-Objekt         |
+| PlotStyle | Linienart: PlotStyle.Bar, PlotStyle.Block, PlotStyle.Cross, PlotStyle.Dot, PlotStyle.Hash, PlotStyle.LevelLine, PlotStyle.Square, PlotStyle.TriangleDown, PlotStyle.TriangleUp  |
+| Name      | Bezeichnung            |
 
-### Usage
+### Verwendung
 ```cs
 OnPaint(Color color, string name)
 OnPaint(Pen pen, string name)
@@ -2233,29 +2257,29 @@ OnPaint(Color color, PlotStyle plotStyle, string name)
 OnPaint(Pen pen, PlotStyle plotStyle, string name)
 ```
 
-### More Information
-Information on the pen class: [*http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx)
+### Weitere Informationen
+Informationen zur Klasse Pen: [*http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.pen.aspx)
 
-### Example
+### Beispiele
 ```cs
-// Example 1
-// OnPaint with standard values (line with line strength 1)
+// Beispiel 1
+// Plot mit Standardwerten (Linie mit Linienstärke 1)
 Add(new OnPaint(Color.Green, "MyPlot"));
-// Example 2
-// user-defined values for pen and plot style
+// Beispiel 2
+// benutzerdefinierte Werte für Pen und PlotStyle
 private OnPaint plot;
 private Pen pen;
 protected override void OnInit()
 {
-// a red pen with the line strength of 6 is defined
+// einen roten Stift mit der Linienstärke 6 definieren
 pen = new Pen(Color.Blue, 6);
-// a point line with a thick red pen from above is defined
+// eine Punkt-Linie mit dem dicken roten Stift von oben definieren
 plot = new OnPaint(pen, PlotStyle.Dot, "MyPlot");
-// The defined plot is to be used as a representation for an indicator
+// den oben def. Plot als Darstellung für den Indikator verwenden
 Add(plot);
 }
-// Example 3
-// Abbreviation of example 2
+// Beispiel 3
+// Kurzform von Beispiel 2
 protected override void OnInit()
 {
 Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
@@ -2263,33 +2287,33 @@ Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
 ```
 
 ## PlotMethod
-### Description
-In each indicator, the plot method can be overridden in order to add your own graphics (GDI+) to the price chart with the help of the graphics class (System.Drawing).
+### Beschreibung
+In jedem Indikator kann die Plot-Methode überschrieben werden um mit Mittlen der Graphics-Klasse (System.Drawing) dem Preis-Chart  eigene Grafiken hinzuzufügen (GDI+).
 
-See [*http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx).
+Siehe [*http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx*](http://msdn.microsoft.com/de-de/library/system.drawing.graphics.aspx).
 
-The *Chart* object offers several parameters.
+Das Objekt  *Chart* bietet einige nützliche Parameter.
 
-More examples: *Bar Numbering*, *PlotSample*, *Chart Background Image*.
+Weitere Beispiele: *Bar Numbering*, *PlotSample*, *Chart Background Image*.
 
 ### Parameter
-graphics The graphics object of the price chart (context)
+graphics Das graphics-Objekt des Preischarts (der sog. context)
 
-rectangle The size of the drawing area (type "public struct rectangle")
+rectangle Die Größe der Zeichenfläche (Type public struct rectangle)
 
-double min The smallest price in the y-axis
+double min Der kleinste Kurs in der y-Ackse
 
-double max The biggest price in the y-axis
+double max Der größte Kurs in der y-Achse
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Usage
+### Verwendung
 ```cs
 public override void OnPaint(Graphics graphics, Rectangle r, double min, double max)
 ```
 
-### Example
+### Beispiel
 ```cs
 using System;
 using System.Collections.Generic;
@@ -2321,34 +2345,34 @@ stringFormat.Dispose();
 }
 public override void OnPaint(Graphics graphics, Rectangle r, double min, double max)
 {
-// Fill a rectangle
+// Ausfuellen eines Rechtecks
 SolidBrush tmpBrush = new SolidBrush(Color.LightGray);
 graphics.FillRectangle(tmpBrush, new Rectangle (0, 0, 300, 300));
 tmpBrush.Dispose();
-// Draw a red line from top left to bottom right
+// Zeichnen einer roten Linie von oben links nach unten recht
 Pen pen = new Pen(Color.Red);
 graphics.AddChartLine(pen, r.X, r.Y, r.X + r.Width, r.Y + r.Height);
-// Draw a red line from bottom left to top right
-// Use anti-alias (the line appears smoother)
-// The current settings for the smoothing are saved
-// Restore after drawing
-SmoothingMode oldSmoothingMode = graphics.SmoothingMode; //Save settings
-graphics.SmoothingMode = SmoothingMode.AntiAlias; // Use higher smoothing settings
+// Zeichnen einer roten Linie von unten links nach oben rechts
+// Verwenden von AnitAlias (Die Linie erscheint glatter)
+// Die aktuellen Einstellungen fuer die Glaettung werden gesichert
+ // und nach dem Zeichnen wiederhergestellt
+SmoothingMode oldSmoothingMode = graphics.SmoothingMode; //Einstellung sichern
+graphics.SmoothingMode = SmoothingMode.AntiAlias; // hohe Glaettung verwenden
 graphics.AddChartLine(pen, r.X, r.Y + r.Height, r.X + r.Width, r.Y);
-graphics.SmoothingMode = oldSmoothingMode; // Settings restored
+graphics.SmoothingMode = oldSmoothingMode; // Einstellungen wiederherstellen
 pen.Dispose();
-// Text in the upper left corner (position 10,35)
-stringFormat.Alignment = StringAlignment.Near; // Align text to the left
+// Text in die obere linke Ecke (Position 10,35) schreiben
+stringFormat.Alignment = StringAlignment.Near; // Text links ausrichten
 brush.Color = Color.Blue;
 graphics.DrawString("Hello world!", font, brush, r.X + 10, r.Y + 35, stringFormat);
-// Text in the left lower corner and draw a line around it
+// Text in die linke untere Ecke schreiben und eine Linie darum herumzeichnen
 brush.Color = Color.Aquamarine;
 graphics.FillRectangle(brush, r.X + 10, r.Y + r.Height - 20, 140, 19);
-// Draw outside line
+// Aeussere Linie zeichnen
 pen = new Pen(Color.Black);
 graphics.AddChartRectangle(pen, r.X + 10, r.Y + r.Height - 20, 140, 19);
 pen.Dispose();
-// Write text
+// Text schreiben
 brush.Color = Color.Red;
 graphics.DrawString("Here is bottom left!", font, brush, r.X + 10, r.Y + r.Height - 20, stringFormat);
 }
@@ -2357,12 +2381,12 @@ graphics.DrawString("Here is bottom left!", font, brush, r.X + 10, r.Y + r.Heigh
 ```
 
 ## PriceType
-### Description
-Price type describes a form of price data.
+### Beschreibung
+PriceType beschreibt die Art von Kursdaten.
 
-See [*InputPriceType*](#inputpricetypes)
+Siehe auch [*InputPriceType*](#inputpricetypes)
 
-Following variables are available:
+Folgende Werte stehen zur Verfügung:
 -   PriceType.Close
 -   PriceType.High
 -   PriceType.Low
@@ -2372,18 +2396,18 @@ Following variables are available:
 -   PriceType.Volume
 -   PriceType.Weighted
 
-### Usage
+### Verwendung
 PriceType
 
-### Example
-See [*InputPriceType*](#inputpricetype)
+### Beispiel
+Siehe Beispiel unter [*InputPriceType*](#inputpricetype)
 
 ## Print()
-### Description
-The Print() method writes outputs in the AgenaTrader output window.
-See [*ClearOutputWindow()*](#clearoutputwindow).
+### Beschreibung
+Die Methode Print() schreibt Ausgaben in das AgenaTrader Output-Window.
+Siehe auch [*ClearOutputWindow()*](#clearoutputwindow).
 
-### Usage
+### Verwendung
 ```cs
 Print(string message)
 Print(bool value)
@@ -2394,223 +2418,225 @@ Print(string format, string message)
 ```
 
 ### Parameter
-string Text an individual message text
+string Text ein individueller Meldungstext
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### More Information
-Information regarding output formatting: *Formatting numbers*.
+### Weitere Informationen
+Hinweise zum Formatieren von Ausgaben finden Sie unter *Formatting numbers*.
 
-Hints about the String.Format() method: [*http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx*](http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx)
+Hinweise zur String.Format()-Methode:  [*http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx*](http://msdn.microsoft.com/de-de/library/fht0f5be%28v=vs.80%29.aspx)
 
-### Example
+### Beispiel
 ```cs
-// "Quick&Dirty" formatting of a number with 2 decimal points
+// "Quick&Dirty"-Formatierung einer Zahl mit 2 Nachkommastellen
 Print(Close[0].ToString("0.00"));
-// Output day of the week from the timestamp for the bar
+// Wochentag aus dem Zeitstempel des Bars ausgeben
 Print(string.Format("{0:dddd}", Time[0]));
-// An additional empty row with an escape sequence
+// Ein zusätzlicher Zeilenvorschub mit ESC-Sequenz
 Print("One empty row afterwards \\n");
 ```
 
 ## RemoveChartDrawing()
-### Description
-The RemoveChartDrawing() method removes a specific drawing object from the chart based on a unique identifier (tag).
-See [*RemoveChartDrawings()*](#removechartdrawings).
+### Beschreibung
+Die Methode RemoveChartDrawing() entfernt ein bestimmtes Zeichenobjekt vom Chart anhand einer eindeutigen Kennzeichnung (tag).
+Siehe auch [*RemoveChartDrawings()*](#removechartdrawings).
 
-### Usage
+### Verwendung
 RemoveChartDrawings(string tag)
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
 ### Parameter
-string tag The clearly identifiable name for the drawing object
+string tag Der Name eines Zeichenobjekts zur eindeutigen Identifizierung
 
-### Example
+### Beispiel
 ```cs
-RemoveChartDrawings("My line");
+RemoveChartDrawings("Meine Linie");
 ```
 
 ## RemoveChartDrawings()
-### Description
-This method removes all drawings from the chart
-See [*RemoveChartDrawings()*](#removechartdrawings).
+### Beschreibung
+Die Methode RemoveDrawObjects() entfernt alle Zeichenobjekte vom Chart.
+Siehe auch [*RemoveChartDrawings()*](#removechartdrawings).
 
-### Usage
+### Verwendung
 RemoveChartDrawings()
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
-### Example
+### Beispiel
 ```cs
-//Delete all drawings from the chart
+//Alle Zeicheobjekte vom Chart löschen
 RemoveChartDrawings();
 ```
 
 ## IsSerieRising()
-### Description
-With this method you can check if an uptrend exists, i.e. if the current value is bigger than the previous bar’s value.
+### Beschreibung
+Mit der Methode IsSerieRising() kann geprüft werden, ob eine "ist steigend"-Bedingung vorliegt, d.h. ob der aktuelle Wert größer ist als der Wert des vorhergehenden Bars.
 
-See [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+Siehe auch [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
 
-### Usage
+### Verwendung
 ```cs
 IsSerieRising(IDataSeries series)
 ```
 
-### Return Value
-**true** If the data series is rising
-**false** If the data series is not rising
+### Rückgabewert
+**true** wenn die Datenreihe steigt 
+**false** wenn die Datenreihe nicht steigt
 
 ### Parameter
-series A data series such as an indicator, close, high etc.
+series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä
 
-### Example
+### Beispiele
 ```cs
-// Check if SMA(20) is rising
+// Prüfen, ob der SMA(20) steigt
 if (IsSerieRising(SMA(20)))
 Print("The SMA(20) is currently rising.");
 ```
 
 ## SessionBreakLines
-### Description
-The property SessionBreakLines defines whether the vertical lines that represent a trading session stop are displayed within the chart.
-This may be useful for stocks and other instruments if you wish to display session breaks/trading stops.
+### Beschreibung
+Die Eigenschaft SessionBreakLines legt fest, ob vertikale Linien im Chart angezeigt werden, die eine Handelsunterbrechung anzeigen. Dies kann (wie bei Aktien üblich) die Datumsgrenze sein, ist aber mitunter bei vielen Handelsinstrumenten innerhalb des Tages.
 **SessionBreakLines = true (default)**
 
-Session break lines are shown
+SessionBreakLines werden im Chart angezeigt.
 
 **SessionBreakLines = false**
 
-Session break lines are not shown
+SessionBreakLines werden nicht im Chart angezeigt 
 
-This property can be queried within the script and outputs a value of the type Boolean (true or false).
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
 
-### Usage
+### Verwendung
 SessionBreakLines
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-//Session break lines should not be shown
+//SessionBreakLines sollen nicht im Chart angezeigt werden
 SessionBreakLines = false;
 }
 ```
 
 ## TickSize
-A tick is the smallest possible price change of a financial instrument within an exchange. If, for example, the trading prices are specified to 2 decimal places, then a tick equals 0.01. You can expect Forex instruments to be specified to within 4 or 5 decimal places. A tick is called a pip in Forex trading and usually equals 0.0001 or 0.00001.
-The tick value is usually predefined by the exchange and does not (usually) change.
-See [*Instrument.TickSize*](#instrumentticksize).
+Ein Tick ist die kleinst mögliche Kursänderung eines Finanzinstruments an einer Börse. Wenn die Handelspreise z.B. mit zwei Stellen nach dem Komma angegeben werden, beträgt ein Tick 0,01. Im Forexhandel (Währungshandel) wird mit 4 bzw. 5 Stellen nach dem Komma gearbeitet. Ein Tick - der im Forexhandel als Pip bezeichnet wird - beträgt dementsprechend 0,0001 bzw. 0,00001.
+Der Tickwert wird durch die Börse fest vorgegeben und ändert sich (in der Regel) nicht.
+Siehe auch [*Instrument.TickSize*](#instrumentticksize).
 
-Usually, a tick is displayed as a decimal number. Historically speaking (especially in American exchanges) stocks have been noted with tick sizes of 1/16 of a dollar.
-This notation is still widespread within commodities. Corn futures (ZC) are noted in ¼ US cents/bushel (usually equals 12.50 US$ per contract).
-US treasury bonds are noted in a tick size of 1/32 points, which equals 31.25$.
-Notations are usually made with apostrophes, for example:
+Üblicherweise wird heute ein Tick als Dezimalzahl angegeben. Historisch wurden besonders im amerikanischen Raum Aktien jedoch mit einer Tickgröße von 1/16 von einem Dollar notiert. 
 
-149'00 equals exactly 149,
-149'01 equals 149 1/32 (meaning 149.03125),
-149'31 equals 149 31/32 (149.96875),
-and the next value after this is 150’00
+Bei Rohstoffen ist diese Notierung noch weit verbreitet. Der Corn-Future (ZC - Mais) wird genau wie Wheat (ZW - Weizen) in ¼ US-Cent/bushel (entspricht 12,50 US-$ je Kontrakt) notiert.
 
-In the so-called T-Bond intermonth spreads, notations are specified in quarters of 1/32, resulting in point values of 7.8125 per contract.
+US-Statsanleihen (T-Bonds) werden mit Tickgrößen von 1/32 Punkten gehandelt, was 31,25 US-Dollar entspricht.
 
-Notations have a dash:
+Die Notierung erfolgt mit Hochkomma:
+149'00 entspricht genau 149,
+149'01 entspricht 149 1/32 (also 149,03125),
+149'31 enspricht 149 31/32 (149,96875),
+danach folgt dann 150'00.
 
-17-24 equals 17 24/32 points,
-17-242 equals 17 24.25/32 points,
-17-245 equals 17 24.5/32 points and
-17-247 equals 17 24.75/32 points.
-The next notation after 17-247 is 17-25 and then 17-252, 17-255 etc.
-After 17-317 comes 18.
+In sog. T-Bond-Intermonth Spreads werden die Notierungen in Vierteln von 1/32 angegeben, was dann einem Punktwert von $7.8125 per Kontrakt entspricht.
 
-The individual contract specifications can be found on the websites of the respective exchanges.
+Die Notierungen erfolgt mit Bindestrich:
+
+17-24 entspricht 17 24/32 Punkten,
+17-242 entspricht 17 24,25/32 Punkten,
+17-245 entspricht 17 24,5/32 Punkten und
+17-247 entspricht 17 24,75/32 Punkten.
+Die nächste Notierung nach 17-247 ist 17-25, dann wieder 17-252, 17-255 usw.
+Nach 17-317 folgt 18.
+
+Die Kontraktspezifikationen sind auf den Internetseiten der jeweiligen Börsen veröffentlicht.
 
 CME: [*http://www.cmegroup.com*](http://www.cmegroup.com) under Products & Trading
 Eurex (FDAX): [*http://www.eurexchange.com/exchange-en/products/idx/dax/17206/*](http://www.eurexchange.com/exchange-en/products/idx/dax/17206/)
 
-See [*Instrument.TickSize*](#instrumentticksize).
+siehe auch  [*Instrument.TickSize*](#instrumentticksize).
 
 ## TimeFrame
-See [*Bars.TimeFrame*](barstimeframe).
+siehe [*Bars.TimeFrame*](barstimeframe).
 
-When using multiple timeframes ([*Multibars*](#multibars)) in an indicator, please see [*TimeFrames*](#timeframes).
+Bei Verwendung mehrerer Zeiteinheiten ([*Multibars*](#multibars)) in einem Indikator siehe [*TimeFrames*](#timeframes).
 
 ## GetDayAsInt()
-### Description
-To day is a method specifically suited for inexperienced programmers who have problems with the potentially complex .net date-time structure of C\#.
-Experienced programmers can continue using the date-time function directly.
+### Beschreibung
+GetDayAsIntist eine Methode, die sich speziell an unerfahrene Programmierer richtet, die mit der durchaus komplizierten .Net-DateTime-Struktur aus C# Schwierigkeiten haben.
+Erfahrene Programmierer können die DateTime-Funktionen auch direkt verwenden.
 
-To day outputs an int representation in the format of yyyymmdd.
-(yyyy = year, mm = month, dd = day)
+GetDayAsInt liefert eine int-Repräsentation im Format yyyyMMdd.
+(yyyy = Jahr,  MM = Monat, dd = Tag)
 
-13.08.2012 would thus be 20120813.
+Die Zahl für den 13.08.2012 lautet damit 20120813.
 
-See [*GetTimeAsInt*](#gettimeasint).
+Siehe auch [*GetTimeAsInt*](#gettimeasint).
 
-Help with date-time: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+Hilfe zu DateTime: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
-### Usage
+### Verwendung
 GetDayAsInt(DateTime time)
 
-### Example
+### Beispiele
 ```cs
-// Do not trade on the 11<sup>th</sup> of September
+// Am 11. September besser keine Trades eingehen
 if (GetDayAsInt(Time[0]) = 20130911)
 return;
 ```
 
 ## GetTimeAsInt()
-### Description
-To time is a method specifically suited for inexperienced programmers who have problems with the potentially complex .net date-time structure of C\#.
+### Beschreibung
+GetTimeAsInt ist eine Methode, die sich speziell an unerfahrene Programmierer richtet, die mit der durchaus komplizierten .Net-DateTime-Struktur aus C# Schwierigkeiten haben.
+Erfahrene Programmierer können die DateTime-Funktionen auch direkt verwenden..
 
-To time outputs an int representation in the format hhmmss.
-(hh = hour, mm = minute, ss = seconds)
+GetTimeAsInt liefert eine int-Repräsentation im Format HHmmss.
+(HH = Stunde,  mm = Minute, ss = Sekunde)
 
-The time 07:30 will be displayed as 73000 and 14:15:12 will become 141512.
+Die Uhrzeit 07:30 Uhr wird dargestellt als 73000 und 14:15:12 wird zu 141512.
 
-See [*GetDayAsInt*](#getdayasint).
+Siehe auch [*GetDayAsInt*](#getdayasint).
 
-Help with date-time: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+Hilfe zu DateTime: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
-### Usage
+### Verwendung
 GetTimeAsInt(DateTime time)
 
-### Example
+### Beispiele
 ```cs
-// Only enter trades between 08:15 and 16:35
+// Nur zwischen 08:15 Uhr und 16:35 Uhr Trades eingehen
 if (GetTimeAsInt(Time[0]) >= 81500 && GetTimeAsInt(Time[0]) <= 163500)
 {
-// Any trading technique
+// irgendeine Handelslogic
 }
 ```
 
 ## Update()
-### Description
-The Update() method calls up the OnCalculate method in order to recalculate the indicator values.
+### Beschreibung
+Die Methode Update() ruft die OnCalculateMethode einmal auf, um Indikatorwerte neu zu berechnen.
 
-Update() is to be used with caution and is intended for use by experienced programmers.
+Update() ist mit Vorsicht und nur von erfahrenen Programmierern zu verwenden.
 
-### Usage
+### Verwendung
 ```cs
 Update()
 ```
 
-### Return Value
-none
+### Rückgabewert
+keiner
 
 ### Parameter
-none
+keiner
 
-### Example
-The effect of update can be illustrated with the help of 2 indicators.
-The first indicator, Ind1, uses a public variable from the indicator Ind2.
+### Beispiel
+Die Wirkung von Update läßt sich mit Hilfe von 2 Indikatoren veranschaulichen.
+Der erste Indikator "Ind1" nutzt eine public Variable aus Indikator "Ind2".
 
-**Code from Ind1:**
+**Code von Ind1:**
 ```cs
 public class Ind1 : UserIndicator
 {
@@ -2621,7 +2647,7 @@ Print( Ind2().MyPublicVariable );
 }
 ```
 
-**Code from Ind2:**
+**Code von Ind2:**
 ```cs
 private double myPublicVariable = 0;
 protected override void OnCalculate()
@@ -2638,54 +2664,54 @@ return myPublicVariable;
 }
 ```
 
-**Without Update() - Wrong**
-If Ind2 is called up by Ind1, the get-method of MyPublicVariable is called up in Ind2. Without Update(), the value of MyPublicVariable would be returned. In this case it would be 0.
+**Ohne Update() - Falsch**
+Wenn Ind2 von Ind1 aufgerufen wird, wird die get-Methode von MyPublicVariable in Ind2 aufgerufen. Ohne Update() würde der Wert von myPublicVariable zurückgegeben werden. In diesem Falle eine 0.
 
-**With Update() - Correct**
-By calling up Update(), OnCalculate() is initially executed by Ind2. This sets MyPublicVariable to 1. Lastly, the value 1 is passed on to the requesting indicator.
+**Mit Update() - Richtig**
+Durch den Aufruf von Update() wird zunächst OnBarUpdate() von Ind2 ausgeführt. Damit wird myPublicVariable auf 1 gesetzt. Anschließend wird der Wert 1 an den aufrufenden Indikator Ind1 übergeben.
 
 ## Value
-### Description
-Value is a data series object containing the first data series of an indicator.
+### Beschreibung
+Value ist ein DataSeries-Objekt, welches die erste Datenserie eines Indikators enthält.
 
-When the Add() method is called up, a value object is automatically created and added to the values collection.
+Beim Aufruf der Add()-Methode wird automatisch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
 
-Value is identical to Values\[0\].
+Value ist identisch mit  Values\[0\].
 
-### Usage
+### Verwendung
 Value
 
 Value\[**int** barsAgo\]
 
-### More Information
-The methods known for a collection, Set(), Reset(), and Count(), can be used for values.
+### Weitere Informationen
+Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf Value anwendbar.
 
-### Example
-See [*Values*](#values).
+### Beispiel
+Siehe [*Values*](#values).
 
 ## IsShowChartVerticalGrid
-### Description
-The property IsShowChartVerticalGrid defines whether or not the regularly spaced vertical lines (the so-called grid) are shown within the charting area.
+### Beschreibung
+Die Eigenschaft IsShowChartVerticalGrid legt fest, ob in regelmäßigen Abständen vertikale Linien im Chart (das sog. vertikale Grid) angezeigt werden sollen.
 
 **IsShowChartVerticalGrid = true (default)**
 
-Vertical grid lines are shown
+Vertikale Gitternetzlinien werden im Chart angezeigt.
 
 **IsShowChartVerticalGrid = false**
 
-Vertical grid lines are not shown
+Vertikale Gitternetzlinien werden nicht im Chart angezeigt.
 
-This property can be queried within the script and returns a value of the type Boolean (true or false).
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
 
-### Usage
+### Verwendung
 IsShowChartVerticalGrid
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Red, "MyPlot1"));
-// Vertical grid lines shall not be shown within the chart
+// Vertikale Gitternetzlinien sollen nicht im Chart angezeigt werden
 IsShowChartVerticalGrid = false;
 }
 ```

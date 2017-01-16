@@ -782,7 +782,7 @@ Bars[0].IsFalling;
 
 ## Bars.TailTop
 ### Description
-Bar properties used for candle tail top height
+Mit dieser Eigenschaft ist es möglich die Höhe des oberen Dochtes der Kerze zu ermitteln.
 
 ### Parameter
 None
@@ -795,9 +795,15 @@ None
 Bars[0].TailTop;
 ```
 
+### Example
+```cs
+Print("Die Höhe des oberen Dochtes ist: " + Bars.TailTop);
+```
+
 ## Bars.TailBottom
 ### Description
-Bar properties used for candle tail bottom height
+Mit dieser Eigenschaft ist es möglich die Höhe des unteren Dochtes der Kerze zu ermitteln.
+
 ### Parameter
 None
 
@@ -806,13 +812,14 @@ None
 
 ### Usage
 ```cs
-//Usage within a 30 minute chart
 Bars[0].TailBottom;
 ```
 
-
 ### Example
-**Print**("The total amount of ticks is " + Bars.TicksCountInTotal);
+```cs
+Print("Die Höhe des unteren Dochtes ist: " + Bars.TailBottom);
+```
+
 
 ## ProcessingBarSeriesIndex
 ### Description
@@ -1509,7 +1516,7 @@ Ein Instrument hat viele Eigenschaften, die in einem selbst erstellten AgenaScri
 
 [*Instrument.TickSize*](#instrumentticksize)
 
-Innerhalb von  **OnCalculate()** können diese Eigenschaften verwendet werden, ohne vorher auf Null-Reference testen zu müssen. 
+Innerhalb von  **OnCalculate()** können diese Eigenschaften verwendet werden, ohne vorher auf Null-Reference testen zu müssen.
 Sobald die Funktion  **OnCalculate()**  von AgenaScript aufgerufen wird, ist immer auch ein Instrument-Objekt vorhanden. Falls diese Eigenschafte ausserhalb von **OnCalculate()**, verwendet werden, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit **if** (Bars != **null**)
 
 ## Instrument.Compare
@@ -1567,7 +1574,7 @@ Instrument.Currency
 
 ### Beispiel
 ```cs
-Print(Instrument.Name + "wird in  " + Instrument.Currency + " gehandelt.);
+Print(Instrument.Name + "wird in  " + Instrument.Currency + " gehandelt".);
 ```
 
 ## Instrument.Digits
@@ -1636,7 +1643,7 @@ ein Exchange-Objekt vom Typ public enum Exchanges
 Instrument.Exchange
 
 ### Weitere Informationen
-Übersicht Börsenhandelsplätze: *http://www.boersen-links.de/boersen.htm*
+[Übersicht Börsenhandelsplätze](http://www.boersen-links.de/boersen.htm)
 
 ### Beispiel
 ```cs
@@ -1973,7 +1980,7 @@ Lines ist eine Collection, die die  [*LevelLine*](#levelline) Objekte eines Indi
 
 Wenn einem Indikator mit der [*Add()*](#add) Methode ein Line-Objekt hinzugefügt wird, wird dieses automatisch der Collection Lines hinzugefügt.
 
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines[0], der nächste Lines[1] usw.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines\[0\], der nächste Lines\[1\] usw.
 
 Siehe auch [*Plots*](#plots).
 
@@ -1992,7 +1999,7 @@ Add(new LevelLine(Color.Blue, 30, "Lower")); // gespeichert in Lines[1]
 }
 protected override void OnCalculate()
 {
-// Wenn RSI über 70, Eigenschaften der Linie ändern 
+// Wenn RSI über 70, Eigenschaften der Linie ändern
 if (RSI(14 ,3) >= 70)
 {
 Lines[0].Width = 3;
@@ -2014,7 +2021,7 @@ PlotColors ist eine Collection, die die ColorSeries aller Plot-Objekte enthält.
 
 Wenn einem Indikator mit der [*Add()*](#add) Methode ein Plot hinzugefügt wird, wird automatisch auch ein ColorSeries-Objekt erzeugt und der Collection PlotColors hinzugefügt.
 
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in PlotColors. Der erste Aufruf von Add() erzeugt PlotColors[0], der nächste PlotColors[1] usw.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in PlotColors. Der erste Aufruf von Add() erzeugt PlotColors\[0\], der nächste PlotColors\[1\] usw.
 
 ### Verwendung
 ```cs
@@ -2087,7 +2094,7 @@ Plots ist eine Collection, die die Plot-Objekte eines Indikators enthält.
 
 Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.
 
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots[0], der nächste Plots[1] usw.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots\[0\], der nächste Plots\[1]\ usw.
 
 Siehe auch [*Lines*](#lines).
 
@@ -2119,9 +2126,9 @@ Values ist eine Collection, die die DataSeries-Objekte eines Indikators enthält
 
 Wenn einem Indikator mit der Add()-Methode ein Plot hinzugefügt wird, wird automatisch auch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
 
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values[0], der nächste Values[1] usw.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values\[0\], der nächste Values\[1\] usw.
 
-**Value** ist immer identisch mit Values[0].
+**Value** ist immer identisch mit Values\[0\].
 
 ### Verwendung
 ```cs
@@ -2151,7 +2158,7 @@ Value.Set(High[0] - Close[0]);
 Einem Indikator bzw. eine Strategie liegt immer die gleiche Zeiteinheit zugrunde, wie diejenige, in der der Chart angezeigt wird. Wird z.B. ein SMA(14) in einem 5-Minuten-Chart dargestellt, wird der gleitende Durchschnitt über die 14 letzten 5-Minuten-Bars berechnet. Auf einem Tageschart würden entsprechend die Schlusskurse der letzten 14 Tage zur Berechnung herangezogen werden.
 
 Das gleiche Prinzip gilt für selbst entwickelte Indikatoren. In einem 5-Minuten-Chart würde die Methode [*OnCalculate()*](#oncalculate)  für jeden 5-Minuten-Bar aufgerufen werden.
-Mit Multibars ist es außerdem möglich, Daten eines anderen Instrumentes zu laden. 
+Mit Multibars ist es außerdem möglich, Daten eines anderen Instrumentes zu laden.
 
 ### Beispiel
 ```cs

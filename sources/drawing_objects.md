@@ -172,7 +172,7 @@ AddChartArrowLine("MyArrow", false, 10, 10, 0, 5, Color.Black, DashStyle.Solid, 
 ```
 
 ## AddChartArrowUp()
-### Description
+### Beschreibung
 AddChartArowUp() zeichnet einen nach oben gerichteten Pfeil:
 
 ![AddChartArrowUp()](./media/image23.png)
@@ -206,7 +206,7 @@ AddChartArrowUp("MyArrow", true, 0, Low[0] - 3*TickSize, Color.Green);
 ```
 
 ## AddChartDiamond()
-### Description
+### Beschreibung
 AddChartDiamond() zeichnet einen Diamanten:
 
 ![AddChartDiamond()](./media/image24.png)
@@ -683,6 +683,7 @@ AddChartRectangle(string name, bool autoScale, DateTime startTime, double startY
 ```
 ### Rückgabewert
 Ein Zeichenobjekt vom Typ IRectangle (Interface)
+
 ### Parameter
 |              |                                                                                                        |
 |--------------|--------------------------------------------------------------------------------------------------------|
@@ -957,9 +958,9 @@ Ein Zeichenobjekt vom Typ ITrendChannel (Interface)
 | start3Time     | Date/time for start point 3 (x-axis)                                                    |
 | start3Y        | y-value for start point 3                                                               |
 
-### Example
+### Beispiele
 ```cs
-// Draws a trend channel
+// zeichnet einen Trendkanal
 AddChartTrendChannel("MyTrendChannel", true, 10, Low[10], 0, High[0], 10, High[10] + 5 * TickSize);
 ```
 

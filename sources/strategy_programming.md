@@ -404,7 +404,7 @@ if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
 ```
 
 ## OpenLongStop()
-### Description
+### Beschreibung
 Open long stop erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen)
 
 Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
@@ -445,7 +445,7 @@ if (stopOrder == null)
 ```
 
 ## OpenLongStopLimit()
-### Description
+### Beschreibung
 Open long stop limit erzeugt eine Buy-Stop-Limitorder um eine Long Position einzugehen (zu kaufen).
 
 Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
@@ -488,7 +488,7 @@ if (stopOrder == null)
 ```
 
 ## OpenShort()
-### Description
+### Beschreibung
 open short erzeugt eine Marketorder um eine Short Position einzugehen (leerzuverkaufen).
 
 Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
@@ -664,7 +664,7 @@ EntriesPerDirection wird in der [*OnInit()*](#oninit) -Methode angegeben.
 ### Parameter
 ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung
 
-### Example
+### Beispiel
 ```cs
 // Beispiel 1 
 // Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
@@ -997,7 +997,7 @@ if (CrossAbove(EMA(15), SMA(50), 2))
 ```
 
 ## CloseShortStop()
-### Description
+### Beschreibung
 Close short stop erzeugt eine Buy-to-Cover Stoporder um eine Short Position zu schließen (zu kaufen).
 
 Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
@@ -1399,7 +1399,7 @@ Print("Pieces " + Position.Quantity);
 siehe unter [*Position.Quantity*](#positionquantity), [*Position.PositionType*](#positionpositiontype).
 
 ## SetUpProfitTarget()
-### Description
+### Beschreibung
 Serzeugt sofort nach Ausführung einer Einstiegsorder eine Profit Target-Order um eine laufende Position zu einem bestimmten Kurs im Gewinn zu schließen. Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam.
 Wenn das Gewinnziel statisch ist, kann SetUpProfitTarget() in der OnInit() Methode angegeben werden.
 

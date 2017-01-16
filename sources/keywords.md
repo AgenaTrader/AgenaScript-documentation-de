@@ -16,7 +16,7 @@ Add(OnPaint plot)
 Add(LevelLine line)
 ```
 
-### Example
+### Beispiel
 ```cs
 #region Usings
 using System;
@@ -131,7 +131,7 @@ Die Eigenschaft kann abgefragt werden, und liefert "true" bzw. "false".
 AllowRemovalOfChartDrawings
 ```
 
-### Example
+### Beispiel
 ```cs
 protected override void OnInit()
 {
@@ -213,10 +213,14 @@ set { _period = value; }
 
 ![Category](./media/image11.png)
 
-If you use the category [Attribute](#attribute) on classes you are able to create subcategories for your scripts and group them all in one category.
-This is pretty useful if you are creating a package and you want to group a few indicators in a group with one name.
+Category ist ein  [Attribute](#attribute) in AgenaScript.
 
-The following example shows how to create a subfolder "My Package":
+Das Attribut Category gibt für einen Parameter an, unter welcher Kategorie im Eigenschaften-Dialog der Parameter erscheint.
+
+Wenn das Attribut fehlt, wird standardmäßig die Kategorie "Parameters" angenommen.
+
+Das folgende Beispiel erzeugt im Eigenschaften-Dialog die neue Kategorie "My Parameters".
+
 ```cs
 namespace AgenaTrader.UserCode
 {
@@ -442,19 +446,19 @@ CalculateOnClosedBar = true;
 }
 ```
 ## Occurred
-### Description
-This DataSeries is used in conditions and indicates if signal occurred (1-long, -1 short, 0- no signal )
+### Beschreibung
+Diese DataSeries werden unter Bedingungen verwendet und geben an, ob ein Signal aufgetreten ist(1-long, -1 short, 0- kein signal )
 
 ### Parameter
-None
+keiner
 
-### Return value
+### Rückgabewert
 Int
 
-### Usage
-In scripted condition for short, long, none signal indication
+### Verwendung
+Im Skriptzustand für short, long, kein Signal
 
-### Example
+### Beispiel
 ```cs
 protected override void OnCalculate()
 {
@@ -626,7 +630,7 @@ Print("Short entry !!!");
 keiner
 
 ### Rückgabewert
- ProcessingBarIndex ist eine Variable vom Typ int, die immer die Nummer des sich gerade in Bearbeitung befindenden Bars enthält.
+ProcessingBarIndex ist eine Variable vom Typ int, die immer die Nummer des sich gerade in Bearbeitung befindenden Bars enthält.
 
 ### Verwendung
 ProcessingBarIndex
@@ -1293,7 +1297,7 @@ AddChartVerticalLine("MyVerticalLine", 5, Color.Black);
 ```
 
 ## IsSeriesFalling()
-### Description
+### Beschreibung
 Mit der Methode  IsSeriesFalling() kann geprüft werden, ob eine "ist fallend"-Bedingung vorliegt, d.h. ob der aktuelle Wert kleiner ist als der Wert des vorhergehenden Bars.
 
 Siehe auch  [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
@@ -1695,7 +1699,7 @@ GetCurrentBid()
 double value
 
 ### Parameter
-none
+keiner
 
 ### Beispiel
 Wenn eine Einstiegsbedingung erfüllt ist, soll 1 Kontrakt zum aktuellen Bid-Kurs gekauft werden.
@@ -1750,7 +1754,7 @@ keiner
 ### Parameter
 double value
 
-### Example
+### Beispiel
 Wenn eine Einstiegsbedingung erfüllt ist, soll 1 Kontrakt zum aktuellen Kurs gekauft werden.
 
 ```cs
@@ -1774,7 +1778,7 @@ siehe auch [*GetCurrentAsk*](#getcurrentask), [*GetCurrentBid()*](#getcurrentbid
 GetCurrentSpread()
 
 ### Rückgabewert
-none
+keiner
 
 ### Parameter
 double
@@ -1789,7 +1793,7 @@ protected override void OnCalculate()
 ```
 
 ## GetSerieHighestValue
-### Description
+### Beschreibung
 Die Methode GetSerieHighestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem höchsten Bar und gibt an, vor wievielen Bars dieser höchste Bar zu finden ist
 
 Siehe auch [*GetSerieLowestValue()*](#getserielowestvalue).

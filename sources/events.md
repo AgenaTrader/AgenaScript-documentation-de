@@ -19,7 +19,7 @@ Folgende Methoden können verwendet, d.h. überschrieben werden:
 -   [*OnDispose()*](#ondispose)
 
 ## OnCalculate()
-### Description
+### Beschreibung
 Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  [*CalculateOnClosedBar*](#CalculateOnClosedBar),wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
 OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Teil des Codes selbsterstellter Indikatoren bzw. Strategien enthält.
 Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.
@@ -48,7 +48,7 @@ protected override void OnCalculate()
 }
 ```
 ## OnBrokerConnect()
-### Description
+### Beschreibung
 Die Methode OnBrokerConnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker hergestellt wurde.
 
 Mit Hilfe von OnBrokerConnect() besteht die Möglichkeit, bei einem Verbindungsabbruch mit dem Broker, die bestehenden bzw. noch offenen Orders wieder der Strategie zuzuordnen und somit von dieser wieder verwalten zu lassen
@@ -261,7 +261,7 @@ protected override void OnOrderExecution(IExecution execution)
 ```
 
 ## OnLevel1()
-### Description
+### Beschreibung
 Die Methode OnLevel1() wird bei jeder Änderung in den Level-I-Daten aufgerufen, d.h. bei einer Änderung des Bid-Preises, Ask-Preises, des Bid-Volumens, des Ask-Volumens und natürlich des Last-Preises nachdem ein realer Umsatz stattfand.
 In a multibar indicator, the ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnLevel1() aufgerufen wurde.
 
@@ -380,7 +380,7 @@ protected override void OnOrderChanged(IOrder order)
 ```
 
 ## OnStart()
-### Description
+### Beschreibung
 Die Methode OnStart() kann überschrieben werden, um eigene Variablen zu initialisieren, Lizenzchecks auszuführen, UserForms aufzurufen usw.
 OnStart() wird nur einmal am Beginn des Scrips nach [*OnInit()*](#oninit) und vor [*OnCalculate()*](#oncalculate) aufgerufen.
 

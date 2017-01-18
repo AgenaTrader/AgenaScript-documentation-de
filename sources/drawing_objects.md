@@ -86,7 +86,7 @@ Ein Zeichenobjekt vom Typ IArc (Interface)
 ### Beispiel
 ```cs
 // zeichnet einen blauen Kreisbogen
-AddChartArc("MyArc", true, 10, 10, 0, 20, Color.Blue, DashStyle.Solid, 3);
+AddChartArc("MyArc-" + ProcessingBarIndex, true, 10, 10, 0, 20, Color.Blue, DashStyle.Solid, 3);
 ```
 
 ## AddChartArrowDown()
@@ -120,7 +120,7 @@ A drawing object of the type IArrowDown (interface)
 ### Beispiel
 ```cs
 // zeichnet am akt. Bar einen roten Pfeil 3 Ticks über dem Hoch
-AddChartArrowDown("MyArrow", true, 0, High[0] + 3*TickSize, Color.Red);
+AddChartArrowDown("MyArrow-" + ProcessingBarIndex, true, 0, High[0] + 3*TickSize, Color.Red);
 // Zeichnet einen roten Pfeil auf einem Dreistufen-Umkehrmuster
 if(High[2] > High[3] && High[1] > High[2] && Close[0] < Open[0])
 AddChartArrowDown(ProcessingBarIndex.ToString(), true, 0, High[0] + 3*TickSize, Color.Red);
@@ -168,7 +168,7 @@ Ein Zeichenobjekt vom Typ IArrowLine (Interface)
 ### Beispiel
 ```cs
 // zeichnet einen schwarzen Pfeil
-AddChartArrowLine("MyArrow", false, 10, 10, 0, 5, Color.Black, DashStyle.Solid, 4);
+AddChartArrowLine("MyArrow-" + ProcessingBarIndex, false, 10, 10, 0, 5, Color.Black, DashStyle.Solid, 4);
 ```
 
 ## AddChartArrowUp()
@@ -202,7 +202,7 @@ A drawing object of the type IArrowUp (interface)
 ### Example
 ```cs
 // zeichnet einen grünen Pfeil am akt. Bar 3 Ticks unter dem Tief
-AddChartArrowUp("MyArrow", true, 0, Low[0] - 3*TickSize, Color.Green);
+AddChartArrowUp("MyArrow-"  + ProcessingBarIndex, true, 0, Low[0] - 3*TickSize, Color.Green);
 ```
 
 ## AddChartDiamond()
@@ -236,7 +236,7 @@ Ein Zeichenobjekt vom Typ IDiamond (Interface)
 ### Beispiel
 ```cs
 // zeichnet einen hellblauen Diamanten am akt. Bar 5 Ticks unter dem Tief
-AddChartDiamond("MyDiamond", true, 0, Low[0] - 5*TickSize, Color.SteelBlue);
+AddChartDiamond("MyDiamond-" + ProcessingBarIndex, true, 0, Low[0] - 5*TickSize, Color.SteelBlue);
 ```
 
 ## AddChartDot()
@@ -270,7 +270,7 @@ Ein Zeichenobjekt vom Typ IDot (Interface)
 ### Beispiel
 ```cs
 // zeichnet einen orangen Punkt am akt. Bar 5 Ticks über dem Hoch
-AddChartDot("MyDot", true, 0, High[0] + 5*TickSize, Color.Orange);
+AddChartDot("MyDot-" + ProcessingBarIndex, true, 0, High[0] + 5*TickSize, Color.Orange);
 ```
 
 ## AddChartEllipse()
@@ -304,7 +304,7 @@ Ein Zeichenobjekt vom Typ IEllipse (Interface)
 ### Beispiel
 ```cs
 // zeichnet eine gelbe Ellipse vom akt. Bar bis 5 Bars zurück
-AddChartEllipse("MyEllipse", true, 5, High[5], 0, Close[0], Color.Yellow, Color.Yellow, 1);
+AddChartEllipse("MyEllipse-" + ProcessingBarIndex, true, 5, High[5], 0, Close[0], Color.Yellow, Color.Yellow, 1);
 ```
 
 ## AddChartExtendedLine()
@@ -349,7 +349,7 @@ Ein Zeichenobjekt vom Typ IExtendedLine (Interface)
 ### Beispiel
 ```cs
 // zeichnet eine Linie ohne Endpunkt
-AddChartExtendedLine("MyExt.LevelLine", false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
+AddChartExtendedLine("MyExt.LevelLine-" + ProcessingBarIndex, false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
 ```
 
 ## AddChartFibonacciCircle()
@@ -380,7 +380,7 @@ Ein Zeichenobjekt vom Typ IFibonacciCircle (Interface)
 ### Beispiel
 ```cs
 // zeichnet Fibonacci-Kreise
-AddChartFibonacciCircle("MyFibCircle", true, 5, Low[5], 0, High[0]);
+AddChartFibonacciCircle("MyFibCircle-"  + ProcessingBarIndex, true, 5, Low[5], 0, High[0]);
 ```
 
 ## AddChartFibonacciExtensions()
@@ -414,7 +414,7 @@ Ein Zeichenobjekt vom Typ IFibonacciExtensions (Interface)
 ### Beispiel
 ```cs
 // zeichnet FibonacciExtensions
-AddChartFibonacciExtensions("MyFibExt", true, 4, Low[4], 3, High[3], 1, Low[1]);
+AddChartFibonacciExtensions("MyFibExt-"  + ProcessingBarIndex, true, 4, Low[4], 3, High[3], 1, Low[1]);
 ```
 ## AddChartFibonacciProjections()
 ### Beschreibung
@@ -443,7 +443,7 @@ Ein Zeichenobjekt vom Typ IFibonacciProjections (Interface)
 ### Beispiel
 ```cs
 // zeichnet FibonacciProjections
-AddChartFibonacciProjections("MyFibPro", true, Low[4], 3, High[3], 1, Low[1], 2);
+AddChartFibonacciProjections("MyFibPro-"  + ProcessingBarIndex, true, Low[4], 3, High[3], 1, Low[1], 2);
 
 ```
 
@@ -475,7 +475,7 @@ A drawing object of the type IFibonacciRetracements (interface)
 ### Beispiel
 ```cs
 // zeichnet Fibonnaci Retracements
-AddChartFibonacciRetracements("MyFibRet", true, 10, Low[10], 0, High[0]);
+AddChartFibonacciRetracements("MyFibRet-"  + ProcessingBarIndex, true, 10, Low[10], 0, High[0]);
 ```
 
 ## AddChartFibonacciTimeExtensions()
@@ -505,7 +505,7 @@ Ein Zeichenobjekt vom Typ IFibonacciTimeExtensions (Interface)
 ### Beispiel
 ```cs
 // zeichnet Fibonacci TimeExtensions
-AddChartFibonacciTimeExtensions("MyFibTimeExt", 10, Low[10], 0, High[0]);
+AddChartFibonacciTimeExtensions("MyFibTimeExt-" + ProcessingBarIndex, 10, Low[10], 0, High[0]);
 ```
 
 ## AddChartGannFan()
@@ -533,7 +533,7 @@ Ein Zeichenobjekt vom Typ IGannFan (Interface)
 ### Beispiel
 ```cs
 // zeichnet einen Gann Fan am Tief des Bars von vor 10 Perioden
-AddChartGannFan("MyGannFan", true, 10, Low[10]);
+AddChartGannFan("MyGannFan-" + ProcessingBarIndex, true, 10, Low[10]);
 ```
 
 ## AddChartLine()
@@ -578,7 +578,7 @@ Ein Zeichenobjekt vom Typ ITrendLine (Interface)
 ### Beispiel
 ```cs
 // zeichnet eine Linie
-AddChartLine("MyLine", false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
+AddChartLine("MyLine-" + ProcessingBarIndex, false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
 ```
 
 ## AddChartHorizontalLine()
@@ -617,7 +617,7 @@ Ein Zeichenobjekt vom Typ IHorizontalLine (Interface)
 ### Beispiele
 ```cs
 // zeichnet eine horizontale Linie bei y=10
-AddChartHorizontalLine("MyHorizontalLine", 10, Color.Black);
+AddChartHorizontalLine("MyHorizontalLine-" + ProcessingBarIndex, 10, Color.Black);
 ```
 
 ## AddChartRay()
@@ -664,11 +664,11 @@ Ein Zeichenobjekt vom Typ IRay (Interface)
 // zeichnet eine Linie vom Bar von vor 10 Perioden über den aktuellen Bar (x-Achse)
 // --> Linie wird nach rechts verlängert
 // von y=3 über y=7
-AddChartRay("MyRay", 10, 3, 0, 7, Color.Green);
+AddChartRay("MyRay-" + ProcessingBarIndex, 10, 3, 0, 7, Color.Green);
 // zeichnet eine Linie vom akt. Bar über den Bar von vor 10 Perioden
 // --> Linie wird nach links verlängert
 // von y=3 über y=7
-AddChartRay("MyRay", 0, 3, 10, 7, Color.Green);
+AddChartRay("MyRay-" + ProcessingBarIndex, 0, 3, 10, 7, Color.Green);
 ```
 
 ## AddChartRectangle()
@@ -703,7 +703,7 @@ Ein Zeichenobjekt vom Typ IRectangle (Interface)
 ```cs
 // zeichnet ein grünes Rechteck vom Tief von vor 10 Perioden zum Hoch von vor 5 Perioden
 // mit der Füllfarbe PaleGreen und einer Transparenz von 2
-AddChartRectangle("MyRect", true, 10, Low[10], 5, High[5], Color.PaleGreen, Color.PaleGreen, 2);
+AddChartRectangle("MyRect-" + ProcessingBarIndex, true, 10, Low[10], 5, High[5], Color.PaleGreen, Color.PaleGreen, 2);
 ```
 
 ## AddChartRegion()
@@ -783,7 +783,7 @@ Ein Zeichenobjekt vom Typ IRegressionChannel (Interface)
 ```cs
 // zeichnet einen Regressionskanal vom Tief des Bars von vor 10 Tagen
 // zum Hoch des Bars von vor 5 Tagen
-AddChartRegressionChannel("MyRegChannel", 10, 0, Color.Black);
+AddChartRegressionChannel("MyRegChannel-" + ProcessingBarIndex, 10, 0, Color.Black);
 ```
 
 ## AddChartSquare()
@@ -870,9 +870,9 @@ Ein Zeichenobjekt vom Typ IText (Interface)
 ### Beispiele
 ```cs
 // schreibt einen Text bei y=3.0 
-AddChartText("MyText", "This is sample text.", 10, 3, Color.Black);
+AddChartText("MyText-" + ProcessingBarIndex, "This is sample text.", 10, 3, Color.Black);
 // schreibt einen roten Text in Schriftgröße Arial 7
-AddChartText("MyText", false, "This is sample text.", Time[0], Close[0]+50*TickSize, 0,
+AddChartText("MyText-" + ProcessingBarIndex, false, "This is sample text.", Time[0], Close[0]+50*TickSize, 0,
 Color.Red, new Font("Arial",7), StringAlignment.Center, Color.Blue, Color.DarkOliveGreen, 10);
 ```
 
@@ -925,9 +925,9 @@ Ein Zeichenobjekt vom Typ ITextFixed (Interface)
 ### Beispiele
 ```cs
 // schreibt einen Text in die Mitte des Charts
-AddChartTextFixed("MyText", ""Das ist ein Beispieltext.", TextPosition.Center);
+AddChartTextFixed("MyText-" + ProcessingBarIndex, ""Das ist ein Beispieltext.", TextPosition.Center);
 // schreibt einen roten Text mit einem blauen Rand in die Mitte des Charts
-AddChartTextFixed("MyText", "Das ist ein Beispieltext.", TextPosition.Center, Color.Red, new Font("Arial",35), Color.Blue, Color.Empty, 10);
+AddChartTextFixed("MyText-" + ProcessingBarIndex, "Das ist ein Beispieltext.", TextPosition.Center, Color.Red, new Font("Arial",35), Color.Blue, Color.Empty, 10);
 ```
 
 ## AddChartTrendChannel()
@@ -961,7 +961,7 @@ Ein Zeichenobjekt vom Typ ITrendChannel (Interface)
 ### Beispiele
 ```cs
 // zeichnet einen Trendkanal
-AddChartTrendChannel("MyTrendChannel", true, 10, Low[10], 0, High[0], 10, High[10] + 5 * TickSize);
+AddChartTrendChannel("MyTrendChannel-" + ProcessingBarIndex, true, 10, Low[10], 0, High[0], 10, High[10] + 5 * TickSize);
 ```
 
 ## AddChartTriangle()
@@ -1032,7 +1032,7 @@ Ein Zeichenobjekt vom Typ ITriangleUp (Interface)
 ### Beispiel
 ```cs
 // zeichnet ein kleines hellgrünes Dreieck am akt. Bar 10 Ticks unter dem Tief
-AddChartTriangleUp("MyTriangleUp", true, 0, Low[0] - 10*TickSize, Color.LightGreen);
+AddChartTriangleUp("MyTriangleUp-" + ProcessingBarIndex, true, 0, Low[0] - 10*TickSize, Color.LightGreen);
 ```
 
 ## AddChartTriangleDown()
@@ -1065,7 +1065,7 @@ Ein Zeichenobjekt vom Typ ITriangleDown (Interface)
 ### Beispiel
 ```cs
 // zeichnet ein kleines rotes Dreieck am akt. Bar 10 Ticks über dem Hoch
-AddChartTriangleDown("MyTriangleDown", true, 0, High[0] + 10*TickSize, Color.Red);
+AddChartTriangleDown("MyTriangleDown-" + ProcessingBarIndex, true, 0, High[0] + 10*TickSize, Color.Red);
 ```
 
 ## AddChartVerticalLine()
@@ -1099,5 +1099,5 @@ using System.Drawing.Drawing2D;  mit eingebunden werden.                        
 ### Beispiele
 ```cs
 // zeichnet eine vertikale Linie am Bar von vor 10 Perioden
-AddChartVerticalLine("MyVerticalLine", 10, Color.Black);
+AddChartVerticalLine("MyVerticalLine-" + ProcessingBarIndex, 10, Color.Black);
 ```

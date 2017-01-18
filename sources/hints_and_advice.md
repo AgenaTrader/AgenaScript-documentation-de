@@ -1,4 +1,6 @@
 # Hints & Advice
+**Hinweis:**
+Code Änderungen in selbst-erstellten Indikatoren werden automatisch auf Conditions angewandt, welche den Indikator verwenden sofern diese im "body" von z.B. "OnCalculate/OnBarUpdate" durchgeführt wurden. Änderungen von Parametern, Output Serien, etc. benötigen eine manuelle Änderung der Conditions.
 
 ## Bar Numbering Within the Chart
 Das Beispiel zeigt die Verwendung der Plot-Methode und der Eigenschaften des [*Chart*](#chart) Objekts.

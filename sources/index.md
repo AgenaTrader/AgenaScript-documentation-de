@@ -2,37 +2,36 @@
 
 **The following API documentation requires AgenaTrader in version 1.9.0.563**
 
-#Welcome to the official AgenaScript documentation!
+AgenaScript ist eine in die Handelsplattform AgenaTrader integrierte Programmiersprache. Die Syntax von AgenaScript ist von der Programmiersprache C# abgeleitet.
+Mit AgenaScript können alle Anliegen umgesetzt werden, die z.B. für den Condition Escort zu komplex sind. Das Spektrum reicht von der Programmierung eines einfachen Indikators bis hin zu eigenen Applikationen, bei denen AgenaTrader sozusagen nur noch im Hintergrund benötigt wird. Generell sind alle Dinge umsetzbar, die auch in DotNet realisierbar sind: Indikatoren fast beliebiger Komplexität, Signalanzeige, Excel-Export, Auswertungen, Chartanzeigen, Sound, Farben uvm.
 
-Want to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the documentation on the list below.
-
-##Introductory Words
-AgenaScript is AgenaTrader’s integrated programming language. The syntax is derived from C\# and thus closely resembles it.
-
-AgenaScript allows you to execute any ideas/methods that are too complex for the ConditionEscort. From simple indicators to entire applications where AgenaTrader is only required to run in the background, anything that can be written in .NET can be implemented.
 
 Information contained in this help document:
 
-[Handling bars and instruments](./handling_bars_and_instruments.md#handling-bars-and-instruments)
+[Umgang mit Bars und Instrumenten](./handling_bars_and_instruments.md#handling-bars-and-instruments)
 
-You will find a detailed explanation of how AgenaScript reacts and interacts with individual bars or candles as well as various trading instruments.
+Hier wird im Detail gezeigt, wie mit AgenaScript auf die einzelnen Bars bzw. Kerzen und auf verschiedene Handelsinstrumente zugegriffen werden kann.
 
-[Events](./events.md#events)
 
-AgenaScript is event-based and -driven. When (for example) a candle closes or a new candle opens, then an event has occurred. When a new price value is delivered by your data provider or a new order is executed by your broker, then these too are considered events. AgenaScript allows you to react to these events. You can read about the exact methodology in this and the following chapters.
+[Ereignisse](./events.md#events)
 
-[Strategy programming](./strategy_programming.md#strategy-programming)
+AgenaScript arbeitet ereignisorientiert. Wenn z.B. eine Kerze in einer Zeiteinheit abgeschlossen ist und eine neue Kerze beginnt, ist dies ein Ereignis. Wenn neue Kurse vom Datenanbieter geliefert werden oder eine Order vom Broker ausgeführt wird, immer handelt es sich um Ereignisse.
+Mit AgenaScript können Sie auf alle diese Ereignisse reagieren. Wie dies genau funktioniert und welche Ereignisse es gibt, ist Gegenstand dieses Abschnitts.
 
-AgenaScript allows you to create your own trading strategies and execute them live within the market. Information pertaining to prerequisites and how orders are sent to the broker and managed internally can be found here.
+[Strategieprogrammierung](./strategy_programming.md#strategy-programming)
 
-[Keywords](./keywords.md#keywords)
+Mit AgenaScript ist es möglich, eigene Handelsstrategien zu erstellen um diese live im Markt handeln zu lassen.
+Welche Voraussetzungen dazu notwendig sind und wie Orders an den Broker übergeben und intern verwaltet werden, erfahren Sie hier.
 
-Like every other programming language, AgenaTrader has a set of commands that can be converted and used via Scripts. You should be relatively well versed in these if you wish to create your own indicators or trading systems.
+[Schlüsselworte](./keywords.md#keywords)
 
-[Drawing objects](./drawing_objects.md#drawing-objects)
+Wie jede Programmiersprache besitzt auch AgenaTrader einen Satz von Befehlen, die Sie in eigenen Scripts verwenden können. Mit diesen sog. Schlüsselworten sollten Sie gut vertraut sein, wenn Sie Ihre eignenen Indikatoren bzw. Handelssysteme erstellen möchten.
 
-All drawing objects that can be used within the chart can also be accessed using AgenaScript. In this way, you can turn on/off certain lines, arrows, rectangles and other objects with specified conditions.
+[Zeichenobjekte](./drawing_objects.md#drawing-objects)
 
-[Hints and advice](./hints_and_advice.md#hints-and-advice)
+Alle Zeichenobjekte, die Sie im Chart verwenden können, sind auh über AgenaScript erreichbar. So können Sie z.B. Linien, Pfeile, Rechtecke, Kreise usw. an bestimmten Stellen im Chart automatisch anzeigen und wieder entfernen lassen. Die Möglichkeiten sind nahezu unüberschaubar.
 
-This section provides solutions to problems of an unusual nature. To solve such problems, you need to be able to trace and understand source code and programming. More advanced programmers and users may find solutions and suggestions that could help them in their own programming.
+[Tipps und Tricks](./hints_and_advice.md#hints-and-advice)
+
+In diesem Bereich werden Lösungen für nicht ganz alltägliche Probleme gezeigt. Um diese Beispiele nachvollziehen zu können, ist allerdings einiges an Erfahrung in der Programmierung Voraussetzung. Der fortgeschrittene Anwender wird hier einige Dinge finden, die er in seine eigenen Programmierungen übernehmen kann.
+

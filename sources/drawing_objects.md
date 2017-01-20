@@ -536,6 +536,45 @@ Ein Zeichenobjekt vom Typ IGannFan (Interface)
 AddChartGannFan("MyGannFan-" + ProcessingBarIndex, true, 10, Low[10]);
 ```
 
+## AddChartHorizontalLine()
+### Beschreibung
+AddChartHorizontalLine() zeichnet eine horizontale Linie in den Chart.
+
+Siehe auch [*AddChartLine()*](#drawline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+
+### Verwendung
+```cs
+AddChartHorizontalLine(string name, double y, Color color)
+AddChartHorizontalLine(string name, bool autoScale, double y, Color color, DashStyle dashStyle, int width)
+```
+
+### Rückgabewert
+Ein Zeichenobjekt vom Typ IHorizontalLine (Interface)
+
+### Parameter
+|              |                                                                                         |
+|--------------|-----------------------------------------------------------------------------------------|
+| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| y            | ein beliebiger double-Wert                                                              |
+| color        | Linienfarbe                                                                             |
+| dashStyle    | Linienart                                                                               |                                                                                           
+|              |  DashStyle.Dash                                                                         |  
+|              |  DashStyle.DashDot                                                                      |  
+|              |  DashStyle.DashDotDot                                                                   |  
+|              |  DashStyle.Dot                                                                          |  
+|              |  DashStyle.Solid                                                                        |  
+|              |                                                                                         |  
+|              |  ggf. muß                                                                               |  
+|              |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
+| width        | Linienstärke                                                                            |
+
+### Beispiele
+```cs
+// zeichnet eine horizontale Linie bei y=10
+AddChartHorizontalLine("MyHorizontalLine-" + ProcessingBarIndex, 10, Color.Black);
+```
+
 ## AddChartLine()
 ### Beschreibung
 AddChartLine()  zeichnet eine (Trend-) Linie.
@@ -579,45 +618,6 @@ Ein Zeichenobjekt vom Typ ITrendLine (Interface)
 ```cs
 // zeichnet eine Linie
 AddChartLine("MyLine-" + ProcessingBarIndex, false, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 1);
-```
-
-## AddChartHorizontalLine()
-### Beschreibung
-AddChartHorizontalLine() zeichnet eine horizontale Linie in den Chart.
-
-Siehe auch [*AddChartLine()*](#drawline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
-
-### Verwendung
-```cs
-AddChartHorizontalLine(string name, double y, Color color)
-AddChartHorizontalLine(string name, bool autoScale, double y, Color color, DashStyle dashStyle, int width)
-```
-
-### Rückgabewert
-Ein Zeichenobjekt vom Typ IHorizontalLine (Interface)
-
-### Parameter
-|              |                                                                                         |
-|--------------|-----------------------------------------------------------------------------------------|
-| name         | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
-| autoScale    | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
-| y            | ein beliebiger double-Wert                                                              |
-| color        | Linienfarbe                                                                             |
-| dashStyle    | Linienart                                                                               |                                                                                           
-|              |  DashStyle.Dash                                                                         |  
-|              |  DashStyle.DashDot                                                                      |  
-|              |  DashStyle.DashDotDot                                                                   |  
-|              |  DashStyle.Dot                                                                          |  
-|              |  DashStyle.Solid                                                                        |  
-|              |                                                                                         |  
-|              |  ggf. muß                                                                               |  
-|              |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
-| width        | Linienstärke                                                                            |
-
-### Beispiele
-```cs
-// zeichnet eine horizontale Linie bei y=10
-AddChartHorizontalLine("MyHorizontalLine-" + ProcessingBarIndex, 10, Color.Black);
 ```
 
 ## AddChartRay()
@@ -1002,6 +1002,39 @@ Ein Zeichenobjekt vom Typ ITriangle (Interface)
 AddChartTriangle("tag1", 4, Low[4], 3, High[3], 1, Low[1], Color.Green);
 ```
 
+## AddChartTriangleDown()
+### Beschreibung
+AddChartTriangleDown() zeichnet ein kleines abwärtsgerichtetes Dreieck.
+
+![AddChartTriangleDown()](./media/image29.png)
+
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup).
+
+### Verwendung
+```cs
+AddChartTriangleDown(string name, bool autoScale, int barsAgo, double y, Color color)
+AddChartTriangleDown(string name, bool autoScale, DateTime time, double y, Color color)
+```
+
+### Rückgabewert
+Ein Zeichenobjekt vom Typ ITriangleDown (Interface)
+
+### Parameter
+|           |                                                                                         |
+|-----------|-----------------------------------------------------------------------------------------|
+| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
+| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
+| barsAgo   | Gibt an, an welchem zurückliegenden Bar das Dreieck gezeichnet werden soll              |
+| time      | Datum/Uhrzeit des Bars, an dem das Dreieck gezeichnet werden soll                       |
+| y         | y-Wert, an dem das Dreieck gezeichnet werden                                            |
+| color     | Farbe des Zeichenobjekts                                                                |
+
+### Beispiel
+```cs
+// zeichnet ein kleines rotes Dreieck am akt. Bar 10 Ticks über dem Hoch
+AddChartTriangleDown("MyTriangleDown-" + ProcessingBarIndex, true, 0, High[0] + 10*TickSize, Color.Red);
+```
+
 ## AddChartTriangleUp()
 ### Beschreibung
 AddChartTriangleUp() zeichnet ein kleines aufwärtsgerichtetes Dreieck.
@@ -1035,38 +1068,6 @@ Ein Zeichenobjekt vom Typ ITriangleUp (Interface)
 AddChartTriangleUp("MyTriangleUp-" + ProcessingBarIndex, true, 0, Low[0] - 10*TickSize, Color.LightGreen);
 ```
 
-## AddChartTriangleDown()
-### Beschreibung
-AddChartTriangleDown() zeichnet ein kleines abwärtsgerichtetes Dreieck.
-
-![AddChartTriangleDown()](./media/image29.png)
-
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup).
-
-### Verwendung
-```cs
-AddChartTriangleDown(string name, bool autoScale, int barsAgo, double y, Color color)
-AddChartTriangleDown(string name, bool autoScale, DateTime time, double y, Color color)
-```
-
-### Rückgabewert
-Ein Zeichenobjekt vom Typ ITriangleDown (Interface)
-
-### Parameter
-|           |                                                                                         |
-|-----------|-----------------------------------------------------------------------------------------|
-| name      | Der Name eines Zeichenobjekts zur eindeutigen Identifizierung                           |
-| autoScale | Skalierung der y-Achse so anpassen, dass das Zeichenobjekt vollständig zu sehen ist     |
-| barsAgo   | Gibt an, an welchem zurückliegenden Bar das Dreieck gezeichnet werden soll              |
-| time      | Datum/Uhrzeit des Bars, an dem das Dreieck gezeichnet werden soll                       |
-| y         | y-Wert, an dem das Dreieck gezeichnet werden                                            |
-| color     | Farbe des Zeichenobjekts                                                                |
-
-### Beispiel
-```cs
-// zeichnet ein kleines rotes Dreieck am akt. Bar 10 Ticks über dem Hoch
-AddChartTriangleDown("MyTriangleDown-" + ProcessingBarIndex, true, 0, High[0] + 10*TickSize, Color.Red);
-```
 
 ## AddChartVerticalLine()
 ### Beschreibung

@@ -75,43 +75,6 @@ namespace AgenaTrader.UserCode
   }
 }
 ```
-
-## ShowAlert()
-### Beschreibung
-Mit der Methode  ShowAlert wird ein akustischer und/oder visueller Alarm erzeugt.
-
-### Verwendung
-```cs
-ShowAlert(string message, bool showMessageBox, string soundLocation);
-//Aus Kompatibilitätsgründen ist noch eine veraltete Signatur enthalten. Bei Nutzung dieses Aufrufvariante werden die Farbangaben und "rearmSeconds" ignoriert.
-ShowAlert(string id, AlertPriority priority, string message, string soundLocation, int rearmSeconds, Color backColor, Color forColor);
-```
-
-### Rückgabewert
-keiner
-
-### Parameter
-|                |                                                                                                                       |
-|----------------|-----------------------------------------------------------------------------------------------------------------------|
-| message        | Nachrichtentext, der im Messages-Tab angezeigt wird.                                                                          |
-| soundLocation  | Name eines Sound-Files im *.wav Format. Ist kein Pfad angegeben, wird "Eigene Dokumente\AgenaTrader\Sounds" verwendet.|
-| showMessageBox | wenn true, wird zusätzlich zum Sound eine Messagebox auf dem Bildschim angezeigt.                                           |
-
-### Beispiel
-```cs
-// Hinweis ausgeben, wenn der SMA(20) unter SMA(50) kreuzt
-if (CrossBelow(SMA(20), SMA(50), 1))
-Alert("Check short signal!", true, "Alert4.wav");
-```
-
-Um Musikdateien in anderen Verzeichnissen wiederzugeben, muss der vollständige Pfad angegeben werden, z.B.:
-
-```cs
-string pathOfSoundfile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\\MyAlertSounds\\";
-string nameOfSoundFile = "MyAlertSoundFile.wav";
-Alert("Message text", true, pathOfSoundfile + nameOfSoundFile);
-```
-
 ## AllowRemovalOfChartDrawings
 ### Beschreibung
 AllowRemovalOfDrawObjects ist eine Eigenschaft von Indikatoren, die in der Methode [*OnInit()*](#oninit) gesetzt werden kann..
@@ -356,60 +319,6 @@ get { return SerializableFont.ToString(_textFont); }
 set { _textFont = SerializableFont.FromString(value); }
 }
 ```
-
-## IsAutoAdjustableScale
-### Beschreibung
-Auto scale is a property of indicators that can be set within the OnInit() method.
-
-```cs
-IsAutoAdjustableScale = true (default)
-```
-
-Die Preisachse (y-Achse) des Charts wird so eingestellt, dass alle Plots und Lines eines Indikators bzw. einer Strategie im Chart sichtbar sind.
-
-```cs
-IsAutoAdjustableScale = false
-```
-
-Plots und Lines eines Indikators bzw. einer Strategie werden nicht in die Skalierung der Preisachse (y-Achse) eines Charts mit einbezogen. Sie können auch ausserhalb des sichtbaren Chartbereichs liegen.
-
-Die Eigenschaft kann abgefragt werden, und liefert "true" bzw. "false".
-
-### Verwendung
-IsAutoAdjustableScale
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Red, "MyPlot1"));
-///Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
-IsAutoAdjustableScale = true;
-}
-```
-
-## RequiredBarsCount
-### Beschreibung
-Die Eigenschaft BarsRequired gibt an, wieviele historische Bars mindestens benötigt werden, damit ein Indikator bzw. eine Strategie erstmal die Methode OnCalculate() aufrufen und mit den Berechnungen beginnen kann. BarsRequired sollte in der OnInit() Methode angegeben werden.
-Die Einstellung sollte sorgfältig gewählt werden. Z.B. braucht man zur Berechnung eines gleitenden Durchschnittes über 100 Tage auch mindestens 100 Tage historische Daten, damit das Ergebnis korrekt ist.
-
-Die Eigenschaft kann im Script abgefragt werden und liefert einen int-Wert.
-
-Wenn OnBarUpdate erstmals aufgerufen wird, ist  ProcessingBarIndex property = 0, unabhängig vom Wert von RequiredBarsCount.
-
-### Verwendung
-RequiredBarsCount
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Red, "MyPlot1"));
-//Der Indikator benötigt mindestens 50 Bars Historie
-RequiredBarsCount = 50;
-}
-```
-
 ## CalculateOnClosedBar
 ### Beschreibung
 Die Eigenschaft "CalculateOnClosedBar" legt fest, für welche Ereignisse AgenaTrader die Methode  OnCalculate() aufrufen soll.
@@ -445,32 +354,6 @@ protected override void OnInit()
 CalculateOnClosedBar = true;
 }
 ```
-## Occurred
-### Beschreibung
-Diese DataSeries werden unter Bedingungen verwendet und geben an, ob ein Signal aufgetreten ist(1-long, -1 short, 0- kein signal )
-
-### Parameter
-keiner
-
-### Rückgabewert
-Int
-
-### Verwendung
-Im Skriptzustand für short, long, kein Signal
-
-### Beispiel
-```cs
-protected override void OnCalculate()
-{
-if ( ProcessingBarIndex %2 == 0 )
-Occurred.Set(1); // Long
-else if ( ProcessingBarIndex %3 == 0 )
-Occurred.Set(-1); // Short
-else
-Occurred.Set(0);
-}
-```
-
 ## Chart
 Chart  ist ein Objekt, über welches der lesende Zugriff auf verschiedene Eigenschaften des Charts möglich ist. 
 
@@ -547,6 +430,244 @@ protected override void OnInit()
 ClearOutputWindow();
 }
 ```
+## Colors
+In AgenaSript stehen die folgenden Befehle für Farbfestlegungen bzw. -änderungen im Chart zur Verfügung:
+
+[*BackColor*](#backcolor) Hintergrundfarbe des Kurs-Charts
+
+[*BackColorAll*](#backcolorall) Hintergrundfarbe des Kurs-Charts und aller Indikator-Panels
+
+[*BackColorAllSeries*](#backcolorallseries)
+
+[*BackColorSeries*](#backcolorseries)
+
+
+Chart.UpColor Farbe für Up Ticks (Up Bars)
+Chart.DownColor Farbe für Down Ticks (Down Bars)
+
+Für jeden Bar werden seine Farben in folgenden Dataserien gespeichert. Wird in diese Datenserien geschrieben, ändern sich die Farben des referenzierten Bars.
+
+[*BarColor*](#barcolor) Farbe eines Bars
+
+[*BarColorSeries*](#barcolorseries)
+
+[*CandleOutlineColor*](#candleoutlinecolor)
+
+[*CandleOutlineColorSeries*](#candleoutlinecolorseries)
+
+
+## BackColor
+### Beschreibung
+BackColor ändert die Hintergrundfarbe eines Bars bzw. gibt die aktuelle Hintergrundfarbe eines Bars zurück.
+
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+### Verwendung
+BackColor
+
+### Beispiele
+```cs
+// immer montags Bar-Hintergrundfarbe auf Blau ändern
+if (Time[0].DayOfWeek == DayOfWeek.Monday)
+BackColor = Color.Blue;
+```
+
+![BackColor](./media/image16.png)
+
+```cs
+// Ändern der Bar-Hintergrundfarbe in Abhängigkeit von einem gl. Durchschnitt
+// Kurs über SMA(14) --> Grün
+// Kurs unter SMA(14) --> Maroon
+BackColor = SMA(14)[0] >= Close[0] ? Color.Maroon : Color.LimeGreen;
+```
+
+![BackColor](./media/image17.png)
+
+## BackColorAll
+### Beschreibung
+BackColorAll ändert die Hintergrundfarbe eines Bars im Chartfenster und in allen Subcharts bzw. gibt die aktuelle Hintergrundfarbe eines Bars zurück.
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+### Verwendung
+BackColorAll
+
+### Beispiel
+```cs
+// immer montags Bar-Hintergrundfarbe auf Blau ändern
+if (Time[0].DayOfWeek == DayOfWeek.Monday)
+BackColorAll = Color.Blue;
+```
+
+![BackColorAll](./media/image18.png)
+
+## BackColorAllSeries
+### Beschreibung
+BackColorAllSeries ist eine Datenserie, die für jeden Bar die Hintergrundfarbe speichert. Im Unterschied zu BackColorSeries wird die Hinterrundfarbe der Subcharts mit berücksichtigt.
+
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+int barsAgo
+
+### Verwendung
+```cs
+BackColorAllSeries
+BackColorAllSeries[int barsAgo]
+```
+
+Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
+
+### Beispiel
+siehe [*BackColorSeries*](#backcolorseries).
+
+## BackColorSeries
+### Beschreibung
+BackColorSeries ist eine Datenserie, die für jeden Bar die Hintergrundfarbe speichert. Soll die Hintergrundfarbe von Subcharts mit berücksichtigt werden, ist "BackColorAllSeries" zu verwenden.
+
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+int barsAgo
+
+### Verwendung
+```cs
+BackColorSeries
+BackColorSeries[int barsAgo]
+```
+
+ei Verwendung der Methode mit einem Index \[**int** barsAgo\]  wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
+
+### Beispiele
+```cs
+// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format) 
+Print (BackColorSeries[0]);
+// Hintergrundfarbe des aktuellen Bars auf Blau setzen
+// Dies ist identisch mit BackColor = Color.Blue
+BackColorSeries[3] = Color.Blue;
+// Hintergrundfarbe des vorhergehenden Bars auf Grün setzen
+BackColorSeries[1] = Color.Green;
+```
+## BarColor
+### Beschreibung
+BarColor ändert die Farbe eines Bars 
+
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+### Verwendung
+BarColor
+
+### Beispiel
+```cs
+// Wenn der Schlusskurs über dem SMA(14) liegt, den Bar orange einfärben
+if (Close[0] > SMA(14)[0]) BarColor = Color.Orange;
+```
+
+![BarColor](./media/image15.png)
+
+
+## BarColorSeries
+### Beschreibung
+BarColorSeries ist eine Datenserie, die für jeden Bar die Farbe speichert.
+
+Siehe auch[*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+int barsAgo
+
+### Verwendung
+BarColorSeries
+
+BarColorSeries\[**int** barsAgo\]
+
+Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Farbe für den referenzierten Bar geändert bzw. ausgegeben.
+
+**Achtung: Es wird nur die Farbe eines Bars zurückgegeben, dessen Farbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
+
+### Beispiel
+```cs
+protected override void OnCalculate()
+{
+if (ProcessingBarIndex == Bars.Count-1-(CalculateOnClosedBar?1:0))
+{
+// Farbe des aktuellen Bars auf Blau setzen
+// Dies ist identisch mit BarColor = Color.Blue
+BarColorSeries[0] = Color.Blue;
+// Farbe des vorhergehenden Bars auf Grün setzen
+BarColorSeries[1] = Color.Orange;
+// Farbe des 3. Bars auf Gelb setzen
+BarColorSeries[2] = Color.Yellow;
+}
+}
+```
+
+![BarColorSeries](./media/image19.png)
+
+## CandleOutlineColor
+### Beschreibung
+CandleOutlineColor ändert die Randfarbe (incl. "Dochte" und "Lunte") eines Bars.
+
+Wenn die Farbe eines Bars mit BarColor geändert wird, und die Umrandung des Bars wurde nicht mit CandleOutlineColor verändert, wird die Randfarbe auf die Farbe des Bars angepasst.
+
+Siehe auch[*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+
+### Verwendung
+CandleOutlineColor
+
+### Beispiel
+```cs
+if (SMA(14)[0] > SMA(200)[0])
+CandleOutlineColor = Color.LimeGreen;
+else
+CandleOutlineColor = Color.Red;
+```
+
+![CandleOutlineColor](./media/image20.png)
+
+## CandleOutlineColorSeries
+### Beschreibung
+CandleOutlineColorSeries ist eine Datenserie, die für jeden Bar die Randfarbe speichert.
+
+Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
+
+### Parameter
+ein Color-Objekt vom Typ  public struct Color
+int barsAgo
+
+### Verwendung
+```cs
+CandleOutlineColorSeries
+CandleOutlineColorSeries[int barsAgo]
+```
+
+Bei Verwendung der Methode mit einem Index  \[**int** barsAgo\] wird die Randfarbe für den referenzierten Bar ausgegeben.
+
+**Achtung: Es wird nur die RandFarbe eines Bars zurückgegeben, dessen Randfarbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
+
+### Beispiel
+```cs
+// Randfarbe des aktuellen Bars auf Blau setzen
+CandleOutlineColorSeries[0] = Color.Blue;
+// Randfarbe auf Chart-default zurücksetzen
+CandleOutlineColorSeries[0] = Color.Empty;
+```
 
 ## CrossAbove()
 ### Beschreibung
@@ -621,57 +742,6 @@ Print("SMA(20) has fallen below 40!");
 if (CrossBelow(SMA(20), SMA(50), 1) && Close[1] > Close[0])
 Print("Short entry !!!");
 ```
-
-## ProcessingBarIndex
-### Beschreibung
- ProcessingBarIndex  ist eine Nummerierung von Bars, die in der Methode OnCalculate()  verwendet wird. Wenn in einem Chart z.B. 500 Bars dargestellt werden und auf diese ein Indikator berechnet werden soll, so beginnt AgenaTrader mit der Berechnung (also dem Aufruf von OnCalculate() bei dem ältesten Bar. Dieser bekommt die Nummer 0. Ist die Berechnung für diesen Bar abgeschlossen, wird OnCalculate() für den nächsten Bar aufgerufen. Dieser bekommt dann die Nummer 1 usw. bis zum letzten Bar, der die Nummer 499 bekommt.
-
-### Parameter
-keiner
-
-### Rückgabewert
-ProcessingBarIndex ist eine Variable vom Typ int, die immer die Nummer des sich gerade in Bearbeitung befindenden Bars enthält.
-
-### Verwendung
-ProcessingBarIndex
-
-### Weitere Informationen
-Die in der Methode  OnCalculate() verwendete Nummerierung mit ProcessingBarIndex unterscheidet sich vom [*Barindex*](#barindex) und [*Bars*](#bars). Das Verständnis dieses Unterschiedes ist sehr wichtig! Bitte das folgende genau lesen!
-
-ProcessingBarIndex nummeriert fortlaufend vom ältesten zum jüngsten Bar beginnend bei 0. Der Barindex ist für den jüngsten Bar immer 0. Im Beispiel unten steht Time\[0\] für den Zeitstempel des aktuellen Bars. Der Index des ältesten Bars wird mit jedem neu hinzukommenden Damit wird eine logische Zählung für barsAgo möglich. Der Zeitstempel für den Bar von vor 5 Perioden ist damit Time\[5\].
-Bei Verwendung mehrerer Zeiteinheiten (multi-bars)in einem Indikator siehe ProcessingBarIndexes.
-
-### Beispiel
-```cs
-protected override void OnCalculate()
-{
-Print("Call of OnCalculate for bar nr. " + ProcessingBarIndex + " of " + Time[0]);
-}
-```
-## IsProcessingBarIndexLast
-### Description
-Indicates if current bar is last in calculation.
-
-### Parameter
-None
-
-### Return value
-Type bool
-
-### Usage
-used for complicated calculation on a last bar
-
-### Example
-```cs
-protected override void OnCalculate()
-{
-            base.OnCalculate();
-            if (!IsProcessingBarIndexLast)
-                return;
-            bool isUpdated;
-}
-```
-
 ## DatafeedHistoryPeriodicity
 ### Beschreibung
 DatafeedHistoryPeriodicity ist ein Datentyp.
@@ -1223,338 +1293,6 @@ Add(new OnPaint(Color.Red, "MyPlot1"));
 Displacement = 1;
 }
 ```
-
-## IsShowInDataBox
-### Beschreibung
-Die Eigenschaft  "IsShowInDataBox" gibt an, ob die Werte des Indikators (Datenserien) in der DataBox des Charts enthalten sein sollen oder nicht.
-
-Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false)
-```cs
-IsShowInDataBox = true (default)
-```
-
-Die Indikatorwerte werden in der DataBox angezeigt.
-```cs
-IsShowInDataBox = false
-```
-
-Die Indikatorwerte werden nicht in der DataBox angezeigt.
-
-
-Im Bild werden die Werte von 3 gleitenden Durchschnitten in der DataBox angezeigt.
-
-![IsShowInDataBox](./media/image14.png)
-
-### Verwendung
-IsShowInDataBox
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Red, "MyPlot1"));
-//Werte sollen nicht in der DataBox angezeigt werden
-IsShowInDataBox = false;
-}
-```
-
-## IsAddDrawingsToPricePanel
-### Beschreibung
-Die Eigenschaft  "IsAddDrawingsToPricePanel" legt fest, in welchem Panel Zeichenobjekte gezeichnet werden.
-```cs
-IsAddDrawingsToPricePanel = true (default)
-```
-
-Zeichenobjekte werden im Preischart gezeichnet
-```cs
-IsAddDrawingsToPricePanel = false
-```
-
-Zeichenobjekte werden in dem Panel (Subchart) gezeichnet, das dem Indikator zugeordnet ist.
-
-Ist der Indikator bereits dem Preischart zugeordnet (Overlay = true) ist diese Eigenschaft wirkungslos, d.h. es wird in diesem Fall kein neuer Subchart geöffnet.
-
-Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false)
-
-### Verwendung
-IsAddDrawingsToPricePanel
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-// Indikator in einem neuen Subchart zeichnen
-IsOverlay = false;
-Add(new OnPaint(Color.Red, "MyPlot1"));
-// Zeichenobjekte im Preischart zeichnen
-IsAddDrawingsToPricePanel = true;
-}
-protected override void OnCalculate()
-{
-// zeichnet im Preischart eine vertikale Linie am Bar von vor 5 Perioden
-AddChartVerticalLine("MyVerticalLine", 5, Color.Black);
-}
-```
-
-## IsSeriesFalling()
-### Beschreibung
-Mit der Methode  IsSeriesFalling() kann geprüft werden, ob eine "ist fallend"-Bedingung vorliegt, d.h. ob der aktuelle Wert kleiner ist als der Wert des vorhergehenden Bars.
-
-Siehe auch  [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
-
-### Verwendung
-```cs
-IsSerieFalling(IDataSeries series)
-```
-
-### Rückgabewert 
-**true** wenn die Datenreihe fällt 
-**false** wenn die Datenreihe nicht fällt
-
-### Parameter
-series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä
-
-### Beispiele
-```cs
-// Prüfen, ob der SMA(20) fällt
-if (IsSerieFalling(SMA(20)))
-Print("The SMA(20) is currently falling.");
-```
-
-## Colors
-In AgenaSript stehen die folgenden Befehle für Farbfestlegungen bzw. -änderungen im Chart zur Verfügung:
-
-[*BarColor*](#barcolor) Farbe eines Bars
-
-[*BackColor*](#backcolor) Hintergrundfarbe des Kurs-Charts
-
-[*BackColorAll*](#backcolorall) Hintergrundfarbe des Kurs-Charts und aller Indikator-Panels
-
-Chart.UpColor Farbe für Up Ticks (Up Bars)
-Chart.DownColor Farbe für Down Ticks (Down Bars)
-
-Für jeden Bar werden seine Farben in folgenden Dataserien gespeichert. Wird in diese Datenserien geschrieben, ändern sich die Farben des referenzierten Bars.
-
-[*BarColorSeries*](#barcolorseries)
-
-[*CandleOutlineColorSeries*](#candleoutlinecolorseries)
-
-[*BackColorSeries*](#backcolorseries)
-
-[*BackColorAllSeries*](#backcolorallseries)
-
-## BarColor
-### Beschreibung
-BarColor ändert die Farbe eines Bars 
-
-Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-### Verwendung
-BarColor
-
-### Beispiel
-```cs
-// Wenn der Schlusskurs über dem SMA(14) liegt, den Bar orange einfärben
-if (Close[0] > SMA(14)[0]) BarColor = Color.Orange;
-```
-
-![BarColor](./media/image15.png)
-
-## BackColor
-### Beschreibung
-BackColor ändert die Hintergrundfarbe eines Bars bzw. gibt die aktuelle Hintergrundfarbe eines Bars zurück.
-
-Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-### Verwendung
-BackColor
-
-### Beispiele
-```cs
-// immer montags Bar-Hintergrundfarbe auf Blau ändern
-if (Time[0].DayOfWeek == DayOfWeek.Monday)
-BackColor = Color.Blue;
-```
-
-![BackColor](./media/image16.png)
-
-```cs
-// Ändern der Bar-Hintergrundfarbe in Abhängigkeit von einem gl. Durchschnitt
-// Kurs über SMA(14) --> Grün
-// Kurs unter SMA(14) --> Maroon
-BackColor = SMA(14)[0] >= Close[0] ? Color.Maroon : Color.LimeGreen;
-```
-
-![BackColor](./media/image17.png)
-
-## BackColorAll
-### Beschreibung
-BackColorAll ändert die Hintergrundfarbe eines Bars im Chartfenster und in allen Subcharts bzw. gibt die aktuelle Hintergrundfarbe eines Bars zurück.
-Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-### Verwendung
-BackColorAll
-
-### Beispiel
-```cs
-// immer montags Bar-Hintergrundfarbe auf Blau ändern
-if (Time[0].DayOfWeek == DayOfWeek.Monday)
-BackColorAll = Color.Blue;
-```
-
-![BackColorAll](./media/image18.png)
-
-## BarColorSeries
-### Beschreibung
-BarColorSeries ist eine Datenserie, die für jeden Bar die Farbe speichert.
-
-Siehe auch[*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-int barsAgo
-
-### Verwendung
-BarColorSeries
-
-BarColorSeries\[**int** barsAgo\]
-
-Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Farbe für den referenzierten Bar geändert bzw. ausgegeben.
-
-**Achtung: Es wird nur die Farbe eines Bars zurückgegeben, dessen Farbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
-
-### Beispiel
-```cs
-protected override void OnCalculate()
-{
-if (ProcessingBarIndex == Bars.Count-1-(CalculateOnClosedBar?1:0))
-{
-// Farbe des aktuellen Bars auf Blau setzen
-// Dies ist identisch mit BarColor = Color.Blue
-BarColorSeries[0] = Color.Blue;
-// Farbe des vorhergehenden Bars auf Grün setzen
-BarColorSeries[1] = Color.Orange;
-// Farbe des 3. Bars auf Gelb setzen
-BarColorSeries[2] = Color.Yellow;
-}
-}
-```
-
-![BarColorSeries](./media/image19.png)
-
-## BackColorSeries
-### Beschreibung
-BackColorSeries ist eine Datenserie, die für jeden Bar die Hintergrundfarbe speichert. Soll die Hintergrundfarbe von Subcharts mit berücksichtigt werden, ist "BackColorAllSeries" zu verwenden.
-
-Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-int barsAgo
-
-### Verwendung
-```cs
-BackColorSeries
-BackColorSeries[int barsAgo]
-```
-
-ei Verwendung der Methode mit einem Index \[**int** barsAgo\]  wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
-
-### Beispiele
-```cs
-// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format) 
-Print (BackColorSeries[0]);
-// Hintergrundfarbe des aktuellen Bars auf Blau setzen
-// Dies ist identisch mit BackColor = Color.Blue
-BackColorSeries[3] = Color.Blue;
-// Hintergrundfarbe des vorhergehenden Bars auf Grün setzen
-BackColorSeries[1] = Color.Green;
-```
-
-## BackColorAllSeries
-### Beschreibung
-BackColorAllSeries ist eine Datenserie, die für jeden Bar die Hintergrundfarbe speichert. Im Unterschied zu BackColorSeries wird die Hinterrundfarbe der Subcharts mit berücksichtigt.
-
-Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-int barsAgo
-
-### Verwendung
-```cs
-BackColorAllSeries
-BackColorAllSeries[int barsAgo]
-```
-
-Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
-
-### Beispiel
-siehe [*BackColorSeries*](#backcolorseries).
-
-## CandleOutlineColor
-### Beschreibung
-CandleOutlineColor ändert die Randfarbe (incl. "Dochte" und "Lunte") eines Bars.
-
-Wenn die Farbe eines Bars mit BarColor geändert wird, und die Umrandung des Bars wurde nicht mit CandleOutlineColor verändert, wird die Randfarbe auf die Farbe des Bars angepasst.
-
-Siehe auch[*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-
-### Verwendung
-CandleOutlineColor
-
-### Beispiel
-```cs
-if (SMA(14)[0] > SMA(200)[0])
-CandleOutlineColor = Color.LimeGreen;
-else
-CandleOutlineColor = Color.Red;
-```
-
-![CandleOutlineColor](./media/image20.png)
-
-## CandleOutlineColorSeries
-### Beschreibung
-CandleOutlineColorSeries ist eine Datenserie, die für jeden Bar die Randfarbe speichert.
-
-Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
-
-### Parameter
-ein Color-Objekt vom Typ  public struct Color
-int barsAgo
-
-### Verwendung
-```cs
-CandleOutlineColorSeries
-CandleOutlineColorSeries[int barsAgo]
-```
-
-Bei Verwendung der Methode mit einem Index  \[**int** barsAgo\] wird die Randfarbe für den referenzierten Bar ausgegeben.
-
-**Achtung: Es wird nur die RandFarbe eines Bars zurückgegeben, dessen Randfarbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
-
-### Beispiel
-```cs
-// Randfarbe des aktuellen Bars auf Blau setzen
-CandleOutlineColorSeries[0] = Color.Blue;
-// Randfarbe auf Chart-default zurücksetzen
-CandleOutlineColorSeries[0] = Color.Empty;
-```
 ## Email function
 ### Beschreibung
 Override-Methode zum Senden von E-Mails.
@@ -1590,6 +1328,7 @@ execution.Instrument.Symbol +" order " + execution.Name + " executed. Profit:" +
 }
 }
 ```
+
 ## FirstTickOfBar
 ### Beschreibung
 FirstTickOfBar ist eine Eigenschaft, vom Type bool, die immer dann "true" ergibt, wenn der aktuell hereinkommende Tick einem neuen Bar zugeordnet wird, dieser Tick also der erste Tick eines neuen Bars ist.
@@ -1633,7 +1372,6 @@ siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).
 if (FirstTickOfBarMtf(ProcessingBarSeriesIndex))
 Print("A new bar has begun.");
 ```
-
 ## GetCurrentAsk()
 ### Beschreibung
 Die Methode GetCurrentAsk() liefert den aktuellen Kurs auf der Ask-Seite des Orderbuchs. Wenn AgenaTrader keine Level1-Daten zur Verfügung stehen, liefert die Funktion den Kurs des letzten Umsatzes.
@@ -1685,7 +1423,6 @@ protected override void OnCalculate()
        Print("AskVolume {0} < BidVolume {1}", GetCurrentAskVolume(), GetCurrentBidVolume());
 }
 ```
-
 ## GetCurrentBid()
 ### Beschreibung
 Die Methode GetCurrentBid() liefert den aktuellen Kurs auf der Bid-Seite des Orderbuchs. Wenn AgenaTrader keine Level1-Daten zur Verfügung stehen, liefert die Funktion den Kurs des letzten Umsatzes.
@@ -1738,7 +1475,6 @@ protected override void OnCalculate()
        Print("AskVolume {0} < BidVolume {1}", GetCurrentAskVolume(), GetCurrentBidVolume());
 }
 ```
-
 ## GetCurrentPrice()
 ### Beschreibung
 Die Methode GetCurrentPrice() liefert den aktuellen Kurs (Latest). Wenn AgenaTrader keine Level1-Daten zur Verfügung stehen, liefert die Funktion den Kurs des letzten Umsatzes.
@@ -1791,6 +1527,29 @@ protected override void OnCalculate()
        Print("Der aktuelle Spread ist {0}", GetCurrentSpread());
 }
 ```
+## GetDayAsInt()
+### Beschreibung
+GetDayAsIntist eine Methode, die sich speziell an unerfahrene Programmierer richtet, die mit der durchaus komplizierten .Net-DateTime-Struktur aus C# Schwierigkeiten haben.
+Erfahrene Programmierer können die DateTime-Funktionen auch direkt verwenden.
+
+GetDayAsInt liefert eine int-Repräsentation im Format yyyyMMdd.
+(yyyy = Jahr,  MM = Monat, dd = Tag)
+
+Die Zahl für den 13.08.2012 lautet damit 20120813.
+
+Siehe auch [*GetTimeAsInt*](#gettimeasint).
+
+Hilfe zu DateTime: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+
+### Verwendung
+GetDayAsInt(DateTime time)
+
+### Beispiele
+```cs
+// Am 11. September besser keine Trades eingehen
+if (GetDayAsInt(Time[0]) = 20130911)
+return;
+```
 
 ## GetSerieHighestValue
 ### Beschreibung
@@ -1821,6 +1580,59 @@ Print(GetSerieHighestValue(High, Bars.BarsCountForSession - 1));
 Print("The highest price for the session was: " + Open[GetSerieHighestValue(High, Bars.BarsCountForSession - 1)]);
 ```
 
+## GetSerieLowestValue
+### Beschreibung
+Die Methode  GetSerieLowestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem tiefsten Bar und gibt an, vor wievielen Bars dieser tiefste Bar zu finden ist.
+
+Siehe auch [*GetSerieHighestValue()*](#getseriehighestvalue).
+
+### Parameter
+period Anzahl von Bars, innerhalb derer gesucht werden soll
+
+series Jede Datenserie, wie Close, High, Low usw.
+
+### Rückgabewert
+**int** barsAgo Vor wievielen Bars trat das Tief auf
+
+### Verwendung
+```cs
+GetSerieLowestValue(IDataSeries series, int period)
+```
+
+### Beispiele
+```cs
+// Vor wievielen Bars lag das tiefste Tief der aktuellen Session?
+Print(GetSerieLowestValue(Low, Bars.BarsCountForSession - 1));
+// Welchen Kurs hatte das bisher tiefste Open der aktuellen Session?
+Print("The lowest open price of the current session was: " + Open[GetSerieLowestValue(Low, Bars.BarsCountForSession - 1)]);
+```
+
+## GetTimeAsInt()
+### Beschreibung
+GetTimeAsInt ist eine Methode, die sich speziell an unerfahrene Programmierer richtet, die mit der durchaus komplizierten .Net-DateTime-Struktur aus C# Schwierigkeiten haben.
+Erfahrene Programmierer können die DateTime-Funktionen auch direkt verwenden..
+
+GetTimeAsInt liefert eine int-Repräsentation im Format HHmmss.
+(HH = Stunde,  mm = Minute, ss = Sekunde)
+
+Die Uhrzeit 07:30 Uhr wird dargestellt als 73000 und 14:15:12 wird zu 141512.
+
+Siehe auch [*GetDayAsInt*](#getdayasint).
+
+Hilfe zu DateTime: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
+
+### Verwendung
+GetTimeAsInt(DateTime time)
+
+### Beispiele
+```cs
+// Nur zwischen 08:15 Uhr und 16:35 Uhr Trades eingehen
+if (GetTimeAsInt(Time[0]) >= 81500 && GetTimeAsInt(Time[0]) <= 163500)
+{
+// irgendeine Handelslogic
+}
+```
+
 ## Historical
 ### Beschreibung
 Mit Historical läßt sich überprüfen, ob AgenaScript mit historen Daten oder mit Real-Time-Daten arbeitet.
@@ -1841,88 +1653,6 @@ protected override void OnCalculate()
 // Nur für realtime-Daten ausführen
 if (IsHistoricalMode) return;
 // irgendeine Handelslogik
-}
-```
-
-## OnInit()
-### Beschreibung
-Die OnInit()-Methode wird einmal zu Beginn einer Indikator- bzw. Strategieberechnung aufgerufen. Die Methode kann verwendet werden um Indikatoreigenschaften zu setzen, eigene Variablen zu initialisieren oder Plots hinzuzufügen.
-
-### Parameter
-keiner
-
-### Rückgabewert
-keiner
-
-### Verwendung
-```cs
-protected override void OnInit()
-```
-
-### wichtige Schlüsselworte
--   [*Add()*](#add)
--   [*AllowRemovalOfChartDrawings*](#allowremovalofchartdrawings)
--   [*IsAutoScale*](#isautoscale)
--   [*RequiredBarsCount*](#requiredbarscount)
--   [*CalculateOnClosedBar*](calculateonclosedbar)
--   [*ClearOutputWindow()*](#clearoutputwindows)
--   [*Displacement*](displacement)
--   [*IsShowInDataBox*](#isshowindatabox)
--   [*IsAddDrawingsToPricePanel*](#isadddrawingstopricepanel)
--   [*InputPriceType*](#inputpricetype)
--   [*IsOverlay*](#isoverlay)
--   [*IsShowPriceMarkers*](#isshowpricemarkers)
--   [*SessionBreakLines*](#sessionbreaklines)
--   [*IsShowChartVerticalGrid*](#isshowchartverticalgrid)
-
-**zusätzlich für Strategien**
-
--   [*DefaultOrderQuantity*](#defaultorderquantity)
--   [*EntriesPerDirection*](#entriesperdirection)
--   [*EntryHandling*](#entryhandling)
--   [*SetUpStopLoss()*](#setupstoploss)
--   [*SetUpProfitTarget()*](#setupprofittarget)
--   [*SetUpTrailStop()*](#setuptrailstop)
--   [*TimeInForce*](#timeinforce)
--   [*PrintOrders*](#printorders)
-
-### Weitere Informationen
-**Achtung:**
-Die OnInit()-Methode wird nicht nur am Beginn einer Indikator- bzw. Strategieberechnung aufgerufen, sondern auch unerwartet z.B. wenn ein Chart neu geladen wird oder der Eigenschaftsdialog von Indikatoren geöffnet wird usw.
-Entwickler von eigenen AgenaScripts sollten diese Methode NICHT verwenden, um eigene Routinen laufen zu lassen, Forms zu öffnen, Lizenzchecks auszuführen u. dgl. mehr. Hierzu ist die Methode  OnStart() zu verwenden.
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Blue, "myPlot"));
-ClearOutputWindow();
-IsAutoScale = false;
-IsOverlay = true;
-IsShowPriceMarkers = false;
-IsShowInDataBox = false;
-CalculateOnClosedBar = true;
-}
-```
-
-## OnBarsRequirements()
-### Beschreibung
-Die OnBarsRequirements() Methode wird einmal zu Beginn einer Indikator- bzw. Strategieberechnung aufgerufen. Die Methode ist nur bei Verwendung von MultiBars notwendig.
-Innerhalb von InitRequirements werden keine weiteren Programmierbefehle ausgeführt.
-Für eigene Initialisierungen sind die MethodenOnInit() bzw. OnStart() zu verwenden.
-
-### Parameter
-keiner
-
-### Rückgabewert
-keiner
-
-### Beispiel
-```cs
-protected override void OnBarsRequirements()
-{
-Add(DatafeedHistoryPeriodicity.Day, 1);
-Add(DatafeedHistoryPeriodicity.Week, 1);
 }
 ```
 
@@ -1976,6 +1706,302 @@ InputPriceType = PriceType.High;
 Mit Instrument werden Informationen zum Handelsinstrument (Aktie, Future etc.) bereitgestellt, für welches ein Indikator, eine Strategie usw. gerade läuft.
 
 Ausführliche Details finden sich unter *Instruments*.
+
+## IsAddDrawingsToPricePanel
+### Beschreibung
+Die Eigenschaft  "IsAddDrawingsToPricePanel" legt fest, in welchem Panel Zeichenobjekte gezeichnet werden.
+```cs
+IsAddDrawingsToPricePanel = true (default)
+```
+
+Zeichenobjekte werden im Preischart gezeichnet
+```cs
+IsAddDrawingsToPricePanel = false
+```
+
+Zeichenobjekte werden in dem Panel (Subchart) gezeichnet, das dem Indikator zugeordnet ist.
+
+Ist der Indikator bereits dem Preischart zugeordnet (Overlay = true) ist diese Eigenschaft wirkungslos, d.h. es wird in diesem Fall kein neuer Subchart geöffnet.
+
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false)
+
+### Verwendung
+IsAddDrawingsToPricePanel
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+// Indikator in einem neuen Subchart zeichnen
+IsOverlay = false;
+Add(new OnPaint(Color.Red, "MyPlot1"));
+// Zeichenobjekte im Preischart zeichnen
+IsAddDrawingsToPricePanel = true;
+}
+protected override void OnCalculate()
+{
+// zeichnet im Preischart eine vertikale Linie am Bar von vor 5 Perioden
+AddChartVerticalLine("MyVerticalLine", 5, Color.Black);
+}
+```
+## IsAutoAdjustableScale
+### Beschreibung
+Auto scale is a property of indicators that can be set within the OnInit() method.
+
+```cs
+IsAutoAdjustableScale = true (default)
+```
+
+Die Preisachse (y-Achse) des Charts wird so eingestellt, dass alle Plots und Lines eines Indikators bzw. einer Strategie im Chart sichtbar sind.
+
+```cs
+IsAutoAdjustableScale = false
+```
+
+Plots und Lines eines Indikators bzw. einer Strategie werden nicht in die Skalierung der Preisachse (y-Achse) eines Charts mit einbezogen. Sie können auch ausserhalb des sichtbaren Chartbereichs liegen.
+
+Die Eigenschaft kann abgefragt werden, und liefert "true" bzw. "false".
+
+### Verwendung
+IsAutoAdjustableScale
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Red, "MyPlot1"));
+///Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
+IsAutoAdjustableScale = true;
+```
+
+## IsOverlay
+### Beschreibung
+Die Eigenschaft Overlay legt fest, ob die Indikatorausgaben, wie Plots und Linien, im Preischart über die Kursbars gezeichnet werden oder ob ein neues separates Chartfenster unterhalb des Preischarts geöffnet wird.
+
+```cs
+IsOverlay = true
+```
+
+Es wird über den Kurs gezeichnet (wie z.B. ein *SMA*)
+
+```cs
+IsOverlay = false (default)
+```
+
+Es wird ein separates Chartfenster geöffnet (wie z.B. ein *RSI*)
+
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
+
+### Verwendung
+IsOverlay
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Red, "MyPlot1"));
+//Der Indikator soll in einem separaten Fenster dargestellt werden
+IsOverlay = false;
+}
+```
+
+## IsProcessingBarIndexLast
+### Description
+Indicates if current bar is last in calculation.
+
+### Parameter
+None
+
+### Return value
+Type bool
+
+### Usage
+used for complicated calculation on a last bar
+
+### Example
+```cs
+protected override void OnCalculate()
+{
+            base.OnCalculate();
+            if (!IsProcessingBarIndexLast)
+                return;
+            bool isUpdated;
+}
+```
+
+## IsSerieRising()
+### Beschreibung
+Mit der Methode IsSerieRising() kann geprüft werden, ob eine "ist steigend"-Bedingung vorliegt, d.h. ob der aktuelle Wert größer ist als der Wert des vorhergehenden Bars.
+
+Siehe auch [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+
+### Verwendung
+```cs
+IsSerieRising(IDataSeries series)
+```
+
+### Rückgabewert
+**true** wenn die Datenreihe steigt 
+**false** wenn die Datenreihe nicht steigt
+
+### Parameter
+series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä
+
+### Beispiele
+```cs
+// Prüfen, ob der SMA(20) steigt
+if (IsSerieRising(SMA(20)))
+Print("The SMA(20) is currently rising.");
+```
+
+## IsSeriesFalling()
+### Beschreibung
+Mit der Methode  IsSeriesFalling() kann geprüft werden, ob eine "ist fallend"-Bedingung vorliegt, d.h. ob der aktuelle Wert kleiner ist als der Wert des vorhergehenden Bars.
+
+Siehe auch  [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+
+### Verwendung
+```cs
+IsSerieFalling(IDataSeries series)
+```
+
+### Rückgabewert 
+**true** wenn die Datenreihe fällt 
+**false** wenn die Datenreihe nicht fällt
+
+### Parameter
+series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä
+
+### Beispiele
+```cs
+// Prüfen, ob der SMA(20) fällt
+if (IsSerieFalling(SMA(20)))
+Print("The SMA(20) is currently falling.");
+```
+
+## IsShowChartVerticalGrid
+### Beschreibung
+Die Eigenschaft IsShowChartVerticalGrid legt fest, ob in regelmäßigen Abständen vertikale Linien im Chart (das sog. vertikale Grid) angezeigt werden sollen.
+
+**IsShowChartVerticalGrid = true (default)**
+
+Vertikale Gitternetzlinien werden im Chart angezeigt.
+
+**IsShowChartVerticalGrid = false**
+
+Vertikale Gitternetzlinien werden nicht im Chart angezeigt.
+
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
+
+### Verwendung
+IsShowChartVerticalGrid
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Red, "MyPlot1"));
+// Vertikale Gitternetzlinien sollen nicht im Chart angezeigt werden
+IsShowChartVerticalGrid = false;
+}
+```
+
+## IsShowInDataBox
+### Beschreibung
+Die Eigenschaft  "IsShowInDataBox" gibt an, ob die Werte des Indikators (Datenserien) in der DataBox des Charts enthalten sein sollen oder nicht.
+
+Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false)
+```cs
+IsShowInDataBox = true (default)
+```
+
+Die Indikatorwerte werden in der DataBox angezeigt.
+```cs
+IsShowInDataBox = false
+```
+
+Die Indikatorwerte werden nicht in der DataBox angezeigt.
+
+
+Im Bild werden die Werte von 3 gleitenden Durchschnitten in der DataBox angezeigt.
+
+![IsShowInDataBox](./media/image14.png)
+
+### Verwendung
+IsShowInDataBox
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Red, "MyPlot1"));
+//Werte sollen nicht in der DataBox angezeigt werden
+IsShowInDataBox = false;
+}
+```
+
+## IsShowPriceMarkers
+### Beschreibung
+Die Eigenschaft PaintPriceMarkers legt fest, ob für die Indikatorausgaben, am rechten Chartrand (in der Preisachse) die sog. PriceMarkers angezeigt werden sollen oder nicht. In manchen Fällen ist es sinnvoll, dies für eine bessere Übersicht im Chart auszuschalten.
+**IsShowPriceMarkers = true (default)**
+
+PriceMarkers werden in der Preisachse angezeigt.
+
+**IsShowPriceMarkers = false**
+
+PriceMarkers werden nicht in der Preisachse angezeigt.
+
+Die Eigenschaft kann imScript abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
+
+### Verwendung
+IsShowPriceMarkers
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Red, "MyPlot1"));
+//IsShowPriceMarkers sollen nicht angezeigt werden
+IsShowPriceMarkers = false;
+}
+```
+## Level1Args
+### Beschreibung
+Der Datentyp MarketDataEventArgs repräsentiert eine Änderung in den Level-I-Daten und wird als Parameter in der Funktion OnLevel1() verwendet.
+
+|                |                                                                                                                                  |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------|
+| AskSize        | Das aktuelle Ordervolumen auf der Ask-Seite.                                                                                            |
+| AskPrice       | Der aktuelle Ask-Kurs                                                                                                             |
+| BidSize        | Das aktuelle Ordervolumen auf der Bid-Seite                                                                                            |
+| BidPrice       | Der aktuelle Bid-Kurs.                                                                                                              |
+| Instrument     | Ein Objekt des Types IInstrument, das das Handelsinstrument beinhaltet, für welches die Level-I-Daten geliefert werden. Siehe *Instruments* |
+| LastPrice      | Der letzte durch einen Umsatz entstandene Kurs                                                                                                                |
+| MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.AskSize, MarketDataType.Bid, MarketDataType.BidSize, MarketDataType.Last, MarketDataType.Volume     |
+| Price          | Tenthält den gleichen Wert wie LastPrice. Das Feld ist nur aus Kompatibilitätsgründen vorhanden.                                                   |
+| Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet.                                                                        |
+| Volume         | Ein long-Wert, der das Volumen, d.h. den letzten realen Umsatz angiebt.                                                                                               |
+
+### Beispiel
+siehe Beispiel unter [*OnLevel1()*](#onlevel1).
+
+## Level2Args
+### Beschreibung
+Der Datentyp  Level2Args repräsentiert eine Änderung in den Level-II-Daten (Markttiefe) und wird als Parameter in der Funktion OnLevel2() verwendet.
+
+|                |                                                                |
+|----------------|----------------------------------------------------------------|
+| MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.Bid                                              |
+| MarketMaker    | Ein string-Wert, der die Market Maker ID enthällt                  |
+| Position       | Ein int-Wert, der die Position innerhalb der Markttiefe angiebt |
+| Operation      | Steht für die Aktion, die durch die Änderung in einem Orderbuch ausgelöst wird.                                                                
+                  Mögliche Werte sind: Operation.Insert, Operation.Remove, Operation.Update                                           |
+| Price          | Eine double-Wert, der den jeweiligen Bid/Ask-Kurs                 |
+| Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet     |
+| Volume         | Ein long-Wert, der das Volumen angiebt                             |
+
+### Beispiel
+siehe Beispiel unter [*OnLevel2()*](#onlevel2).
 
 ## LevelLine()
 ### Beschreibung
@@ -2068,175 +2094,114 @@ InfoLogLevel.ShowAlert: opens also a modeless messagebox
 Summary: * - InfoLogLevel.ShowAlert Color: green Tab: Log Action: modeless Messagebox * - InfoLogLevel.Warning Color: blue Tab: Log * - InfoLogLevel.Info Color: white Tab: Log * - InfoLogLevel.Error Color: red Tab: Log Action: AT-Status-Line: red + flashing (Error) * - InfoLogLevel.Message Color: white Tab: Messages
 */
 ```
-
 Crossreference:
 a crossreference to Print() and ShowAlert()
 
-## GetSerieLowestValue
+## Occurred
 ### Beschreibung
-Die Methode  GetSerieLowestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem tiefsten Bar und gibt an, vor wievielen Bars dieser tiefste Bar zu finden ist.
-
-Siehe auch [*GetSerieHighestValue()*](#getseriehighestvalue).
+Diese DataSeries werden unter Bedingungen verwendet und geben an, ob ein Signal aufgetreten ist(1-long, -1 short, 0- kein signal )
 
 ### Parameter
-period Anzahl von Bars, innerhalb derer gesucht werden soll
-
-series Jede Datenserie, wie Close, High, Low usw.
+keiner
 
 ### Rückgabewert
-**int** barsAgo Vor wievielen Bars trat das Tief auf
+Int
 
 ### Verwendung
-```cs
-GetSerieLowestValue(IDataSeries series, int period)
-```
-
-### Beispiele
-```cs
-// Vor wievielen Bars lag das tiefste Tief der aktuellen Session?
-Print(GetSerieLowestValue(Low, Bars.BarsCountForSession - 1));
-// Welchen Kurs hatte das bisher tiefste Open der aktuellen Session?
-Print("The lowest open price of the current session was: " + Open[GetSerieLowestValue(Low, Bars.BarsCountForSession - 1)]);
-```
-
-## Level1Args
-### Beschreibung
-Der Datentyp MarketDataEventArgs repräsentiert eine Änderung in den Level-I-Daten und wird als Parameter in der Funktion OnLevel1() verwendet.
-
-|                |                                                                                                                                  |
-|----------------|----------------------------------------------------------------------------------------------------------------------------------|
-| AskSize        | Das aktuelle Ordervolumen auf der Ask-Seite.                                                                                            |
-| AskPrice       | Der aktuelle Ask-Kurs                                                                                                             |
-| BidSize        | Das aktuelle Ordervolumen auf der Bid-Seite                                                                                            |
-| BidPrice       | Der aktuelle Bid-Kurs.                                                                                                              |
-| Instrument     | Ein Objekt des Types IInstrument, das das Handelsinstrument beinhaltet, für welches die Level-I-Daten geliefert werden. Siehe *Instruments* |
-| LastPrice      | Der letzte durch einen Umsatz entstandene Kurs                                                                                                                |
-| MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.AskSize, MarketDataType.Bid, MarketDataType.BidSize, MarketDataType.Last, MarketDataType.Volume     |
-| Price          | Tenthält den gleichen Wert wie LastPrice. Das Feld ist nur aus Kompatibilitätsgründen vorhanden.                                                   |
-| Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet.                                                                        |
-| Volume         | Ein long-Wert, der das Volumen, d.h. den letzten realen Umsatz angiebt.                                                                                               |
-
-### Beispiel
-siehe Beispiel unter [*OnLevel1()*](#onlevel1).
-
-## Level2Args
-### Beschreibung
-Der Datentyp  Level2Args repräsentiert eine Änderung in den Level-II-Daten (Markttiefe) und wird als Parameter in der Funktion OnLevel2() verwendet.
-
-|                |                                                                |
-|----------------|----------------------------------------------------------------|
-| MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.Bid                                              |
-| MarketMaker    | Ein string-Wert, der die Market Maker ID enthällt                  |
-| Position       | Ein int-Wert, der die Position innerhalb der Markttiefe angiebt |
-| Operation      | Steht für die Aktion, die durch die Änderung in einem Orderbuch ausgelöst wird.                                                                
-                  Mögliche Werte sind: Operation.Insert, Operation.Remove, Operation.Update                                           |
-| Price          | Eine double-Wert, der den jeweiligen Bid/Ask-Kurs                 |
-| Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet     |
-| Volume         | Ein long-Wert, der das Volumen angiebt                             |
-
-### Beispiel
-siehe Beispiel unter [*OnLevel2()*](#onlevel2).
-
-## IsOverlay
-### Beschreibung
-Die Eigenschaft Overlay legt fest, ob die Indikatorausgaben, wie Plots und Linien, im Preischart über die Kursbars gezeichnet werden oder ob ein neues separates Chartfenster unterhalb des Preischarts geöffnet wird.
-
-```cs
-IsOverlay = true
-```
-
-Es wird über den Kurs gezeichnet (wie z.B. ein *SMA*)
-
-```cs
-IsOverlay = false (default)
-```
-
-Es wird ein separates Chartfenster geöffnet (wie z.B. ein *RSI*)
-
-Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
-
-### Verwendung
-IsOverlay
+Im Skriptzustand für short, long, kein Signal
 
 ### Beispiel
 ```cs
-protected override void OnInit()
+protected override void OnCalculate()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
-//Der Indikator soll in einem separaten Fenster dargestellt werden
-IsOverlay = false;
+if ( ProcessingBarIndex %2 == 0 )
+Occurred.Set(1); // Long
+else if ( ProcessingBarIndex %3 == 0 )
+Occurred.Set(-1); // Short
+else
+Occurred.Set(0);
 }
 ```
 
-## IsShowPriceMarkers
+## OnBarsRequirements()
 ### Beschreibung
-Die Eigenschaft PaintPriceMarkers legt fest, ob für die Indikatorausgaben, am rechten Chartrand (in der Preisachse) die sog. PriceMarkers angezeigt werden sollen oder nicht. In manchen Fällen ist es sinnvoll, dies für eine bessere Übersicht im Chart auszuschalten.
-**IsShowPriceMarkers = true (default)**
+Die OnBarsRequirements() Methode wird einmal zu Beginn einer Indikator- bzw. Strategieberechnung aufgerufen. Die Methode ist nur bei Verwendung von MultiBars notwendig.
+Innerhalb von InitRequirements werden keine weiteren Programmierbefehle ausgeführt.
+Für eigene Initialisierungen sind die MethodenOnInit() bzw. OnStart() zu verwenden.
 
-PriceMarkers werden in der Preisachse angezeigt.
+### Parameter
+keiner
 
-**IsShowPriceMarkers = false**
+### Rückgabewert
+keiner
 
-PriceMarkers werden nicht in der Preisachse angezeigt.
+### Beispiel
+```cs
+protected override void OnBarsRequirements()
+{
+Add(DatafeedHistoryPeriodicity.Day, 1);
+Add(DatafeedHistoryPeriodicity.Week, 1);
+}
+```
 
-Die Eigenschaft kann imScript abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
+## OnInit()
+### Beschreibung
+Die OnInit()-Methode wird einmal zu Beginn einer Indikator- bzw. Strategieberechnung aufgerufen. Die Methode kann verwendet werden um Indikatoreigenschaften zu setzen, eigene Variablen zu initialisieren oder Plots hinzuzufügen.
+
+### Parameter
+keiner
+
+### Rückgabewert
+keiner
 
 ### Verwendung
-IsShowPriceMarkers
+```cs
+protected override void OnInit()
+```
+
+### wichtige Schlüsselworte
+-   [*Add()*](#add)
+-   [*AllowRemovalOfChartDrawings*](#allowremovalofchartdrawings)
+-   [*IsAutoScale*](#isautoscale)
+-   [*RequiredBarsCount*](#requiredbarscount)
+-   [*CalculateOnClosedBar*](calculateonclosedbar)
+-   [*ClearOutputWindow()*](#clearoutputwindows)
+-   [*Displacement*](displacement)
+-   [*IsShowInDataBox*](#isshowindatabox)
+-   [*IsAddDrawingsToPricePanel*](#isadddrawingstopricepanel)
+-   [*InputPriceType*](#inputpricetype)
+-   [*IsOverlay*](#isoverlay)
+-   [*IsShowPriceMarkers*](#isshowpricemarkers)
+-   [*SessionBreakLines*](#sessionbreaklines)
+-   [*IsShowChartVerticalGrid*](#isshowchartverticalgrid)
+
+**zusätzlich für Strategien**
+
+-   [*DefaultOrderQuantity*](#defaultorderquantity)
+-   [*EntriesPerDirection*](#entriesperdirection)
+-   [*EntryHandling*](#entryhandling)
+-   [*SetUpStopLoss()*](#setupstoploss)
+-   [*SetUpProfitTarget()*](#setupprofittarget)
+-   [*SetUpTrailStop()*](#setuptrailstop)
+-   [*TimeInForce*](#timeinforce)
+-   [*PrintOrders*](#printorders)
+
+### Weitere Informationen
+**Achtung:**
+Die OnInit()-Methode wird nicht nur am Beginn einer Indikator- bzw. Strategieberechnung aufgerufen, sondern auch unerwartet z.B. wenn ein Chart neu geladen wird oder der Eigenschaftsdialog von Indikatoren geöffnet wird usw.
+Entwickler von eigenen AgenaScripts sollten diese Methode NICHT verwenden, um eigene Routinen laufen zu lassen, Forms zu öffnen, Lizenzchecks auszuführen u. dgl. mehr. Hierzu ist die Methode  OnStart() zu verwenden.
 
 ### Beispiel
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
-//IsShowPriceMarkers sollen nicht angezeigt werden
+Add(new OnPaint(Color.Blue, "myPlot"));
+ClearOutputWindow();
+IsAutoScale = false;
+IsOverlay = true;
 IsShowPriceMarkers = false;
-}
-```
-
-## PlaySound()
-### Beschreibung
-Die Methode PlaySound() dient dazu, ein Wav-File abzuspielen.
-
-### Verwendung
-**PlaySound**(wavFile)
-
-### Rückgabewert
-keiner
-
-### Parameter
-wavFile Dateiname der Wav-Datei zum Abspielen
-
-### Beispiel
-```cs
-using System.IO;
-string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-string file = "\\\\AgenaTrader\\\\Sounds\\\\Alert1.wav";
-PlaySound(path + file);
-```
-
-## Parameter()
-### Beschreibung
-Attribut, das für die Anpassung der Indikatoren verwendet wird
-
-### Rückgabewert
-keiner
-
-### Parameter
-keiner
-
-### Beispiele
-```cs
-[Description("Period for the medium mean average")]
-[Category("Parameters")]
-[DisplayName("MA Medium")]
-public int MA_Medium
-{
-get { return _ma_medium; }
-set
-{
-_ma_medium = value;
-}
+IsShowInDataBox = false;
+CalculateOnClosedBar = true;
 }
 ```
 
@@ -2288,6 +2253,52 @@ protected override void OnInit()
 {
 Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
 }
+```
+
+## Parameter()
+### Beschreibung
+Attribut, das für die Anpassung der Indikatoren verwendet wird
+
+### Rückgabewert
+keiner
+
+### Parameter
+keiner
+
+### Beispiele
+```cs
+[Description("Period for the medium mean average")]
+[Category("Parameters")]
+[DisplayName("MA Medium")]
+public int MA_Medium
+{
+get { return _ma_medium; }
+set
+{
+_ma_medium = value;
+}
+}
+```
+
+## PlaySound()
+### Beschreibung
+Die Methode PlaySound() dient dazu, ein Wav-File abzuspielen.
+
+### Verwendung
+**PlaySound**(wavFile)
+
+### Rückgabewert
+keiner
+
+### Parameter
+wavFile Dateiname der Wav-Datei zum Abspielen
+
+### Beispiel
+```cs
+using System.IO;
+string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+string file = "\\\\AgenaTrader\\\\Sounds\\\\Alert1.wav";
+PlaySound(path + file);
 ```
 
 ## PlotMethod
@@ -2442,6 +2453,33 @@ Print(string.Format("{0:dddd}", Time[0]));
 Print("One empty row afterwards \\n");
 ```
 
+## ProcessingBarIndex
+### Beschreibung
+ ProcessingBarIndex  ist eine Nummerierung von Bars, die in der Methode OnCalculate()  verwendet wird. Wenn in einem Chart z.B. 500 Bars dargestellt werden und auf diese ein Indikator berechnet werden soll, so beginnt AgenaTrader mit der Berechnung (also dem Aufruf von OnCalculate() bei dem ältesten Bar. Dieser bekommt die Nummer 0. Ist die Berechnung für diesen Bar abgeschlossen, wird OnCalculate() für den nächsten Bar aufgerufen. Dieser bekommt dann die Nummer 1 usw. bis zum letzten Bar, der die Nummer 499 bekommt.
+
+### Parameter
+keiner
+
+### Rückgabewert
+ProcessingBarIndex ist eine Variable vom Typ int, die immer die Nummer des sich gerade in Bearbeitung befindenden Bars enthält.
+
+### Verwendung
+ProcessingBarIndex
+
+### Weitere Informationen
+Die in der Methode  OnCalculate() verwendete Nummerierung mit ProcessingBarIndex unterscheidet sich vom [*Barindex*](#barindex) und [*Bars*](#bars). Das Verständnis dieses Unterschiedes ist sehr wichtig! Bitte das folgende genau lesen!
+
+ProcessingBarIndex nummeriert fortlaufend vom ältesten zum jüngsten Bar beginnend bei 0. Der Barindex ist für den jüngsten Bar immer 0. Im Beispiel unten steht Time\[0\] für den Zeitstempel des aktuellen Bars. Der Index des ältesten Bars wird mit jedem neu hinzukommenden Damit wird eine logische Zählung für barsAgo möglich. Der Zeitstempel für den Bar von vor 5 Perioden ist damit Time\[5\].
+Bei Verwendung mehrerer Zeiteinheiten (multi-bars)in einem Indikator siehe ProcessingBarIndexes.
+
+### Beispiel
+```cs
+protected override void OnCalculate()
+{
+Print("Call of OnCalculate for bar nr. " + ProcessingBarIndex + " of " + Time[0]);
+}
+```
+
 ## RemoveChartDrawing()
 ### Beschreibung
 Die Methode RemoveChartDrawing() entfernt ein bestimmtes Zeichenobjekt vom Chart anhand einer eindeutigen Kennzeichnung (tag).
@@ -2478,29 +2516,26 @@ keiner
 RemoveChartDrawings();
 ```
 
-## IsSerieRising()
+## RequiredBarsCount
 ### Beschreibung
-Mit der Methode IsSerieRising() kann geprüft werden, ob eine "ist steigend"-Bedingung vorliegt, d.h. ob der aktuelle Wert größer ist als der Wert des vorhergehenden Bars.
+Die Eigenschaft BarsRequired gibt an, wieviele historische Bars mindestens benötigt werden, damit ein Indikator bzw. eine Strategie erstmal die Methode OnCalculate() aufrufen und mit den Berechnungen beginnen kann. BarsRequired sollte in der OnInit() Methode angegeben werden.
+Die Einstellung sollte sorgfältig gewählt werden. Z.B. braucht man zur Berechnung eines gleitenden Durchschnittes über 100 Tage auch mindestens 100 Tage historische Daten, damit das Ergebnis korrekt ist.
 
-Siehe auch [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSerieRising()*](#isserierising), [*IsSerieFalling()*](#isseriefalling).
+Die Eigenschaft kann im Script abgefragt werden und liefert einen int-Wert.
+
+Wenn OnBarUpdate erstmals aufgerufen wird, ist  ProcessingBarIndex property = 0, unabhängig vom Wert von RequiredBarsCount.
 
 ### Verwendung
+RequiredBarsCount
+
+### Beispiel
 ```cs
-IsSerieRising(IDataSeries series)
-```
-
-### Rückgabewert
-**true** wenn die Datenreihe steigt 
-**false** wenn die Datenreihe nicht steigt
-
-### Parameter
-series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä
-
-### Beispiele
-```cs
-// Prüfen, ob der SMA(20) steigt
-if (IsSerieRising(SMA(20)))
-Print("The SMA(20) is currently rising.");
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Red, "MyPlot1"));
+//Der Indikator benötigt mindestens 50 Bars Historie
+RequiredBarsCount = 50;
+}
 ```
 
 ## SessionBreakLines
@@ -2527,6 +2562,42 @@ Add(new OnPaint(Color.Red, "MyPlot1"));
 //SessionBreakLines sollen nicht im Chart angezeigt werden
 SessionBreakLines = false;
 }
+```
+
+## ShowAlert()
+### Beschreibung
+Mit der Methode  ShowAlert wird ein akustischer und/oder visueller Alarm erzeugt.
+
+### Verwendung
+```cs
+ShowAlert(string message, bool showMessageBox, string soundLocation);
+//Aus Kompatibilitätsgründen ist noch eine veraltete Signatur enthalten. Bei Nutzung dieses Aufrufvariante werden die Farbangaben und "rearmSeconds" ignoriert.
+ShowAlert(string id, AlertPriority priority, string message, string soundLocation, int rearmSeconds, Color backColor, Color forColor);
+```
+
+### Rückgabewert
+keiner
+
+### Parameter
+|                |                                                                                                                       |
+|----------------|-----------------------------------------------------------------------------------------------------------------------|
+| message        | Nachrichtentext, der im Messages-Tab angezeigt wird.                                                                          |
+| soundLocation  | Name eines Sound-Files im *.wav Format. Ist kein Pfad angegeben, wird "Eigene Dokumente\AgenaTrader\Sounds" verwendet.|
+| showMessageBox | wenn true, wird zusätzlich zum Sound eine Messagebox auf dem Bildschim angezeigt.                                           |
+
+### Beispiel
+```cs
+// Hinweis ausgeben, wenn der SMA(20) unter SMA(50) kreuzt
+if (CrossBelow(SMA(20), SMA(50), 1))
+Alert("Check short signal!", true, "Alert4.wav");
+```
+
+Um Musikdateien in anderen Verzeichnissen wiederzugeben, muss der vollständige Pfad angegeben werden, z.B.:
+
+```cs
+string pathOfSoundfile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\\MyAlertSounds\\";
+string nameOfSoundFile = "MyAlertSoundFile.wav";
+Alert("Message text", true, pathOfSoundfile + nameOfSoundFile);
 ```
 
 ## TickSize
@@ -2568,56 +2639,6 @@ siehe auch  [*Instrument.TickSize*](#instrumentticksize).
 siehe [*Bars.TimeFrame*](barstimeframe).
 
 Bei Verwendung mehrerer Zeiteinheiten ([*Multibars*](#multibars)) in einem Indikator siehe [*TimeFrames*](#timeframes).
-
-## GetDayAsInt()
-### Beschreibung
-GetDayAsIntist eine Methode, die sich speziell an unerfahrene Programmierer richtet, die mit der durchaus komplizierten .Net-DateTime-Struktur aus C# Schwierigkeiten haben.
-Erfahrene Programmierer können die DateTime-Funktionen auch direkt verwenden.
-
-GetDayAsInt liefert eine int-Repräsentation im Format yyyyMMdd.
-(yyyy = Jahr,  MM = Monat, dd = Tag)
-
-Die Zahl für den 13.08.2012 lautet damit 20120813.
-
-Siehe auch [*GetTimeAsInt*](#gettimeasint).
-
-Hilfe zu DateTime: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
-
-### Verwendung
-GetDayAsInt(DateTime time)
-
-### Beispiele
-```cs
-// Am 11. September besser keine Trades eingehen
-if (GetDayAsInt(Time[0]) = 20130911)
-return;
-```
-
-## GetTimeAsInt()
-### Beschreibung
-GetTimeAsInt ist eine Methode, die sich speziell an unerfahrene Programmierer richtet, die mit der durchaus komplizierten .Net-DateTime-Struktur aus C# Schwierigkeiten haben.
-Erfahrene Programmierer können die DateTime-Funktionen auch direkt verwenden..
-
-GetTimeAsInt liefert eine int-Repräsentation im Format HHmmss.
-(HH = Stunde,  mm = Minute, ss = Sekunde)
-
-Die Uhrzeit 07:30 Uhr wird dargestellt als 73000 und 14:15:12 wird zu 141512.
-
-Siehe auch [*GetDayAsInt*](#getdayasint).
-
-Hilfe zu DateTime: [*http://msdn.microsoft.com/de-de/library/system.datetime.aspx*](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
-
-### Verwendung
-GetTimeAsInt(DateTime time)
-
-### Beispiele
-```cs
-// Nur zwischen 08:15 Uhr und 16:35 Uhr Trades eingehen
-if (GetTimeAsInt(Time[0]) >= 81500 && GetTimeAsInt(Time[0]) <= 163500)
-{
-// irgendeine Handelslogic
-}
-```
 
 ## Update()
 ### Beschreibung
@@ -2693,29 +2714,3 @@ Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf 
 ### Beispiel
 Siehe [*Values*](#values).
 
-## IsShowChartVerticalGrid
-### Beschreibung
-Die Eigenschaft IsShowChartVerticalGrid legt fest, ob in regelmäßigen Abständen vertikale Linien im Chart (das sog. vertikale Grid) angezeigt werden sollen.
-
-**IsShowChartVerticalGrid = true (default)**
-
-Vertikale Gitternetzlinien werden im Chart angezeigt.
-
-**IsShowChartVerticalGrid = false**
-
-Vertikale Gitternetzlinien werden nicht im Chart angezeigt.
-
-Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
-
-### Verwendung
-IsShowChartVerticalGrid
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Red, "MyPlot1"));
-// Vertikale Gitternetzlinien sollen nicht im Chart angezeigt werden
-IsShowChartVerticalGrid = false;
-}
-```

@@ -1,5 +1,5 @@
 
-#Ereignisse
+# Ereignisse
 AgenaTrader ist nach der Definition der Softwaretechnik eine ereignisorientierte Applikation.
 
 Die Programmierung in AgenaTrader mit Methoden des Application Programming Interface (*API*) beruht initial auf dem *Überschreiben* von vordefinierten Routinen zur Ereignisbehandlung.

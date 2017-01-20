@@ -61,6 +61,32 @@ Print("Name " + Account.Name);
 Print("OverNightMargin " + Account.OverNightMargin);
 Print("RealizedProfitLoss " + Account.RealizedProfitLoss);
 ```
+## BarsCountFromTradeClose()
+### Beschreibung
+Die Eigenschaft  "BarsCountFromTradeClose" liefert die Anzahl der Bars, die seit dem letzten Ausstieg (Exit) aus dem Markt vergangen sind.
+
+### Verwendung
+```cs
+BarsCountFromTradeClose()
+BarsCountFromTradeClose(string strategyName)
+```
+
+Für Multibar-Strategieen
+```cs
+BarsCountFromTradeClose(int multibarSeriesIndex, string strategyName, int exitsAgo)
+```
+
+### Parameter
+|                     |                                                                                                                           |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------|
+| strategyName          | Der Signalname (string), der in einer Ausstiegsmethode zur eindeutigen Kennzeichnung des Ausstiegs vergeben wurde    |
+| multibarSeriesIndex | Für *[Multibar*](#multibar)[*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt wurde. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| exitsAgo            | Anzahl der in der Vergangenheit liegenden Ausstiege. Eine 0 (Null) an dieser Stelle liefert die Anzahl der Bars, die sich nach dem letzten Ausstieg ausgebildet haben. |
+
+### Beispiel
+```cs
+Print("Der letzte Ausstieg liegt " + BarsCountFromTradeClose() + " Bars zurück.");
+```
 
 ## BarsCountFromTradeOpen()
 ### Beschreibung
@@ -90,32 +116,6 @@ BarsCountFromTradeOpen(int multibarSeriesIndex, string strategyName, int entries
 Print("Der letzte Einstieg liegt " + BarsCountFromTradeOpen() + " Bars zurück.");
 ```
 
-## BarsCountFromTradeClose()
-### Beschreibung
-Die Eigenschaft  "BarsCountFromTradeClose" liefert die Anzahl der Bars, die seit dem letzten Ausstieg (Exit) aus dem Markt vergangen sind.
-
-### Verwendung
-```cs
-BarsCountFromTradeClose()
-BarsCountFromTradeClose(string strategyName)
-```
-
-Für Multibar-Strategieen
-```cs
-BarsCountFromTradeClose(int multibarSeriesIndex, string strategyName, int exitsAgo)
-```
-
-### Parameter
-|                     |                                                                                                                           |
-|---------------------|---------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | Der Signalname (string), der in einer Ausstiegsmethode zur eindeutigen Kennzeichnung des Ausstiegs vergeben wurde    |
-| multibarSeriesIndex | Für *[Multibar*](#multibar)[*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt wurde. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| exitsAgo            | Anzahl der in der Vergangenheit liegenden Ausstiege. Eine 0 (Null) an dieser Stelle liefert die Anzahl der Bars, die sich nach dem letzten Ausstieg ausgebildet haben. |
-
-### Beispiel
-```cs
-Print("Der letzte Ausstieg liegt " + BarsCountFromTradeClose() + " Bars zurück.");
-```
 ## CancelAllOrders()
 ### Beschreibung
 CancelAllOrders  löscht alle Oders (cancel), die von der Strategie verwaltet werden.
@@ -137,6 +137,7 @@ protected override void OnCalculate()
        CancelAllOrders();
 }
 ```
+
 ## CancelOrder()
 ### Beschreibung
 Cancel order löscht eine Oder (cancel).
@@ -170,35 +171,6 @@ protected override void OnCalculate()
 }
 ```
 
-## ReplaceOrder()
-### Beschreibung
-ChangeOrder ändert eine Order.
-
-### Verwendung
-```cs
-ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
-```
-
-### Parameter
-|            |                                          |
-|------------|------------------------------------------|
-| iOrder     | ein Order -Objekt vom Typ IOrder         |
-| quantity   | zu ordernde Stückzahl                    |
-| limitPrice | Limitpreis. Wenn nicht benötigt, auf 0 setzen|
-| stopPrice  | Stoppreis. Wenn nicht benötigt, auf 0 setzen  |
-
-### Beispiel
-```cs
-private IOrder stopOrder = null;
-protected override void OnCalculate()
-{
- // Wenn die Position 10 Ticks im Gewinn liegt, Stopp auf Einstand anheben
-if (stopOrder != null
-    && Close[0] >= Position.AvgPrice + (10 * TickSize)
-        && stopOrder.StopPrice < Position.AvgPrice)
-ReplaceOrder(stopOrder, stopOrder.Quantity, stopOrder.LimitPrice, Position.AvgPrice);
-}
-```
 ## CreateIfDoneGroup()
 ### Beschreibung
 Wenn zwei Orders über eine CreateIfDoneGroup miteinander verknüpft werden, so bedeutet dies, dass wenn die eine Order ausgeführt wurde, die zweite verbundene Order aktiviert wird.
@@ -304,6 +276,8 @@ protected override void OnCalculate()
 ```
 
 
+
+
 ## DataSeriesConfigurable
 ## DefaultOrderQuantity
 ### Beschreibung
@@ -324,6 +298,74 @@ protected override void OnInit()
 DefaultOrderQuantity = 100;
 }
 ```
+
+## EntriesPerDirection
+### Beschreibung
+Die Eigenschaft EntriesPerDirection legt die maximal erlaubte Anzahl von Einstiegen in eine Richtung (long bzw. short) fest.
+
+Ob dabei der Name des Einstiegssignals berücksichtigt werden soll oder nicht wird von  [*EntryHandling*](#entryhandling) festgelegt.
+
+EntriesPerDirection wird in der [*OnInit()*](#oninit) -Methode angegeben.
+
+### Verwendung
+**EntriesPerDirection**
+
+### Parameter
+ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung
+
+### Beispiel
+```cs
+// Beispiel 1 
+// Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
+// wird das jeweils andere Einstiegssignal ignoriert
+protected override void OnInit()
+{
+EntriesPerDirection = 1;
+EntryHandling = EntryHandling.AllEntries;
+}
+
+protected override void OnCalculate()
+{
+    if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
+        OpenLong("SMA cross entry");
+}
+
+// Beispiel 2 
+// Es wird für jedes unterschiedlich benannte Einstiegssignal eine Long-Position eröffnet
+
+
+protected override void OnCalculate()
+{
+    if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
+        OpenLong("EMACrossesSMA");
+    else if (CrossAbove (MACD(2,2,5), 0, 1))
+        OpenLong("MACDCross");
+}
+```
+
+## EntryHandling
+### Beschreibung
+EntryHandling legt fest, auf welche Weise die maximal erlaubte Anzahl von Einstiegen in eine Richtung ([*EntriesPerDirection*](#entriesperdirection)) interpretiert wird.
+
+EntryHandling wird in der  [*OnInit()*](#oninit) Methode angegeben.
+
+**EntryHandling.AllEntries**
+
+AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit [*EntriesPerDirection*](#entriesperdirection)) je Richtung (long bzw. short) erreicht ist, unabhängig von der jeweiligen Benennung des Einstiegssignals.
+
+Ist EntriesPerDirection = 2, dann ist mit EnterLong("SMA Crossover") und EnterLong("Range Breakeout") diese max. Anzahl von Long-Einstiegen erreicht.
+
+**EntryHandling.UniqueEntries**
+
+AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit EntriesPerDirection) je Richtung (long bzw. short) für jedes unterschiedlich benannte Einstiegssignal erreicht ist.
+
+Ist EntriesPerDirection = 2, dann ist es möglich, 2 Signale für EnterLong("SMA Crossover") und 2 Signale für EnterLong("Range Breakeout") zu handeln.
+
+### Verwendung
+**EntryHandling**
+
+### Beispiel
+Siehe unter [*EntriesPerDirection*](#entriesperdirection).
 
 ## OpenLong()
 ### Beschreibung
@@ -649,74 +691,6 @@ private IOrder stopOrder = null;
 if (stopOrder == null)
     stopOrder = OpenShortStopLimit(High[0] + (2*TickSize), High[0], "stop short");
 ```
-
-## EntriesPerDirection
-### Beschreibung
-Die Eigenschaft EntriesPerDirection legt die maximal erlaubte Anzahl von Einstiegen in eine Richtung (long bzw. short) fest.
-
-Ob dabei der Name des Einstiegssignals berücksichtigt werden soll oder nicht wird von  [*EntryHandling*](#entryhandling) festgelegt.
-
-EntriesPerDirection wird in der [*OnInit()*](#oninit) -Methode angegeben.
-
-### Verwendung
-**EntriesPerDirection**
-
-### Parameter
-ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung
-
-### Beispiel
-```cs
-// Beispiel 1 
-// Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
-// wird das jeweils andere Einstiegssignal ignoriert
-protected override void OnInit()
-{
-EntriesPerDirection = 1;
-EntryHandling = EntryHandling.AllEntries;
-}
-
-protected override void OnCalculate()
-{
-    if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-        OpenLong("SMA cross entry");
-}
-
-// Beispiel 2 
-// Es wird für jedes unterschiedlich benannte Einstiegssignal eine Long-Position eröffnet
-
-
-protected override void OnCalculate()
-{
-    if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-        OpenLong("EMACrossesSMA");
-    else if (CrossAbove (MACD(2,2,5), 0, 1))
-        OpenLong("MACDCross");
-}
-```
-
-## EntryHandling
-### Beschreibung
-EntryHandling legt fest, auf welche Weise die maximal erlaubte Anzahl von Einstiegen in eine Richtung ([*EntriesPerDirection*](#entriesperdirection)) interpretiert wird.
-
-EntryHandling wird in der  [*OnInit()*](#oninit) Methode angegeben.
-
-**EntryHandling.AllEntries**
-
-AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit [*EntriesPerDirection*](#entriesperdirection)) je Richtung (long bzw. short) erreicht ist, unabhängig von der jeweiligen Benennung des Einstiegssignals.
-
-Ist EntriesPerDirection = 2, dann ist mit EnterLong("SMA Crossover") und EnterLong("Range Breakeout") diese max. Anzahl von Long-Einstiegen erreicht.
-
-**EntryHandling.UniqueEntries**
-
-AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit EntriesPerDirection) je Richtung (long bzw. short) für jedes unterschiedlich benannte Einstiegssignal erreicht ist.
-
-Ist EntriesPerDirection = 2, dann ist es möglich, 2 Signale für EnterLong("SMA Crossover") und 2 Signale für EnterLong("Range Breakeout") zu handeln.
-
-### Verwendung
-**EntryHandling**
-
-### Beispiel
-Siehe unter [*EntriesPerDirection*](#entriesperdirection).
 
 ## ExcludeTradeHistoryInBacktest
 ## CloseLong()
@@ -1148,12 +1122,6 @@ ein double-Wert für den unrealisierten Gewinn bzw. Verlust
 Print("The current risk for the strategy " + this.Name + " is " + GetProfitLoss(1) + " " + Instrument.Currency);
 Print("This equals "+ string.Format( "{0:F1} R.", GetProfitLoss(3)));
 ```
-## GetScriptedCondition()
-### Beschreibung
-Mit dieser Methode können Benutzer zwischen Skripte zu kommunizieren.
-
-
-
 ## GetProfitLossAmount()
 ### Beschreibung
 GetProfitLossAmount() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position als Währungsbetrag.
@@ -1197,6 +1165,10 @@ ein double-Wert für denie R-Multiple
 ```cs
 Print("the current P&L " + this.Name + " is " + string.Format( "{0:F1} R.", GetProfitLossRisk()));
 ```
+
+## GetScriptedCondition()
+### Beschreibung
+Mit dieser Methode können Benutzer zwischen Skripte zu kommunizieren.
 
 ## IsAutomated
 ### Beschreibung
@@ -1295,10 +1267,6 @@ Mögliche Methoden:
 -   **order.ConfirmOrder()**
     Bestätig die Order. Diese Methode muss ausgeführt werden, wenn IsAutomated auf false gesetzt wird und man die Order dennoch automatisch ausführen möchte. Dies ist z. B. dann der Fall, wenn eine OCO- oder IfDone-Verküpfung hergestellt werden soll.
 
-
-## PositionType
-Siehe [*Position.PositionType*](#positionpositiontype).
-
 ## Performance
 ### Beschreibung
 Performance ist ein Objekt, welches Informationen zu allen Trades enthält, die von einer Strategie generiert wurden.
@@ -1394,9 +1362,78 @@ Print("P/L (in points) " + Position.ProfitPoints);
 Print("Pieces " + Position.Quantity);
 }
 ```
+## PositionType
+Siehe [*Position.PositionType*](#positionpositiontype).
+
+## PrintOrders
+### Beschreibung
+Die Eigenschaft TraceOrders ist sehr nützlich, um Orders, die von Strategien generiert werden, nachzuverfolgen.
+TraceOrders wird in der [*OnInit()*](#oninit) Methode angegeben.
+
+Wenn TraceOrders eingeschaltet ist, werden für jede Order die folgenden Werte im OutputWindow ausgegeben:
+
+-   Instrument
+-   Time frame
+-   Action
+-   Type
+-   Limit price
+-   Stop price
+-   Quantity
+-   Name
+
+Diese Informationen sind z.B. bei der Erstellung von Strategien und für das Debugging sehr nützlich. 
+
+### Verwendung
+PrintOrders
+
+### Parameter
+keine
+
+### Rückgabewert
+**true** Tracing ist aktuell eingeschaltet
+**false** Tracing ist abgeschaltet
+
+### Beispiel
+```cs
+protected override void OnInit()
+{
+ClearOutputWindow();
+PrintOrders = true;
+}
+```
 
 ## Quantity
 siehe unter [*Position.Quantity*](#positionquantity), [*Position.PositionType*](#positionpositiontype).
+
+## ReplaceOrder()
+### Beschreibung
+ChangeOrder ändert eine Order.
+
+### Verwendung
+```cs
+ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
+```
+
+### Parameter
+|            |                                          |
+|------------|------------------------------------------|
+| iOrder     | ein Order -Objekt vom Typ IOrder         |
+| quantity   | zu ordernde Stückzahl                    |
+| limitPrice | Limitpreis. Wenn nicht benötigt, auf 0 setzen|
+| stopPrice  | Stoppreis. Wenn nicht benötigt, auf 0 setzen  |
+
+### Beispiel
+```cs
+private IOrder stopOrder = null;
+protected override void OnCalculate()
+{
+ // Wenn die Position 10 Ticks im Gewinn liegt, Stopp auf Einstand anheben
+if (stopOrder != null
+    && Close[0] >= Position.AvgPrice + (10 * TickSize)
+        && stopOrder.StopPrice < Position.AvgPrice)
+ReplaceOrder(stopOrder, stopOrder.Quantity, stopOrder.LimitPrice, Position.AvgPrice);
+}
+```
 
 ## SetUpProfitTarget()
 ### Beschreibung
@@ -1603,43 +1640,6 @@ TimeInForce.gtd
 protected override void OnInit()
 {
 TimeInForce = TimeInForce.Day;
-}
-```
-
-## PrintOrders
-### Beschreibung
-Die Eigenschaft TraceOrders ist sehr nützlich, um Orders, die von Strategien generiert werden, nachzuverfolgen.
-TraceOrders wird in der [*OnInit()*](#oninit) Methode angegeben.
-
-Wenn TraceOrders eingeschaltet ist, werden für jede Order die folgenden Werte im OutputWindow ausgegeben:
-
--   Instrument
--   Time frame
--   Action
--   Type
--   Limit price
--   Stop price
--   Quantity
--   Name
-
-Diese Informationen sind z.B. bei der Erstellung von Strategien und für das Debugging sehr nützlich. 
-
-### Verwendung
-PrintOrders
-
-### Parameter
-keine
-
-### Rückgabewert
-**true** Tracing ist aktuell eingeschaltet
-**false** Tracing ist abgeschaltet
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-ClearOutputWindow();
-PrintOrders = true;
 }
 ```
 

@@ -1,4 +1,4 @@
-# Hints & Advice
+# Tipps und Tricks
 **Hinweis:**
 Code Änderungen in selbst-erstellten Indikatoren werden automatisch auf Conditions angewandt, welche den Indikator verwenden sofern diese im "body" von z.B. "OnCalculate/OnBarUpdate" durchgeführt wurden. Änderungen von Parametern, Output Serien, etc. benötigen eine manuelle Änderung der Conditions.
 

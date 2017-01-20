@@ -1,4 +1,4 @@
-#Handling bars and instruments
+#Umgang mit Bars und Instrumenten
 
 Unter "Daten" werden hier einerseits Informationen verstanden, die "von außen" in AgenaTrader geladen werden und zum anderen Datenreihen, die aus selbst erstellten AgenaSripts stammen.
 

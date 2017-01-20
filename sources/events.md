@@ -6,47 +6,19 @@ Die Programmierung in AgenaTrader mit Methoden des Application Programming Inter
 
 Folgende Methoden können verwendet, d.h. überschrieben werden:
 
--   [*OnCalculate()*](#oncalculate)
 -   [*OnBrokerConnect()*](#onbrokerconnect)
 -   [*OnBrokerDisconnect()*](#onbrokerdisconnect)
--   [*OnChartPanelMouseMove()*](#onchartpanelmousemove)
+-   [*OnCalculate()*](#oncalculate)
 -   [*OnChartPanelMouseDown()*](#onchartpanelmousedown)
--   [*OnOrderExecution()*](#onorderexecution)
+-   [*OnChartPanelMouseMove()*](#onchartpanelmousemove)
+-   [*OnDispose()*](#ondispose)
 -   [*OnLevel1()*](#onlevel1)
 -   [*OnLevel2()*](#onlevel2)
 -   [*OnOrderChanged()*](#onorderupdate)
+-   [*OnOrderExecution()*](#onorderexecution)
 -   [*OnStart()*](#onstartop)
--   [*OnDispose()*](#ondispose)
 
-## OnCalculate()
-### Beschreibung
-Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  [*CalculateOnClosedBar*](#CalculateOnClosedBar),wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
-OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Teil des Codes selbsterstellter Indikatoren bzw. Strategien enthält.
-Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.
 
-**Achtung:**
-**Diese Nummerierung unterscheidet sich vom BarIndex, siehe [*Bars*](#Bars).**
-
-More information can be found here: [*Events*](#events).
-
-### Parameter
-keiner
-
-### Rückgabewert
-keiner
-
-### Verwendung
-```cs
-protected override void OnCalculate()
-```
-
-### Beispiel
-```cs
-protected override void OnCalculate()
-{
-    Print("Aufruf von OnBarUpdate für Bar Nr. " + ProcessingBarIndex + " von " +Time[0]);
-}
-```
 ## OnBrokerConnect()
 ### Beschreibung
 Die Methode OnBrokerConnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker hergestellt wurde.
@@ -111,61 +83,35 @@ protected override void OnBrokerDisconnect(TradingDatafeedChangedEventArgs e)
 }
 ```
 
-
-## OnChartPanelMouseMove()
+## OnCalculate()
 ### Beschreibung
-In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event  Chart.ChartPanelMouseMove hinzufügt.
+Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  [*CalculateOnClosedBar*](#CalculateOnClosedBar),wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
+OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Teil des Codes selbsterstellter Indikatoren bzw. Strategien enthält.
+Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.
 
-### Achtung!
-Es ist wichtig, den EventHandler innerhalb der OnDispose() Methode wieder aus dem Event zu entfernen, da sonst der EventHandler selbst dann noch ausgeführt wird, wenn der Indikator aus dem Chart entfernt wurde!
+**Achtung:**
+**Diese Nummerierung unterscheidet sich vom BarIndex, siehe [*Bars*](#Bars).**
+
+More information can be found here: [*Events*](#events).
+
+### Parameter
+keiner
+
+### Rückgabewert
+keiner
+
+### Verwendung
+```cs
+protected override void OnCalculate()
+```
 
 ### Beispiel
 ```cs
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
-using AgenaTrader.API;
-using AgenaTrader.Custom;
-using AgenaTrader.Plugins;
-using AgenaTrader.Helper;
-
-
-namespace AgenaTrader.UserCode
+protected override void OnCalculate()
 {
-    public class ChartPanelMouseMove : UserIndicator
-    {
-        protected override void OnInit()
-        {
-            IsOverlay = true;
-        }
-
-        protected override void OnStart()
-        {
-            // Add event listener
-            if (Chart != null)
-                Chart.ChartPanelMouseMove += OnChartPanelMouseMove;
-        }
-
-        protected override void OnDispose()
-        {
-            // Remove event listener
-            if (Chart != null)
-                Chart.ChartPanelMouseMove -= OnChartPanelMouseMove;
-        }
-
-        private void OnChartPanelMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            Print("X = {0}, Y = {1}", Chart.GetDateTimeByX(e.X), Chart.GetPriceByY(e.Y));
-        }
-    }
+    Print("Aufruf von OnBarUpdate für Bar Nr. " + ProcessingBarIndex + " von " +Time[0]);
 }
 ```
-
 ## OnChartPanelMouseDown()
 ### Beschreibung
 In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event ChartControl.ChartPanelMouseDown hinzufügt.
@@ -222,44 +168,94 @@ namespace AgenaTrader.UserCode
 }
 ```
 
-## OnOrderExecution()
+## OnChartPanelMouseMove()
 ### Beschreibung
-Die Methode OnOrderExecution() wird jedesmal dann aufgerufen, wenn eine Order ausgeführt (filled) wurde oder sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.
+In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event  Chart.ChartPanelMouseMove hinzufügt.
 
-OnOrderExecution() wird immer nach [*OnOrderChanged()*](#onorderchanged) aufgerufen.
+### Achtung!
+Es ist wichtig, den EventHandler innerhalb der OnDispose() Methode wieder aus dem Event zu entfernen, da sonst der EventHandler selbst dann noch ausgeführt wird, wenn der Indikator aus dem Chart entfernt wurde!
+
+### Beispiel
+```cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using AgenaTrader.API;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+using AgenaTrader.Helper;
+
+
+namespace AgenaTrader.UserCode
+{
+    public class ChartPanelMouseMove : UserIndicator
+    {
+        protected override void OnInit()
+        {
+            IsOverlay = true;
+        }
+
+        protected override void OnStart()
+        {
+            // Add event listener
+            if (Chart != null)
+                Chart.ChartPanelMouseMove += OnChartPanelMouseMove;
+        }
+
+        protected override void OnDispose()
+        {
+            // Remove event listener
+            if (Chart != null)
+                Chart.ChartPanelMouseMove -= OnChartPanelMouseMove;
+        }
+
+        private void OnChartPanelMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            Print("X = {0}, Y = {1}", Chart.GetDateTimeByX(e.X), Chart.GetPriceByY(e.Y));
+        }
+    }
+}
+```
+
+## OnDispose()
+### Beschreibung
+Die Methode  OnDispose() kann überschrieben werden, um alle im Script verwendeten Ressourcen wieder freizugeben.
+
+Siehe auch [*OnInit()*](#oninit) und [*OnStart()*](#onstart).
 
 Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
 
 ### Parameter
-Ein execution-Objekt vom Type  *IExecution*
+keiner
 
 ### Rückgabewert
 keiner
 
 ### Verwendung
 ```cs
-protected override void OnOrderExecution(IExecution execution)
+protected override void OnDispose()
 ```
+
+### Weitere Informationen
+**Achtung:**
+**Bitte überschreiben Sie nicht die Dispose() Methode, da diese erst sehr viel später aufgerufen werden kann. Ressourcen bleiben zu lange erhalten und können zu unerwartetem und unvorhersehbarem Verhalten der gesamten Anwendung führen.**
 
 ### Beispiel
 ```cs
-private IOrder entry = null;
-protected override void OnCalculate()
+protected override void OnDispose()
 {
-	if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-        	entry = OpenLong("EMACrossesSMA");
-}
-protected override void OnOrderExecution(IExecution execution)
-{
-    // Beispiel 
-    if (entry != null && execution.Order == entry)
+    if (Window != null)
     {
-    	Print(execution.Price.ToString());
-	Print(execution.Order.OrderState.ToString());
+        Window.Dispose();
+        Window = null;
     }
 }
 ```
-
 ## OnLevel1()
 ### Beschreibung
 Die Methode OnLevel1() wird bei jeder Änderung in den Level-I-Daten aufgerufen, d.h. bei einer Änderung des Bid-Preises, Ask-Preises, des Bid-Volumens, des Ask-Volumens und natürlich des Last-Preises nachdem ein realer Umsatz stattfand.
@@ -335,7 +331,6 @@ protected override void OnLevel2(Level2Args e)
     	Print("The current bit is " + e.Price );
 }
 ```
-
 ## OnOrderChanged()
 ### Beschreibung
 Die Methode OnOrderChanged()  wird jedesmal dann aufgerufen, wenn sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.
@@ -379,6 +374,44 @@ protected override void OnOrderChanged(IOrder order)
 }
 ```
 
+## OnOrderExecution()
+### Beschreibung
+Die Methode OnOrderExecution() wird jedesmal dann aufgerufen, wenn eine Order ausgeführt (filled) wurde oder sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.
+
+OnOrderExecution() wird immer nach [*OnOrderChanged()*](#onorderchanged) aufgerufen.
+
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+
+### Parameter
+Ein execution-Objekt vom Type  *IExecution*
+
+### Rückgabewert
+keiner
+
+### Verwendung
+```cs
+protected override void OnOrderExecution(IExecution execution)
+```
+
+### Beispiel
+```cs
+private IOrder entry = null;
+protected override void OnCalculate()
+{
+	if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
+        	entry = OpenLong("EMACrossesSMA");
+}
+protected override void OnOrderExecution(IExecution execution)
+{
+    // Beispiel 
+    if (entry != null && execution.Order == entry)
+    {
+    	Print(execution.Price.ToString());
+	Print(execution.Order.OrderState.ToString());
+    }
+}
+```
+
 ## OnStart()
 ### Beschreibung
 Die Methode OnStart() kann überschrieben werden, um eigene Variablen zu initialisieren, Lizenzchecks auszuführen, UserForms aufzurufen usw.
@@ -412,37 +445,4 @@ protected override void OnStart()
 }
 ```
 
-## OnDispose()
-### Beschreibung
-Die Methode  OnDispose() kann überschrieben werden, um alle im Script verwendeten Ressourcen wieder freizugeben.
 
-Siehe auch [*OnInit()*](#oninit) und [*OnStart()*](#onstart).
-
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
-
-### Parameter
-keiner
-
-### Rückgabewert
-keiner
-
-### Verwendung
-```cs
-protected override void OnDispose()
-```
-
-### Weitere Informationen
-**Achtung:**
-**Bitte überschreiben Sie nicht die Dispose() Methode, da diese erst sehr viel später aufgerufen werden kann. Ressourcen bleiben zu lange erhalten und können zu unerwartetem und unvorhersehbarem Verhalten der gesamten Anwendung führen.**
-
-### Beispiel
-```cs
-protected override void OnDispose()
-{
-    if (Window != null)
-    {
-        Window.Dispose();
-        Window = null;
-    }
-}
-```

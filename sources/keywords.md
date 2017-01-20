@@ -1551,11 +1551,11 @@ if (GetDayAsInt(Time[0]) = 20130911)
 return;
 ```
 
-## GetSerieHighestValue
+## GetSeriesHighestValue
 ### Beschreibung
-Die Methode GetSerieHighestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem höchsten Bar und gibt an, vor wievielen Bars dieser höchste Bar zu finden ist
+Die Methode GetSeriesHighestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem höchsten Bar und gibt an, vor wievielen Bars dieser höchste Bar zu finden ist
 
-Siehe auch [*GetSerieLowestValue()*](#getserielowestvalue).
+Siehe auch [*GetSeriesLowestValue()*](#getserieslowestvalue).
 
 ### Parameter
 period Anzahl von Bars, innerhalb derer gesucht werden soll
@@ -1569,22 +1569,22 @@ int barsAgo Vor wievielen Bars trat das Hoch auf
 
 ### Verwendung
 ```cs
-GetSerieHighestValue(IDataSeries series, int period)
+GetSeriesHighestValue(IDataSeries series, int period)
 ```
 
 ### Beispiele
 ```cs
 // Vor wievielen Bars lag das höchste Hoch der aktuellen Session?
-Print(GetSerieHighestValue(High, Bars.BarsCountForSession - 1));
+Print(GetSeriesHighestValue(High, Bars.BarsCountForSession - 1));
 // Welchen Kurs hatte das bisher höchste Open der aktuellen Session?
-Print("The highest price for the session was: " + Open[GetSerieHighestValue(High, Bars.BarsCountForSession - 1)]);
+Print("The highest price for the session was: " + Open[GetSeriesHighestValue(High, Bars.BarsCountForSession - 1)]);
 ```
 
-## GetSerieLowestValue
+## GetSeriesLowestValue
 ### Beschreibung
-Die Methode  GetSerieLowestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem tiefsten Bar und gibt an, vor wievielen Bars dieser tiefste Bar zu finden ist.
+Die Methode  GetSeriesLowestValue() sucht in einer vorgegebenen Anzahl von Perioden nach dem tiefsten Bar und gibt an, vor wievielen Bars dieser tiefste Bar zu finden ist.
 
-Siehe auch [*GetSerieHighestValue()*](#getseriehighestvalue).
+Siehe auch [*GetSeriesHighestValue()*](#getserieshighestvalue).
 
 ### Parameter
 period Anzahl von Bars, innerhalb derer gesucht werden soll
@@ -1602,9 +1602,9 @@ GetSerieLowestValue(IDataSeries series, int period)
 ### Beispiele
 ```cs
 // Vor wievielen Bars lag das tiefste Tief der aktuellen Session?
-Print(GetSerieLowestValue(Low, Bars.BarsCountForSession - 1));
+Print(GetSeriesLowestValue(Low, Bars.BarsCountForSession - 1));
 // Welchen Kurs hatte das bisher tiefste Open der aktuellen Session?
-Print("The lowest open price of the current session was: " + Open[GetSerieLowestValue(Low, Bars.BarsCountForSession - 1)]);
+Print("The lowest open price of the current session was: " + Open[GetSeriesLowestValue(Low, Bars.BarsCountForSession - 1)]);
 ```
 
 ## GetTimeAsInt()

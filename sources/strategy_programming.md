@@ -315,7 +315,7 @@ ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung
 
 ### Beispiel
 ```cs
-// Beispiel 1 
+// Beispiel 1
 // Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
 // wird das jeweils andere Einstiegssignal ignoriert
 protected override void OnInit()
@@ -330,7 +330,7 @@ protected override void OnCalculate()
         OpenLong("SMA cross entry");
 }
 
-// Beispiel 2 
+// Beispiel 2
 // Es wird für jedes unterschiedlich benannte Einstiegssignal eine Long-Position eröffnet
 
 
@@ -1072,7 +1072,7 @@ GetAccountValue(AccountItem accountItem)
 ```
 
 ### Parameter
-Mögliche Werte für accountItem sind 
+Mögliche Werte für accountItem sind
 
 AccountItem.BuyingPower
 
@@ -1104,9 +1104,9 @@ GetProfitLoss(int pLType);
 
 ### Verwendung
 
-Mögliche Werte für pLType sind 
+Mögliche Werte für pLType sind
 
-0 - Amount, P/L als Währungsbetrag 
+0 - Amount, P/L als Währungsbetrag
 
 1 - Percent, P/L in Prozent
 
@@ -1115,7 +1115,7 @@ Mögliche Werte für pLType sind
 3 – P/L in Ticks
 
 ### Rückgabewert
-ein double-Wert für den unrealisierten Gewinn bzw. Verlust 
+ein double-Wert für den unrealisierten Gewinn bzw. Verlust
 
 ### Beispiel
 ```cs
@@ -1137,7 +1137,7 @@ GetProfitLossAmount(double profitLoss);
 Ein Objekt vom Typ double
 
 ### Rückgabewert
-ein double-Wert für den unrealisierten Gewinn bzw. Verlust 
+ein double-Wert für den unrealisierten Gewinn bzw. Verlust
 
 ### Beispiel
 ```cs
@@ -1159,7 +1159,7 @@ GetProfitLossRisk();
 keine
 
 ### Rückgabewert
-ein double-Wert für denie R-Multiple 
+ein double-Wert für denie R-Multiple
 
 ### Beispiel
 ```cs
@@ -1214,7 +1214,7 @@ Die einzelnen Eigenschaften sind:
 
 -   **Name**
     Der eindeutige SignalName  
-    
+
 -   **OrderId**
     Die eindeutige OrderId
 
@@ -1256,7 +1256,7 @@ Die einzelnen Eigenschaften sind:
 
 -   **TimeFrame**
     Der TimeFrame, der für die Order gültig ist.
-    
+
 -   **TimeFrame**
 
 Mögliche Methoden:
@@ -1381,7 +1381,7 @@ Wenn TraceOrders eingeschaltet ist, werden für jede Order die folgenden Werte i
 -   Quantity
 -   Name
 
-Diese Informationen sind z.B. bei der Erstellung von Strategien und für das Debugging sehr nützlich. 
+Diese Informationen sind z.B. bei der Erstellung von Strategien und für das Debugging sehr nützlich.
 
 ### Verwendung
 PrintOrders
@@ -1552,7 +1552,7 @@ SetUpTrailStop(string fromEntry signal, CalculationMode mode, double value, bool
 |           |      |
 |------------------|---------------------------------------------------|
 | currency         | Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.  |
-| mode             | Mögliche Werte sind: 
+| mode             | Mögliche Werte sind:
 -   CalculationMode.Percent
 -   CalculationMode.Ticks   |
 | simulated        | Wenn "simulated" auf "true" gesetzt ist, wird die Trail-Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte). |
@@ -1761,62 +1761,80 @@ Siehe hierzu  [*Performance*](#performance).
 
 Die einzelnen Kennzahlen sind:
 
--   **AvgEtd**
-    der durchschnittliche DrawDown am Ende eines Trades (avg end trade drawdown)
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgEtd
-    ```cs
-    Print("Average ETD of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgEtd);
-    ```
--   **AvgMae**
-    der durchschnittliche max. Kursrückgang nach den Einstiegen (avg maximum adverse excursion)
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMae
-    ```cs
-    Print("Average MAE of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgMae);
-    ```
--   **AvgMfe**
-    der durchschnittliche max Kursanstieg im Verlauf der Trades (avg maximum favorable excursion)
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMfe
-    ```cs
-    Print("Average MFE of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgMfe);
-    ```
--   **AvgProfit**
-    der durchschnittliche Gewinn über alle Trades (avg profit)
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgProfit
-    ```cs
-    Print("Average profit of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgProfit);
-    ```
--   **CumProfit**
-    der Gesamtgewinn über alle Trades
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.CumProfit
-    ```cs
-    Print("Average cumulative profit of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.CumProfit);
-    ```
--   **DrawDown**
-    der DrawDown über alle Trades
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.DrawDow
-    ```cs
-    Print("Drawdown of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.DrawDown);
-    ```
--   **LargestLoser**
-    der größte Verlust
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestLoser
-    ```cs
-    Print("Largest loss of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.LargestLoser);
-    ```
--   **LargestWinner**
-    der größte Gewinn
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestWinner
-    ```cs
-    Print("Largest win of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.LargestWinner);
-    ```
--   **ProfitPerMonth**
-    hochgerechneter Gewinn/Verlust im Monat (auch in Prozent)
-    &lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.ProfitPerMonth
-    ```cs
-    Print("Profit per month of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.ProfitPerMonth);
-    ```
--   **StdDev**
-    die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkannt werden. Je besser ein Handelssystem ist, desto kleiner ist die Standardabweichung und desto höher ist die Erwartung von Gewinnen.
+**AvgEtd**
+der durchschnittliche DrawDown am Ende eines Trades (avg end trade drawdown)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgEtd
+
+```cs
+Print("Average ETD of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgEtd);
+```
+
+**AvgMae**
+der durchschnittliche max. Kursrückgang nach den Einstiegen (avg maximum adverse excursion)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMae
+
+```cs
+Print("Average MAE of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgMae);
+```
+
+**AvgMfe**
+der durchschnittliche max Kursanstieg im Verlauf der Trades (avg maximum favorable excursion)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMfe
+
+```cs
+Print("Average MFE of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgMfe);
+```
+
+**AvgProfit**
+der durchschnittliche Gewinn über alle Trades (avg profit)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgProfit
+
+```cs
+Print("Average profit of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.AvgProfit);
+```
+
+**CumProfit**
+der Gesamtgewinn über alle Trades
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.CumProfit
+
+```cs
+Print("Average cumulative profit of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.CumProfit);
+```
+
+**DrawDown**
+der DrawDown über alle Trades
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.DrawDow
+
+```cs
+Print("Drawdown of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.DrawDown);
+```
+
+**LargestLoser**
+der größte Verlust
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestLoser
+
+```cs
+Print("Largest loss of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.LargestLoser);
+```
+
+**LargestWinner**
+der größte Gewinn
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestWinner
+
+```cs
+Print("Largest win of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.LargestWinner);
+```
+
+**ProfitPerMonth**
+hochgerechneter Gewinn/Verlust im Monat (auch in Prozent)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.ProfitPerMonth
+
+```cs
+Print("Profit per month of all trades is: " + Performance.AllTrades.TradesPerformance.Currency.ProfitPerMonth);
+```
+
+**StdDev**
+die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkannt werden. Je besser ein Handelssystem ist, desto kleiner ist die Standardabweichung und desto höher ist die Erwartung von Gewinnen.
 
 **Alle Kennzahlen sind double-Werte.**
 

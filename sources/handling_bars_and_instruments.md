@@ -6,9 +6,13 @@ Detailierte Informatonen finden sich unter dem jeweiligen Stichwort.
 
 [Bars (Candles)](#bars-candles)
 
+[Collections](#collections)
+
 [Data series](#data-series)
 
 [Instruments](#instruments)
+
+[Multibars](#multibars)
 
 ##Bars (Candles)
 ### Funktionsweise
@@ -851,6 +855,249 @@ protected override void OnCalculate()
                 return;
             bool isUpdated;
 }
+```
+
+## Collections
+## ChartDrawings
+### Beschreibung
+ChartDrawings  ist eine Collection, die alle Zeichenobjekte im Chart enthält. In ChartDrawings werden sowohl dem Chart manuell hinzugefügte Zeichenobjekte, als auch von einem Script gezeichnete Objekte aufgenommen.
+
+Der Index für ChartDrawings ist der eindeutige Name der Zeichenobjekte (string tag).
+
+### Verwendung
+ChartDrawings \[string tag\]
+
+### Beispiele
+**Hinweis:**  Um die Interface-Definitionen nutzen zu können, muß in den Using-Anweisungen
+```cs
+using AgenaTrader.Plugins;
+// Anzahl der Zeichenobjekte auf dem Chart und deren Tags ausgeben
+Print("Auf dem Chart befinden sich  " + ChartDrawings.Count + " Zeichenobjekte");
+foreach (IDrawObject draw in ChartDrawings) Print(draw.Tag);
+//Eine schwarze Trendlinie zeichnen ...
+AddChartLine("MyLine", true, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 3);
+/ ... und die Farbe auf Rot ändern
+ITrendLine line = (ITrendLine) ChartDrawings["MyLine"];
+if (line != null) line.Pen.Color = Color.Red;
+// alle vertikalen Linien in Chart auf Linienstärke 3 setzen,
+// und nicht verschiebbar und nicht editierbar machen
+foreach (IDrawObject draw in ChartDrawings)
+if (draw is IVerticalLine)
+{
+IVerticalLine vline = (IVerticalLine) draw;
+vline.IsLocked = true;
+vline.Editable = false;
+vline.Pen.Width = 3;
+}
+```
+
+## InSeries
+### Beschreibung
+InSeries ist ein  [*DatenSerien*](#datenserien) Objekt, in dem die Eingangsdaten für einen Indikator bzw. eine Strategie enthalten sind.
+
+Wird ein Indikator ohne explizite Angabe von Eingangsdaten aufgerufen, wird immer der Schlusskurs (Close) der aktuell im Chart geladenen Kursdaten verwendet.
+
+Bei einem Aufruf von SMA(20) wird der gl. Durchschnitt auf die Schlusskurse der aktuellen Chart-Kursdaten berechnet (dies entspricht SMA(Close, 20).
+
+InSeries\[0\] = Close\[0\].
+
+Bei dem Aufruf von SMA(High, 20) werden die Höchstkurse der geladenen Daten für die Berechnung des gl. Durchschnitts verwendet.
+
+InSeries\[0\] = High\[0\].
+
+So kann jede beliebige Datenreihe als Input für einen Indikator verwendet werden.
+
+**double** d = **RSI**(**SMA**(20), 14, 3)\[0\]; berechnet beispielsweise den 14-Perioden-RSI über die SMA(20) Werte als Eingangsdatenreihe.
+InSeries\[0\] = SMA(20)\[0\].
+
+### Verwendung
+```cs
+InSeries
+InSeries[int barsAgo]
+```
+
+### Beispiele
+```cs
+Print("Die Eingangsdaten für den Indikator sind " + InSeries[0]);
+```
+
+## Lines
+### Beschreibung
+Lines ist eine Collection, die die  [*LevelLine*](#levelline) Objekte eines Indikators enthält.
+
+Wenn einem Indikator mit der [*Add()*](#add) Methode ein Line-Objekt hinzugefügt wird, wird dieses automatisch der Collection Lines hinzugefügt.
+
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines\[0\], der nächste Lines\[1\] usw.
+
+Siehe auch [*Plots*](#plots).
+
+### Verwendung
+```cs
+Lines[int index]
+```
+
+### Beispiele
+```cs
+// Add "using System.Drawing.Drawing2D;" for DashStyle
+protected override void OnInit()
+{
+Add(new LevelLine(Color.Blue, 70, "Upper")); // gespeichert in Lines[0]
+Add(new LevelLine(Color.Blue, 30, "Lower")); // gespeichert in Lines[1]
+}
+protected override void OnCalculate()
+{
+// Wenn RSI über 70, Eigenschaften der Linie ändern
+if (RSI(14 ,3) >= 70)
+{
+Lines[0].Width = 3;
+Lines[0].Color = Color.Red;
+Lines[0].DashStyle = DashStyle.Dot;
+}
+else
+{
+Lines[0].Width = 1;
+Lines[0].Color = Color.Blue;
+Lines[0].DashStyle = DashStyle.Solid;
+}
+}
+```
+
+## PlotColors
+### Beschreibung
+PlotColors ist eine Collection, die die ColorSeries aller Plot-Objekte enthält.
+
+Wenn einem Indikator mit der [*Add()*](#add) Methode ein Plot hinzugefügt wird, wird automatisch auch ein ColorSeries-Objekt erzeugt und der Collection PlotColors hinzugefügt.
+
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in PlotColors. Der erste Aufruf von Add() erzeugt PlotColors\[0\], der nächste PlotColors\[1\] usw.
+
+### Verwendung
+```cs
+PlotColors[int PlotIndex][int barsAgo]
+```
+
+### Weitere Informationen
+Informationen zur Klasse Collection:
+[*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
+
+### Beispiel
+```cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using AgenaTrader.API;
+namespace AgenaTrader.UserCode
+{
+[Description("PlotColor Demo")]
+public class PlotColorsDemo : UserIndicator
+{
+public DataSeries SMA20 { get {return Outputs[0];} }
+public DataSeries SMA50 { get {return Outputs[1];} }
+public DataSeries SMA100 { get {return Outputs[2];} }
+private Pen pen;
+protected override void OnInit()
+{
+// Linienstärke (Width) auf 4 einstellen
+pen = new Pen(Color.Empty, 4);
+ // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
+Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
+Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
+Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
+IsOverlay = true;
+}
+protected override void OnCalculate()
+{
+ // Den drei Plots Werte zuweisen
+SMA20.Set (SMA(20) [0]);
+SMA50.Set (SMA(50) [0]);
+SMA100.Set(SMA(100)[0]);
+// Farben je nach Kursverlauf ändern
+if (IsSerieRising(Close))
+{
+PlotColors[0][0] = Color.LightGreen;
+PlotColors[1][0] = Color.Green;
+PlotColors[2][0] = Color.DarkGreen;
+}
+else if (IsSerieFalling(Close))
+{
+PlotColors[0][0] = Color.LightSalmon;
+PlotColors[1][0] = Color.Red;
+PlotColors[2][0] = Color.DarkRed;
+}
+else
+{
+PlotColors[0][0] = Color.LightGray;
+PlotColors[1][0] = Color.Gray;
+PlotColors[2][0] = Color.DarkGray;
+}
+}
+}
+}
+```
+
+## Plots
+### Beschreibung
+Plots ist eine Collection, die die Plot-Objekte eines Indikators enthält.
+
+Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.
+
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots\[0\], der nächste Plots\[1]\ usw.
+
+Siehe auch [*Lines*](#lines).
+
+### Verwendung
+```cs
+Plots[int index]
+```
+
+### Beispiele
+```cs
+protected override void OnInit()
+{
+Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to Plots[0]
+}
+protected override void OnCalculate()
+{
+Value.Set(SMA(20)[0]);
+// Wenn Kurs über SMA, Plot grün färben, sonst rot
+if (Close[0] > SMA(20)[0])
+	Plots[0].PlotColor = Color.Green;
+else
+	Plots[0].PlotColor = Color.Red;
+}
+```
+
+## Values
+### Beschreibung
+Values ist eine Collection, die die DataSeries-Objekte eines Indikators enthält.
+
+Wenn einem Indikator mit der Add()-Methode ein Plot hinzugefügt wird, wird automatisch auch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
+
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values\[0\], der nächste Values\[1\] usw.
+
+**Value** ist immer identisch mit Values\[0\].
+
+### Verwendung
+```cs
+Outputs[int index]
+Outputs[int index][int barsAgo]
+```
+
+### Weitere Informationen
+Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf Value bzw. Values anwendbar.
+
+Informationen zur Klasse Collection:
+[*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
+
+### Beispiel
+```cs
+// Überpüfung des zweiten Indikatorwertes (d.h. der sekundären DatenSerie)
+// von vor einem Bar
+// und in Abhängigkeit davon Setzen des aktuellen Indikatorwertes
+if (Outputs[1][1] < High[0] - Low[0])
+Value.Set(High[0] - Low[0]);
+else
+Value.Set(High[0] - Close[0]);
 ```
 
 
@@ -1915,111 +2162,6 @@ Beispiele für professionelle  [*Formatting*](#formatting), *Formatting of Numbe
 Print("Der Kurs von " + Instrument.Name + "  kann sich minimal um  " + Instrument.TickSize + " Punkt(e) verändern.");
 ```
 
-## Collections
-## ChartDrawings
-### Beschreibung
-ChartDrawings  ist eine Collection, die alle Zeichenobjekte im Chart enthält. In ChartDrawings werden sowohl dem Chart manuell hinzugefügte Zeichenobjekte, als auch von einem Script gezeichnete Objekte aufgenommen.
-
-Der Index für ChartDrawings ist der eindeutige Name der Zeichenobjekte (string tag).
-
-### Verwendung
-ChartDrawings \[string tag\]
-
-### Beispiele
-**Hinweis:**  Um die Interface-Definitionen nutzen zu können, muß in den Using-Anweisungen
-```cs
-using AgenaTrader.Plugins;
-// Anzahl der Zeichenobjekte auf dem Chart und deren Tags ausgeben
-Print("Auf dem Chart befinden sich  " + ChartDrawings.Count + " Zeichenobjekte");
-foreach (IDrawObject draw in ChartDrawings) Print(draw.Tag);
-//Eine schwarze Trendlinie zeichnen ...
-AddChartLine("MyLine", true, 10, Close[10], 0, Close[0], Color.Black, DashStyle.Solid, 3);
-/ ... und die Farbe auf Rot ändern
-ITrendLine line = (ITrendLine) ChartDrawings["MyLine"];
-if (line != null) line.Pen.Color = Color.Red;
-// alle vertikalen Linien in Chart auf Linienstärke 3 setzen,
-// und nicht verschiebbar und nicht editierbar machen
-foreach (IDrawObject draw in ChartDrawings)
-if (draw is IVerticalLine)
-{
-IVerticalLine vline = (IVerticalLine) draw;
-vline.IsLocked = true;
-vline.Editable = false;
-vline.Pen.Width = 3;
-}
-```
-
-## InSeries
-### Beschreibung
-InSeries ist ein  [*DatenSerien*](#datenserien) Objekt, in dem die Eingangsdaten für einen Indikator bzw. eine Strategie enthalten sind.
-
-Wird ein Indikator ohne explizite Angabe von Eingangsdaten aufgerufen, wird immer der Schlusskurs (Close) der aktuell im Chart geladenen Kursdaten verwendet.
-
-Bei einem Aufruf von SMA(20) wird der gl. Durchschnitt auf die Schlusskurse der aktuellen Chart-Kursdaten berechnet (dies entspricht SMA(Close, 20).
-
-InSeries\[0\] = Close\[0\].
-
-Bei dem Aufruf von SMA(High, 20) werden die Höchstkurse der geladenen Daten für die Berechnung des gl. Durchschnitts verwendet.
-
-InSeries\[0\] = High\[0\].
-
-So kann jede beliebige Datenreihe als Input für einen Indikator verwendet werden.
-
-**double** d = **RSI**(**SMA**(20), 14, 3)\[0\]; berechnet beispielsweise den 14-Perioden-RSI über die SMA(20) Werte als Eingangsdatenreihe.
-InSeries\[0\] = SMA(20)\[0\].
-
-### Verwendung
-```cs
-InSeries
-InSeries[int barsAgo]
-```
-
-### Beispiele
-```cs
-Print("Die Eingangsdaten für den Indikator sind " + InSeries[0]);
-```
-
-## Lines
-### Beschreibung
-Lines ist eine Collection, die die  [*LevelLine*](#levelline) Objekte eines Indikators enthält.
-
-Wenn einem Indikator mit der [*Add()*](#add) Methode ein Line-Objekt hinzugefügt wird, wird dieses automatisch der Collection Lines hinzugefügt.
-
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines\[0\], der nächste Lines\[1\] usw.
-
-Siehe auch [*Plots*](#plots).
-
-### Verwendung
-```cs
-Lines[int index]
-```
-
-### Beispiele
-```cs
-// Add "using System.Drawing.Drawing2D;" for DashStyle
-protected override void OnInit()
-{
-Add(new LevelLine(Color.Blue, 70, "Upper")); // gespeichert in Lines[0]
-Add(new LevelLine(Color.Blue, 30, "Lower")); // gespeichert in Lines[1]
-}
-protected override void OnCalculate()
-{
-// Wenn RSI über 70, Eigenschaften der Linie ändern
-if (RSI(14 ,3) >= 70)
-{
-Lines[0].Width = 3;
-Lines[0].Color = Color.Red;
-Lines[0].DashStyle = DashStyle.Dot;
-}
-else
-{
-Lines[0].Width = 1;
-Lines[0].Color = Color.Blue;
-Lines[0].DashStyle = DashStyle.Solid;
-}
-}
-```
-
 ## Multibars
 ### Beschreibung
 Einem Indikator bzw. eine Strategie liegt immer die gleiche Zeiteinheit zugrunde, wie diejenige, in der der Chart angezeigt wird. Wird z.B. ein SMA(14) in einem 5-Minuten-Chart dargestellt, wird der gleitende Durchschnitt über die 14 letzten 5-Minuten-Bars berechnet. Auf einem Tageschart würden entsprechend die Schlusskurse der letzten 14 Tage zur Berechnung herangezogen werden.
@@ -2094,110 +2236,6 @@ double d = MultiBars.GetBarsItem(TF_Day).Close[0];
 double w = MultiBars.GetBarsItem(TF_Week).Close[0];
 ```
 
-## PlotColors
-### Beschreibung
-PlotColors ist eine Collection, die die ColorSeries aller Plot-Objekte enthält.
-
-Wenn einem Indikator mit der [*Add()*](#add) Methode ein Plot hinzugefügt wird, wird automatisch auch ein ColorSeries-Objekt erzeugt und der Collection PlotColors hinzugefügt.
-
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in PlotColors. Der erste Aufruf von Add() erzeugt PlotColors\[0\], der nächste PlotColors\[1\] usw.
-
-### Verwendung
-```cs
-PlotColors[int PlotIndex][int barsAgo]
-```
-
-### Weitere Informationen
-Informationen zur Klasse Collection:
-[*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
-
-### Beispiel
-```cs
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using AgenaTrader.API;
-namespace AgenaTrader.UserCode
-{
-[Description("PlotColor Demo")]
-public class PlotColorsDemo : UserIndicator
-{
-public DataSeries SMA20 { get {return Outputs[0];} }
-public DataSeries SMA50 { get {return Outputs[1];} }
-public DataSeries SMA100 { get {return Outputs[2];} }
-private Pen pen;
-protected override void OnInit()
-{
-// Linienstärke (Width) auf 4 einstellen
-pen = new Pen(Color.Empty, 4);
- // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
-Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
-Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
-Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
-IsOverlay = true;
-}
-protected override void OnCalculate()
-{
- // Den drei Plots Werte zuweisen
-SMA20.Set (SMA(20) [0]);
-SMA50.Set (SMA(50) [0]);
-SMA100.Set(SMA(100)[0]);
-// Farben je nach Kursverlauf ändern
-if (IsSerieRising(Close))
-{
-PlotColors[0][0] = Color.LightGreen;
-PlotColors[1][0] = Color.Green;
-PlotColors[2][0] = Color.DarkGreen;
-}
-else if (IsSerieFalling(Close))
-{
-PlotColors[0][0] = Color.LightSalmon;
-PlotColors[1][0] = Color.Red;
-PlotColors[2][0] = Color.DarkRed;
-}
-else
-{
-PlotColors[0][0] = Color.LightGray;
-PlotColors[1][0] = Color.Gray;
-PlotColors[2][0] = Color.DarkGray;
-}
-}
-}
-}
-```
-
-## Plots
-### Beschreibung
-Plots ist eine Collection, die die Plot-Objekte eines Indikators enthält.
-
-Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.
-
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots\[0\], der nächste Plots\[1]\ usw.
-
-Siehe auch [*Lines*](#lines).
-
-### Verwendung
-```cs
-Plots[int index]
-```
-
-### Beispiele
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to Plots[0]
-}
-protected override void OnCalculate()
-{
-Value.Set(SMA(20)[0]);
-// Wenn Kurs über SMA, Plot grün färben, sonst rot
-if (Close[0] > SMA(20)[0])
-	Plots[0].PlotColor = Color.Green;
-else
-	Plots[0].PlotColor = Color.Red;
-}
-```
 
 ## ProcessingBarIndexes
 ### Beschreibung
@@ -2265,35 +2303,3 @@ if (ProcessingBarSeriesIndex > 0) return;
 }
 ```
 
-## Values
-### Beschreibung
-Values ist eine Collection, die die DataSeries-Objekte eines Indikators enthält.
-
-Wenn einem Indikator mit der Add()-Methode ein Plot hinzugefügt wird, wird automatisch auch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
-
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values\[0\], der nächste Values\[1\] usw.
-
-**Value** ist immer identisch mit Values\[0\].
-
-### Verwendung
-```cs
-Outputs[int index]
-Outputs[int index][int barsAgo]
-```
-
-### Weitere Informationen
-Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf Value bzw. Values anwendbar.
-
-Informationen zur Klasse Collection:
-[*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
-
-### Beispiel
-```cs
-// Überpüfung des zweiten Indikatorwertes (d.h. der sekundären DatenSerie)
-// von vor einem Bar
-// und in Abhängigkeit davon Setzen des aktuellen Indikatorwertes
-if (Outputs[1][1] < High[0] - Low[0])
-Value.Set(High[0] - Low[0]);
-else
-Value.Set(High[0] - Close[0]);
-```

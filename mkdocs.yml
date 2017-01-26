@@ -11,9 +11,9 @@ strict: true
 google_analytics: ['UA-74646070-1', 'agenatrader.github.io']
 pages:
     - 'Lets start': 'index.md'
-    - 'Handling bars and instruments': 'handling_bars_and_instruments.md'
-    - 'Events': 'events.md'
-    - 'Strategy programming': 'strategy_programming.md'
-    - 'Keywords': 'keywords.md'
-    - 'Drawing objects': 'drawing_objects.md'
-    - 'Hints and advice': 'hints_and_advice.md'
+    - 'Umgang mit Bars und Instrumenten': 'umgang_mit_bars_und_instrumenten.md'
+    - 'Ereignisse': 'ereignisse.md'
+    - 'Strategieprogrammierung': 'strategieprogrammierung.md'
+    - 'Schlüsselworte': 'schluesselworte.md'
+    - 'Zeichenobjekte': 'zeichenobjekte.md'
+    - 'Tipps und Tricks': 'tipps_und_tricks.md'

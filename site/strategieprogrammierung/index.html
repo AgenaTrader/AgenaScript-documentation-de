@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../favicon.ico">
+  
+  <title>Strategieprogrammierung - AgenaScript Dokumentation (Deutsch)</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Strategieprogrammierung";
+    var mkdocs_page_input_path = "strategieprogrammierung.md";
+    var mkdocs_page_url = "/strategieprogrammierung/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74646070-1', 'agenatrader.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> AgenaScript Dokumentation (Deutsch)</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Lets start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../umgang_mit_bars_und_instrumenten/">Umgang mit Bars und Instrumenten</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ereignisse/">Ereignisse</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Strategieprogrammierung</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#strategieprogrammierung">Strategieprogrammierung</a></li>
+                
+                    <li><a class="toctree-l4" href="#account">Account</a></li>
+                
+                    <li><a class="toctree-l4" href="#barscountfromtradeclose">BarsCountFromTradeClose()</a></li>
+                
+                    <li><a class="toctree-l4" href="#barscountfromtradeopen">BarsCountFromTradeOpen()</a></li>
+                
+                    <li><a class="toctree-l4" href="#cancelallorders">CancelAllOrders()</a></li>
+                
+                    <li><a class="toctree-l4" href="#cancelorder">CancelOrder()</a></li>
+                
+                    <li><a class="toctree-l4" href="#createifdonegroup">CreateIfDoneGroup()</a></li>
+                
+                    <li><a class="toctree-l4" href="#createocogroup">CreateOCOGroup()</a></li>
+                
+                    <li><a class="toctree-l4" href="#createorogroup">CreateOROGroup()</a></li>
+                
+                    <li><a class="toctree-l4" href="#dataseriesconfigurable">DataSeriesConfigurable</a></li>
+                
+                    <li><a class="toctree-l4" href="#defaultorderquantity">DefaultOrderQuantity</a></li>
+                
+                    <li><a class="toctree-l4" href="#entriesperdirection">EntriesPerDirection</a></li>
+                
+                    <li><a class="toctree-l4" href="#entryhandling">EntryHandling</a></li>
+                
+                    <li><a class="toctree-l4" href="#openlong">OpenLong()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openlonglimit">OpenLongLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openlongstop">OpenLongStop()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openlongstoplimit">OpenLongStopLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openshort">OpenShort()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openshortlimit">OpenShortLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openshortstop">OpenShortStop()</a></li>
+                
+                    <li><a class="toctree-l4" href="#openshortstoplimit">OpenShortStopLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#excludetradehistoryinbacktest">ExcludeTradeHistoryInBacktest</a></li>
+                
+                    <li><a class="toctree-l4" href="#closelong">CloseLong()</a></li>
+                
+                    <li><a class="toctree-l4" href="#closelonglimit">CloseLongLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#closelongstop">CloseLongStop()</a></li>
+                
+                    <li><a class="toctree-l4" href="#closelongstoplimit">CloseLongStopLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#exitonclose">ExitOnClose</a></li>
+                
+                    <li><a class="toctree-l4" href="#exitoncloseseconds">ExitOnCloseSeconds</a></li>
+                
+                    <li><a class="toctree-l4" href="#closeshort">CloseShort()</a></li>
+                
+                    <li><a class="toctree-l4" href="#closeshortlimit">CloseShortLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#closeshortstop">CloseShortStop()</a></li>
+                
+                    <li><a class="toctree-l4" href="#closeshortstoplimit">CloseShortStopLimit()</a></li>
+                
+                    <li><a class="toctree-l4" href="#getaccountvalue">GetAccountValue()</a></li>
+                
+                    <li><a class="toctree-l4" href="#getprofitloss">GetProfitLoss()</a></li>
+                
+                    <li><a class="toctree-l4" href="#getprofitlossamount">GetProfitLossAmount()</a></li>
+                
+                    <li><a class="toctree-l4" href="#getprofitlossrisk">GetProfitLossRisk()</a></li>
+                
+                    <li><a class="toctree-l4" href="#getscriptedcondition">GetScriptedCondition()</a></li>
+                
+                    <li><a class="toctree-l4" href="#isautomated">IsAutomated</a></li>
+                
+                    <li><a class="toctree-l4" href="#order">Order</a></li>
+                
+                    <li><a class="toctree-l4" href="#performance">Performance</a></li>
+                
+                    <li><a class="toctree-l4" href="#position">Position</a></li>
+                
+                    <li><a class="toctree-l4" href="#positiontype">PositionType</a></li>
+                
+                    <li><a class="toctree-l4" href="#printorders">PrintOrders</a></li>
+                
+                    <li><a class="toctree-l4" href="#quantity">Quantity</a></li>
+                
+                    <li><a class="toctree-l4" href="#replaceorder">ReplaceOrder()</a></li>
+                
+                    <li><a class="toctree-l4" href="#setupprofittarget">SetUpProfitTarget()</a></li>
+                
+                    <li><a class="toctree-l4" href="#setupstoploss">SetUpStopLoss()</a></li>
+                
+                    <li><a class="toctree-l4" href="#setuptrailstop">SetUpTrailStop()</a></li>
+                
+                    <li><a class="toctree-l4" href="#submitorder">SubmitOrder()</a></li>
+                
+                    <li><a class="toctree-l4" href="#timeinforce">TimeInForce</a></li>
+                
+                    <li><a class="toctree-l4" href="#trade">Trade</a></li>
+                
+                    <li><a class="toctree-l4" href="#unmanaged">Unmanaged</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#backtesting-and-optimization">Backtesting and Optimization</a></li>
+                
+                    <li><a class="toctree-l4" href="#performance-characteristics">Performance Characteristics</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../schluesselworte/">Schlüsselworte</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zeichenobjekte/">Zeichenobjekte</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../tipps_und_tricks/">Tipps und Tricks</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">AgenaScript Dokumentation (Deutsch)</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Strategieprogrammierung</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de/edit/master/sources/strategieprogrammierung.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="strategieprogrammierung">Strategieprogrammierung</h1>
+<h2 id="account">Account</h2>
+<h3 id="beschreibung">Beschreibung</h3>
+<p>Account ist ein Objekt, welches Informationen zu dem Konto enthält, mit dem die aktuelle Strategie arbeitet.</p>
+<p>Die einzelnen Eigenschaften sind:</p>
+<ul>
+<li>
+<p><strong>Account.AccountConnection</strong>
+    Name der verwendeten Brokerverbindung (der Name, der unter Kontoverbindungen vergeben wurde).</p>
+</li>
+<li>
+<p><strong>Account.AccountType</strong>
+    Art des Kontos (Livokonto, Simkonto usw.)</p>
+</li>
+<li>
+<p><strong>Account.Broker</strong>
+    Bezeichnung des Brokers</p>
+</li>
+<li>
+<p><strong>Account.BuyingPower</strong>
+    Der Kontostand unter Berücksichtigung des vom Broker gewährten Hebels.(IB hebelt das Kontoguthaben z.B. aktuell mit 4. Ein Guthaben von 10.000 Euro hat so eine "Kaufkraft" von 40.000 Euro.</p>
+</li>
+<li>
+<p><strong>Account.CashValue</strong>
+    Betrag (double)</p>
+</li>
+<li>
+<p><strong>Account.Currency</strong>
+    Währung, in der das Konto geführt wird</p>
+</li>
+<li>
+<p><strong>Account.ExcessEquity</strong>
+    Überschuss</p>
+</li>
+<li>
+<p><strong>Account.InitialMargin</strong>
+    Initial Margin (abh. vom jeweiligen Broker, double)</p>
+</li>
+<li>
+<p><strong>Account.InstrumentType</strong>
+    Art des Handelsinstrumentes (Typ AgenaTrader.Plugins.InstrumentTypes)</p>
+</li>
+<li>
+<p><strong>Account.IsDemo</strong>
+    true, wenn es sich um ein Demokonto handelt</p>
+</li>
+<li>
+<p><strong>Account.Name</strong>
+    Name des Kontos (i.d.R. mit Account. AccountConnection identisch)</p>
+</li>
+<li>
+<p><strong>Account.OverNightMargin</strong>
+    Übernacht-Margin (abh. vom jeweiligen Broker, double)</p>
+</li>
+<li>
+<p><strong>Account.RealizedProfitLoss</strong>
+    realisierter Gewinn bzw. Verlust (double)</p>
+</li>
+</ul>
+<h3 id="beispiel">Beispiel</h3>
+<pre><code class="cs">Print(&quot;AccountConnection &quot; + Account.AccountConnection);
+Print(&quot;AccountType &quot; + Account.AccountType);
+Print(&quot;Broker &quot; + Account.Broker);
+Print(&quot;BuyingPower &quot; + Account.BuyingPower);
+Print(&quot;CashValue &quot; + Account.CashValue);
+Print(&quot;Currency &quot; + Account.Currency);
+Print(&quot;ExcessEquity &quot; + Account.ExcessEquity);
+Print(&quot;InitialMargin &quot; + Account.InitialMargin);
+Print(&quot;InstrumentTypes &quot; + Account.InstrumentTypes);
+Print(&quot;IsDemo &quot; + Account.IsDemo);
+Print(&quot;Name &quot; + Account.Name);
+Print(&quot;OverNightMargin &quot; + Account.OverNightMargin);
+Print(&quot;RealizedProfitLoss &quot; + Account.RealizedProfitLoss);
+</code></pre>
+
+<h2 id="barscountfromtradeclose">BarsCountFromTradeClose()</h2>
+<h3 id="beschreibung_1">Beschreibung</h3>
+<p>Die Eigenschaft  "BarsCountFromTradeClose" liefert die Anzahl der Bars, die seit dem letzten Ausstieg (Exit) aus dem Markt vergangen sind.</p>
+<h3 id="verwendung">Verwendung</h3>
+<pre><code class="cs">BarsCountFromTradeClose()
+BarsCountFromTradeClose(string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">BarsCountFromTradeClose(int multibarSeriesIndex, string strategyName, int exitsAgo)
+</code></pre>
+
+<h3 id="parameter">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>Der Signalname (string), der in einer Ausstiegsmethode zur eindeutigen Kennzeichnung des Ausstiegs vergeben wurde</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für *<a href="#multibar">Multibar*</a><a href="#multibars"><em>MultiBars</em></a> Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt wurde. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>exitsAgo</td>
+<td>Anzahl der in der Vergangenheit liegenden Ausstiege. Eine 0 (Null) an dieser Stelle liefert die Anzahl der Bars, die sich nach dem letzten Ausstieg ausgebildet haben.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beispiel_1">Beispiel</h3>
+<pre><code class="cs">Print(&quot;Der letzte Ausstieg liegt &quot; + BarsCountFromTradeClose() + &quot; Bars zurück.&quot;);
+</code></pre>
+
+<h2 id="barscountfromtradeopen">BarsCountFromTradeOpen()</h2>
+<h3 id="beschreibung_2">Beschreibung</h3>
+<p>Die Eigenschaft "BarsCountFromTradeOpen"  liefert die Anzahl der Bars, die seit dem letzten Einstieg (Entry) in den Markt vergangen sind.</p>
+<h3 id="verwendung_1">Verwendung</h3>
+<pre><code class="cs">BarsCountFromTradeOpen()
+BarsCountFromTradeOpen(string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">BarsCountFromTradeOpen(int multibarSeriesIndex, string strategyName, int entriesAgo)
+</code></pre>
+
+<h3 id="parameter_1">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>Der Signalname (string), der in einer Einstiegsmethode zur eindeutigen Kennzeichnung des Einstiegs vergeben wurde.</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für *<a href="#multibar">Multibar*</a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.Index der Datenreihe, für die die Einstiegsorder ausgeführt wurde. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>, <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>entriesAgo</td>
+<td>Anzahl der in der Vergangenheit liegenden Einstiege. Eine 0 (Null) an dieser Stelle liefert die Anzahl der Bars, die sich nach dem letzten Einstieg ausgebildet haben.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beispiel_2">Beispiel</h3>
+<pre><code class="cs">Print(&quot;Der letzte Einstieg liegt &quot; + BarsCountFromTradeOpen() + &quot; Bars zurück.&quot;);
+</code></pre>
+
+<h2 id="cancelallorders">CancelAllOrders()</h2>
+<h3 id="beschreibung_3">Beschreibung</h3>
+<p>CancelAllOrders  löscht alle Oders (cancel), die von der Strategie verwaltet werden.
+Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit <a href="#onorderupdate"><em>OnOrderChanged()</em></a> zu kontrollieren.</p>
+<h3 id="verwendung_2">Verwendung</h3>
+<pre><code class="cs">CancelAllOrders()
+</code></pre>
+
+<h3 id="parameter_2">Parameter</h3>
+<p>kein Parameter</p>
+<h3 id="beispiel_3">Beispiel</h3>
+<pre><code class="cs">protected override void OnCalculate()
+{
+   if (BarsCountFromTradeOpen() &gt;= 30)
+       CancelAllOrders();
+}
+</code></pre>
+
+<h2 id="cancelorder">CancelOrder()</h2>
+<h3 id="beschreibung_4">Beschreibung</h3>
+<p>Cancel order löscht eine Oder (cancel).</p>
+<p>Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit <a href="#onorderupdate"><em>OnOrderChanged()</em></a> zu kontrollieren.</p>
+<h3 id="verwendung_3">Verwendung</h3>
+<pre><code class="cs">CancelOrder(IOrder order)
+</code></pre>
+
+<h3 id="parameter_3">Parameter</h3>
+<p>Ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_4">Beispiel</h3>
+<pre><code class="cs">private IOrder entryOrder = null;
+private int barNumber = 0;
+protected override void OnCalculate()
+{
+   // An das Hoch des aktuellen Bars einen Einstiegsstop legen
+    if (entryOrder == null)
+    {
+        entryOrder = OpenLongStop(High[0], &quot;stop long&quot;);
+        barNumber = ProcessingBarIndex;
+    }
+    // Nach 3 Bars die Order löschen
+    if (Position.PositionType == PositionType.Flat &amp;&amp;
+    ProcessingBarIndex &gt; barNumber + 3)
+        CancelOrder(entryOrder);
+}
+</code></pre>
+
+<h2 id="createifdonegroup">CreateIfDoneGroup()</h2>
+<h3 id="beschreibung_5">Beschreibung</h3>
+<p>Wenn zwei Orders über eine CreateIfDoneGroup miteinander verknüpft werden, so bedeutet dies, dass wenn die eine Order ausgeführt wurde, die zweite verbundene Order aktiviert wird.</p>
+<h3 id="verwendung_4">Verwendung</h3>
+<pre><code class="cs">CreateIfDoneGroup(IEnumerable&lt;IOrder&gt; orders)
+</code></pre>
+
+<h3 id="parameter_4">Parameter</h3>
+<p>Ein order-Objekt vom Typ IOrder als List</p>
+<h3 id="beispiel_5">Beispiel</h3>
+<pre><code class="cs">private IOrder oopenlong = null;
+private IOrder oenterlong = null;
+
+
+protected override void OnInit()
+{
+   IsAutomated = false;
+}
+
+
+protected override void OnCalculate()
+{
+   oopenlong = SubmitOrder(0, OrderAction.Buy, OrderType.Market, DefaultOrderQuantity, 0, 0, &quot;ocoId&quot;,&quot;strategyName&quot;);
+   oenterlong = SubmitOrder(0, OrderAction.Sell, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, &quot;ocoId&quot;,&quot;strategyName&quot;);
+
+   CreateIfDoneGroup(new List&lt;IOrder&gt; { oopenlong, oenterlong });
+
+   oopenlong.ConfirmOrder();
+}
+</code></pre>
+
+<h2 id="createocogroup">CreateOCOGroup()</h2>
+<h3 id="beschreibung_6">Beschreibung</h3>
+<p>Wenn zwei Orders über eine CreateOCOGroup miteinander verknüpft werden, so bedeutet dies, dass sobald die eine Order ausgeführt wurde, die zweite verbundene Order gelöscht wird.</p>
+<h3 id="verwendung_5">Verwendung</h3>
+<pre><code class="cs">CreateOCOGroup(IEnumerable&lt;IOrder&gt; orders)
+</code></pre>
+
+<h3 id="parameter_5">Parameter</h3>
+<p>Ein order-Objekt vom Typ IOrder als List</p>
+<h3 id="beispiel_6">Beispiel</h3>
+<pre><code class="cs">private IOrder oopenlong = null;
+private IOrder oEnterShort = null;
+
+
+protected override void OnInit()
+{
+   IsAutomated = false;
+}
+
+
+protected override void OnCalculate()
+{
+   oopenlong = SubmitOrder(0, OrderAction.Buy, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, &quot;ocoId&quot;,&quot;strategyName&quot;);
+   oEnterShort = SubmitOrder(0, OrderAction.SellShort, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * -1.1,&quot;ocoId&quot;, &quot;strategyName&quot;);
+
+   CreateOCOGroup(new List&lt;IOrder&gt; { oopenlong, oEnterShort });
+
+   oopenlong.ConfirmOrder();
+   oEnterShort.ConfirmOrder();
+}
+</code></pre>
+
+<h2 id="createorogroup">CreateOROGroup()</h2>
+<h3 id="beschreibung_7">Beschreibung</h3>
+<p>Wenn zwei Orders über eine CreateOROGroup miteinander verknüpft werden, so bedeutet dies, dass sobald die eine Order ausgeführt wurde, die Ordergröße der zweiten Order um das Ordervolumen der ersten Order reduziert wird.</p>
+<h3 id="verwendung_6">Verwendung</h3>
+<pre><code class="cs">CreateOROGroup(IEnumerable&lt;IOrder&gt; orders)
+</code></pre>
+
+<h3 id="parameter_6">Parameter</h3>
+<p>Ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_7">Beispiel</h3>
+<pre><code class="cs">private IOrder oStopLong = null;
+private IOrder oLimitLong = null;
+
+
+protected override void OnInit()
+{
+   IsAutomated = false;
+}
+
+
+protected override void OnCalculate()
+{
+   oStopLong = SubmitOrder(0, OrderAction.BuyToCover, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * -1.1,&quot;ocoId&quot;, &quot;strategyName&quot;);
+   oLimitLong = SubmitOrder(0, OrderAction.BuyToCover, OrderType.Limit, (int)(DefaultOrderQuantity * 0.5), Close[0] * 1.1, 0, &quot;ocoId&quot;, &quot;strategyName&quot;);
+
+   CreateOROGroup(new List&lt;IOrder&gt; { oLimitLong, oStopLong });
+}
+</code></pre>
+
+<h2 id="dataseriesconfigurable">DataSeriesConfigurable</h2>
+<h2 id="defaultorderquantity">DefaultOrderQuantity</h2>
+<h3 id="beschreibung_8">Beschreibung</h3>
+<p>DefaultQuantity legt die in einer Strategie zu verwendende Stückzahl fest. DefaultQuantity wird in der <a href="#oninit"><em>OnInit()</em></a>-Methode angegeben.</p>
+<h3 id="verwendung_7">Verwendung</h3>
+<pre><code class="cs">ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
+</code></pre>
+
+<h3 id="parameter_7">Parameter</h3>
+<p>ein int-Wert, der die Stückzahn (Aktien, Kontrakte usw.) enthält</p>
+<h3 id="beispiel_8">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+DefaultOrderQuantity = 100;
+}
+</code></pre>
+
+<h2 id="entriesperdirection">EntriesPerDirection</h2>
+<h3 id="beschreibung_9">Beschreibung</h3>
+<p>Die Eigenschaft EntriesPerDirection legt die maximal erlaubte Anzahl von Einstiegen in eine Richtung (long bzw. short) fest.</p>
+<p>Ob dabei der Name des Einstiegssignals berücksichtigt werden soll oder nicht wird von  <a href="#entryhandling"><em>EntryHandling</em></a> festgelegt.</p>
+<p>EntriesPerDirection wird in der <a href="#oninit"><em>OnInit()</em></a> -Methode angegeben.</p>
+<h3 id="verwendung_8">Verwendung</h3>
+<p><strong>EntriesPerDirection</strong></p>
+<h3 id="parameter_8">Parameter</h3>
+<p>ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung</p>
+<h3 id="beispiel_9">Beispiel</h3>
+<pre><code class="cs">// Beispiel 1
+// Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
+// wird das jeweils andere Einstiegssignal ignoriert
+protected override void OnInit()
+{
+EntriesPerDirection = 1;
+EntryHandling = EntryHandling.AllEntries;
+}
+
+protected override void OnCalculate()
+{
+    if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+        OpenLong(&quot;SMA cross entry&quot;);
+}
+
+// Beispiel 2
+// Es wird für jedes unterschiedlich benannte Einstiegssignal eine Long-Position eröffnet
+
+
+protected override void OnCalculate()
+{
+    if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+        OpenLong(&quot;EMACrossesSMA&quot;);
+    else if (CrossAbove (MACD(2,2,5), 0, 1))
+        OpenLong(&quot;MACDCross&quot;);
+}
+</code></pre>
+
+<h2 id="entryhandling">EntryHandling</h2>
+<h3 id="beschreibung_10">Beschreibung</h3>
+<p>EntryHandling legt fest, auf welche Weise die maximal erlaubte Anzahl von Einstiegen in eine Richtung (<a href="#entriesperdirection"><em>EntriesPerDirection</em></a>) interpretiert wird.</p>
+<p>EntryHandling wird in der  <a href="#oninit"><em>OnInit()</em></a> Methode angegeben.</p>
+<p><strong>EntryHandling.AllEntries</strong></p>
+<p>AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit <a href="#entriesperdirection"><em>EntriesPerDirection</em></a>) je Richtung (long bzw. short) erreicht ist, unabhängig von der jeweiligen Benennung des Einstiegssignals.</p>
+<p>Ist EntriesPerDirection = 2, dann ist mit EnterLong("SMA Crossover") und EnterLong("Range Breakeout") diese max. Anzahl von Long-Einstiegen erreicht.</p>
+<p><strong>EntryHandling.UniqueEntries</strong></p>
+<p>AgenaTrader wird solange Einstiegsorders generieren, bis die maximale Anzahl von Einstiegen (festgelegt mit EntriesPerDirection) je Richtung (long bzw. short) für jedes unterschiedlich benannte Einstiegssignal erreicht ist.</p>
+<p>Ist EntriesPerDirection = 2, dann ist es möglich, 2 Signale für EnterLong("SMA Crossover") und 2 Signale für EnterLong("Range Breakeout") zu handeln.</p>
+<h3 id="verwendung_9">Verwendung</h3>
+<p><strong>EntryHandling</strong></p>
+<h3 id="beispiel_10">Beispiel</h3>
+<p>Siehe unter <a href="#entriesperdirection"><em>EntriesPerDirection</em></a>.</p>
+<h2 id="openlong">OpenLong()</h2>
+<h3 id="beschreibung_11">Beschreibung</h3>
+<p>Open long  erzeugt eine Marketorder um eine Long Position einzugehen (zu kaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#openlonglimit"><em>OpenLongLimit()</em></a>, <a href="#openlongstop"><em>OpenLongStop()</em></a>, <a href="#openlongstoplimit"><em>OpenLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_10">Verwendung</h3>
+<pre><code class="cs">OpenLong()
+OpenLong(string strategyName)
+OpenLong(int quantity)
+OpenLong(int quantity, string strategyName)
+
+//Für Multibar-Strategieen
+OpenLong(int multibarSeriesIndex, int quantity, string strategyName)
+</code></pre>
+
+<h3 id="parameter_9">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.  Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_11">Beispiel</h3>
+<pre><code class="cs">
+// Eine Longposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
+if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+    OpenLong(&quot;SMACrossesEMA&quot;);
+
+</code></pre>
+
+<h2 id="openlonglimit">OpenLongLimit()</h2>
+<h3 id="beschreibung_12">Beschreibung</h3>
+<p>OpenLongLimit() erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a>  bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#openlong"><em>OpenLong()</em></a>, <a href="#openlongstop"><em>OpenLongStop()</em></a>, <a href="#openlongstoplimit"><em>OpenLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_11">Verwendung</h3>
+<pre><code class="cs">OpenLongLimit(double limitPrice)
+OpenLongLimit(double limitPrice, string strategyName)
+OpenLongLimit(int quantity, double limitPrice)
+OpenLongLimit(int quantity, double limitPrice, string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">OpenLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName)
+</code></pre>
+
+<h3 id="parameter_10">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a> und <a href="#multibars"><em>MultiBars</em></a> Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit <a href="#cancelorder"><em>CancelOrder</em></a> gelöscht wird, bzw. bis ihre Ablaufzeit (siehe <a href="#timeinforce"><em>TimeInForce</em></a>) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_1">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_12">Beispiel</h3>
+<pre><code class="cs">// Eine Longposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
+if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+    OpenLongLimit(&quot;SMACrossesEMA&quot;);
+</code></pre>
+
+<h2 id="openlongstop">OpenLongStop()</h2>
+<h3 id="beschreibung_13">Beschreibung</h3>
+<p>Open long stop erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen)</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a>  bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#openlong"><em>OpenLong()</em></a>, <a href="#openlonglimit"><em>OpenLongLimit()</em></a>, <a href="#openlongstoplimit"><em>OpenLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_12">Verwendung</h3>
+<pre><code class="cs">OpenLongStop(double stopPrice)
+OpenLongStop(double stopPrice, string strategyName)
+OpenLongStop(int quantity, double stopPrice)
+OpenLongStop(int quantity, double stopPrice, string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">OpenLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName)
+</code></pre>
+
+<h3 id="parameter_11">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>  Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit <a href="#cancelorder"><em>CancelOrder</em></a> gelöscht wird, bzw. bis ihre Ablaufzeit (siehe <a href="#timeinforce"><em>TimeInForce</em></a>) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_2">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_13">Beispiel</h3>
+<pre><code class="cs">private IOrder stopOrder = null;
+// An das Hoch des aktuellen Bars einen Einstiegsstop legen
+if (stopOrder == null)
+    stopOrder = OpenLongStop(Low[0], &quot;Stop Long&quot;);
+</code></pre>
+
+<h2 id="openlongstoplimit">OpenLongStopLimit()</h2>
+<h3 id="beschreibung_14">Beschreibung</h3>
+<p>Open long stop limit erzeugt eine Buy-Stop-Limitorder um eine Long Position einzugehen (zu kaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a>  bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch  <a href="#openlong"><em>OpenLong()</em></a>, <a href="#openlonglimit"><em>OpenLongLimit()</em></a>, <a href="#openlongstop"><em>OpenLongStop()</em></a>.</p>
+<h3 id="verwendung_13">Verwendung</h3>
+<pre><code class="cs">OpenLongStopLimit(double limitPrice, double stopPrice)
+OpenLongStopLimit(double limitPrice, double stopPrice, string strategyName)
+OpenLongStopLimit(int quantity, double limitPrice, double stopPrice)
+OpenLongStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">OpenLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName)
+</code></pre>
+
+<h3 id="parameter_12">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit <a href="#cancelorder"><em>CancelOrder</em></a> gelöscht wird, bzw. bis ihre Ablaufzeit (siehe <a href="#timeinforce"><em>TimeInForce</em></a>) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_3">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_14">Beispiel</h3>
+<pre><code class="cs">private IOrder stopOrder = null;
+// Place an entry stop at the high of the current bar
+// if the high  is reached, at 5 ticks above the high.
+if (stopOrder == null)
+    stopOrder = OpenLongStopLimit(High[0]+ (5*TickSize), High[0], &quot;Stop Long Limit&quot;);
+</code></pre>
+
+<h2 id="openshort">OpenShort()</h2>
+<h3 id="beschreibung_15">Beschreibung</h3>
+<p>open short erzeugt eine Marketorder um eine Short Position einzugehen (leerzuverkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#openshortlimit"><em>OpenShortLimit()</em></a>, <a href="#openshortstop"><em>OpenShortStop()</em></a>, <a href="#openshortstoplimit"><em>OpenShortStopLimit()</em></a>..</p>
+<h3 id="verwendung_14">Verwendung</h3>
+<pre><code class="cs">OpenShort()
+OpenShort(string strategyName)
+OpenShort(int quantity)
+OpenShort(int quantity, string strategyName)
+
+Für Multibar-Strategieen
+OpenShort(int multibarSeriesIndex, int quantity, string strategyName)
+</code></pre>
+
+<h3 id="parameter_13">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a> Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_4">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_15">Beispiel</h3>
+<pre><code class="cs">// Eine Shortposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
+if (CrossBelow(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+    OpenShort(&quot;'EMACrossesSMA&quot;);
+</code></pre>
+
+<h2 id="openshortlimit">OpenShortLimit()</h2>
+<h3 id="beschreibung_16">Beschreibung</h3>
+<p>open short limit erzeugt eine Limitorder um eine Short Position einzugehen (leerzuverkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a>bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#openshort"><em>OpenShort()</em></a>, <a href="#openshortstop"><em>OpenShortStop()</em></a>, <a href="#openshortstoplimit"><em>OpenShortStopLimit()</em></a>..</p>
+<h3 id="verwendung_15">Verwendung</h3>
+<pre><code class="cs">OpenShortLimit(double limitPrice)
+OpenShortLimit(double limitPrice, string strategyName)
+OpenShortLimit(int quantity, double limitPrice)
+OpenShortLimit(int quantity, double limitPrice, string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">OpenShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName)
+</code></pre>
+
+<h3 id="parameter_14">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a> Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe <a href="#timeinforce"><em>TimeInForce</em></a>) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_5">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_16">Beispiel</h3>
+<pre><code class="cs">// Eine Shortposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
+// und sich zwei SMA's kreuzen
+if (BarsCountFromTradeOpen() &gt; 10 &amp;&amp; CrossBelow(SMA(10), SMA(20), 1))
+OpenShortLimit(&quot;SMA cross entry&quot;);
+</code></pre>
+
+<h2 id="openshortstop">OpenShortStop()</h2>
+<h3 id="beschreibung_17">Beschreibung</h3>
+<p>Open short stop erzeugt eine Limitorder um eine Short Position einzugehen (leerzuverkaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.
+Siehe auch <a href="#openshort"><em>OpenShort()</em></a>, <a href="#openshortlimit"><em>OpenShortLimit()</em></a>, <a href="#openshortstoplimit"><em>OpenShortStopLimit()</em></a>..</p>
+<h3 id="verwendung_16">Verwendung</h3>
+<pre><code class="cs">OpenShortStop(double stopPrice)
+OpenShortStop(double stopPrice, string strategyName)
+OpenShortStop(int quantity, double stopPrice)
+OpenShortStop(int quantity, double stopPrice, string strategyName)
+</code></pre>
+
+<p>For multi-bar strategies</p>
+<pre><code class="cs">OpenShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName)
+</code></pre>
+
+<h3 id="fur-multibar-strategieen">Für Multibar-Strategieen</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe <a href="#timeinforce"><em>TimeInForce</em></a>) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_6">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_17">Beispiel</h3>
+<pre><code class="cs">private IOrder stopOrder = null;
+// An das Tief des aktuellen Bars einen Einstiegsstop legen
+if (stopOrder == null)
+    stopOrder = OpenShortStop(High[0], &quot;stop short&quot;);
+</code></pre>
+
+<h2 id="openshortstoplimit">OpenShortStopLimit()</h2>
+<h3 id="beschreibung_18">Beschreibung</h3>
+<p>Open short stop limit  erzeugt eine Sell-Stop-Limitorder um eine Short Position einzugehen (leerzuverkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a>bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#openshort"><em>OpenShort()</em></a>, <a href="#openshortlimit"><em>OpenShortLimit()</em></a>, <a href="#openshortstop"><em>OpenShortStop()</em></a>.</p>
+<h3 id="verwendung_17">Verwendung</h3>
+<pre><code class="cs">OpenShortStopLimit(double limitPrice, double stopPrice)
+OpenShortStopLimit(double limitPrice, double stopPrice, string strategyName)
+OpenShortStopLimit(int quantity, double limitPrice, double stopPrice)
+OpenShortStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">OpenShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName)
+</code></pre>
+
+<h3 id="parameter_15">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll</td>
+<td></td>
+</tr>
+<tr>
+<td>Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe <a href="#timeinforce"><em>TimeInForce</em></a>) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_7">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_18">Beispiel</h3>
+<pre><code class="cs">private IOrder stopOrder = null;
+// Place an entry stop at the low of the current bar; if the low is reached then place a limit order 2 ticks below the low
+if (stopOrder == null)
+    stopOrder = OpenShortStopLimit(High[0] + (2*TickSize), High[0], &quot;stop short&quot;);
+</code></pre>
+
+<h2 id="excludetradehistoryinbacktest">ExcludeTradeHistoryInBacktest</h2>
+<h2 id="closelong">CloseLong()</h2>
+<h3 id="beschreibung_19">Beschreibung</h3>
+<p>CloseLong() erzeugt eine Sell-Marketorder um eine Long Position zu schließen (zu verkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a>bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#closelong"><em>CloseLong()</em></a>, <a href="#closelonglimit"><em>CloseLongLimit()</em></a>, <a href="#closelongstop"><em>CloseLongStop()</em></a>, <a href="#closelongstoplimit"><em>CloseLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_18">Verwendung</h3>
+<pre><code class="cs">CloseLong()
+CloseLong(int quantity)
+CloseLong(string fromEntry signal)
+CloseLong(string strategyName, string fromEntry signal)
+CloseLong(int quantity, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseLong(int multibarSeriesIndex, int quantity, string strategyName, string fromEntry signal)
+</code></pre>
+
+<h3 id="parameter_16">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu verkaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll.</td>
+<td></td>
+</tr>
+<tr>
+<td>Siehe  <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_8">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_19">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenLong(&quot;EMACrossesSMA&quot;);
+
+// Position schließen
+if (CrossBelow(EMA(14), SMA(50), 2))
+    CloseLong();
+</code></pre>
+
+<h2 id="closelonglimit">CloseLongLimit()</h2>
+<h3 id="beschreibung_20">Beschreibung</h3>
+<p>Close long limit  erzeugt eine Sell-Limitorder um eine Long Position zu schließen (zu verkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.
+Siehe auch <a href="#closelong"><em>CloseLong()</em></a>, <a href="#closelonglimit"><em>CloseLongLimit()</em></a>, <a href="#closelongstop"><em>CloseLongStop()</em></a>, <a href="#closelongstoplimit"><em>CloseLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_19">Verwendung</h3>
+<pre><code class="cs">CloseLongLimit(double limitPrice)
+CloseLongLimit(int quantity, double limitPrice)
+CloseLongLimit(double limitPrice, string fromEntry signal)
+CloseLongLimit(double limitPrice, string strategyName, string fromEntry signal)
+CloseLongLimit(int quantity, double limitPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<h3 id="parameter_17">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu verkaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_9">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_20">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenLong(&quot;EMACrossesSMA&quot;);
+
+// Position schließen
+if (CrossBelow(EMA(14), SMA(50), 2))
+    CloseLongLimit(Low[0]);
+</code></pre>
+
+<h2 id="closelongstop">CloseLongStop()</h2>
+<h3 id="beschreibung_21">Beschreibung</h3>
+<p>Close long stop creates  erzeugt eine Sell-Stoporder um eine Long Position zu schließen (zu verkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.
+Siehe auch <a href="#closelong"><em>CloseLong()</em></a>, <a href="#closelonglimit"><em>CloseLongLimit()</em></a>, <a href="#closelongstop"><em>CloseLongStop()</em></a>, <a href="#closelongstoplimit"><em>CloseLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_20">Verwendung</h3>
+<pre><code class="cs">CloseLongStop(int quantity, double stopPrice)
+CloseLongStop(double stopPrice, string fromEntry signal)
+CloseLongStop(double stopPrice, string strategyName, string fromEntry signal)
+CloseLongStop(int quantity, double stopPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName, string fromEntry signal)CloseLongStop
+</code></pre>
+
+<h3 id="parameter_18">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu verkaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_10">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_21">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenLong(&quot;EMACrossesSMA&quot;);
+
+// Position schließen
+if (CrossBelow(EMA(14), SMA(50), 2))
+    CloseLongStop(Low[0]);
+</code></pre>
+
+<h2 id="closelongstoplimit">CloseLongStopLimit()</h2>
+<h3 id="beschreibung_22">Beschreibung</h3>
+<p>Close long stop limit erzeugt eine Sell-Stop-Limitorder um eine Long Position zu schließen (zu verkaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#closelong"><em>CloseLong()</em></a>, <a href="#closelonglimit"><em>CloseLongLimit()</em></a>, <a href="#closelongstop"><em>CloseLongStop()</em></a>, <a href="#closelongstoplimit"><em>CloseLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_21">Verwendung</h3>
+<pre><code class="cs">CloseLongStopLimit(double limitPrice, double stopPrice)
+CloseLongStopLimit(int quantity, double limitPrice, double stopPrice)
+CloseLongStopLimit(double limitPrice, double stopPrice, string fromEntry signal)
+CloseLongStopLimit(double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
+CloseLongStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<h3 id="parameter_19">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu verkaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> .</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_11">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_22">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenLong(&quot;EMACrossesSMA&quot;);
+
+// Position schließen
+if (CrossBelow(EMA(14), SMA(50), 2))
+    CloseLongStopLimit(Low[0] - (15 * TickSize), Low[0]);
+</code></pre>
+
+<h2 id="exitonclose">ExitOnClose</h2>
+<h2 id="exitoncloseseconds">ExitOnCloseSeconds</h2>
+<h2 id="closeshort">CloseShort()</h2>
+<h3 id="beschreibung_23">Beschreibung</h3>
+<p>Close short erzeugt eine Buy-to-Cover Marketorder um eine Short Position zu schließen (zu kaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch  <a href="#closeshort"><em>CloseShort()</em></a>, <a href="#closeshortlimit"><em>CloseShortLimit()</em></a>, <a href="#closeshortstop"><em>CloseShortStop()</em></a>, <a href="#closeshortstoplimit"><em>CloseShortStopLimit()</em></a>.</p>
+<h3 id="verwendung_22">Verwendung</h3>
+<pre><code class="cs">CloseShort()
+CloseShort(int quantity)
+CloseShort(string fromEntry signal)
+CloseShort(string strategyName, string fromEntry signal)
+CloseShort(int quantity, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseShort(int multibarSeriesIndex, int quantity, string strategyName, string fromEntry signal)
+</code></pre>
+
+<h3 id="parameter_20">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>zu kaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_12">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_23">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossBelow(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenShort(&quot;EMACrossesSMA&quot;);
+
+// Position schließen
+if (CrossAbove(EMA(15), SMA(50), 2))
+    CloseShort();
+</code></pre>
+
+<h2 id="closeshortlimit">CloseShortLimit()</h2>
+<h3 id="beschreibung_24">Beschreibung</h3>
+<p>Close short limit erzeugt eine Buy-to-Cover Limitorder um eine Short Position zu schließen (zu kaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#closeshort"><em>CloseShort()</em></a>, <a href="#closeshortlimit"><em>CloseShortLimit()</em></a>, <a href="#closeshortstop"><em>CloseShortStop()</em></a>, <a href="#closeshortstoplimit"><em>CloseShortStopLimit()</em></a>.</p>
+<h3 id="verwendung_23">Verwendung</h3>
+<pre><code class="cs">CloseShortLimit(double limitPrice)
+CloseShortLimit(int quantity, double limitPrice)
+CloseShortLimit(double limitPrice, string fromEntry signal)
+CloseShortLimit(double limitPrice, string strategyName, string fromEntry signal)
+CloseShortLimit(int quantity, double limitPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<h3 id="parameter_21">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu kaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preise</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_13">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_24">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossBelow(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenShort(&quot;EMACrossesSMA&quot;);
+// Position schließen
+if (CrossAbove(EMA(15), SMA(50), 2))
+    CloseShortLimit(High[0] + (Ticksize * 2));
+</code></pre>
+
+<h2 id="closeshortstop">CloseShortStop()</h2>
+<h3 id="beschreibung_25">Beschreibung</h3>
+<p>Close short stop erzeugt eine Buy-to-Cover Stoporder um eine Short Position zu schließen (zu kaufen).</p>
+<p>Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#closeshort"><em>CloseShort()</em></a>, <a href="#closeshortlimit"><em>CloseShortLimit()</em></a>, <a href="#closeshortstop"><em>CloseShortStop()</em></a>, <a href="#closeshortstoplimit"><em>CloseShortStopLimit()</em></a>.</p>
+<h3 id="verwendung_24">Verwendung</h3>
+<pre><code class="cs">CloseShortStop(int quantity, double stopPrice)
+CloseShortStop(double stopPrice, string fromEntry signal)
+CloseShortStop(double stopPrice, string strategyName, string fromEntry signal)
+CloseShortStop(int quantity, double stopPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName, string fromEntry signal)CloseLongStop
+</code></pre>
+
+<h3 id="parameter_22">Parameter</h3>
+<p>|  |                                                                                                                                                              |  |---------------------|---------------------------------------------------------------|
+| strategyName          | ein eindeutiger Name    |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals    |
+| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)   |
+| multibarSeriesIndex | Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.
+Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>. |
+| stopPrice           | ein double-Wert für den Stop Preis    |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit  erreicht ist. |</p>
+<h3 id="ruckgabewert_14">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_25">Beispiel</h3>
+<pre><code class="cs">// Einstieg wenn zwei SMA' sich kreuzen
+if (CrossBelow(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenShort(&quot;EMACrossesSMA&quot;);
+// Position schließen
+if (CrossAbove(EMA(15), SMA(50), 2))
+    CloseShortStop(High[0] + (Ticksize * 2));
+</code></pre>
+
+<h2 id="closeshortstoplimit">CloseShortStopLimit()</h2>
+<h3 id="beschreibung_26">Beschreibung</h3>
+<p>Close short stop  erzeugt eine Buy-to-Cover Stop-Limitorder um eine Short Position zu schließen (zu kaufen).
+Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von <a href="#defaultorderquantity"><em>DefaultOrderQuantity</em></a> bzw. aus dem Strategie-Dialog herangezogen.</p>
+<p>Siehe auch <a href="#closelong"><em>CloseLong()</em></a>, <a href="#closelonglimit"><em>CloseLongLimit()</em></a>, <a href="#closelongstop"><em>CloseLongStop()</em></a>, <a href="#closelongstoplimit"><em>CloseLongStopLimit()</em></a>.</p>
+<h3 id="verwendung_25">Verwendung</h3>
+<pre><code class="cs">CloseShortStopLimit(double limitPrice, double stopPrice)
+CloseShortStopLimit(int quantity, double limitPrice, double stopPrice)
+CloseShortStopLimit(double limitPrice, double stopPrice, string fromEntry signal)
+CloseShortStopLimit(double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
+CloseShortStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<p>Für Multibar-Strategieen</p>
+<pre><code class="cs">CloseShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
+</code></pre>
+
+<h3 id="parameter_23">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategyName</td>
+<td>ein eindeutiger Name</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>der Name des zugehörigen Einstiegssignals</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu kaufende Stückzahl (aus der Einstiegsorder)</td>
+</tr>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für <a href="#multibar"><em>Multibar</em></a>, <a href="#multibars"><em>MultiBars</em></a> Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>ein double-Wert für den Limit Preis</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>ein double-Wert für den Stop Preis</td>
+</tr>
+<tr>
+<td>liveUntilCancelled</td>
+<td>Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit erreicht ist.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ruckgabewert_15">Rückgabewert</h3>
+<p>ein order-Objekt vom Typ IOrder</p>
+<h3 id="beispiel_26">Beispiel</h3>
+<pre><code class="cs">// Eingabe, wenn zwei EMA den SMA kreuzt und der ADX steigt
+if (CrossBelow(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+     OpenShort(&quot;EMACrossesSMA&quot;);
+// Position schließen
+if (CrossAbove(EMA(15), SMA(50), 2))
+    CloseShortStopLimit(High[0] + ( TickSize * 2 ), High[0]);
+</code></pre>
+
+<h2 id="getaccountvalue">GetAccountValue()</h2>
+<h3 id="beschreibung_27">Beschreibung</h3>
+<p>GetAccountValue() liefert Informationen über das Konto, für das die Strategie ausgeführt wird.</p>
+<p>Siehe auch  <a href="#getprofitloss"><em>GetProfitLoss()</em></a>.</p>
+<h3 id="verwendung_26">Verwendung</h3>
+<pre><code class="cs">GetAccountValue(AccountItem accountItem)
+</code></pre>
+
+<h3 id="parameter_24">Parameter</h3>
+<p>Mögliche Werte für accountItem sind</p>
+<p>AccountItem.BuyingPower</p>
+<p>AccountItem.CashValue</p>
+<p>AccountItem.RealizedProfitLoss</p>
+<h3 id="ruckgabewert_16">Rückgabewert</h3>
+<p>ein double-Wert für das jeweilige AccountItem, Für historische Bars wird eine 0 (Null) zurückgegeben.</p>
+<h3 id="beispiel_27">Beispiel</h3>
+<pre><code class="cs">Print(&quot;The current account cash value is &quot; + GetAccountValue(AccountItem.CashValue));
+Print(&quot;The current account cash value with the leverage provided by the broker is &quot; + GetAccountValue(AccountItem.BuyingPower));
+Print(&quot;The current P/L already realized is &quot; + GetAccountValue(AccountItem.RealizedProfitLoss));
+</code></pre>
+
+<h2 id="getprofitloss">GetProfitLoss()</h2>
+<h3 id="beschreibung_28">Beschreibung</h3>
+<p>GetProfitLoss() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position.</p>
+<p>Siehe auch <a href="#getaccountvalue"><em>GetAccountValue()</em></a>.</p>
+<h3 id="usage">Usage</h3>
+<pre><code class="cs">GetProfitLoss(int pLType);
+</code></pre>
+
+<h3 id="verwendung_27">Verwendung</h3>
+<p>Mögliche Werte für pLType sind</p>
+<p>0 - Amount, P/L als Währungsbetrag</p>
+<p>1 - Percent, P/L in Prozent</p>
+<p>2 – Risk, P/L in Van Tharp R-Multiples  <a href="http://www.vantharp.com/tharp-concepts/risk-and-r-multiples.asp"><em>www.vantharp.com</em></a></p>
+<p>3 – P/L in Ticks</p>
+<h3 id="ruckgabewert_17">Rückgabewert</h3>
+<p>ein double-Wert für den unrealisierten Gewinn bzw. Verlust</p>
+<h3 id="beispiel_28">Beispiel</h3>
+<pre><code class="cs">Print(&quot;The current risk for the strategy &quot; + this.Name + &quot; is &quot; + GetProfitLoss(1) + &quot; &quot; + Instrument.Currency);
+Print(&quot;This equals &quot;+ string.Format( &quot;{0:F1} R.&quot;, GetProfitLoss(3)));
+</code></pre>
+
+<h2 id="getprofitlossamount">GetProfitLossAmount()</h2>
+<h3 id="beschreibung_29">Beschreibung</h3>
+<p>GetProfitLossAmount() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position als Währungsbetrag.</p>
+<p>Siehe auch <a href="#getaccountvalue"><em>GetAccountValue()</em></a>.</p>
+<h3 id="verwendung_28">Verwendung</h3>
+<pre><code class="cs">GetProfitLossAmount(double profitLoss);
+</code></pre>
+
+<h3 id="parameter_25">Parameter</h3>
+<p>Ein Objekt vom Typ double</p>
+<h3 id="ruckgabewert_18">Rückgabewert</h3>
+<p>ein double-Wert für den unrealisierten Gewinn bzw. Verlust</p>
+<h3 id="beispiel_29">Beispiel</h3>
+<pre><code class="cs">Print(&quot;the current P&amp;L &quot; + this.Name + &quot; is &quot; + GetProfitLossAmount(Position.OpenProfitLoss) + &quot; &quot; + Instrument.Currency);
+</code></pre>
+
+<h2 id="getprofitlossrisk">GetProfitLossRisk()</h2>
+<h3 id="beschreibung_30">Beschreibung</h3>
+<p>GetProfitLossRisk() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position in R-Multiplen.</p>
+<p>Siehe auch  <a href="#getaccountvalue"><em>GetAccountValue()</em></a>.</p>
+<h3 id="verwendung_29">Verwendung</h3>
+<pre><code class="cs">GetProfitLossRisk();
+</code></pre>
+
+<h3 id="parameter_26">Parameter</h3>
+<p>keine</p>
+<h3 id="ruckgabewert_19">Rückgabewert</h3>
+<p>ein double-Wert für denie R-Multiple</p>
+<h3 id="beispiel_30">Beispiel</h3>
+<pre><code class="cs">Print(&quot;the current P&amp;L &quot; + this.Name + &quot; is &quot; + string.Format( &quot;{0:F1} R.&quot;, GetProfitLossRisk()));
+</code></pre>
+
+<h2 id="getscriptedcondition">GetScriptedCondition()</h2>
+<h3 id="beschreibung_31">Beschreibung</h3>
+<p>Mit dieser Methode können Benutzer zwischen Skripte zu kommunizieren.</p>
+<h2 id="isautomated">IsAutomated</h2>
+<h3 id="beschreibung_32">Beschreibung</h3>
+<p>IsAutomated legt fest ob Orders automatisch aktiviert werden. IsAutomated wird in der  <a href="#oninit"><em>OnInit()</em></a>-Methode angegeben.</p>
+<p>Ist IsAutomated = true, dann werden Orders automatisch aktiviert (Default). Wenn IsAutomated der Wert false zugewiesen wurde, dann muss die entsprechende Order mit order. <a href="#confirmorder"><em>ConfirmOrder()</em></a> aktiviert werden.</p>
+<h3 id="parameter_27">Parameter</h3>
+<p>ein bool-Wert</p>
+<h3 id="beispiel_31">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+   IsAutomated = false;
+}
+</code></pre>
+
+<h2 id="order">Order</h2>
+<h3 id="beschreibung_33">Beschreibung</h3>
+<p>IOrder ist ein Objekt, welches Informationen zu einer Order enthält, die aktuell von einer Strategie verwaltet wird.</p>
+<p>Die einzelnen Eigenschaften sind:</p>
+<ul>
+<li>
+<p>Action
+    <strong>Eine der vier möglichen Aktionen:</strong></p>
+<ul>
+<li>OrderAction.Buy</li>
+<li>OrderAction.BuyToCover</li>
+<li>OrderAction.Sell</li>
+<li>OrderAction.SellShort</li>
+</ul>
+</li>
+<li>
+<p><strong>AvgFillPrice</strong>
+    <strong>Der durchschnittliche Kauf- bzw. Verkaufspreis einer Position. Bei Positionen ohne Teilausführungen entspricht dies dem Einstiegskurs.</strong></p>
+</li>
+<li>
+<p><strong>Filled</strong>
+    Bei Teilausführungen ist Filled kleiner als Quantity</p>
+</li>
+<li>
+<p><strong>FromEntrySignal</strong>
+    Das Handelsinstrument, in welchem die Position besteht. siehe auch <em>Instruments</em>.</p>
+</li>
+<li>
+<p><strong>LimitPrice</strong></p>
+</li>
+<li>
+<p><strong>Name</strong>
+    Der eindeutige SignalName  </p>
+</li>
+<li>
+<p><strong>OrderId</strong>
+    Die eindeutige OrderId</p>
+</li>
+<li>
+<p><strong>OrderMode</strong>
+    Eines der drei möglichen Optionen:</p>
+<ul>
+<li>OrderMode.Direct</li>
+<li>OrderMode.Dynamic</li>
+<li>OrderMode.Synthetic</li>
+</ul>
+</li>
+<li>
+<p><strong>OrderState</strong>
+    Hiermit kann der aktuelle Zustand der Order abgefragt werden (siehe  <em>OnOrderExecution</em> und <em>OnOrderChanged</em>)</p>
+<ul>
+<li>OrderState.Accepted</li>
+<li>OrderState.Cancelled</li>
+<li>OrderState.CancelRejected</li>
+<li>OrderState.Filled</li>
+<li>OrderState.PartFilled</li>
+<li>OrderState.PendingCancel</li>
+<li>OrderState.PendingReplace</li>
+<li>OrderState.PendingSubmit</li>
+<li>OrderState.Rejected</li>
+<li>OrderState.ReplaceRejected</li>
+<li>OrderState.Unknown</li>
+<li>OrderState.Working</li>
+</ul>
+</li>
+<li>
+<p><strong>OrderType</strong>
+    Mögliche Orderarten:</p>
+<ul>
+<li>OrderType.Limit</li>
+<li>OrderType.Market</li>
+<li>OrderType.Stop</li>
+<li>OrderType.StopLimit</li>
+</ul>
+</li>
+<li>
+<p><strong>Quantity</strong>
+    Die zu ordernde Stückzahl</p>
+</li>
+<li>
+<p><strong>StopPrice</strong></p>
+</li>
+<li>
+<p><strong>Time</strong>
+    Zeitstempel</p>
+</li>
+<li>
+<p><strong>TimeFrame</strong>
+    Der TimeFrame, der für die Order gültig ist.</p>
+</li>
+<li>
+<p><strong>TimeFrame</strong></p>
+</li>
+</ul>
+<p>Mögliche Methoden:</p>
+<ul>
+<li>
+<p><strong>order CancelOrder()</strong>
+    Löscht die Order</p>
+</li>
+<li>
+<p><strong>order.ConfirmOrder()</strong>
+    Bestätig die Order. Diese Methode muss ausgeführt werden, wenn IsAutomated auf false gesetzt wird und man die Order dennoch automatisch ausführen möchte. Dies ist z. B. dann der Fall, wenn eine OCO- oder IfDone-Verküpfung hergestellt werden soll.</p>
+</li>
+</ul>
+<h2 id="performance">Performance</h2>
+<h3 id="beschreibung_34">Beschreibung</h3>
+<p>Performance ist ein Objekt, welches Informationen zu allen Trades enthält, die von einer Strategie generiert wurden.</p>
+<p>Es gibt mehrere Listen, in denen die Trades eingeordnet sind. Mit Hilfe dieser Listen ist es leicht, weitere Performance-Auswertungen zu erstellen.</p>
+<p>Siehe Performance-Kennzahlen.</p>
+<p>Die einzelnen Listen sind:</p>
+<ul>
+<li>
+<p><strong>Performance.AllTrades</strong>
+    Ist ein  <a href="#trade"><em>Trade</em></a> Collection Objekt, das alle von einer Strategie generierten Trades enthält.</p>
+</li>
+<li>
+<p><strong>Performance.LongTrades</strong>
+    Ist ein <a href="#trade"><em>Trade</em></a> Collection Objekt, das alle von einer Strategie generierten Long-Trades enthält.</p>
+</li>
+<li>
+<p><strong>Performance.ShortTrades</strong>
+    Ist ein <a href="#trade"><em>Trade</em></a> Collection Objekt, das alle von einer Strategie generierten ShortTrades enthält.</p>
+</li>
+<li>
+<p><strong>Performance.WinningTrades</strong>
+    Ist ein <a href="#trade"><em>Trade</em></a> Collection Objekt, das alle von einer Strategie generierten Gewinntrades enthält.</p>
+</li>
+<li>
+<p><strong>Performance.LosingTrades</strong>
+    Ist ein <a href="#trade"><em>Trade</em></a> Collection Objekt, das alle von einer Strategie generierten Verlusttrades enthält.</p>
+</li>
+</ul>
+<h3 id="beispiel_32">Beispiel</h3>
+<pre><code class="cs">// beim Verlassen der Strategie eine Auswertung erstellen
+protected override void OnDispose()
+{
+Print(&quot;Performance evaluation of the strategy : &quot; + this.Name);
+Print(&quot;----------------------------------------------------&quot;);
+Print(&quot;Amount of all trades: &quot; + Performance.AllTrades.Count);
+Print(&quot;Amount of winning trades: &quot; + Performance.WinningTrades.Count);
+Print(&quot;Amount of all loss trades: &quot; + Performance.LosingTrades.Count);
+Print(&quot;Amount of all long trades: &quot; + Performance.LongTrades.Count);
+Print(&quot;Amount of short trades: &quot; + Performance.ShortTrades.Count);
+Print(&quot;Result: &quot; + Account.RealizedProfitLoss + &quot; &quot; + Account.Currency);
+}
+</code></pre>
+
+<h2 id="position">Position</h2>
+<h3 id="beschreibung_35">Beschreibung</h3>
+<p>Position ist ein Objekt, welches Informationen zu einer Position enthält, die aktuell von einer Strategie verwaltet wird.</p>
+<p>Die einzelnen Eigenschaften sind:</p>
+<ul>
+<li>
+<p><strong>Position.AvgPrice</strong>
+    Der durchschnittliche Kauf- bzw. Verkaufspreis einer Position.
+    Bei Positionen ohne Teilausführungen entspricht dies dem Einstiegskurs.</p>
+</li>
+<li>
+<p><strong>Position.CreatedDateTime</strong>
+    Datum und Uhrzeit der Positionseröffnung.</p>
+</li>
+<li>
+<p><strong>Position.Instrument</strong>
+    Das Handelsinstrument, in welchem die Position besteht.
+    siehe auch <em>Instruments</em>.</p>
+</li>
+<li>
+<p><strong>Position.PositionType</strong>
+    Eines der drei möglichen Positionierungen im Markt:</p>
+<ul>
+<li>PositionType.Flat</li>
+<li>PositionType.Long</li>
+<li>PositionType.Short</li>
+</ul>
+</li>
+<li>
+<p><strong>Position.OpenProfitLoss</strong>
+    Der aktuell noch unrealisierte Gewinn bzw. Verlust.
+    siehe auch <a href="#getprofitloss"><em>GetProfitLoss()</em></a>.</p>
+</li>
+<li>
+<p><strong>Position.ProfitCurrency</strong>
+    Gewinn (bzw. Verlust) ausgewiesen als Währungsbetrag.</p>
+</li>
+<li>
+<p><strong>Position.ProfitPercent</strong>
+    Gewinn (bzw. Verlust) ausgewiesen in Prozent.</p>
+</li>
+<li>
+<p><strong>Position.ProfitPoints</strong>
+    Gewinn (bzw. Verlust) ausgewiesen in Punkten bzw. Pips.</p>
+</li>
+<li>
+<p><strong>Position.Quantity</strong>
+    Stückzahl der Aktien, Kontrakte, CFD's o.ä. in der Position.</p>
+</li>
+</ul>
+<h3 id="beispiel_33">Beispiel</h3>
+<pre><code class="cs">if (Position.PositionType != PositionType.Flat)
+{
+Print(&quot;Average price &quot; + Position.AvgPrice);
+Print(&quot;Opening time &quot; + Position.CreatedDateTime);
+Print(&quot;Instrument &quot; + Position.Instrument);
+Print(&quot;Current positioning &quot; + Position.PositionType);
+Print(&quot;Unrealized P/L &quot; + Position.OpenProfitLoss);
+Print(&quot;P/L (currency) &quot; + Position.ProfitCurrency);
+Print(&quot;P/L (in percent) &quot; + Position.ProfitPercent);
+Print(&quot;P/L (in points) &quot; + Position.ProfitPoints);
+Print(&quot;Pieces &quot; + Position.Quantity);
+}
+</code></pre>
+
+<h2 id="positiontype">PositionType</h2>
+<p>Siehe <a href="#positionpositiontype"><em>Position.PositionType</em></a>.</p>
+<h2 id="printorders">PrintOrders</h2>
+<h3 id="beschreibung_36">Beschreibung</h3>
+<p>Die Eigenschaft TraceOrders ist sehr nützlich, um Orders, die von Strategien generiert werden, nachzuverfolgen.
+TraceOrders wird in der <a href="#oninit"><em>OnInit()</em></a> Methode angegeben.</p>
+<p>Wenn TraceOrders eingeschaltet ist, werden für jede Order die folgenden Werte im OutputWindow ausgegeben:</p>
+<ul>
+<li>Instrument</li>
+<li>Time frame</li>
+<li>Action</li>
+<li>Type</li>
+<li>Limit price</li>
+<li>Stop price</li>
+<li>Quantity</li>
+<li>Name</li>
+</ul>
+<p>Diese Informationen sind z.B. bei der Erstellung von Strategien und für das Debugging sehr nützlich.</p>
+<h3 id="verwendung_30">Verwendung</h3>
+<p>PrintOrders</p>
+<h3 id="parameter_28">Parameter</h3>
+<p>keine</p>
+<h3 id="ruckgabewert_20">Rückgabewert</h3>
+<p><strong>true</strong> Tracing ist aktuell eingeschaltet
+<strong>false</strong> Tracing ist abgeschaltet</p>
+<h3 id="beispiel_34">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+ClearOutputWindow();
+PrintOrders = true;
+}
+</code></pre>
+
+<h2 id="quantity">Quantity</h2>
+<p>siehe unter <a href="#positionquantity"><em>Position.Quantity</em></a>, <a href="#positionpositiontype"><em>Position.PositionType</em></a>.</p>
+<h2 id="replaceorder">ReplaceOrder()</h2>
+<h3 id="beschreibung_37">Beschreibung</h3>
+<p>ChangeOrder ändert eine Order.</p>
+<h3 id="verwendung_31">Verwendung</h3>
+<pre><code class="cs">ReplaceOrder(IOrder iOrder, int quantity, double limitPrice, double stopPrice)
+</code></pre>
+
+<h3 id="parameter_29">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iOrder</td>
+<td>ein Order -Objekt vom Typ IOrder</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>zu ordernde Stückzahl</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>Limitpreis. Wenn nicht benötigt, auf 0 setzen</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>Stoppreis. Wenn nicht benötigt, auf 0 setzen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beispiel_35">Beispiel</h3>
+<pre><code class="cs">private IOrder stopOrder = null;
+protected override void OnCalculate()
+{
+ // Wenn die Position 10 Ticks im Gewinn liegt, Stopp auf Einstand anheben
+if (stopOrder != null
+    &amp;&amp; Close[0] &gt;= Position.AvgPrice + (10 * TickSize)
+        &amp;&amp; stopOrder.StopPrice &lt; Position.AvgPrice)
+ReplaceOrder(stopOrder, stopOrder.Quantity, stopOrder.LimitPrice, Position.AvgPrice);
+}
+</code></pre>
+
+<h2 id="setupprofittarget">SetUpProfitTarget()</h2>
+<h3 id="beschreibung_38">Beschreibung</h3>
+<p>Serzeugt sofort nach Ausführung einer Einstiegsorder eine Profit Target-Order um eine laufende Position zu einem bestimmten Kurs im Gewinn zu schließen. Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam.
+Wenn das Gewinnziel statisch ist, kann SetUpProfitTarget() in der OnInit() Methode angegeben werden.</p>
+<p>Siehe auch  <a href="#setupstoploss"><em>SetUpStopLoss()</em></a>, <a href="#setuptrailstop"><em>SetUpTrailStop()</em></a>.</p>
+<h3 id="verwendung_32">Verwendung</h3>
+<pre><code class="cs">SetUpProfitTarget(double currency)
+SetUpProfitTarget(CalculationMode mode, double value)
+SetUpProfitTarget(string fromEntry signal, CalculationMode mode, double value)
+</code></pre>
+
+<h3 id="parameter_30">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currency</td>
+<td>Gibt das Gewinnziel in einer Währung an, z.B. 500,- Euro.</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>Mögliche Werte sind:</td>
+</tr>
+<tr>
+<td>-   CalculationMode.Percent (Angabe in Prozent)</td>
+<td></td>
+</tr>
+<tr>
+<td>-   CalculationMode.Price (Angabe  als Kurswert)</td>
+<td></td>
+</tr>
+<tr>
+<td>-   CalculationMode.Ticks (Angabe in Ticks bzw. Pips)</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>Ein Wert, der den Abstand zwischen Einstiegskurs und Gewinnziel angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>Der Name eines Einstiegssignals, für das eine Profit Target-Order generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beispiel_36">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+// Erzeugt eine Profit Target-Order 10 Ticks über Einstand
+SetUpProfitTarget(CalculationMode.Ticks, 20);
+}
+</code></pre>
+
+<h2 id="setupstoploss">SetUpStopLoss()</h2>
+<h3 id="beschreibung_39">Beschreibung</h3>
+<p>Set up stop loss erzeugt sofort nach Ausführung einer Einstiegsorder eine StopLoss-Order um eine laufende Position zu einem bestimmten Kurs zu schließen. Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam (wenn sie nicht simuliert wird, s.u.).</p>
+<p>Wenn der StopLoss-Kurs statisch ist, kann SetUpStopLoss() in der OnInit() Methode angegeben werden.</p>
+<p>Siehe auch <a href="#setupprofittarget"><em>SetUpProfitTarget()</em></a>, <a href="#setuptrailstop"><em>SetUpTrailStop()</em></a>.</p>
+<h3 id="verwendung_33">Verwendung</h3>
+<pre><code class="cs">SetUpStopLoss(double currency)
+SetUpStopLoss(double currency, bool simulated)
+SetUpStopLoss(CalculationMode mode, double value)
+SetUpStopLoss(string fromEntry signal, CalculationMode mode, double value, bool simulated)
+</code></pre>
+
+<h3 id="parameter_31">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currency</td>
+<td>Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>Mögliche Werte sind:</td>
+</tr>
+<tr>
+<td>-   CalculationMode.Percent ( Angabe in Prozent)</td>
+<td></td>
+</tr>
+<tr>
+<td>-   CalculationMode.Price (Angabe als Kurswert)</td>
+<td></td>
+</tr>
+<tr>
+<td>-   CalculationMode.Ticks (Angabe in Ticks bzw. Pips)</td>
+<td></td>
+</tr>
+<tr>
+<td>simulated</td>
+<td>Wenn "simulated" auf "true" gesetzt ist, wird die Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte).</td>
+</tr>
+<tr>
+<td>value</td>
+<td>Ein Wert, der den Abstand zwischen Einstiegskurs und Stoppkurs angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>Der Name eines Einstiegssignals, für das eine Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beispiel_37">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+// Sets profitTarget 15 Ticks über dem Markt
+SetUpStopLoss(&quot;MACDEntry&quot;, CalculationMode.Ticks, 15, true);
+}
+</code></pre>
+
+<h2 id="setuptrailstop">SetUpTrailStop()</h2>
+<h3 id="beschreibung_40">Beschreibung</h3>
+<p>SetTrailStop() erzeugt sofort nach Ausführung einer Einstiegsorder eine Trail Stop-Order um eine laufende Position zunächst im Verlust zu schützen bzw. nach dem BreakEven den Gewinn zu sichern.</p>
+<p>Die Order wird direkt an den Broker übergeben und ist sofort im Markt wirksam (wenn sie nicht simuliert wird, s.u.).</p>
+<p>Wenn der StopLoss-Kurs und der Offset-Wert statisch ist, kann  SetUpTrailStop() in der OnInit() Methode angegeben werden.</p>
+<p>Sollte SetUpTrailStop() in der <a href="#oncalculate"><em>OnCalculate()</em></a> Methode verwendet werden, um sie dynamisch dem Kursverlauf anpassen zu können, ist darauf zu achten, die Parameter vor einer weiteren (neuen) Position auf die gewünschten Initialwerte zurückzusetzten, da die zuletzt gesetzten Werte ansonsten auch für die neue Position wirksam sind.</p>
+<p><strong>Funktionsweise:</strong></p>
+<p>Angenommen es ist  SetUpTrailStop(CalculationMode.Ticks, 30) gesetzt:</p>
+<p>In einer Long-Position wird der Stop nun 30 Ticks vom jeweils letzten erreichten Hoch entfernt gesetzt. Macht der Markt ein neues Hoch, wird der Stop angepasst. Der Stop wird jedoch nicht mehr nach unten verändert.</p>
+<p>In einer Shortposition ist das Verhalten analog vom erreichten tiefsten Tief ausgehend.</p>
+<p><strong>Hinweise:</strong></p>
+<p>Es ist nicht möglich, in einer Strategie für ein und dieselbe SetUpStopLoss und SetUpTrailStop gleichzeitig zu verwenden. Es wird immer SetUpStopLoss() der Vorrang eingeräumt</p>
+<p>Es ist aber möglich, in einer Strategie beide Varianten parallel zu verwenden, wenn sie auf unterschiedliche Einstiegssignale referenzieren</p>
+<p>Bei Teilausführungen einer einzelnen Order wird für jede Teilposition ein separater Trailing Stop angelegt.</p>
+<p>Wird zusätzlich zu SetUpProfitTarget() auch SetUpTrailStop(), verwendet, werden beide Orders automatisch OCO-verknüpft (OCO = one cancels the other)</p>
+<p>Es wird immer eine Stop-Market oder erzeugt, keine Stop-Limit-Order.</p>
+<p>Wird die Position innerhalb der Strategie von einer anderen Ausstiegsorder geschlossen, so wird die Trailing-Stoporder automatisch gelöscht.</p>
+<p>Siehe auch <a href="#setupstoploss"><em>SetUpStopLoss()</em></a>, <a href="#setupprofittarget"><em>SetUpProfitTarget()</em></a>.</p>
+<h3 id="verwendung_34">Verwendung</h3>
+<pre><code class="cs">SetUpTrailStop(double currency)
+SetUpTrailStop(double currency, bool simulated)
+SetUpTrailStop(CalculationMode mode, double value)
+SetUpTrailStop(string fromEntry signal, CalculationMode mode, double value, bool simulated)
+</code></pre>
+
+<h3 id="parameter_32">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currency</td>
+<td>Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>Mögliche Werte sind:</td>
+</tr>
+<tr>
+<td>-   CalculationMode.Percent</td>
+<td></td>
+</tr>
+<tr>
+<td>-   CalculationMode.Ticks</td>
+<td></td>
+</tr>
+<tr>
+<td>simulated</td>
+<td>Wenn "simulated" auf "true" gesetzt ist, wird die Trail-Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte).</td>
+</tr>
+<tr>
+<td>value</td>
+<td>Ein Wert, der den Abstand zwischen Einstiegskurs und Stoppkurs angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.</td>
+</tr>
+<tr>
+<td>fromEntry signal</td>
+<td>Der Name eines Einstiegssignals, für das eine Trail-Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="beispiel_38">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+// Setzt einen Trailing Stop von 30 Ticks
+    SetUpTrailStop(CalculationMode.Price, Low[0]);
+}
+</code></pre>
+
+<h2 id="submitorder">SubmitOrder()</h2>
+<h3 id="beschreibung_41">Beschreibung</h3>
+<p>Submit order erzeugt eine benutzerdefinierte Oder. Für diese Order wird kein Stop und kein Limit in den Markt gelegt. Alle Kontrollmechanismen von AgenaTrader sind für diese Orderart abgeschaltet. Der Nutzer ist für die Verwaltung, Stop, Target und für die Behandlung von Teilausführungen selbst verantwortlich und kann sich ein Ordermanagement nach seinen eigenen Wünschen selbst erstellen.</p>
+<p>Siehe auch  <a href="#onorderchanged"><em>OnOrderChanged()</em></a>, <a href="#onorderexecution"><em>OnOrderExecution()</em></a>.</p>
+<h3 id="verwendung_35">Verwendung</h3>
+<pre><code class="cs">SubmitOrder(int multibarSeriesIndex, OrderAction orderAction, OrderType orderType, int quantity, double limitPrice, double stopPrice, string ocoId, string strategyName)
+</code></pre>
+
+<h3 id="parameter_33">Parameter</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>multibarSeriesIndex</td>
+<td>Für Multibar-Strategieen.</td>
+</tr>
+<tr>
+<td>Index der Datenreihe, für die die Order ausgeführt werden soll.</td>
+<td></td>
+</tr>
+<tr>
+<td>Siehe <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>.</td>
+<td></td>
+</tr>
+<tr>
+<td>orderAction</td>
+<td>Mögliche Werte sind:</td>
+</tr>
+<tr>
+<td>OrderAction.Buy</td>
+<td></td>
+</tr>
+<tr>
+<td>Kauforder zum Long-Einstieg</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>OrderAction.Sell
+Verkaufsorder zum Schließen einer Long-Position</p>
+<p>OrderAction.SellShort
+Verkaufsorder zum Short-Einstieg</p>
+<p>OrderAction.BuyToCover
+Kauforder zum Schließen einer Short-Position                             |
+| orderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit                                                 |
+| quantity            | Stückzahl                                                             |
+| limitPrice          | Limit-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist.        |
+| stopPrice           | Stop-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist          |
+| ocoId               | Eine eindeutige ID (string) zur Verknüpfung mehrerer Orders zu einer OCO-Gruppe |
+| strategyName          | Ein eindeutiger Signalname (string)                               |</p>
+<h3 id="ruckgabewert_21">Rückgabewert</h3>
+<p>an order object of the type "IOrder"</p>
+<h3 id="beispiel_39">Beispiel</h3>
+<pre><code class="cs">private IOrder entryOrder = null;
+protected override void OnCalculate()
+{
+
+if (CrossBelow(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+    entryOrder = SubmitOrder(0, OrderAction.Buy, OrderType.Stop, 1, 0, High[0], &quot;&quot;, &quot;LongEntry&quot;);
+}
+</code></pre>
+
+<h2 id="timeinforce">TimeInForce</h2>
+<h3 id="beschreibung_42">Beschreibung</h3>
+<p>Die Eigenschaft TimeInForce bestimmt die Gültigkeitsdauer einer Order. Die Gültigkeitsdauer ist davon abhängig, welche Werte von einem Broker akzeptiert werden.</p>
+<p>TimeInForce wird in der <a href="#oninit"><em>OnInit()</em></a> Methode angegeben.</p>
+<p>Mögliche Werte sind:
+TimeInForce.day
+TimeInForce.loc
+TimeInForce.gtc (GTC = good till canceled)
+TimeInForce.gtd</p>
+<p><strong>Default:</strong> TimeInForce.GTC</p>
+<h3 id="verwendung_36">Verwendung</h3>
+<p><strong>TimeInForce</strong></p>
+<h3 id="beispiel_40">Beispiel</h3>
+<pre><code class="cs">protected override void OnInit()
+{
+TimeInForce = TimeInForce.Day;
+}
+</code></pre>
+
+<h2 id="trade">Trade</h2>
+<h3 id="beschreibung_43">Beschreibung</h3>
+<p>Trade ist ein Objekt, welches Informationen zu einem Trade enthält, der von einer Strategie ausgeführt wurde bzw. der aktuell läuft.</p>
+<p>Die einzelnen Eigenschaften sind:</p>
+<ul>
+<li>
+<p><strong>Trade.AvgPrice</strong>
+    durchschnittlicher Einstiegskurs</p>
+</li>
+<li>
+<p><strong>Trade.ClosedProfitLoss</strong>
+    bereits realisierter Gewinn bzw. Verlust</p>
+</li>
+<li>
+<p><strong>Trade.Commission</strong>
+    Gebühren (Kommissionen)</p>
+</li>
+<li>
+<p><strong>Trade.CreatedDateTime</strong>
+    Zeitpunkt der Eröffnung eines Trades</p>
+</li>
+<li>
+<p><strong>Trade.EntryReason</strong>
+    Bezeichnung des Einstiegssignals
+    bei Strategien: Name der Strategie</p>
+</li>
+<li>
+<p><strong>Trade.ExitDateTime</strong>
+    Zeitpunkt, an dem der Trade geschlossen wurde</p>
+</li>
+<li>
+<p><strong>Trade.ExitPrice</strong>
+    Ausstiegskurs</p>
+</li>
+<li>
+<p><strong>Trade.ExitReason</strong>
+    Bezeichnung des Ausstiegssignals
+    bei Strategien: Name der Strategie</p>
+</li>
+<li>
+<p><strong>Trade.Instrument</strong>
+    Bezeichnung des Handelsinstrumentes</p>
+</li>
+<li>
+<p><strong>Trade.PositionType</strong>
+    Positionierung im Markt</p>
+<ul>
+<li>PositionType.Flat</li>
+<li>PositionType.Long</li>
+<li>PositionType.Short</li>
+</ul>
+</li>
+<li>
+<p><strong>Trade.OpenProfitLoss</strong>
+    noch unrealisierter Gewinn bzw. Verlust in einer laufenden Position</p>
+</li>
+<li>
+<p><strong>Trade.ProfitCurrency</strong>
+    Gewinn bzw. Verlust in der Währung, in der das Handelskonto geführt wird</p>
+</li>
+<li>
+<p><strong>Trade.ProfitLoss</strong>
+    Gewinn bzw. Verlust</p>
+</li>
+<li>
+<p><strong>Trade.ProfitPercent</strong>
+    Gewinn bzw. Verlust in Prozent</p>
+</li>
+<li>
+<p><strong>Trade.ProfitPercentWithCommission</strong>
+    Gewinn bzw. Verlust in Prozent mit Gebühren</p>
+</li>
+<li>
+<p><strong>Trade.ProfitPoints</strong>
+    Gewinn bzw. Verlust in Punkten bzw. Pips</p>
+</li>
+<li>
+<p><strong>Trade.Quantity</strong>
+    Stückzahl von Aktien, CFD, Kontrakten usw.</p>
+</li>
+<li>
+<p><strong>Trade.TimeFrame</strong>
+    Zeiteinheit, in der der Trade eröffnet wurde</p>
+</li>
+<li>
+<p><strong>Trade.Url</strong>
+    URL zum Snapshot des Charts zum Zeitpunkt der Eröffnung</p>
+</li>
+</ul>
+<h3 id="beispiel_41">Beispiel</h3>
+<pre><code class="cs">protected override void OnDispose()
+{
+  if (Performance.AllTrades.Count &lt; 1) return;
+  foreach (ITrade trade in Performance.AllTrades)
+  {
+    Print(&quot;Trade #&quot;+trade.Id);
+    Print(&quot;--------------------------------------------&quot;);
+    Print(&quot;Durchschnittspreis &quot; + trade.AvgPrice);
+    Print(&quot;realisierter G/V &quot; + trade.ClosedProfitLoss);
+    Print(&quot;Gebühren &quot; + trade.Commission);
+    Print(&quot;Zeitpunkt Einstieg &quot; + trade.CreatedDateTime);
+    Print(&quot;Bezeichnung Einst &quot; + trade.EntryReason);
+    Print(&quot;Zeitpunkt Ausstieg  &quot; + trade.ExitDateTime);
+    Print(&quot;Ausstiegskurs  &quot; + trade.ExitPrice);
+    Print(&quot;Bezeichnung Ausstieg  &quot; + trade.ExitReason);
+    Print(&quot;Instrument &quot; + trade.Instrument);
+    Print(&quot;Positionierung &quot; + trade.PositionType);
+    Print(&quot;unrealisierter G/V &quot; + trade.OpenProfitLoss);
+    Print(&quot;G/V (Währung) &quot; + trade.ProfitCurrency);
+    Print(&quot;G/V &quot; + trade.ProfitLoss);
+    Print(&quot;G/V (in Prozent) &quot; + trade.ProfitPercent);
+    Print(&quot;G/V (in % mit Gebühren)&quot; + trade.ProfitPercentWithCommission);
+    Print(&quot;GV (in Punkten) &quot; + trade.ProfitPoints);
+    Print(&quot;Stückzahl &quot; + trade.Quantity);
+    Print(&quot;Zeiteinheit &quot; + trade.TimeFrame);
+    Print(&quot;URL zum Snapshot &quot; + trade.Url);
+  }
+}
+</code></pre>
+
+<h2 id="unmanaged">Unmanaged</h2>
+<h1 id="backtesting-and-optimization">Backtesting and Optimization</h1>
+<h2 id="performance-characteristics">Performance Characteristics</h2>
+<p>Unter Performance-Kennzahlen werden verschiedene Kennzahlen verstanden, die jeweils für eine Liste von Trades berechnet werden können. Die Trades können von einer Strategie in Realtime generiert worden sein oder von einem Backtestlauf stammen.</p>
+<p>Es stehen folgende Listen zur Verfügung:</p>
+<ul>
+<li>alle trades</li>
+<li>alle long trades</li>
+<li>alle short trades</li>
+<li>alle winning trades</li>
+<li>alle losing trades</li>
+</ul>
+<p>Siehe hierzu  <a href="#performance"><em>Performance</em></a>.</p>
+<p>Die einzelnen Kennzahlen sind:</p>
+<p><strong>AvgEtd</strong>
+der durchschnittliche DrawDown am Ende eines Trades (avg end trade drawdown)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgEtd</p>
+<pre><code class="cs">Print(&quot;Average ETD of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.AvgEtd);
+</code></pre>
+
+<p><strong>AvgMae</strong>
+der durchschnittliche max. Kursrückgang nach den Einstiegen (avg maximum adverse excursion)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMae</p>
+<pre><code class="cs">Print(&quot;Average MAE of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.AvgMae);
+</code></pre>
+
+<p><strong>AvgMfe</strong>
+der durchschnittliche max Kursanstieg im Verlauf der Trades (avg maximum favorable excursion)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgMfe</p>
+<pre><code class="cs">Print(&quot;Average MFE of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.AvgMfe);
+</code></pre>
+
+<p><strong>AvgProfit</strong>
+der durchschnittliche Gewinn über alle Trades (avg profit)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.AvgProfit</p>
+<pre><code class="cs">Print(&quot;Average profit of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.AvgProfit);
+</code></pre>
+
+<p><strong>CumProfit</strong>
+der Gesamtgewinn über alle Trades
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.CumProfit</p>
+<pre><code class="cs">Print(&quot;Average cumulative profit of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.CumProfit);
+</code></pre>
+
+<p><strong>DrawDown</strong>
+der DrawDown über alle Trades
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.DrawDow</p>
+<pre><code class="cs">Print(&quot;Drawdown of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.DrawDown);
+</code></pre>
+
+<p><strong>LargestLoser</strong>
+der größte Verlust
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestLoser</p>
+<pre><code class="cs">Print(&quot;Largest loss of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.LargestLoser);
+</code></pre>
+
+<p><strong>LargestWinner</strong>
+der größte Gewinn
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.LargestWinner</p>
+<pre><code class="cs">Print(&quot;Largest win of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.LargestWinner);
+</code></pre>
+
+<p><strong>ProfitPerMonth</strong>
+hochgerechneter Gewinn/Verlust im Monat (auch in Prozent)
+&lt;TradeCollection&gt;.TradesPerformance.&lt;TradesPerformanceValues&gt;.ProfitPerMonth</p>
+<pre><code class="cs">Print(&quot;Profit per month of all trades is: &quot; + Performance.AllTrades.TradesPerformance.Currency.ProfitPerMonth);
+</code></pre>
+
+<p><strong>StdDev</strong>
+die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkannt werden. Je besser ein Handelssystem ist, desto kleiner ist die Standardabweichung und desto höher ist die Erwartung von Gewinnen.</p>
+<p><strong>Alle Kennzahlen sind double-Werte.</strong></p>
+<p><img alt="Performance Characteristics" src="../media/image10.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../schluesselworte/" class="btn btn-neutral float-right" title="Schlüsselworte">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../ereignisse/" class="btn btn-neutral" title="Ereignisse"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../ereignisse/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../schluesselworte/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

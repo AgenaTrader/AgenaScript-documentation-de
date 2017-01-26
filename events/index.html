@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../favicon.ico">
+  
+  <title>Events - AgenaScript Dokumentation (Deutsch)</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Events";
+    var mkdocs_page_input_path = "events.md";
+    var mkdocs_page_url = "/events/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74646070-1', 'agenatrader.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> AgenaScript Dokumentation (Deutsch)</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Lets start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../handling_bars_and_instruments/">Handling bars and instruments</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Events</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#ereignisse">Ereignisse</a></li>
+                
+                    <li><a class="toctree-l4" href="#onbrokerconnect">OnBrokerConnect()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onbrokerdisconnect">OnBrokerDisconnect()</a></li>
+                
+                    <li><a class="toctree-l4" href="#oncalculate">OnCalculate()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onchartpanelmousedown">OnChartPanelMouseDown()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onchartpanelmousemove">OnChartPanelMouseMove()</a></li>
+                
+                    <li><a class="toctree-l4" href="#ondispose">OnDispose()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onlevel1">OnLevel1()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onlevel2">OnLevel2()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onorderchanged">OnOrderChanged()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onorderexecution">OnOrderExecution()</a></li>
+                
+                    <li><a class="toctree-l4" href="#onstart">OnStart()</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../strategy_programming/">Strategy programming</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../keywords/">Keywords</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../drawing_objects/">Drawing objects</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../hints_and_advice/">Hints and advice</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">AgenaScript Dokumentation (Deutsch)</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Events</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de/edit/master/sources/events.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ereignisse">Ereignisse</h1>
+<p>AgenaTrader ist nach der Definition der Softwaretechnik eine ereignisorientierte Applikation.</p>
+<p>Die Programmierung in AgenaTrader mit Methoden des Application Programming Interface (<em>API</em>) beruht initial auf dem <em>Überschreiben</em> von vordefinierten Routinen zur Ereignisbehandlung.</p>
+<p>Folgende Methoden können verwendet, d.h. überschrieben werden:</p>
+<ul>
+<li><a href="#onbrokerconnect"><em>OnBrokerConnect()</em></a></li>
+<li><a href="#onbrokerdisconnect"><em>OnBrokerDisconnect()</em></a></li>
+<li><a href="#oncalculate"><em>OnCalculate()</em></a></li>
+<li><a href="#onchartpanelmousedown"><em>OnChartPanelMouseDown()</em></a></li>
+<li><a href="#onchartpanelmousemove"><em>OnChartPanelMouseMove()</em></a></li>
+<li><a href="#ondispose"><em>OnDispose()</em></a></li>
+<li><a href="#onlevel1"><em>OnLevel1()</em></a></li>
+<li><a href="#onlevel2"><em>OnLevel2()</em></a></li>
+<li><a href="#onorderupdate"><em>OnOrderChanged()</em></a></li>
+<li><a href="#onorderexecution"><em>OnOrderExecution()</em></a></li>
+<li><a href="#onstartop"><em>OnStart()</em></a></li>
+</ul>
+<h2 id="onbrokerconnect">OnBrokerConnect()</h2>
+<h3 id="beschreibung">Beschreibung</h3>
+<p>Die Methode OnBrokerConnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker hergestellt wurde.</p>
+<p>Mit Hilfe von OnBrokerConnect() besteht die Möglichkeit, bei einem Verbindungsabbruch mit dem Broker, die bestehenden bzw. noch offenen Orders wieder der Strategie zuzuordnen und somit von dieser wieder verwalten zu lassen</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="parameter">Parameter</h3>
+<p>keine</p>
+<h3 id="ruckgabewert">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung">Verwendung</h3>
+<pre><code class="cs">protected override void OnBrokerConnect()
+</code></pre>
+
+<h3 id="beispiel">Beispiel</h3>
+<pre><code class="cs">private IOrder _takeProfit = null;
+private IOrder _trailingStop = null;
+
+
+protected override void OnBrokerConnect()
+{
+   if (Trade != null &amp;&amp; Trade.PositionType != PositionType.Flat)
+   {
+       _takeProfit = Orders.FirstOrDefault(o =&gt; o.Name == this.GetType().Name &amp;&amp; o.OrderType ==OrderType.Limit);
+       _trailingStop = Orders.FirstOrDefault(o =&gt; o.Name == this.GetType().Name &amp;&amp; o.OrderType ==OrderType.Stop);
+   }
+}
+
+</code></pre>
+
+<h2 id="onbrokerdisconnect">OnBrokerDisconnect()</h2>
+<h3 id="beschreibung_1">Beschreibung</h3>
+<p>Die Methode OnBrokerDisconnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker unterbrochen wurde.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="parameter_1">Parameter</h3>
+<p>Ein Objekt vom Typ  <em>TradingDatafeedChangedEventArgs</em></p>
+<h3 id="ruckgabewert_1">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung_1">Verwendung</h3>
+<pre><code class="cs">protected override void OnBrokerDisconnect(TradingDatafeedChangedEventArgs e)
+</code></pre>
+
+<h3 id="beispiel_1">Beispiel</h3>
+<pre><code class="cs">protected override void OnBrokerDisconnect(TradingDatafeedChangedEventArgs e)
+{
+   if (e.Connected)
+       Print(&quot;Die Verbindung zum Broker wird getrennt.&quot;);
+   else
+       Print(&quot;Die Verbindung zum Broker wurde getrennt.&quot;);
+}
+</code></pre>
+
+<h2 id="oncalculate">OnCalculate()</h2>
+<h3 id="beschreibung_2">Beschreibung</h3>
+<p>Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  <a href="#CalculateOnClosedBar"><em>CalculateOnClosedBar</em></a>,wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
+OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Teil des Codes selbsterstellter Indikatoren bzw. Strategien enthält.
+Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.</p>
+<p><strong>Achtung:</strong>
+<strong>Diese Nummerierung unterscheidet sich vom BarIndex, siehe <a href="#Bars"><em>Bars</em></a>.</strong></p>
+<p>More information can be found here: <a href="#events"><em>Events</em></a>.</p>
+<h3 id="parameter_2">Parameter</h3>
+<p>keiner</p>
+<h3 id="ruckgabewert_2">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung_2">Verwendung</h3>
+<pre><code class="cs">protected override void OnCalculate()
+</code></pre>
+
+<h3 id="beispiel_2">Beispiel</h3>
+<pre><code class="cs">protected override void OnCalculate()
+{
+    Print(&quot;Aufruf von OnBarUpdate für Bar Nr. &quot; + ProcessingBarIndex + &quot; von &quot; +Time[0]);
+}
+</code></pre>
+
+<h2 id="onchartpanelmousedown">OnChartPanelMouseDown()</h2>
+<h3 id="beschreibung_3">Beschreibung</h3>
+<p>In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event ChartControl.ChartPanelMouseDown hinzufügt.</p>
+<h3 id="achtung">Achtung!</h3>
+<p>Es ist wichtig, den EventHandler innerhalb der OnDispose() Methode wieder aus dem Event zu entfernen, da sonst der EventHandler selbst dann noch ausgeführt wird, wenn der Indikator aus dem Chart entfernt wurde!</p>
+<h3 id="beispiel_3">Beispiel</h3>
+<pre><code class="cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using AgenaTrader.API;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+using AgenaTrader.Helper;
+
+
+namespace AgenaTrader.UserCode
+{
+       public class ChartPanelMouseDown : UserIndicator
+       {
+               protected override void OnInit()
+               {
+                       IsOverlay = true;
+               }
+
+               protected override void OnStart()
+               {
+                       // Add event listener
+                       if (Chart != null)
+                               Chart.ChartPanelMouseDown += OnChartPanelMouseDown;
+               }
+
+
+               protected override void OnDispose()
+               {
+                       // Remove event listener
+                       if (Chart != null)
+                               Chart.ChartPanelMouseDown -= OnChartPanelMouseDown;
+               }
+
+
+               private void OnChartPanelMouseDown(object sender,System.Windows.Forms.MouseEventArgs e)
+               {
+                       Print(&quot;X = {0}, Y = {1}&quot;, Chart.GetDateTimeByX(e.X),Chart.GetPriceByY(e.Y));
+               }
+       }
+}
+</code></pre>
+
+<h2 id="onchartpanelmousemove">OnChartPanelMouseMove()</h2>
+<h3 id="beschreibung_4">Beschreibung</h3>
+<p>In einem Indikator, oder einer Strategie, kann die aktuelle Position der Maus ausgewertet und verarbeitet werden. Dafür ist es notwendig, dass man einen EventHandler als Methode programmiert und diese Methode anschließend dem Event  Chart.ChartPanelMouseMove hinzufügt.</p>
+<h3 id="achtung_1">Achtung!</h3>
+<p>Es ist wichtig, den EventHandler innerhalb der OnDispose() Methode wieder aus dem Event zu entfernen, da sonst der EventHandler selbst dann noch ausgeführt wird, wenn der Indikator aus dem Chart entfernt wurde!</p>
+<h3 id="beispiel_4">Beispiel</h3>
+<pre><code class="cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using AgenaTrader.API;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+using AgenaTrader.Helper;
+
+
+namespace AgenaTrader.UserCode
+{
+    public class ChartPanelMouseMove : UserIndicator
+    {
+        protected override void OnInit()
+        {
+            IsOverlay = true;
+        }
+
+        protected override void OnStart()
+        {
+            // Add event listener
+            if (Chart != null)
+                Chart.ChartPanelMouseMove += OnChartPanelMouseMove;
+        }
+
+        protected override void OnDispose()
+        {
+            // Remove event listener
+            if (Chart != null)
+                Chart.ChartPanelMouseMove -= OnChartPanelMouseMove;
+        }
+
+        private void OnChartPanelMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            Print(&quot;X = {0}, Y = {1}&quot;, Chart.GetDateTimeByX(e.X), Chart.GetPriceByY(e.Y));
+        }
+    }
+}
+</code></pre>
+
+<h2 id="ondispose">OnDispose()</h2>
+<h3 id="beschreibung_5">Beschreibung</h3>
+<p>Die Methode  OnDispose() kann überschrieben werden, um alle im Script verwendeten Ressourcen wieder freizugeben.</p>
+<p>Siehe auch <a href="#oninit"><em>OnInit()</em></a> und <a href="#onstart"><em>OnStart()</em></a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="parameter_3">Parameter</h3>
+<p>keiner</p>
+<h3 id="ruckgabewert_3">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung_3">Verwendung</h3>
+<pre><code class="cs">protected override void OnDispose()
+</code></pre>
+
+<h3 id="weitere-informationen">Weitere Informationen</h3>
+<p><strong>Achtung:</strong>
+<strong>Bitte überschreiben Sie nicht die Dispose() Methode, da diese erst sehr viel später aufgerufen werden kann. Ressourcen bleiben zu lange erhalten und können zu unerwartetem und unvorhersehbarem Verhalten der gesamten Anwendung führen.</strong></p>
+<h3 id="beispiel_5">Beispiel</h3>
+<pre><code class="cs">protected override void OnDispose()
+{
+    if (Window != null)
+    {
+        Window.Dispose();
+        Window = null;
+    }
+}
+</code></pre>
+
+<h2 id="onlevel1">OnLevel1()</h2>
+<h3 id="beschreibung_6">Beschreibung</h3>
+<p>Die Methode OnLevel1() wird bei jeder Änderung in den Level-I-Daten aufgerufen, d.h. bei einer Änderung des Bid-Preises, Ask-Preises, des Bid-Volumens, des Ask-Volumens und natürlich des Last-Preises nachdem ein realer Umsatz stattfand.
+In a multibar indicator, the ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnLevel1() aufgerufen wurde.</p>
+<p>OnLevel1() wird nicht für historische Daten aufgerufen
+Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p><strong>Hinweis zu Daten von Yahoo (YFeed)</strong></p>
+<p>Das Feld "LastPrice" entspricht - wie gewohnt - je nach letztem Handelsumsatz entweder dem "BidPrice" oder dem "AskPrice".</p>
+<p>Das Feld "MarketDataType" ist immer "Last".</p>
+<p>Die Felder "Volumen", "BidSize" und "AskSize" sind immer 0.</p>
+<h3 id="verwendung_4">Verwendung</h3>
+<pre><code class="cs">protected override void OnLevel1(Level1Args e)
+</code></pre>
+
+<h3 id="ruckgabewert_4">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="parameter_4">Parameter</h3>
+<pre><code class="cs">[*Level1Args*] e
+</code></pre>
+
+<h3 id="beispiel_6">Beispiel</h3>
+<pre><code class="cs">protected override void OnLevel1(Level1Args e)
+{
+    Print(&quot;AskPrice &quot;+e.AskPrice);
+    Print(&quot;AskSize &quot;+e.AskSize);
+    Print(&quot;BidPrice &quot;+e.BidPrice);
+    Print(&quot;BidSize &quot;+e.BidSize);
+    Print(&quot;Instrument &quot;+e.Instrument);
+    Print(&quot;LastPrice &quot;+e.LastPrice);
+    Print(&quot;MarketDataType &quot;+e.MarketDataType);
+    Print(&quot;Price &quot;+e.Price);
+    Print(&quot;Time &quot;+e.Time);
+    Print(&quot;Volume &quot;+e.Volume);
+}
+</code></pre>
+
+<h2 id="onlevel2">OnLevel2()</h2>
+<h3 id="beschreibung_7">Beschreibung</h3>
+<p>Die Methode OnLevel2() wird bei jeder Änderung in den Level-II-Daten (Markttiefe) aufgerufen.
+In einem Multibar-Indikator kann mit  ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnMarketDepth() aufgerufen wurde.
+OnLevel2 wird nicht für historische Daten aufgerufen.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="verwendung_5">Verwendung</h3>
+<pre><code class="cs">protected override void OnLevel2(Level2Args e)
+</code></pre>
+
+<h3 id="ruckgabewert_5">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="parameter_5">Parameter</h3>
+<p>Ein Objekt von <em>Level2Args</em></p>
+<h3 id="beispiel_7">Beispiel</h3>
+<pre><code class="cs">protected override void OnLevel2(Level2Args e)
+{
+    // Ausgabe des jeweils aktuellen Ask-Kurses
+    if (e.MarketDataType == MarketDataType.Bit)
+        Print(&quot;The current bit is &quot; + e.Price );
+}
+</code></pre>
+
+<h2 id="onorderchanged">OnOrderChanged()</h2>
+<h3 id="beschreibung_8">Beschreibung</h3>
+<p>Die Methode OnOrderChanged()  wird jedesmal dann aufgerufen, wenn sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.</p>
+<p><strong>wichtiger Hinweis:</strong>
+<strong>Wenn eine Strategie durch Orderausführungen gesteuert werden soll, ist es ratsamer,  OnOrderExecution() anstelle von OnOrderChanged() zu verwenden.  Es kann sonst zu Problemen bei Teilausführungen kommen..</strong></p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="parameter_6">Parameter</h3>
+<p>Ein Order-Objekt vom Type IOrder</p>
+<h3 id="ruckgabewert_6">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung_6">Verwendung</h3>
+<pre><code class="cs">protected override void OnOrderChanged(IOrder order)
+</code></pre>
+
+<h3 id="beispiel_8">Beispiel</h3>
+<pre><code class="cs">private IOrder entry = null;
+protected override void OnCalculate()
+{
+    if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+        entry = OpenLong(&quot;EMACrossesSMA&quot;);
+
+    if (entry != null &amp;&amp; entry == order)
+    {
+        if (order.OrderState == OrderState.Filled)
+        {
+        PlaySound(&quot;OrderFilled.wav&quot;);
+        entryOrder = null;
+        }
+    }
+}
+protected override void OnOrderChanged(IOrder order)
+{
+
+}
+</code></pre>
+
+<h2 id="onorderexecution">OnOrderExecution()</h2>
+<h3 id="beschreibung_9">Beschreibung</h3>
+<p>Die Methode OnOrderExecution() wird jedesmal dann aufgerufen, wenn eine Order ausgeführt (filled) wurde oder sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.</p>
+<p>OnOrderExecution() wird immer nach <a href="#onorderchanged"><em>OnOrderChanged()</em></a> aufgerufen.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="parameter_7">Parameter</h3>
+<p>Ein execution-Objekt vom Type  <em>IExecution</em></p>
+<h3 id="ruckgabewert_7">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung_7">Verwendung</h3>
+<pre><code class="cs">protected override void OnOrderExecution(IExecution execution)
+</code></pre>
+
+<h3 id="beispiel_9">Beispiel</h3>
+<pre><code class="cs">private IOrder entry = null;
+protected override void OnCalculate()
+{
+    if (CrossAbove(EMA(14), SMA(50), 1) &amp;&amp; IsSerieRising(ADX(20)))
+            entry = OpenLong(&quot;EMACrossesSMA&quot;);
+}
+protected override void OnOrderExecution(IExecution execution)
+{
+    // Beispiel 
+    if (entry != null &amp;&amp; execution.Order == entry)
+    {
+        Print(execution.Price.ToString());
+    Print(execution.Order.OrderState.ToString());
+    }
+}
+</code></pre>
+
+<h2 id="onstart">OnStart()</h2>
+<h3 id="beschreibung_10">Beschreibung</h3>
+<p>Die Methode OnStart() kann überschrieben werden, um eigene Variablen zu initialisieren, Lizenzchecks auszuführen, UserForms aufzurufen usw.
+OnStart() wird nur einmal am Beginn des Scrips nach <a href="#oninit"><em>OnInit()</em></a> und vor <a href="#oncalculate"><em>OnCalculate()</em></a> aufgerufen.</p>
+<p>Siehe auch <a href="#ondispose"><em>OnDispose()</em></a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<h3 id="parameter_8">Parameter</h3>
+<p>keiner</p>
+<h3 id="ruckgabewert_8">Rückgabewert</h3>
+<p>keiner</p>
+<h3 id="verwendung_8">Verwendung</h3>
+<pre><code class="cs">protected override void OnStart()
+</code></pre>
+
+<h3 id="beispiel_10">Beispiel</h3>
+<pre><code class="cs">private myForm Window;
+protected override void OnStart()
+{
+    if (Chart != null)
+    {
+    Window = new myForm();
+    Window.Show();
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../strategy_programming/" class="btn btn-neutral float-right" title="Strategy programming">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../handling_bars_and_instruments/" class="btn btn-neutral" title="Handling bars and instruments"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../handling_bars_and_instruments/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../strategy_programming/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

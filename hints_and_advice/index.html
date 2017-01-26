@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../favicon.ico">
+  
+  <title>Hints and advice - AgenaScript Dokumentation (Deutsch)</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Hints and advice";
+    var mkdocs_page_input_path = "hints_and_advice.md";
+    var mkdocs_page_url = "/hints_and_advice/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74646070-1', 'agenatrader.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> AgenaScript Dokumentation (Deutsch)</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Lets start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../handling_bars_and_instruments/">Handling bars and instruments</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../events/">Events</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../strategy_programming/">Strategy programming</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../keywords/">Keywords</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../drawing_objects/">Drawing objects</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Hints and advice</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#tipps-und-tricks">Tipps und Tricks</a></li>
+                
+                    <li><a class="toctree-l4" href="#bar-nummerierung-im-chart">Bar Nummerierung im Chart</a></li>
+                
+                    <li><a class="toctree-l4" href="#eigenes-chart-hintergrundbild">Eigenes Chart-Hintergrundbild</a></li>
+                
+                    <li><a class="toctree-l4" href="#file-auswahl-in-den-properties">File-Auswahl in den Properties</a></li>
+                
+                    <li><a class="toctree-l4" href="#formatieren-von-zahlen">Formatieren von Zahlen</a></li>
+                
+                    <li><a class="toctree-l4" href="#index-convertierung">Index-Convertierung</a></li>
+                
+                    <li><a class="toctree-l4" href="#indikatornamen-uberschreiben">Indikatornamen überschreiben</a></li>
+                
+                    <li><a class="toctree-l4" href="#rechteck-mit-abgerundeten-ecken">Rechteck mit abgerundeten Ecken</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">AgenaScript Dokumentation (Deutsch)</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Hints and advice</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de/edit/master/sources/hints_and_advice.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="tipps-und-tricks">Tipps und Tricks</h1>
+<p><strong>Hinweis:</strong>
+Code Änderungen in selbst-erstellten Indikatoren werden automatisch auf Conditions angewandt, welche den Indikator verwenden sofern diese im "body" von z.B. "OnCalculate/OnBarUpdate" durchgeführt wurden. Änderungen von Parametern, Output Serien, etc. benötigen eine manuelle Änderung der Conditions.</p>
+<h2 id="bar-nummerierung-im-chart">Bar Nummerierung im Chart</h2>
+<p>Das Beispiel zeigt die Verwendung der Plot-Methode und der Eigenschaften des <a href="#chart"><em>Chart</em></a> Objekts.</p>
+<p><img alt="Bar Numbering Within the Chart" src="../media/image30.png" /></p>
+<p><strong>Hinweis:</strong>
+Hinweis:
+Zu Demonstrationszwecken wird innerhalb des Teils "Bar-Nummerierung" für jeden Aufruf von Paint jeweils einige male new und Dispose aufgerufen.
+Aus Performance-Sicht ist die Lösung im Teil "Eigenschaften von ChartControl" mit einer festen Variablendeklaration und den Aufrufen von Dispose in OnTermination wesentlich besser.</p>
+<pre><code class="cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using AgenaTrader.API;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+using AgenaTrader.Helper;
+namespace AgenaTrader.UserCode
+{
+[Description(&quot;PlotSample&quot;)]
+public class PlotSample : UserIndicator
+{
+Pen pen = new Pen(Color.Blue);
+StringFormat sf = new StringFormat();
+SolidBrush brush = new SolidBrush(Color.Black);
+Font font = new Font(&quot;Arial&quot;, 10, FontStyle.Bold);
+protected override void OnInit()
+{
+IsOverlay = true;
+}
+protected override void OnDispose()
+{
+if (pen!=null) pen.Dispose();
+if (sf!=null) sf.Dispose();
+if (brush!=null) brush.Dispose();
+if (font!=null) font.Dispose();
+}
+protected override void OnCalculate()
+{}
+public override void OnPaint(Graphics g, Rectangle r, double min, double max)
+{
+if (Bars == null || Chart == null) return;
+// Eigenschaften von Chart
+string s;
+s = &quot;bounds: &quot;+r.X.ToString()+&quot; &quot;+r.Y.ToString()+&quot; &quot;+r.Height.ToString()+&quot; &quot;+r.Width.ToString();
+g.DrawString(s, font, brush, 10, 50, sf);
+s = &quot;min: &quot;+Instrument.Round2TickSize(min).ToString()+&quot; max: &quot;+Instrument.Round2TickSize(max).ToString();
+g.DrawString(s, font, brush, 10, 70, sf);
+s = &quot;BarSpace: &quot;+Chart.BarSpace.ToString()+&quot; BarWidth: &quot;+Chart.BarWidth.ToString();
+g.DrawString(s, font, brush, 10, 90, sf);
+s = &quot;Bars.Count: &quot;+Bars.Count.ToString();
+g.DrawString(s, font, brush, 10, 110, sf);
+s = &quot;BarsPainted: &quot;+Chart.BarsPainted.ToString() + &quot; FirstBarPainted: &quot;+Chart.FirstBarPainted.ToString() + &quot; LastBarPainted: &quot;+Chart.LastBarPainted.ToString();
+g.DrawString(s, font, brush, 10, 130, sf);
+s = &quot;BarsVisible: &quot;+Chart.BarsVisible.ToString() + &quot; FirstBarVisible: &quot;+Chart.FirstBarVisible.ToString() + &quot; LastBarVisible: &quot;+Chart.LastBarVisible.ToString();
+g.DrawString(s, font, brush, 10, 150, sf);
+// Bar Nummerierung
+StringFormat _sf = new StringFormat();
+SolidBrush _brush = new SolidBrush(Color.Blue);
+Font _font = new Font(&quot;Arial&quot;, 8);
+SizeF _stringSize = new SizeF();
+_sf.Alignment = StringAlignment.Center;
+for (int i=Chart.FirstBarVisible; i&lt;=Chart.LastBarVisible; i++)
+{
+string text = i.ToString();
+_stringSize = g.MeasureString(text, _font);
+int x = Chart.GetXByBarIdx(Bars, i);
+int y = Chart.GetYByValue(this, High[Abs2Ago(i)] + 3*TickSize) - (int) _stringSize.Height;
+g.DrawString(text, _font, _brush, x, y, _sf);
+}
+_sf.Dispose();
+_brush.Dispose();
+_font.Dispose();
+}
+private int Abs2Ago(int idx)
+{
+return Math.Max(0,Bars.Count-idx-1-(CalculateOnClosedBar?1:0));
+}
+}
+}
+</code></pre>
+
+<h2 id="eigenes-chart-hintergrundbild">Eigenes Chart-Hintergrundbild</h2>
+<p>Durch die Plot-Methode ist es sehr leicht möglich, dem Chart ein eigenes Hintergrundbild hinzuzufügen.</p>
+<p>Das folgende Beispiel verwendet ein Bild im JPG-Format im Hauptverzeichnis auf der Festplatte (C:).</p>
+<pre><code class="cs">using System;
+using System.Drawing;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+namespace AgenaTrader.UserCode
+{
+public class BackgroundPicture : UserIndicator
+{
+Image img;
+protected override void OnStart()
+{
+try { img = Image.FromFile(&quot;C:\\\\MyCar.jpg&quot;); } catch {}
+}
+public override void OnPaint(Graphics g, Rectangle r, double min, double max)
+{
+if (Chart == null || img == null) return;
+g.DrawImage(img,r);
+}
+}
+}
+</code></pre>
+
+<p><img alt="Custom Chart Background Image" src="../media/image31.png" /></p>
+<h2 id="file-auswahl-in-den-properties">File-Auswahl in den Properties</h2>
+<p>Um in den Properties (Eigenschaften) eines Indikators eine File-Auswahl zu ermöglichen, benötigt man einen Typ-Converter.</p>
+<p>Das folgende Beispiel zeigt, wie eine Auswahl von WAV-Dateien für einen Alarm programmiert werden kann:</p>
+<pre><code class="cs">using System;
+using System.IO;
+using System.Collections;
+using System.ComponentModel;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+namespace AgenaTrader.UserCode
+{
+[Description(&quot;File Picker Example.&quot;)]
+public class FilePicker : UserIndicator
+{
+private string _soundFile = &quot;Alert4.wav&quot;;
+private static string _dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @&quot;\\AgenaTrader\\Sounds\\&quot;;
+internal class MyConverter : TypeConverter
+{
+public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+{
+return true;
+}
+public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+{
+if (context == null) return null;
+ArrayList list = new ArrayList();
+DirectoryInfo dir = new DirectoryInfo(_dir);
+FileInfo[] files = dir.GetFiles(&quot;*.wav&quot;);
+foreach (FileInfo file in files) list.Add(file.Name);
+return new TypeConverter.StandardValuesCollection(list);
+}
+}
+protected override void OnStart()
+{
+PlaySound(_soundFile);
+}
+[Description(&quot;Choose file to play.&quot;)]
+[Category (&quot;Sound&quot;)]
+[TypeConverter(typeof(MyConverter))]
+public string SoundFile
+{
+get { return _soundFile; }
+set { _soundFile = value; }
+}
+}
+}
+</code></pre>
+
+<h2 id="formatieren-von-zahlen">Formatieren von Zahlen</h2>
+<h3 id="formatieren-von-zahlen_1">Formatieren von Zahlen</h3>
+<p><strong>Generelles zur Formatierung in C#</strong></p>
+<pre><code class="cs">double d = 123.4567890;
+Print(&quot;Ohne Formatierung : &quot; + d.ToString()); // 123.456789
+Print(&quot;als Währung : &quot; + d.ToString(&quot;C&quot;)); // 123.46 €
+Print(&quot;Exponential : &quot; + d.ToString(&quot;E&quot;)); // 1.234568E+002
+Print(&quot;als Festkommazahl : &quot; + d.ToString(&quot;F2&quot;)); // 123.46
+Print(&quot;Generell : &quot; + d.ToString(&quot;G&quot;)); // 123.456789
+Print(&quot;als Prozentzahl : &quot; + d.ToString(&quot;P0&quot;)); // 12.346%
+Print(&quot;Tmit 2 Nachkommastellen : &quot; + d.ToString(&quot;N2&quot;)); // 123.45
+Print(&quot;mit 3 Nachkommastellen : &quot; + d.ToString(&quot;N3&quot;)); // 123.457
+Print(&quot;mit 4 Nachkommastellen : &quot; + d.ToString(&quot;N4&quot;)); // 123.4568
+</code></pre>
+
+<h3 id="nutzliche-funktionen">Nützliche Funktionen</h3>
+<p>Liefert das Währungssymbol des aktuellen Instruments:</p>
+<pre><code class="cs">public string getWaehrungssymbol() {
+string s = &quot;&quot;;
+switch (Instrument.Currency) {
+case Currencies.USD : s = &quot;$&quot;; break;
+case Currencies.EUR : s = &quot;€&quot;; break;
+case Currencies.CHF : s = &quot;CHF&quot;; break;
+case Currencies.GBP : s = ((char)163).ToString(); break;
+case Currencies.JPY : s = ((char)165).ToString(); break;
+}
+return s;
+}
+</code></pre>
+
+<p>Wandelt eine Zahl in eine Währung mit Tausendertrennung und 2 Nachkommastellen um
+Das Tausendertrennzeichen ist abhängig von eingestellter "Culture".</p>
+<pre><code class="cs">public string getWaehrungOhneSymbol(double d) {
+// Tausender Trennzeichen (abh. von eingestellter Culture) und 2 Nachkommastellen
+return d.ToString(&quot;\#,\#\#0.00&quot;);
+}
+</code></pre>
+
+<p>Wandelt eine Zahl in eine Währung mit Tausendertrennung, 2 Nachkommastellen und einem Währungssymbol um.</p>
+<pre><code class="cs">public string getWaehrungMitSymbol(double d) {
+// Dollar wird vorangestellt. Alles andere kommt hintendran
+string s=getWaehrungOhneSymbol(d);
+string w=getWaehrungssymbol();
+if (w==&quot;$&quot;) s=w+&quot; &quot;+s; else s+=&quot; &quot;+w;
+return s;
+}
+</code></pre>
+
+<p>Wandelt eine Zahl in eine Währung mit Tausendertrennung, 2 Nachkommastellen und einem Währungssymbol um und füllt bis zu einer festen Länge mit führenden Leerzeichen auf.
+Diese Funktion ist sehr gut für eine tabellarische Ausgabe geeignet.</p>
+<pre><code class="cs">public string getWaehrungMitSymbol(double d, int Laenge) {
+// fuehrende Leerzeichen bis feste Laenge erreicht ist
+string s=getWaehrungMitSymbol(d);
+for (int i=s.Length; i&lt;Laenge; i++) s=&quot; &quot;+s;
+return s;
+}
+</code></pre>
+
+<p>Wandelt eine Zahl in eine Prozentangabe um. Es wird nicht gerechnet, nur formatiert.
+Führendes Pluszeichen, eine Nachkommastelle und Prozentzeichen</p>
+<pre><code class="cs">public string getPercent(double d) {
+d=Math.Round(d, 1);
+string s=(d&gt;0)?&quot;+&quot;:&quot;&quot;; // Leading plus sign
+return s+d.ToString(&quot;0.0&quot;)+&quot;%&quot;;
+}
+</code></pre>
+
+<p>Formatiert einen Kurswert in Abhängigkeit von der Anzahl der Nachkommastellen, in der der Wert notiert wird.
+Mit Tausendertrennzeichen und fester Länge, d.h. es wird auch rechts ggf. mit Nullen aufgefüllt.
+Wegen der Verwendung von CultureInfo muß der NameSpace  <strong>System.Globalization</strong>  eingebunden sein.</p>
+<pre><code class="cs">public string format(double d)
+{
+int tickLength = 0;
+// ticksize.ToString() ist z.B. bei 6J = &quot;1E-06&quot; und Length ist dann 5
+// und nicht richtigerweise 8 wie bei &quot;0,000001&quot;)
+if (TickSize &lt; 1) tickLength = TickSize.ToString(&quot;0.\#\#\#\#\#\#\#\#\#\#\#&quot;).Length - 2;
+string f = &quot;{0:n&quot;+tickLength.ToString()+&quot;}&quot;;
+return string.Format(CultureInfo.CurrentCulture, f, d);
+}
+</code></pre>
+
+<h3 id="beispiele">Beispiele</h3>
+<pre><code class="cs">double profit = 1234.567890;
+Print(&quot;getCurrencyWithoutSymbol &quot;: + getWaehrungOhneSymbol(Gewinn)); // 1234.57
+Print(&quot;getCurrencyWithSymbol :&quot; + getWaehrungMitSymbol(Gewinn)); // $ 1,234.57
+Print(&quot;getCurrencyWithSymbol :&quot; + getWaehrungMitSymbol(Gewinn)); // $ 1,234.57
+double percentage profit = 12.3456789;
+Print(&quot;getPercent :&quot; + getPercent(ProzGewinn)); // +12.3%
+double price = 123.4567;
+Print(&quot;getPrice :&quot; + getKurs(Kurs)); // 123.46
+</code></pre>
+
+<h2 id="index-convertierung">Index-Convertierung</h2>
+<p>Es gibt 2 Arten der Indizierung in AgenaTrader.</p>
+<ol>
+<li>
+<p>Die Bars werden vom jüngsten zum ältesten Bar nummeriert.
+Diese Art wird in der OnBarUpdate()-Methode verwenden.
+Der jeweils letzte Bar bekommt den Index 0, der älteste hat den Index Bars.Count-1.</p>
+</li>
+<li>
+<p>Die Bars werden vom ältesten zum jüngsten Bar nummeriert.
+Diese Art wird häufig in der OnPaint()-Methode in for-Schleifen verwendet.
+Der älteste Bar bekommt den Index 0, der jüngste Bar hat den Index Bars.Count-1.</p>
+</li>
+</ol>
+<p>Die folgende Funktion kann zur Umrechnung der Index-Arten verwendet werden:</p>
+<pre><code class="cs">private int Convert(int idx)
+{
+return Math.Max(0,Bars.Count-idx-1-(CalculateOnClosedBar?1:0));
+}
+</code></pre>
+
+<h2 id="indikatornamen-uberschreiben">Indikatornamen überschreiben</h2>
+<p>Der Namen des Indikators (bzw. einer Strategie), der im Eigenschaftendialog und am oberen Rand des Charts angezeigt wird. Verwenden Sie die ToString() Methode und die Eigenschaft DisplayName, um sie zu überschreiben.</p>
+<pre><code class="cs">public override string ToString()
+{
+return &quot;My Name&quot;;
+}
+</code></pre>
+
+<pre><code class="cs">public override string DisplayName
+     {
+         get
+         {
+            return &quot;My Name&quot;;
+         }
+     }
+</code></pre>
+
+<p><strong>Hinweis:</strong>
+Verwenden Sie immer beide Methoden in Ihren Skripts, um sicherzustellen, dass Ihr spezieller Name auf allen AgenaTrader-Formularen verwendet wird.</p>
+<h2 id="rechteck-mit-abgerundeten-ecken">Rechteck mit abgerundeten Ecken</h2>
+<p>Durch die Verwendung der Graphics Methoden können sehr interessante Formen in einen Chart gezeichnet werden.
+Ein Beispiel hierfür ist die Klasse RoundedRectangle, die Rechtecke mit abgerundeten Ecken zeichnet.
+Das Ergebnis sieht sehr viel "moderner" aus, als ein klassisches Rectangle.</p>
+<p><img alt="Rectangle with Rounded Corners" src="../media/image32.png" /></p>
+<pre><code class="cs">Example Code:
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Drawing.Drawing2D;
+using AgenaTrader.API;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+namespace AgenaTrader.UserCode
+{
+[Description(&quot;Demo of RoundedRectangles&quot;)]
+public class DemoRoundedRectangle : UserIndicator
+{
+protected override void OnInit()
+{
+IsOverlay = true;
+}
+protected override void OnCalculate() {}
+public override void OnPaint(Graphics g, Rectangle r, double min, double max)
+{
+GraphicsPath path;
+// zeichnet ein Rechteck mit abgerundeten Ecken
+path = RoundedRectangle.Create(30, 50, 100, 100,8);
+g.DrawPath(Pens.Black, path);
+// zeichnet ein ausgefülltes Rechteck mit Radius 20
+ // abgerundet sind nur die linke obere und rechte untere Ecke
+path = RoundedRectangle.Create(160, 50, 100, 100, 20,
+RoundedRectangle.RectangleCorners.TopLeft|RoundedRectangle.RectangleCorners.BottomRight);
+g.FillPath(Brushes.Orange, path);
+}
+}
+public abstract class RoundedRectangle
+{
+public enum RectangleCorners
+{
+None = 0, TopLeft = 1, TopRight = 2, BottomLeft = 4, BottomRight = 8,
+All = TopLeft | TopRight | BottomLeft | BottomRight
+}
+public static GraphicsPath Create(int x, int y, int width, int height, int radius, RectangleCorners corners)
+{
+Rectangle r = new Rectangle(x,y,width, height);
+Rectangle tlc = new Rectangle(r.Left, r.Top,Math.Min(2 * radius, r.Width),Math.Min(2 * radius, r.Height));
+Rectangle trc = tlc;
+trc.X = r.Right - 2 * radius;
+Rectangle blc = tlc;
+blc.Y = r.Bottom - 2 * radius;
+Rectangle brc = blc;
+brc.X = r.Right - 2 * radius;
+Point[] n = new Point[]
+{
+new Point(tlc.Left, tlc.Bottom), tlc.Location,
+new Point(tlc.Right, tlc.Top), trc.Location,
+new Point(trc.Right, trc.Top),
+new Point(trc.Right, trc.Bottom),
+new Point(brc.Right, brc.Top),
+new Point(brc.Right, brc.Bottom),
+new Point(brc.Left, brc.Bottom),
+new Point(blc.Right, blc.Bottom),
+new Point(blc.Left, blc.Bottom), blc.Location
+};
+GraphicsPath p = new GraphicsPath();
+p.StartFigure();
+//Top left corner
+if ((RectangleCorners.TopLeft &amp; corners) == RectangleCorners.TopLeft)
+p.AddArc(tlc, 180, 90);
+else
+p.AddLines(new Point[] { n[0], n[1], n[2] });
+//Top edge
+p.AddLine(n[2], n[3]);
+//Top right corner
+if ((RectangleCorners.TopRight &amp; corners) == RectangleCorners.TopRight)
+p.AddArc(trc, 270, 90);
+else
+p.AddLines(new Point[] { n[3], n[4], n[5] });
+//Right edge
+p.AddLine(n[5], n[6]);
+//Bottom right corner
+if ((RectangleCorners.BottomRight &amp; corners) == RectangleCorners.BottomRight)
+p.AddArc(brc, 0, 90);
+else
+p.AddLines(new Point[] { n[6], n[7], n[8] });
+//Bottom edge
+p.AddLine(n[8], n[9]);
+//Bottom left corner
+if ((RectangleCorners.BottomLeft &amp; corners) == RectangleCorners.BottomLeft)
+p.AddArc(blc, 90, 90);
+else
+p.AddLines(new Point[] { n[9], n[10], n[11] });
+//Left edge
+p.AddLine(n[11], n[0]);
+p.CloseFigure();
+return p;
+}
+public static GraphicsPath Create(Rectangle rect, int radius, RectangleCorners c)
+{ return Create(rect.X, rect.Y, rect.Width, rect.Height, Math.Max(1,radius), c); }
+public static GraphicsPath Create(int x, int y, int width, int height, int radius)
+{ return Create(x, y, width, height, Math.Max(1,radius), RectangleCorners.All); }
+public static GraphicsPath Create(Rectangle rect, int radius)
+{ return Create(rect.X, rect.Y, rect.Width, rect.Height, Math.Max(1,radius)); }
+public static GraphicsPath Create(int x, int y, int width, int height)
+{ return Create(x, y, width, height, 8); }
+public static GraphicsPath Create(Rectangle rect)
+{ return Create(rect.X, rect.Y, rect.Width, rect.Height); }
+}
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../drawing_objects/" class="btn btn-neutral" title="Drawing objects"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../drawing_objects/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

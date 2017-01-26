@@ -2020,6 +2020,80 @@ Lines[0].DashStyle = DashStyle.Solid;
 }
 ```
 
+## Multibars
+### Beschreibung
+Einem Indikator bzw. eine Strategie liegt immer die gleiche Zeiteinheit zugrunde, wie diejenige, in der der Chart angezeigt wird. Wird z.B. ein SMA(14) in einem 5-Minuten-Chart dargestellt, wird der gleitende Durchschnitt über die 14 letzten 5-Minuten-Bars berechnet. Auf einem Tageschart würden entsprechend die Schlusskurse der letzten 14 Tage zur Berechnung herangezogen werden.
+
+Das gleiche Prinzip gilt für selbst entwickelte Indikatoren. In einem 5-Minuten-Chart würde die Methode [*OnCalculate()*](#oncalculate)  für jeden 5-Minuten-Bar aufgerufen werden.
+Mit Multibars ist es außerdem möglich, Daten eines anderen Instrumentes zu laden.
+
+### Beispiel
+```cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using AgenaTrader.API;
+using AgenaTrader.Custom;
+using AgenaTrader.Plugins;
+using AgenaTrader.Helper;
+namespace AgenaTrader.UserCode
+{
+    [Description("Multibar Demo")]
+    // Der Indikator benötigt Tages- und Wochendaten
+    [TimeFrameRequirements("1 Day", "1 Week")]
+    public class MultiBarDemo : UserIndicator
+    {
+        private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
+        private static readonly TimeFrame TF_Week = new TimeFrame(DatafeedHistoryPeriodicity.Week, 1);
+
+        protected override void OnBarsRequirements()
+        {
+            Add(TF_Day);
+            Add(TF_Week);
+        }
+
+        protected override void OnInit()
+        {
+            CalculateOnClosedBar = true;
+        }
+        protected override void OnCalculate()
+        {
+            // aktueller Wert für den SMA 14 auf Tagesbasis
+            Print("TF0: " + SMA(Closes[0], 14)[0]);
+            // The current value for the SMA 14 in a daily timeframe
+            Print("TF1: " + SMA(Closes[1], 14)[0]);
+             // aktueller Wert für den SMA 14 auf Wochenbasis
+            Print("TF2: " + SMA(Closes[2], 14)[0]);
+        }
+    }
+}
+```
+
+### Weitere Hinweise
+Bei Verwendung weiterer Zeiteinheiten wird den Arrays [*Opens*](#opens), [*Highs*](#highs), [*Lows*](#lows), [*Closes*](#closes), [*Medians*](#medians), [*Typicals*](#typicals), [*Weighteds*](#weighteds), [*Times*](#times) und [*Volumes*](#volumes)  ein weiterer Eintrag mit den jeweiligen Datenserien der Bars der neuen Zeiteinheit hinzugefügt. Die Indizierung erfolgt in der Reihenfolge des Hinzufügens der Zeiteinheiten.
+Closes\[0\]\[0\] entspricht Close\[0\].
+Closes\[1\]\[0\] entspricht dem aktuellen Schlusskurs der Tagesdatenreihe.
+Closes\[2\]\[0\] entspricht dem aktuellen Schlusskurs der Wochendatenreihe.
+
+"Closes"kann in den Beispielen selbstverständlich auch durch Opens, Highs, Lows usw. ersetzt werden.
+
+Siehe auch [*ProcessingBarIndexes*](#processingbarindexes), [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*TimeFrames*](#timeframes), [*TimeFrameRequirements*](timeframerequirements).
+
+Es gibt noch eine weitere Schreibweise für Multbars:
+```cs
+// unter Variablendeklaration wird die Variable TF_Day definiert
+private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
+private static readonly TimeFrame TF_Week = new TimeFrame(DatafeedHistoryPeriodicity.Week, 1);
+// Die folgende Anweisung ist identisch mit double d = Closes[1][0];
+double d = MultiBars.GetBarsItem(TF_Day).Close[0];
+//  Die folgende Anweisung ist identisch mit double w = Closes[2][0];
+double w = MultiBars.GetBarsItem(TF_Week).Close[0];
+```
+
 ## PlotColors
 ### Beschreibung
 PlotColors ist eine Collection, die die ColorSeries aller Plot-Objekte enthält.
@@ -2125,113 +2199,6 @@ else
 }
 ```
 
-## Values
-### Beschreibung
-Values ist eine Collection, die die DataSeries-Objekte eines Indikators enthält.
-
-Wenn einem Indikator mit der Add()-Methode ein Plot hinzugefügt wird, wird automatisch auch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
-
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values\[0\], der nächste Values\[1\] usw.
-
-**Value** ist immer identisch mit Values\[0\].
-
-### Verwendung
-```cs
-Outputs[int index]
-Outputs[int index][int barsAgo]
-```
-
-### Weitere Informationen
-Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf Value bzw. Values anwendbar.
-
-Informationen zur Klasse Collection:
-[*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
-
-### Beispiel
-```cs
-// Überpüfung des zweiten Indikatorwertes (d.h. der sekundären DatenSerie)
-// von vor einem Bar
-// und in Abhängigkeit davon Setzen des aktuellen Indikatorwertes
-if (Outputs[1][1] < High[0] - Low[0])
-Value.Set(High[0] - Low[0]);
-else
-Value.Set(High[0] - Close[0]);
-```
-
-## Multibars
-### Beschreibung
-Einem Indikator bzw. eine Strategie liegt immer die gleiche Zeiteinheit zugrunde, wie diejenige, in der der Chart angezeigt wird. Wird z.B. ein SMA(14) in einem 5-Minuten-Chart dargestellt, wird der gleitende Durchschnitt über die 14 letzten 5-Minuten-Bars berechnet. Auf einem Tageschart würden entsprechend die Schlusskurse der letzten 14 Tage zur Berechnung herangezogen werden.
-
-Das gleiche Prinzip gilt für selbst entwickelte Indikatoren. In einem 5-Minuten-Chart würde die Methode [*OnCalculate()*](#oncalculate)  für jeden 5-Minuten-Bar aufgerufen werden.
-Mit Multibars ist es außerdem möglich, Daten eines anderen Instrumentes zu laden.
-
-### Beispiel
-```cs
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
-using AgenaTrader.API;
-using AgenaTrader.Custom;
-using AgenaTrader.Plugins;
-using AgenaTrader.Helper;
-namespace AgenaTrader.UserCode
-{
-    [Description("Multibar Demo")]
-    // Der Indikator benötigt Tages- und Wochendaten
-    [TimeFrameRequirements("1 Day", "1 Week")]
-    public class MultiBarDemo : UserIndicator
-    {
-        private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
-        private static readonly TimeFrame TF_Week = new TimeFrame(DatafeedHistoryPeriodicity.Week, 1);
-
-        protected override void OnBarsRequirements()
-        {
-            Add(TF_Day);
-            Add(TF_Week);
-        }
-
-        protected override void OnInit()
-        {
-            CalculateOnClosedBar = true;
-        }
-        protected override void OnCalculate()
-        {
-            // aktueller Wert für den SMA 14 auf Tagesbasis
-            Print("TF0: " + SMA(Closes[0], 14)[0]);
-            // The current value for the SMA 14 in a daily timeframe
-            Print("TF1: " + SMA(Closes[1], 14)[0]);
-             // aktueller Wert für den SMA 14 auf Wochenbasis
-            Print("TF2: " + SMA(Closes[2], 14)[0]);
-        }
-    }
-}
-```
-
-### Weitere Hinweise
-Bei Verwendung weiterer Zeiteinheiten wird den Arrays [*Opens*](#opens), [*Highs*](#highs), [*Lows*](#lows), [*Closes*](#closes), [*Medians*](#medians), [*Typicals*](#typicals), [*Weighteds*](#weighteds), [*Times*](#times) und [*Volumes*](#volumes)  ein weiterer Eintrag mit den jeweiligen Datenserien der Bars der neuen Zeiteinheit hinzugefügt. Die Indizierung erfolgt in der Reihenfolge des Hinzufügens der Zeiteinheiten.
-Closes\[0\]\[0\] entspricht Close\[0\].
-Closes\[1\]\[0\] entspricht dem aktuellen Schlusskurs der Tagesdatenreihe.
-Closes\[2\]\[0\] entspricht dem aktuellen Schlusskurs der Wochendatenreihe.
-
-"Closes"kann in den Beispielen selbstverständlich auch durch Opens, Highs, Lows usw. ersetzt werden.
-
-Siehe auch [*ProcessingBarIndexes*](#processingbarindexes), [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*TimeFrames*](#timeframes), [*TimeFrameRequirements*](timeframerequirements).
-
-Es gibt noch eine weitere Schreibweise für Multbars:
-```cs
-// unter Variablendeklaration wird die Variable TF_Day definiert
-private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
-private static readonly TimeFrame TF_Week = new TimeFrame(DatafeedHistoryPeriodicity.Week, 1);
-// Die folgende Anweisung ist identisch mit double d = Closes[1][0];
-double d = MultiBars.GetBarsItem(TF_Day).Close[0];
-//  Die folgende Anweisung ist identisch mit double w = Closes[2][0];
-double w = MultiBars.GetBarsItem(TF_Week).Close[0];
-```
-
 ## ProcessingBarIndexes
 ### Beschreibung
 CurrentBars ist ein Array von int-Werten, welches für jedes Bar-Objekt die Nummer von [*ProcessingBarIndex*](#processingbarindex) enthält.
@@ -2296,4 +2263,37 @@ protected override void OnCalculate()
 if (ProcessingBarSeriesIndex > 0) return;
 // Logik für primäre Datenreihe
 }
+```
+
+## Values
+### Beschreibung
+Values ist eine Collection, die die DataSeries-Objekte eines Indikators enthält.
+
+Wenn einem Indikator mit der Add()-Methode ein Plot hinzugefügt wird, wird automatisch auch ein Value-Objekt erzeugt und der Collection Values hinzugefügt.
+
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Values. Der erste Aufruf von Add() erzeugt Values\[0\], der nächste Values\[1\] usw.
+
+**Value** ist immer identisch mit Values\[0\].
+
+### Verwendung
+```cs
+Outputs[int index]
+Outputs[int index][int barsAgo]
+```
+
+### Weitere Informationen
+Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf Value bzw. Values anwendbar.
+
+Informationen zur Klasse Collection:
+[*http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx*](http://msdn.microsoft.com/en-us/library/ybcx56wz%28v=vs.80%29.aspx)
+
+### Beispiel
+```cs
+// Überpüfung des zweiten Indikatorwertes (d.h. der sekundären DatenSerie)
+// von vor einem Bar
+// und in Abhängigkeit davon Setzen des aktuellen Indikatorwertes
+if (Outputs[1][1] < High[0] - Low[0])
+Value.Set(High[0] - Low[0]);
+else
+Value.Set(High[0] - Close[0]);
 ```

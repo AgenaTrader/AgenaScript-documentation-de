@@ -10,7 +10,7 @@ site_url: https://agenatrader.github.io/AgenaScript-documentation-de/index.html
 strict: true
 google_analytics: ['UA-74646070-1', 'agenatrader.github.io']
 pages:
-    - 'Lets start': 'index.md'
+    - 'Los gehts': 'index.md'
     - 'Umgang mit Bars und Instrumenten': 'umgang_mit_bars_und_instrumenten.md'
     - 'Ereignisse': 'ereignisse.md'
     - 'Strategieprogrammierung': 'strategieprogrammierung.md'

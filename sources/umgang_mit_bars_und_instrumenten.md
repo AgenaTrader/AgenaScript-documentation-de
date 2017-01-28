@@ -30,7 +30,7 @@ Der aktuelle Schlusskurs, also der Schlusskurs des Bars, der am rechten Rand des
 
 Kommt im Laufe der Handelssitzung ein neuer Bar hinzu, erhält dieser nun die Nummer 0, der links von ihm, der gerade noch die Nummer 0 hatte, wird zu Nummer 1 usw. Der letzte dargestellte Bar wird zu Nummer 501.
 
-In einem Script (einem selbsterstellten Programm) steht [*Close*](#close für die Liste (Array) aller Schlusskurse. Der letzte Schlusskurs ist dann *Close \[0\]*; t der Schlusskurs davor (bei Tagesdaten ist das z.B. der Schlusskurs von gestern) ist *Close \[1\]*,  der davor  *Close \[2\]* bis zum ersten Bar im Chart (ganz links) mit *Close \[501\]*. Die Zahl in den eckigen Klammern ist ein Index. In AgenaTrader steht hierfür im allgemeinen Fall der Ausdruck "barsAgo". 
+In einem Script (einem selbsterstellten Programm) steht *Close* close für die Liste (Array) aller Schlusskurse. Der letzte Schlusskurs ist dann *Close \[0\]*; t der Schlusskurs davor (bei Tagesdaten ist das z.B. der Schlusskurs von gestern) ist *Close \[1\]*,  der davor  *Close \[2\]* bis zum ersten Bar im Chart (ganz links) mit *Close \[501\]*. Die Zahl in den eckigen Klammern ist ein Index. In AgenaTrader steht hierfür im allgemeinen Fall der Ausdruck "barsAgo".
 
 Für jeden Bar gibt es nicht nur Close, sondern zudem auch [*High*](#high), [*Low*](#low), [*Open*](#open), [*Median*](#median), [*Typical*](#typical), [*Weighted*](#weighted), [*Time*](#time) and [*Volume*](#volume). Das Hoch der Kerze, von vor 10 Tagen ist also z.B.  *High \[10\]*, Das Tief von gestern *Low \[1\]*...
 
@@ -41,7 +41,7 @@ Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgrei
 
 In diesem Fall bekommt der aktuell laufende Bar die Nummer 0, der Bar links neben dem aktuell laufenden die Nummer 1 usw. Der letzte Bar (im Beispiel oben) hätte jetzt die Nummer 502.
 
-Mit close \[0\] bekommt man nun den jeweils letzten Kurs, der gerade vom Datenanbieter an AgenaTrader übermittelt wurde. Alle Werte des Bars (high \[0\], low \[0\]…) können sich solange verändern, bis der Bar fertig ausgebildet ist und ein neuer Bar begonnen hat. Nur Open[0] ändert sich auch in diesem Fall nicht mehr.
+Mit close \[0\] bekommt man nun den jeweils letzten Kurs, der gerade vom Datenanbieter an AgenaTrader übermittelt wurde. Alle Werte des Bars (high \[0\], low \[0\]…) können sich solange verändern, bis der Bar fertig ausgebildet ist und ein neuer Bar begonnen hat. Nur Open\[0\] ändert sich auch in diesem Fall nicht mehr.
 
 ## Eigenschaften von Bars
 ### Eigenschaften von Bars
@@ -594,7 +594,7 @@ Bars.IsSessionBreak
 ```cs
 if (Bars.IsSessionBreak)
 {
-Print("Die Börse Xetra hat gerade eine Handelspause"");
+Print("Die Börse Xetra hat gerade eine Handelspause.");
 }
 ```
 ## Bars.LastBarCompleteness
@@ -1111,15 +1111,15 @@ Folgende Datenserien sind verfügbar:
 
 [*High*](#high) [*Highs*](#highs)
 
-[*Low*](#low)(#low) [*Lows*](#lows)
+[*Low*](#low) [*Lows*](#lows)
 
 [*Close*](#close) [*Closes*](#closes)
 
 [*Median*](#median) [*Medians*](#medians)
 
-[*Typical*](#typical)(#Typical) [*Typicals*](#typicals)
+[*Typical*](#typical) [*Typicals*](#typicals)
 
-[*Weighted*](#weighted)(#weighted) [*Weighteds*](#weighteds)
+[*Weighted*](#weighted) [*Weighteds*](#weighteds)
 
 [*Time*](#time) [*Times*](#times)
 
@@ -1356,7 +1356,7 @@ Closes\[0\]\[0\] entspricht Close\[0\].
 Siehe auch [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo	Indexwert der einzelnen Bars innerhalb der Dataseries 
+barsAgo	Indexwert der einzelnen Bars innerhalb der Dataseries
 barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
 ### Verwendung
@@ -1556,7 +1556,7 @@ Weighteds\[0\]\[0\] entspricht Weighteds\[0\].
 Siehe auch  [*MultiBars*](#multibars).
 
 ### Parameter
-barsAgo	Indexwert der einzelnen Bars innerhalb der Dataseries 
+barsAgo	Indexwert der einzelnen Bars innerhalb der Dataseries
 barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten
 
 ### Verwendung
@@ -2302,4 +2302,3 @@ if (ProcessingBarSeriesIndex > 0) return;
 // Logik für primäre Datenreihe
 }
 ```
-

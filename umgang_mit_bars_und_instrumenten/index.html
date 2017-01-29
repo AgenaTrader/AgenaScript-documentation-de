@@ -330,7 +330,7 @@
 <p>Zur Berechnung eines gleitenden Durchschnitts benötigt AgenaTrader eine Datenreihe. Im Beispiel nehmen wir die Schlusskurse. Alle Schlusskurse der Bars (Kerzen), die in einem Chart dargestellt sind, sind in einer Liste gespeichert und sozusagen durchnummeriert.</p>
 <p>Der aktuelle Schlusskurs, also der Schlusskurs des Bars, der am rechten Rand des Charts dargestellt wird, bekommt die Nummer 0. Der Bar links davon die Nummer 1 usw. Der älteste dargestellte Bar hat dann z.B. die Nummer 500.</p>
 <p>Kommt im Laufe der Handelssitzung ein neuer Bar hinzu, erhält dieser nun die Nummer 0, der links von ihm, der gerade noch die Nummer 0 hatte, wird zu Nummer 1 usw. Der letzte dargestellte Bar wird zu Nummer 501.</p>
-<p>In einem Script (einem selbsterstellten Programm) steht [<em>Close</em>](#close für die Liste (Array) aller Schlusskurse. Der letzte Schlusskurs ist dann <em>Close [0]</em>; t der Schlusskurs davor (bei Tagesdaten ist das z.B. der Schlusskurs von gestern) ist <em>Close [1]</em>,  der davor  <em>Close [2]</em> bis zum ersten Bar im Chart (ganz links) mit <em>Close [501]</em>. Die Zahl in den eckigen Klammern ist ein Index. In AgenaTrader steht hierfür im allgemeinen Fall der Ausdruck "barsAgo". </p>
+<p>In einem Script (einem selbsterstellten Programm) steht <em>Close</em> close für die Liste (Array) aller Schlusskurse. Der letzte Schlusskurs ist dann <em>Close [0]</em>; t der Schlusskurs davor (bei Tagesdaten ist das z.B. der Schlusskurs von gestern) ist <em>Close [1]</em>,  der davor  <em>Close [2]</em> bis zum ersten Bar im Chart (ganz links) mit <em>Close [501]</em>. Die Zahl in den eckigen Klammern ist ein Index. In AgenaTrader steht hierfür im allgemeinen Fall der Ausdruck "barsAgo".</p>
 <p>Für jeden Bar gibt es nicht nur Close, sondern zudem auch <a href="#high"><em>High</em></a>, <a href="#low"><em>Low</em></a>, <a href="#open"><em>Open</em></a>, <a href="#median"><em>Median</em></a>, <a href="#typical"><em>Typical</em></a>, <a href="#weighted"><em>Weighted</em></a>, <a href="#time"><em>Time</em></a> and <a href="#volume"><em>Volume</em></a>. Das Hoch der Kerze, von vor 10 Tagen ist also z.B.  <em>High [10]</em>, Das Tief von gestern <em>Low [1]</em>...</p>
 <p><strong>wichtiger Hinweis</strong></p>
 <p>Die o.g. Beispiele gelten, wenn die Berechnung am Ende einer Periode erfolgt. Die Werte der aktuell laufenden (noch nicht fertigen Kerze) sind nicht berücksichtigt.
@@ -747,7 +747,7 @@ Falls diese Eigenschaft ausserhalb von OnCalculate() verwendet wird, sollte vorh
 <h3 id="beispiel_16">Beispiel</h3>
 <pre><code class="cs">if (Bars.IsSessionBreak)
 {
-Print(&quot;Die Börse Xetra hat gerade eine Handelspause&quot;&quot;);
+Print(&quot;Die Börse Xetra hat gerade eine Handelspause.&quot;);
 }
 </code></pre>
 
@@ -1151,11 +1151,11 @@ Das Konzept von Datenserien wird sehr konsequent und durchgängig verfolgt. Alle
 Folgende Datenserien sind verfügbar:</p>
 <p><a href="#open"><em>Open</em></a> <a href="#opens"><em>Opens</em></a></p>
 <p><a href="#high"><em>High</em></a> <a href="#highs"><em>Highs</em></a></p>
-<p><a href="#low"><em>Low</em></a>(#low) <a href="#lows"><em>Lows</em></a></p>
+<p><a href="#low"><em>Low</em></a> <a href="#lows"><em>Lows</em></a></p>
 <p><a href="#close"><em>Close</em></a> <a href="#closes"><em>Closes</em></a></p>
 <p><a href="#median"><em>Median</em></a> <a href="#medians"><em>Medians</em></a></p>
-<p><a href="#typical"><em>Typical</em></a>(#Typical) <a href="#typicals"><em>Typicals</em></a></p>
-<p><a href="#weighted"><em>Weighted</em></a>(#weighted) <a href="#weighteds"><em>Weighteds</em></a></p>
+<p><a href="#typical"><em>Typical</em></a> <a href="#typicals"><em>Typicals</em></a></p>
+<p><a href="#weighted"><em>Weighted</em></a> <a href="#weighteds"><em>Weighteds</em></a></p>
 <p><a href="#time"><em>Time</em></a> <a href="#times"><em>Times</em></a></p>
 <p><a href="#timeframe"><em>TimeFrame</em></a> <a href="#timeframes"><em>TimeFrames</em></a></p>
 <p><a href="#volume"><em>Volume</em></a> <a href="#volumes"><em>Volumes</em></a></p>
@@ -1327,7 +1327,7 @@ Closes[2] die Close-Dataseries aller Bars auf Wochenbasis.</p>
 <p>Closes[0][0] entspricht Close[0].</p>
 <p>Siehe auch <a href="#multibars"><em>MultiBars</em></a>.</p>
 <h3 id="parameter_30">Parameter</h3>
-<p>barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries 
+<p>barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
 barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten</p>
 <h3 id="verwendung_38">Verwendung</h3>
 <pre><code class="cs">Closes[int barSeriesIndex]
@@ -1469,7 +1469,7 @@ Weighteds[2] die Weighted-Dataseries aller Bars auf Wochenbasis</p>
 <p>Weighteds[0][0] entspricht Weighteds[0].</p>
 <p>Siehe auch  <a href="#multibars"><em>MultiBars</em></a>.</p>
 <h3 id="parameter_36">Parameter</h3>
-<p>barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries 
+<p>barsAgo Indexwert der einzelnen Bars innerhalb der Dataseries
 barSeriesIndex Indexwert der unterschiedlichen Zeiteinheiten</p>
 <h3 id="verwendung_44">Verwendung</h3>
 <pre><code class="cs">Weighteds[int barSeriesIndex]

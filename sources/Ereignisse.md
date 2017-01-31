@@ -25,7 +25,7 @@ Die Methode OnBrokerConnect() wird jedesmal dann aufgerufen, wenn die Verbindung
 
 Mit Hilfe von OnBrokerConnect() besteht die Möglichkeit, bei einem Verbindungsabbruch mit dem Broker, die bestehenden bzw. noch offenen Orders wieder der Strategie zuzuordnen und somit von dieser wieder verwalten zu lassen
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Parameter
 keine
@@ -59,7 +59,7 @@ protected override void OnBrokerConnect()
 ### Beschreibung
 Die Methode OnBrokerDisconnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker unterbrochen wurde.
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Parameter
 Ein Objekt vom Typ  *TradingDatafeedChangedEventArgs*
@@ -228,7 +228,7 @@ Die Methode  OnDispose() kann überschrieben werden, um alle im Script verwendet
 
 Siehe auch [*OnInit()*](#oninit) und [*OnStart()*](#onstart).
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Parameter
 keiner
@@ -262,7 +262,7 @@ Die Methode OnLevel1() wird bei jeder Änderung in den Level-I-Daten aufgerufen,
 In a multibar indicator, the ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnLevel1() aufgerufen wurde.
 
 OnLevel1() wird nicht für historische Daten aufgerufen
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 **Hinweis zu Daten von Yahoo (YFeed)**
 
@@ -309,7 +309,7 @@ Die Methode OnLevel2() wird bei jeder Änderung in den Level-II-Daten (Markttief
 In einem Multibar-Indikator kann mit  ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnMarketDepth() aufgerufen wurde.
 OnLevel2 wird nicht für historische Daten aufgerufen.
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Verwendung
 ```cs
@@ -335,10 +335,10 @@ protected override void OnLevel2(Level2Args e)
 ### Beschreibung
 Die Methode OnOrderChanged()  wird jedesmal dann aufgerufen, wenn sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.
 
-**wichtiger Hinweis:**
+**Wichtiger Hinweis:**
 **Wenn eine Strategie durch Orderausführungen gesteuert werden soll, ist es ratsamer,  OnOrderExecution() anstelle von OnOrderChanged() zu verwenden.  Es kann sonst zu Problemen bei Teilausführungen kommen..**
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Parameter
 Ein Order-Objekt vom Type IOrder
@@ -380,7 +380,7 @@ Die Methode OnOrderExecution() wird jedesmal dann aufgerufen, wenn eine Order au
 
 OnOrderExecution() wird immer nach [*OnOrderChanged()*](#onorderchanged) aufgerufen.
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Parameter
 Ein execution-Objekt vom Type  *IExecution*
@@ -403,7 +403,7 @@ protected override void OnCalculate()
 }
 protected override void OnOrderExecution(IExecution execution)
 {
-    // Beispiel 
+    // Beispiel
     if (entry != null && execution.Order == entry)
     {
     	Print(execution.Price.ToString());
@@ -419,7 +419,7 @@ OnStart() wird nur einmal am Beginn des Scrips nach [*OnInit()*](#oninit) und vo
 
 Siehe auch [*OnDispose()*](#ondispose).
 
-Siehe auch weitere Methoden zur Ereignisbehandlung unter [* Ereignisse*](#ereignisse).
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
 
 ### Parameter
 keiner
@@ -444,5 +444,3 @@ protected override void OnStart()
     }
 }
 ```
-
-

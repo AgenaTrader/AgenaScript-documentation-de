@@ -56,9 +56,9 @@ namespace AgenaTrader.UserCode
 
     / Hier werden 2 Datenserien zur Verfügung gestellt.
 		// Zur Darstellung des Indikators auf dem Chart sind diese nicht notwendig.
-		// Mit Hilfe dieser Datenserien kann von anderen Indikatoren aus auf diesen Indikator 
+		// Mit Hilfe dieser Datenserien kann von anderen Indikatoren aus auf diesen Indikator
 		// zugegriffen werden.
-		// Z.B. mit double d = MeinIndikator.FastSMA[0] - MeinIndikator.SlowSMA[0]; 
+		// Z.B. mit double d = MeinIndikator.FastSMA[0] - MeinIndikator.SlowSMA[0];
     [Browsable(false)]
     [XmlIgnore()]
     public DataSeries FastSMA
@@ -355,7 +355,7 @@ CalculateOnClosedBar = true;
 }
 ```
 ## Chart
-Chart  ist ein Objekt, über welches der lesende Zugriff auf verschiedene Eigenschaften des Charts möglich ist. 
+Chart  ist ein Objekt, über welches der lesende Zugriff auf verschiedene Eigenschaften des Charts möglich ist.
 
 
 Die wichtigsten Eigenschaften sind:
@@ -383,13 +383,13 @@ BarsVisible enthält die Anzahl der Bars, die tatsächlich zu sehen sind.
 
 **FirstBarPainted und FirstBarVisible:**
 
-FirstBarPainted enthält die Nummer des Bars, der am linken Rand des Charts angezeigt werden *würde*. 
+FirstBarPainted enthält die Nummer des Bars, der am linken Rand des Charts angezeigt werden *würde*.
 
 FirstBarVisible  enthält die Nummer des Bars, der tatsächlich als erster Bar links im Chart angezeigt wird.
 
 Beispiel: der Chart ist so verschoben, dass der erste Bar des Charts erst in der Mitte des Charts angezeigt wird.
 
-FirstBarPainted wäre in diesem Fall negativ. 
+FirstBarPainted wäre in diesem Fall negativ.
 
 FirstBarVisible  wäre 0.
 
@@ -401,7 +401,7 @@ LastBarVisible  enthält die Nummer des Bars, der tatsächlich als letzter Bar r
 
 Beispiel: der Chart ist so verschoben, dass der letzte Bar des Charts bereits in der Mitte des Charts angezeigt wird.
 
-LastBarPainted wäre in diesem Fall größer als Bars.Count. 
+LastBarPainted wäre in diesem Fall größer als Bars.Count.
 
 LastBarVisible wäre in Bars.Count -1.
 
@@ -523,7 +523,7 @@ BackColorAllSeries
 BackColorAllSeries[int barsAgo]
 ```
 
-Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
+Bei Verwendung der Methode mit einem Index \[int barsAgo\] wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.
 
 ### Beispiel
 siehe [*BackColorSeries*](#backcolorseries).
@@ -549,7 +549,7 @@ ei Verwendung der Methode mit einem Index \[**int** barsAgo\]  wird die Hintergr
 
 ### Beispiele
 ```cs
-// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format) 
+// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format)
 Print (BackColorSeries[0]);
 // Hintergrundfarbe des aktuellen Bars auf Blau setzen
 // Dies ist identisch mit BackColor = Color.Blue
@@ -559,7 +559,7 @@ BackColorSeries[1] = Color.Green;
 ```
 ## BarColor
 ### Beschreibung
-BarColor ändert die Farbe eines Bars 
+BarColor ändert die Farbe eines Bars
 
 Siehe auch [*Colors*](#colors), [*BarColor*](#barcolor), [*BackColor*](#backcolor), [*BackColorAll*](#backcolorall), [*BarColorSeries*](#barcolorseries), [*BackColorAll*](#backcolorall), [*CandleOutlineColor*](#candleoutlinecolor).
 
@@ -594,7 +594,7 @@ BarColorSeries
 
 BarColorSeries\[**int** barsAgo\]
 
-Bei Verwendung der Methode mit einem Index [int barsAgo] wird die Farbe für den referenzierten Bar geändert bzw. ausgegeben.
+Bei Verwendung der Methode mit einem Index \[int barsAgo\] wird die Farbe für den referenzierten Bar geändert bzw. ausgegeben.
 
 **Achtung: Es wird nur die Farbe eines Bars zurückgegeben, dessen Farbe vorher explizit verändert wurde. In allen anderen Fällen wird Color.Empty zurückgegeben.**
 
@@ -1332,7 +1332,7 @@ execution.Instrument.Symbol +" order " + execution.Name + " executed. Profit:" +
 ## FirstTickOfBar
 ### Beschreibung
 FirstTickOfBar ist eine Eigenschaft, vom Type bool, die immer dann "true" ergibt, wenn der aktuell hereinkommende Tick einem neuen Bar zugeordnet wird, dieser Tick also der erste Tick eines neuen Bars ist.
-Die Eigenschaft kann nur sinnvoll eingesetzt werden, wenn der Indikator bzw. die Startegie im Tick-by-Tick-Modus läuft, d.h. wenn CalculateOnClosedBar = false gesetzt ist und der verwendete Datenfeed Realtime-Kurse liefert. 
+Die Eigenschaft kann nur sinnvoll eingesetzt werden, wenn der Indikator bzw. die Startegie im Tick-by-Tick-Modus läuft, d.h. wenn CalculateOnClosedBar = false gesetzt ist und der verwendete Datenfeed Realtime-Kurse liefert.
 Bei Verwendung von EoD-Daten in einem Tageschart ist FirstTickOfBar für den letzten Bar immer true.
 FirstTickOfBar sollte nicht außerhalb der OnCalculate() Methode verwendet werden..
 
@@ -1696,7 +1696,7 @@ InputPriceType = PriceType.Low;
 // Die beiden Werte sind identisch
 Print(SMA(20)[0] + " " + SMA(Low, 20)[0]);
 InputPriceType = PriceType.High;
-// Diese Anweisung wird ignoriert. 
+// Diese Anweisung wird ignoriert.
      // Es gilt weiterhin Input = Low !!!
 }
 ```
@@ -1841,7 +1841,7 @@ IsSerieRising(IDataSeries series)
 ```
 
 ### Rückgabewert
-**true** wenn die Datenreihe steigt 
+**true** wenn die Datenreihe steigt
 **false** wenn die Datenreihe nicht steigt
 
 ### Parameter
@@ -1865,8 +1865,8 @@ Siehe auch  [*CrossAbove()*](#crossabove), [*CrossBelow()*](#crossbelow), [*IsSe
 IsSerieFalling(IDataSeries series)
 ```
 
-### Rückgabewert 
-**true** wenn die Datenreihe fällt 
+### Rückgabewert
+**true** wenn die Datenreihe fällt
 **false** wenn die Datenreihe nicht fällt
 
 ### Parameter
@@ -2532,7 +2532,6 @@ RequiredBarsCount
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
 //Der Indikator benötigt mindestens 50 Bars Historie
 RequiredBarsCount = 50;
 }
@@ -2547,7 +2546,7 @@ SessionBreakLines werden im Chart angezeigt.
 
 **SessionBreakLines = false**
 
-SessionBreakLines werden nicht im Chart angezeigt 
+SessionBreakLines werden nicht im Chart angezeigt
 
 Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
 
@@ -2605,7 +2604,7 @@ Ein Tick ist die kleinst mögliche Kursänderung eines Finanzinstruments an eine
 Der Tickwert wird durch die Börse fest vorgegeben und ändert sich (in der Regel) nicht.
 Siehe auch [*Instrument.TickSize*](#instrumentticksize).
 
-Üblicherweise wird heute ein Tick als Dezimalzahl angegeben. Historisch wurden besonders im amerikanischen Raum Aktien jedoch mit einer Tickgröße von 1/16 von einem Dollar notiert. 
+Üblicherweise wird heute ein Tick als Dezimalzahl angegeben. Historisch wurden besonders im amerikanischen Raum Aktien jedoch mit einer Tickgröße von 1/16 von einem Dollar notiert.
 
 Bei Rohstoffen ist diese Notierung noch weit verbreitet. Der Corn-Future (ZC - Mais) wird genau wie Wheat (ZW - Weizen) in ¼ US-Cent/bushel (entspricht 12,50 US-$ je Kontrakt) notiert.
 
@@ -2713,4 +2712,3 @@ Die für eine Collection bekannten Methoden Set(), Reset() und Count() sind auf 
 
 ### Beispiel
 Siehe [*Values*](#values).
-

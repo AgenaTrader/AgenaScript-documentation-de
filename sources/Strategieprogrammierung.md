@@ -1091,6 +1091,104 @@ Print("The current account cash value with the leverage provided by the broker i
 Print("The current P/L already realized is " + GetAccountValue(AccountItem.RealizedProfitLoss));
 ```
 
+## GetEntries()
+### Beschreibung
+Diese Datenserie wird für Conditions verwendet und zeigt mehrfache Einstiegspreise für Einstiegsorders an.
+
+### Verwendung
+Überladung von programmierten Conditions für eine Short und Long Signal Anzeige.
+
+### Parameter
+None
+
+### Rückgabewert
+int
+
+### Beispiel
+```cs
+public class MyTestEntry : UserScriptedCondition
+	{
+
+        double _percentage = 100;
+
+        protected override void Initialize()
+		{
+			IsEntry = true;
+			IsStop = false;
+			IsTarget= false;
+			Add(new Plot(Color.FromKnownColor(KnownColor.Black), "Occurred"));
+			Add(new Plot(Color.FromArgb(255, 118, 222, 90), "Entry1"));
+            Add(new Plot(Color.FromArgb(255, 118, 222, 90), "Entry2"));
+            Add(new Plot(Color.FromArgb(255, 118, 222, 90), "Entry3"));
+            Overlay = true;
+			CalculateOnBarClose = true;
+		}
+
+		protected override void OnBarUpdate()
+		{
+
+            Calculate();
+
+		}
+
+        public override void Recalculate()
+        {
+            Calculate();
+        }
+
+        private void Calculate ()
+        {
+
+            if (TradeDirection == PositionType.Long)
+            {
+                Entry1.Set(Close[0] + 0.5);
+                Entry2.Set(Close[0] + 1);
+                Entry3.Set(Close[0] + 1.5);
+            }
+            else
+            {
+                Entry1.Set(Close[0] - 0.5);
+                Entry2.Set(Close[0] - 1);
+                Entry3.Set(Close[0] - 1.5);
+            }
+        }
+
+		#region Properties
+
+		[Browsable(false)]
+		[XmlIgnore()]
+		public DataSeries Occurred
+		{
+			get { return Values[0]; }
+		}
+
+		[Browsable(false)]
+		[XmlIgnore()]
+		public DataSeries Entry1
+		{
+			get { return Values[1]; }
+		}
+
+        [Browsable(false)]
+        [XmlIgnore()]
+        public DataSeries Entry2
+        {
+            get { return Values[2]; }
+        }
+
+        [Browsable(false)]
+        [XmlIgnore()]
+        public DataSeries Entry3
+        {
+            get { return Values[3]; }
+        }
+
+        public override IList<DataSeries> GetEntrys()
+		{
+            return new[] { Entry1, Entry2, Entry3 };
+
+```
+
 ## GetProfitLoss()
 ### Beschreibung
 GetProfitLoss() liefert den aktuell unrealisierten Gewinn bzw. Verlust einer laufenden Position.

@@ -1769,9 +1769,9 @@ IsAutoAdjustableScale
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
-///Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
+//Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
 IsAutoAdjustableScale = true;
+}
 ```
 
 ## IsOverlay
@@ -2316,7 +2316,7 @@ graphics Das graphics-Objekt des Preischarts (der sog. context)
 
 rectangle Die Größe der Zeichenfläche (Type public struct rectangle)
 
-double min Der kleinste Kurs in der y-Ackse
+double min Der kleinste Kurs in der y-Achse
 
 double max Der größte Kurs in der y-Achse
 

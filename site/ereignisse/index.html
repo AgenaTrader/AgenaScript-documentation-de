@@ -192,7 +192,7 @@
 <h3 id="beschreibung">Beschreibung</h3>
 <p>Die Methode OnBrokerConnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker hergestellt wurde.</p>
 <p>Mit Hilfe von OnBrokerConnect() besteht die Möglichkeit, bei einem Verbindungsabbruch mit dem Broker, die bestehenden bzw. noch offenen Orders wieder der Strategie zuzuordnen und somit von dieser wieder verwalten zu lassen</p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert">Rückgabewert</h3>
@@ -220,7 +220,7 @@ protected override void OnBrokerConnect()
 <h2 id="onbrokerdisconnect">OnBrokerDisconnect()</h2>
 <h3 id="beschreibung_1">Beschreibung</h3>
 <p>Die Methode OnBrokerDisconnect() wird jedesmal dann aufgerufen, wenn die Verbindung zum Broker unterbrochen wurde.</p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter_1">Parameter</h3>
 <p>Ein Objekt vom Typ  <em>TradingDatafeedChangedEventArgs</em></p>
 <h3 id="ruckgabewert_1">Rückgabewert</h3>
@@ -370,7 +370,7 @@ namespace AgenaTrader.UserCode
 <h3 id="beschreibung_5">Beschreibung</h3>
 <p>Die Methode  OnDispose() kann überschrieben werden, um alle im Script verwendeten Ressourcen wieder freizugeben.</p>
 <p>Siehe auch <a href="#oninit"><em>OnInit()</em></a> und <a href="#onstart"><em>OnStart()</em></a>.</p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter_3">Parameter</h3>
 <p>keiner</p>
 <h3 id="ruckgabewert_3">Rückgabewert</h3>
@@ -398,7 +398,7 @@ namespace AgenaTrader.UserCode
 <p>Die Methode OnLevel1() wird bei jeder Änderung in den Level-I-Daten aufgerufen, d.h. bei einer Änderung des Bid-Preises, Ask-Preises, des Bid-Volumens, des Ask-Volumens und natürlich des Last-Preises nachdem ein realer Umsatz stattfand.
 In a multibar indicator, the ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnLevel1() aufgerufen wurde.</p>
 <p>OnLevel1() wird nicht für historische Daten aufgerufen
-Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <p><strong>Hinweis zu Daten von Yahoo (YFeed)</strong></p>
 <p>Das Feld "LastPrice" entspricht - wie gewohnt - je nach letztem Handelsumsatz entweder dem "BidPrice" oder dem "AskPrice".</p>
 <p>Das Feld "MarketDataType" ist immer "Last".</p>
@@ -434,7 +434,7 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">*
 <p>Die Methode OnLevel2() wird bei jeder Änderung in den Level-II-Daten (Markttiefe) aufgerufen.
 In einem Multibar-Indikator kann mit  ProcessingBarSeriesIndex die jeweilige Datenreihe ermittelt werden, für die OnMarketDepth() aufgerufen wurde.
 OnLevel2 wird nicht für historische Daten aufgerufen.</p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="verwendung_5">Verwendung</h3>
 <pre><code class="cs">protected override void OnLevel2(Level2Args e)
 </code></pre>
@@ -455,9 +455,9 @@ OnLevel2 wird nicht für historische Daten aufgerufen.</p>
 <h2 id="onorderchanged">OnOrderChanged()</h2>
 <h3 id="beschreibung_8">Beschreibung</h3>
 <p>Die Methode OnOrderChanged()  wird jedesmal dann aufgerufen, wenn sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.</p>
-<p><strong>wichtiger Hinweis:</strong>
+<p><strong>Wichtiger Hinweis:</strong>
 <strong>Wenn eine Strategie durch Orderausführungen gesteuert werden soll, ist es ratsamer,  OnOrderExecution() anstelle von OnOrderChanged() zu verwenden.  Es kann sonst zu Problemen bei Teilausführungen kommen..</strong></p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter_6">Parameter</h3>
 <p>Ein Order-Objekt vom Type IOrder</p>
 <h3 id="ruckgabewert_6">Rückgabewert</h3>
@@ -492,7 +492,7 @@ protected override void OnOrderChanged(IOrder order)
 <h3 id="beschreibung_9">Beschreibung</h3>
 <p>Die Methode OnOrderExecution() wird jedesmal dann aufgerufen, wenn eine Order ausgeführt (filled) wurde oder sich der Status einer durch eine Strategie verwaltete Order ändert. Ene Statusänderung kann dabei durch die Änderung des Volumens, des Preises oder des Status an der Börse (von working zu filled) ausgelöst werden. Es ist sichergestellt, dass diese Methode für alle Ereignisse in der korrekten Reihenfolge aufgerufen wird.</p>
 <p>OnOrderExecution() wird immer nach <a href="#onorderchanged"><em>OnOrderChanged()</em></a> aufgerufen.</p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter_7">Parameter</h3>
 <p>Ein execution-Objekt vom Type  <em>IExecution</em></p>
 <h3 id="ruckgabewert_7">Rückgabewert</h3>
@@ -510,7 +510,7 @@ protected override void OnCalculate()
 }
 protected override void OnOrderExecution(IExecution execution)
 {
-    // Beispiel 
+    // Beispiel
     if (entry != null &amp;&amp; execution.Order == entry)
     {
         Print(execution.Price.ToString());
@@ -524,7 +524,7 @@ protected override void OnOrderExecution(IExecution execution)
 <p>Die Methode OnStart() kann überschrieben werden, um eigene Variablen zu initialisieren, Lizenzchecks auszuführen, UserForms aufzurufen usw.
 OnStart() wird nur einmal am Beginn des Scrips nach <a href="#oninit"><em>OnInit()</em></a> und vor <a href="#oncalculate"><em>OnCalculate()</em></a> aufgerufen.</p>
 <p>Siehe auch <a href="#ondispose"><em>OnDispose()</em></a>.</p>
-<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse">* Ereignisse*</a>.</p>
+<p>Siehe auch weitere Methoden zur Ereignisbehandlung unter <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter_8">Parameter</h3>
 <p>keiner</p>
 <h3 id="ruckgabewert_8">Rückgabewert</h3>

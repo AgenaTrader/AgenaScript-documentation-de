@@ -367,9 +367,9 @@ namespace AgenaTrader.UserCode
 
     / Hier werden 2 Datenserien zur Verfügung gestellt.
         // Zur Darstellung des Indikators auf dem Chart sind diese nicht notwendig.
-        // Mit Hilfe dieser Datenserien kann von anderen Indikatoren aus auf diesen Indikator 
+        // Mit Hilfe dieser Datenserien kann von anderen Indikatoren aus auf diesen Indikator
         // zugegriffen werden.
-        // Z.B. mit double d = MeinIndikator.FastSMA[0] - MeinIndikator.SlowSMA[0]; 
+        // Z.B. mit double d = MeinIndikator.FastSMA[0] - MeinIndikator.SlowSMA[0];
     [Browsable(false)]
     [XmlIgnore()]
     public DataSeries FastSMA
@@ -609,7 +609,7 @@ CalculateOnClosedBar = true;
 </code></pre>
 
 <h2 id="chart">Chart</h2>
-<p>Chart  ist ein Objekt, über welches der lesende Zugriff auf verschiedene Eigenschaften des Charts möglich ist. </p>
+<p>Chart  ist ein Objekt, über welches der lesende Zugriff auf verschiedene Eigenschaften des Charts möglich ist.</p>
 <p>Die wichtigsten Eigenschaften sind:</p>
 <ul>
 <li>ChartFontColor, BackColor</li>
@@ -629,16 +629,16 @@ CalculateOnClosedBar = true;
 <p>Kerzen und dem Abstand der Kerzen zueinander anzeigen <em>könnte</em>.</p>
 <p>BarsVisible enthält die Anzahl der Bars, die tatsächlich zu sehen sind.</p>
 <p><strong>FirstBarPainted und FirstBarVisible:</strong></p>
-<p>FirstBarPainted enthält die Nummer des Bars, der am linken Rand des Charts angezeigt werden <em>würde</em>. </p>
+<p>FirstBarPainted enthält die Nummer des Bars, der am linken Rand des Charts angezeigt werden <em>würde</em>.</p>
 <p>FirstBarVisible  enthält die Nummer des Bars, der tatsächlich als erster Bar links im Chart angezeigt wird.</p>
 <p>Beispiel: der Chart ist so verschoben, dass der erste Bar des Charts erst in der Mitte des Charts angezeigt wird.</p>
-<p>FirstBarPainted wäre in diesem Fall negativ. </p>
+<p>FirstBarPainted wäre in diesem Fall negativ.</p>
 <p>FirstBarVisible  wäre 0.</p>
 <p><strong>LastBarPainted und LastBarVisible:</strong></p>
 <p>LastBarPainted enthält die Nummer des Bars, der am rechten Rand des Charts angezeigt werden <em>würde</em>.</p>
 <p>LastBarVisible  enthält die Nummer des Bars, der tatsächlich als letzter Bar rechts im Chart angezeigt wird.</p>
 <p>Beispiel: der Chart ist so verschoben, dass der letzte Bar des Charts bereits in der Mitte des Charts angezeigt wird.</p>
-<p>LastBarPainted wäre in diesem Fall größer als Bars.Count. </p>
+<p>LastBarPainted wäre in diesem Fall größer als Bars.Count.</p>
 <p>LastBarVisible wäre in Bars.Count -1.</p>
 <h2 id="clearoutputwindow">ClearOutputWindow()</h2>
 <h3 id="beschreibung_3">Beschreibung</h3>
@@ -740,7 +740,7 @@ BackColorSeries[int barsAgo]
 
 <p>ei Verwendung der Methode mit einem Index [<strong>int</strong> barsAgo]  wird die Hintergrundfarbe für den referenzierten Bar geändert bzw. ausgegeben.</p>
 <h3 id="beispiele_1">Beispiele</h3>
-<pre><code class="cs">// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format) 
+<pre><code class="cs">// Welche Hintergrundfarbe hat der aktuelle Bar? (im ARGB-Format)
 Print (BackColorSeries[0]);
 // Hintergrundfarbe des aktuellen Bars auf Blau setzen
 // Dies ist identisch mit BackColor = Color.Blue
@@ -751,7 +751,7 @@ BackColorSeries[1] = Color.Green;
 
 <h2 id="barcolor">BarColor</h2>
 <h3 id="beschreibung_8">Beschreibung</h3>
-<p>BarColor ändert die Farbe eines Bars </p>
+<p>BarColor ändert die Farbe eines Bars</p>
 <p>Siehe auch <a href="#colors"><em>Colors</em></a>, <a href="#barcolor"><em>BarColor</em></a>, <a href="#backcolor"><em>BackColor</em></a>, <a href="#backcolorall"><em>BackColorAll</em></a>, <a href="#barcolorseries"><em>BarColorSeries</em></a>, <a href="#backcolorall"><em>BackColorAll</em></a>, <a href="#candleoutlinecolor"><em>CandleOutlineColor</em></a>.</p>
 <h3 id="parameter_6">Parameter</h3>
 <p>ein Color-Objekt vom Typ  public struct Color</p>
@@ -1394,7 +1394,7 @@ execution.Instrument.Symbol +&quot; order &quot; + execution.Name + &quot; execu
 <h2 id="firsttickofbar">FirstTickOfBar</h2>
 <h3 id="beschreibung_26">Beschreibung</h3>
 <p>FirstTickOfBar ist eine Eigenschaft, vom Type bool, die immer dann "true" ergibt, wenn der aktuell hereinkommende Tick einem neuen Bar zugeordnet wird, dieser Tick also der erste Tick eines neuen Bars ist.
-Die Eigenschaft kann nur sinnvoll eingesetzt werden, wenn der Indikator bzw. die Startegie im Tick-by-Tick-Modus läuft, d.h. wenn CalculateOnClosedBar = false gesetzt ist und der verwendete Datenfeed Realtime-Kurse liefert. 
+Die Eigenschaft kann nur sinnvoll eingesetzt werden, wenn der Indikator bzw. die Startegie im Tick-by-Tick-Modus läuft, d.h. wenn CalculateOnClosedBar = false gesetzt ist und der verwendete Datenfeed Realtime-Kurse liefert.
 Bei Verwendung von EoD-Daten in einem Tageschart ist FirstTickOfBar für den letzten Bar immer true.
 FirstTickOfBar sollte nicht außerhalb der OnCalculate() Methode verwendet werden..</p>
 <p>siehe auch <a href="#barstickscountforlastbar"><em>Bars.TicksCountForLastBar</em></a>.</p>
@@ -1678,7 +1678,7 @@ InputPriceType = PriceType.Low;
 // Die beiden Werte sind identisch
 Print(SMA(20)[0] + &quot; &quot; + SMA(Low, 20)[0]);
 InputPriceType = PriceType.High;
-// Diese Anweisung wird ignoriert. 
+// Diese Anweisung wird ignoriert.
      // Es gilt weiterhin Input = Low !!!
 }
 </code></pre>
@@ -1735,9 +1735,9 @@ AddChartVerticalLine(&quot;MyVerticalLine&quot;, 5, Color.Black);
 <h3 id="beispiel_28">Beispiel</h3>
 <pre><code class="cs">protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, &quot;MyPlot1&quot;));
-///Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
+//Chart so skalieren, dass alle Zeichenobjekte sichtbar sind
 IsAutoAdjustableScale = true;
+}
 </code></pre>
 
 <h2 id="isoverlay">IsOverlay</h2>
@@ -1791,7 +1791,7 @@ IsOverlay = false;
 </code></pre>
 
 <h3 id="ruckgabewert_13">Rückgabewert</h3>
-<p><strong>true</strong> wenn die Datenreihe steigt 
+<p><strong>true</strong> wenn die Datenreihe steigt
 <strong>false</strong> wenn die Datenreihe nicht steigt</p>
 <h3 id="parameter_24">Parameter</h3>
 <p>series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä</p>
@@ -1810,7 +1810,7 @@ Print(&quot;The SMA(20) is currently rising.&quot;);
 </code></pre>
 
 <h3 id="ruckgabewert_14">Rückgabewert</h3>
-<p><strong>true</strong> wenn die Datenreihe fällt 
+<p><strong>true</strong> wenn die Datenreihe fällt
 <strong>false</strong> wenn die Datenreihe nicht fällt</p>
 <h3 id="parameter_25">Parameter</h3>
 <p>series eine Datenserie, wie z.B. ein Indikator, Close, High o.ä</p>
@@ -2307,7 +2307,7 @@ PlaySound(path + file);
 <h3 id="parameter_35">Parameter</h3>
 <p>graphics Das graphics-Objekt des Preischarts (der sog. context)</p>
 <p>rectangle Die Größe der Zeichenfläche (Type public struct rectangle)</p>
-<p>double min Der kleinste Kurs in der y-Ackse</p>
+<p>double min Der kleinste Kurs in der y-Achse</p>
 <p>double max Der größte Kurs in der y-Achse</p>
 <h3 id="ruckgabewert_20">Rückgabewert</h3>
 <p>keiner</p>
@@ -2485,7 +2485,6 @@ Die Einstellung sollte sorgfältig gewählt werden. Z.B. braucht man zur Berechn
 <h3 id="beispiel_46">Beispiel</h3>
 <pre><code class="cs">protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, &quot;MyPlot1&quot;));
 //Der Indikator benötigt mindestens 50 Bars Historie
 RequiredBarsCount = 50;
 }
@@ -2497,7 +2496,7 @@ RequiredBarsCount = 50;
 <strong>SessionBreakLines = true (default)</strong></p>
 <p>SessionBreakLines werden im Chart angezeigt.</p>
 <p><strong>SessionBreakLines = false</strong></p>
-<p>SessionBreakLines werden nicht im Chart angezeigt </p>
+<p>SessionBreakLines werden nicht im Chart angezeigt</p>
 <p>Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).</p>
 <h3 id="verwendung_51">Verwendung</h3>
 <p>SessionBreakLines</p>
@@ -2560,7 +2559,7 @@ Alert(&quot;Message text&quot;, true, pathOfSoundfile + nameOfSoundFile);
 <p>Ein Tick ist die kleinst mögliche Kursänderung eines Finanzinstruments an einer Börse. Wenn die Handelspreise z.B. mit zwei Stellen nach dem Komma angegeben werden, beträgt ein Tick 0,01. Im Forexhandel (Währungshandel) wird mit 4 bzw. 5 Stellen nach dem Komma gearbeitet. Ein Tick - der im Forexhandel als Pip bezeichnet wird - beträgt dementsprechend 0,0001 bzw. 0,00001.
 Der Tickwert wird durch die Börse fest vorgegeben und ändert sich (in der Regel) nicht.
 Siehe auch <a href="#instrumentticksize"><em>Instrument.TickSize</em></a>.</p>
-<p>Üblicherweise wird heute ein Tick als Dezimalzahl angegeben. Historisch wurden besonders im amerikanischen Raum Aktien jedoch mit einer Tickgröße von 1/16 von einem Dollar notiert. </p>
+<p>Üblicherweise wird heute ein Tick als Dezimalzahl angegeben. Historisch wurden besonders im amerikanischen Raum Aktien jedoch mit einer Tickgröße von 1/16 von einem Dollar notiert.</p>
 <p>Bei Rohstoffen ist diese Notierung noch weit verbreitet. Der Corn-Future (ZC - Mais) wird genau wie Wheat (ZW - Weizen) in ¼ US-Cent/bushel (entspricht 12,50 US-$ je Kontrakt) notiert.</p>
 <p>US-Statsanleihen (T-Bonds) werden mit Tickgrößen von 1/32 Punkten gehandelt, was 31,25 US-Dollar entspricht.</p>
 <p>Die Notierung erfolgt mit Hochkomma:

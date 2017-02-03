@@ -1994,8 +1994,7 @@ Der Datentyp  Level2Args repräsentiert eine Änderung in den Level-II-Daten (Ma
 | MarketDataType | Mögliche Werte sind: MarketDataType.Ask, MarketDataType.Bid                                              |
 | MarketMaker    | Ein string-Wert, der die Market Maker ID enthällt                  |
 | Position       | Ein int-Wert, der die Position innerhalb der Markttiefe angiebt |
-| Operation      | Steht für die Aktion, die durch die Änderung in einem Orderbuch ausgelöst wird.                                                                
-                  Mögliche Werte sind: Operation.Insert, Operation.Remove, Operation.Update                                           |
+| Operation      | Steht für die Aktion, die durch die Änderung in einem Orderbuch ausgelöst wird.  Mögliche Werte sind: Operation.Insert, Operation.Remove, Operation.Update                                           |
 | Price          | Eine double-Wert, der den jeweiligen Bid/Ask-Kurs                 |
 | Time           | Ein DateTime-Wert, der den Zeitstempel der Änderung beinhaltet     |
 | Volume         | Ein long-Wert, der das Volumen angiebt                             |

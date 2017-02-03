@@ -1551,10 +1551,7 @@ SetUpProfitTarget(string fromEntry signal, CalculationMode mode, double value)
 |    |           |
 |------------------|------------------------------------|
 | currency         | Gibt das Gewinnziel in einer Währung an, z.B. 500,- Euro.  |
-| mode             | Mögliche Werte sind:
--   CalculationMode.Percent (Angabe in Prozent)
--   CalculationMode.Price (Angabe  als Kurswert)
--   CalculationMode.Ticks (Angabe in Ticks bzw. Pips)      |
+| mode             | Mögliche Werte sind: CalculationMode.Percent (Angabe in Prozent); CalculationMode.Price (Angabe  als Kurswert); CalculationMode.Ticks (Angabe in Ticks bzw. Pips)      |
 | value  | Ein Wert, der den Abstand zwischen Einstiegskurs und Gewinnziel angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks. |
 | fromEntry signal | Der Name eines Einstiegssignals, für das eine Profit Target-Order generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.   |
 
@@ -1587,10 +1584,8 @@ SetUpStopLoss(string fromEntry signal, CalculationMode mode, double value, bool 
 |      |      |
 |------------------|---------------------------------------|
 | currency         | Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.    |
-| mode             | Mögliche Werte sind:
--   CalculationMode.Percent ( Angabe in Prozent)
--   CalculationMode.Price (Angabe als Kurswert)
--   CalculationMode.Ticks (Angabe in Ticks bzw. Pips)    |
+| mode             | Mögliche Werte sind:  CalculationMode.Percent ( Angabe in Prozent); CalculationMode.Price (Angabe als Kurswert);
+ CalculationMode.Ticks (Angabe in Ticks bzw. Pips)    |
 | simulated        | Wenn "simulated" auf "true" gesetzt ist, wird die Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte). |
 | value            | Ein Wert, der den Abstand zwischen Einstiegskurs und Stoppkurs angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.                                            |
 | fromEntry signal | Der Name eines Einstiegssignals, für das eine Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.                                                                              |
@@ -1650,9 +1645,7 @@ SetUpTrailStop(string fromEntry signal, CalculationMode mode, double value, bool
 |           |      |
 |------------------|---------------------------------------------------|
 | currency         | Gibt den StopLoss-Abstand zum Einstiegskurs (=Risiko) in einer Währung an, z.B. 500,- Euro.  |
-| mode             | Mögliche Werte sind:
--   CalculationMode.Percent
--   CalculationMode.Ticks   |
+| mode             | Mögliche Werte sind:  CalculationMode.Percent;  CalculationMode.Ticks   |
 | simulated        | Wenn "simulated" auf "true" gesetzt ist, wird die Trail-Stoporder erst dann live (als Marketorder) zum Broker übermittelt, wenn der Kurs sie erstmals "berührt" hat (d.h wenn sie ausgelöst werden würde wenn sie im Markt gelegen hätte). |
 | value            | Ein Wert, der den Abstand zwischen Einstiegskurs und Stoppkurs angibt. Die Angabe bezieht sich abhängig von "mode" auf einen Geldbetrag, eine Prozentangabe bzw. auf eine Angabe in Ticks.                                           |
 | fromEntry signal | Der Name eines Einstiegssignals, für das eine Trail-Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.                                                                              |
@@ -1695,7 +1688,7 @@ Verkaufsorder zum Short-Einstieg
 
 OrderAction.BuyToCover
 Kauforder zum Schließen einer Short-Position                             |
-| orderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit                                                 |
+| orderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit           |
 | quantity            | Stückzahl                                                             |
 | limitPrice          | Limit-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist.        |
 | stopPrice           | Stop-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist          |

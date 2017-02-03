@@ -34,10 +34,15 @@ A drawing object of the type IAndrewsPitchfork (interface)
 | start3Time     | Datum/Zeit für Ankerpunk3 (x-Achse)                                                     |
 | start3Y        | -Wert für Ankerpunkt3                                                                   |
 | color          | Farbe des Zeichenobjekts                                                                |
-| dashStyle      | Linienart:                                                                              |
-|                |  DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot DashStyle.Solid |
-|                | Es muß:                                                                                 |
-|                | using System.Drawing.Drawing2D; mit eingebunden sein.                                   |
+| dashStyle      | Linienart                                                                               |                                                                                           
+|                |  DashStyle.Dash                                                                         |  
+|                |  DashStyle.DashDot                                                                      |  
+|                |  DashStyle.DashDotDot                                                                   |  
+|                |  DashStyle.Dot                                                                          |  
+|                |  DashStyle.Solid                                                                        |  
+|                |                                                                                         |  
+|                |  ggf. muß                                                                               |  
+|                |  using System.Drawing.Drawing2D; mit eingebunden werden.                                |
 | width          | Linienstärke in Punkten                                                                 |
 
 ### Beispiel
@@ -729,8 +734,7 @@ Ein Zeichenobjekt vom Typ IRegion (Interface)
 | startTime    | Datum/Uhrzeit des Bars, an dem sich die eine Ecke des Rechtecks befinden soll                          |
 | barsBackEnd  | Gibt an, an welchem zurückliegenden Bar sich die zweite Ecke des Rechtecks befinden soll (0=aktueller Bar) |
 | endTime      | Datum/Uhrzeit des Bars, an dem sich die zweite Ecke des Rechtecks befinden soll                        |
-| series1, series2  | jedes Datenserie, wie z.B. ein Indikator, Close, High, Low usw.
- Der jeweilige Wert der Datenserie für den aktuellen Bar wird als y-Wert herangezogen                       |
+| series1, series2  | jedes Datenserie, wie z.B. ein Indikator, Close, High, Low usw.  Der jeweilige Wert der Datenserie für den aktuellen Bar wird als y-Wert herangezogen                       |
 | y            | ein beliebiger double-Wert                                                              |
 | outlineColor | Farbe für die Umrandung des Bereichs                                                                   |
 | areaColor    | Füllfarbe des Zeichenobjekts                                                                           |
@@ -766,8 +770,7 @@ Ein Zeichenobjekt vom Typ IRegressionChannel (Interface)
 | barsBackEnd      | Gibt an, an welchem zurückliegenden Bar der Regressionskanal enden soll (0=aktueller Bar)     |
 | endTime          | Datum/Uhrzeit des Bars, an dem der Regressionskanal enden soll                          |
 | color            | Farbe des Zeichenobjekts                                                            |
-| upperDashStyle, middleDashStyle, lowerDashStyle    |                                                                              
-| dashStyle        | Linienart                                                                            |                                                                                           
+| upperDashStyle, middleDashStyle, lowerDashStyle         | Linienart                                                                            |                                                                                           
 |                  |  DashStyle.Dash                                                                         |  
 |                  |  DashStyle.DashDot                                                                      |  
 |                  |  DashStyle.DashDotDot                                                                   |  
@@ -1092,10 +1095,16 @@ Ein Zeichenobjekt vom Typ IVerticalLine (Interface)
 | barsAgo   | Gibt an, an welchem zurückliegenden Bar die vertikale Linie gezeichnet werden soll (0=aktueller Bar) |
 | time      | Datum/Uhrzeit des Bars, an dem die vertikale Linie gezeichnet werden soll  |
 | color     | Linienfarbe                                                                |
-| dashStyle | Linienart: DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot, DashStyle.Solid
-ggf. muß
-using System.Drawing.Drawing2D;  mit eingebunden werden.                                 |
-| width     | Linienstärkeh                                                              |
+| dashStyle | Linienart                                                                  |                                                                                          
+|           |  DashStyle.Dash                                                            |  
+|           |  DashStyle.DashDot                                                         |  
+|           |  DashStyle.DashDotDot                                                      |  
+|           |  DashStyle.Dot                                                             |  
+|           |  DashStyle.Solid                                                           |  
+|           |                                                                            |  
+|           |  ggf. muß                                                                  |  
+|           |  using System.Drawing.Drawing2D; mit eingebunden werden.                   |
+| width     | Linienstärke                                                               |
 
 ### Beispiele
 ```cs

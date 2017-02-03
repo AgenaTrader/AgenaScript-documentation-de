@@ -629,10 +629,9 @@ OpenShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, do
 ### Für Multibar-Strategieen
 |                     |                                                                                                               |
 |---------------------|---------------------------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                                                       |
+| strategyName        | ein eindeutiger Name                                                                                         |
 | quantity            | zu ordernde Stückzahl                                                                                         |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                 |
 | stopPrice           | ein double-Wert für den Stop Preis                                                                            |
 | liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
 
@@ -670,16 +669,14 @@ OpenShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantit
 ```
 
 ### Parameter
-|                     |                                                                                                                                                              |
-|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name    |
-| quantity   | zu ordernde Stückzahl      |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll
-Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).       |
-| stopPrice           | ein double-Wert für den Stop Preis           |
-| limitPrice          | ein double-Wert für den Limit Preis                                                                                                                          |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist.|
+|                     |                                                                                                             |
+|---------------------|-------------------------------------------------------------------------------------------------------------|
+| strategyName        | ein eindeutiger Name                                                                                        |
+| quantity            | zu ordernde Stückzahl                                                                                       |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                               |
+| stopPrice           | ein double-Wert für den Stop Preis                                                                          |
+| limitPrice          | ein double-Wert für den Limit Preis                                                                         |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist.                                                  |
 
 ### Rückgabewert
 ein order-Objekt vom Typ IOrder
@@ -716,14 +713,12 @@ CloseLong(int multibarSeriesIndex, int quantity, string strategyName, string fro
 ```
 
 ### Parameter
-|                     |                                                                      |
-|---------------------|----------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                |
-| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                              |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll.
-Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                               |
+|                     |                                                                                  |
+|---------------------|----------------------------------------------------------------------------------|
+| strategyName          | ein eindeutiger Name                                                           |
+| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                        |
 
 ### Rückgabewert
 ein order-Objekt vom Typ IOrder
@@ -761,7 +756,7 @@ CloseLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, d
 ```
 
 ### Parameter
-|                     |                                                                                                                                                              |
+|                     |                       |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | strategyName          | ein eindeutiger Name                                                                                                                                          |
 | fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                        |
@@ -809,10 +804,9 @@ CloseLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, do
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | strategyName          | ein eindeutiger Name                                                                                                                                          |
 | fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                   |
-| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                     |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| stopPrice           | ein double-Wert für den Stop Preis                                                                                                                           |
+| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                   |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| stopPrice           | ein double-Wert für den Stop Preis                               |
 | liveUntilCancelled  |  Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
 
 ### Rückgabewert
@@ -857,8 +851,7 @@ CloseLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantit
 | strategyName          | ein eindeutiger Name                                                                                                                                          |
 | fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                      |
 | quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                      |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) .
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars). ndex der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
 | limitPrice          | ein double-Wert für den Limit Preis                                                                                                                           |
 | stopPrice           | ein double-Wert für den Stop Preis                                                                                                                          |
 | liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
@@ -906,8 +899,7 @@ CloseShort(int multibarSeriesIndex, int quantity, string strategyName, string fr
 |---------------------|----------------------------------------------------------------------|
 | strategyName          | ein eindeutiger Name                                                  |
 | Quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                      |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
 | fromEntry signal    | der Name des zugehörigen Einstiegssignals                              |
 
 ### Rückgabewert
@@ -952,8 +944,7 @@ CloseShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, 
 | strategyName          | ein eindeutiger Name                                                                                                                                          |
 | fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                     |
 | quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                 |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
 | limitPrice          | ein double-Wert für den Limit Preise                                                                                                                           |
 | liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
 
@@ -996,8 +987,7 @@ CloseShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, d
 | strategyName          | ein eindeutiger Name    |
 | fromEntry signal    | der Name des zugehörigen Einstiegssignals    |
 | quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)   |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
 | stopPrice           | ein double-Wert für den Stop Preis    |
 | liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit  erreicht ist. |
 
@@ -1036,16 +1026,15 @@ CloseShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quanti
 ```
 
 ### Parameter
-|    |     |
-|---------------------|----------------------------------|
-| strategyName          | ein eindeutiger Name      |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals    |
-| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)      |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.
-Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| limitPrice          | ein double-Wert für den Limit Preis    |
-| stopPrice           | ein double-Wert für den Stop Preis      |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit erreicht ist. |
+|                     |                                                                                                 |
+|---------------------|-------------------------------------------------------------------------------------------------|
+| strategyName        | ein eindeutiger Name                                                                            |
+| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                       |
+| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                                  |
+| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                  |
+| limitPrice          | ein double-Wert für den Limit Preis                                                             |
+| stopPrice           | ein double-Wert für den Stop Preis                                                              |
+| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit erreicht ist.                                                                            |
 
 ### Rückgabewert
 ein order-Objekt vom Typ IOrder
@@ -1673,21 +1662,8 @@ SubmitOrder(int multibarSeriesIndex, OrderAction orderAction, OrderType orderTyp
 ### Parameter
 |                     |                                                                    |
 |---------------------|--------------------------------------------------------------------|
-| multibarSeriesIndex | Für Multibar-Strategieen.
-Index der Datenreihe, für die die Order ausgeführt werden soll.
-Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                                 |
-| orderAction         | Mögliche Werte sind:
-OrderAction.Buy
-Kauforder zum Long-Einstieg
-
-OrderAction.Sell
-Verkaufsorder zum Schließen einer Long-Position
-
-OrderAction.SellShort
-Verkaufsorder zum Short-Einstieg
-
-OrderAction.BuyToCover
-Kauforder zum Schließen einer Short-Position                             |
+| multibarSeriesIndex | Für Multibar-Strategieen. Index der Datenreihe, für die die Order ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                                 |
+| orderAction         | Mögliche Werte sind: OrderAction.Buy Kauforder zum Long-Einstieg; OrderAction.Sell Verkaufsorder zum Schließen einer Long-Position; OrderAction.SellShort Verkaufsorder zum Short-Einstieg; OrderAction.BuyToCover Kauforder zum Schließen einer Short-Position;                                                                                |
 | orderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit           |
 | quantity            | Stückzahl                                                             |
 | limitPrice          | Limit-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist.        |

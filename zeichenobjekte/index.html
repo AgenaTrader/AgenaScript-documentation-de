@@ -281,19 +281,39 @@ AddChartAndrewsPitchfork(string name, bool autoScale, DateTime start1Time, doubl
 </tr>
 <tr>
 <td>dashStyle</td>
-<td>Linienart:</td>
+<td>Linienart</td>
 </tr>
 <tr>
 <td></td>
-<td>DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot DashStyle.Solid</td>
+<td>DashStyle.Dash</td>
 </tr>
 <tr>
 <td></td>
-<td>Es muß:</td>
+<td>DashStyle.DashDot</td>
 </tr>
 <tr>
 <td></td>
-<td>using System.Drawing.Drawing2D; mit eingebunden sein.</td>
+<td>DashStyle.DashDotDot</td>
+</tr>
+<tr>
+<td></td>
+<td>DashStyle.Dot</td>
+</tr>
+<tr>
+<td></td>
+<td>DashStyle.Solid</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ggf. muß</td>
+</tr>
+<tr>
+<td></td>
+<td>using System.Drawing.Drawing2D; mit eingebunden werden.</td>
 </tr>
 <tr>
 <td>width</td>
@@ -1671,11 +1691,7 @@ AddChartRegion(string name, DateTime startTime, DateTime endTime, IDataSeries se
 </tr>
 <tr>
 <td>series1, series2</td>
-<td>jedes Datenserie, wie z.B. ein Indikator, Close, High, Low usw.</td>
-</tr>
-<tr>
-<td>Der jeweilige Wert der Datenserie für den aktuellen Bar wird als y-Wert herangezogen</td>
-<td></td>
+<td>jedes Datenserie, wie z.B. ein Indikator, Close, High, Low usw.  Der jeweilige Wert der Datenserie für den aktuellen Bar wird als y-Wert herangezogen</td>
 </tr>
 <tr>
 <td>y</td>
@@ -1750,10 +1766,6 @@ AddChartRegressionChannel(string name, bool autoScale, DateTime startTime, DateT
 </tr>
 <tr>
 <td>upperDashStyle, middleDashStyle, lowerDashStyle</td>
-<td></td>
-</tr>
-<tr>
-<td>dashStyle</td>
 <td>Linienart</td>
 </tr>
 <tr>
@@ -2335,19 +2347,43 @@ AddChartVerticalLine(string name, DateTime time, Color color, DashStyle dashStyl
 </tr>
 <tr>
 <td>dashStyle</td>
-<td>Linienart: DashStyle.Dash, DashStyle.DashDot, DashStyle.DashDotDot, DashStyle.Dot, DashStyle.Solid</td>
+<td>Linienart</td>
 </tr>
 <tr>
+<td></td>
+<td>DashStyle.Dash</td>
+</tr>
+<tr>
+<td></td>
+<td>DashStyle.DashDot</td>
+</tr>
+<tr>
+<td></td>
+<td>DashStyle.DashDotDot</td>
+</tr>
+<tr>
+<td></td>
+<td>DashStyle.Dot</td>
+</tr>
+<tr>
+<td></td>
+<td>DashStyle.Solid</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
 <td>ggf. muß</td>
-<td></td>
 </tr>
 <tr>
-<td>using System.Drawing.Drawing2D;  mit eingebunden werden.</td>
 <td></td>
+<td>using System.Drawing.Drawing2D; mit eingebunden werden.</td>
 </tr>
 <tr>
 <td>width</td>
-<td>Linienstärkeh</td>
+<td>Linienstärke</td>
 </tr>
 </tbody>
 </table>

@@ -2073,7 +2073,7 @@ Hinweis: Ist der Log-Tab nicht sichtbar, kann er mit Tools-Log angezeigt werden.
 Log("Das ist eine Information.", InfoLogLevel.Info); //white
 Log("Das ist eine Nachricht.", InfoLogLevel.Message); // white
 Log("Das ist eine Warnung.", InfoLogLevel.Warning); // blue
-Log("Das ist ein Alarm.", InfoLogLevel. AlertLog); //green
+Log("Das ist ein Alarm.", InfoLogLevel.ShowAlert); //green
 Log("Das ist ein Fehler.", InfoLogLevel.Error); // red
 //Tab messages
 Log("This is a message (messages).", InfoLogLevel.Message); //white

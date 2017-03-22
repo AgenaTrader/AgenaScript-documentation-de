@@ -74,7 +74,7 @@ Eigenschaften werden immer mit einem Punkt hinter dem Objekt (in diesem Falle Ba
 
 [*Bars.GetNextSessionTimeSpan*](#getnextsessiontimespan)
 
-[*Bars.GetOpen*](barsgetopen)
+[*Bars.GetOpen*](#barsgetopen)
 
 [*Bars.GetSessionBegin*](#getsessionbegin)
 

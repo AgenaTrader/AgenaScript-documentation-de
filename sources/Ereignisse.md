@@ -90,7 +90,7 @@ OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Tei
 Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.
 
 **Achtung:**
-**Diese Nummerierung unterscheidet sich vom BarIndex, siehe [*Bars*](#Bars).**
+**Diese Nummerierung unterscheidet sich vom BarIndex, siehe [*Bars*](#bars).**
 
 More information can be found here: [*Events*](#events).
 

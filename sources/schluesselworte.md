@@ -2165,7 +2165,7 @@ protected override void OnInit()
 -   [*RequiredBarsCount*](#requiredbarscount)
 -   [*CalculateOnClosedBar*](calculateonclosedbar)
 -   [*ClearOutputWindow()*](#clearoutputwindows)
--   [*Displacement*](displacement)
+-   [*Displacement*](#displacement)
 -   [*IsShowInDataBox*](#isshowindatabox)
 -   [*IsAddDrawingsToPricePanel*](#isadddrawingstopricepanel)
 -   [*InputPriceType*](#inputpricetype)
@@ -2634,7 +2634,7 @@ Eurex (FDAX): [*http://www.eurexchange.com/exchange-en/products/idx/dax/17206/*]
 siehe auch  [*Instrument.TickSize*](#instrumentticksize).
 
 ## TimeFrame
-siehe [*Bars.TimeFrame*](barstimeframe).
+siehe [*Bars.TimeFrame*](#barstimeframe).
 
 Bei Verwendung mehrerer Zeiteinheiten ([*Multibars*](#multibars)) in einem Indikator siehe [*TimeFrames*](#timeframes).
 

@@ -307,14 +307,14 @@ Print(Close[0] + " und " + Bars.GetByIndex(ProcessingBarIndex).Close + " sind in
 ```
 
 ## Bars.GetClose
-Bars.GetClose(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetClose(int index) – siehe [*Bars.GetOpen*](#barsgetopen).
 
 ## Bars.GetHigh
-Bars.GetHigh(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetHigh(int index) – siehe [*Bars.GetOpen*](#barsgetopen).
 
 
 ## Bars.GetLow
-Bars.GetLow(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetLow(int index) – siehe [*Bars.GetOpen*](#barsgetopen).
 
 ## Bars.GetNextSessionTimeSpan
 ### Beschreibung

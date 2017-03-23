@@ -420,10 +420,10 @@ Print("Die Handelssitzung am 25.03.2015 hat um "+ Bars.GetSessionBegin(new DateT
 ```
 
 ## Bars.GetTime
-Bars.GetTime(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetTime(int index) – siehe [*Bars.GetOpen*](#barsgetopen).
 
 ## Bars.GetVolume
-Bars.GetVolume(int index) – siehe [*Bars.GetOpen*](barsgetopen).
+Bars.GetVolume(int index) – siehe [*Bars.GetOpen*](#barsgetopen).
 
 ## Bars.Instrument
 ### Beschreibung
@@ -1845,7 +1845,7 @@ Instrument.Digits
 ### Weitere Informationen
 Aktie werden üblicherweise mit 2 Stellen nach dem Komma gehandelt. Bei Forex sind es je nach Datenanbieter 4 oder 5 Stellen.
 
-Die Funktion findet u.a. Verwendung für das Formatieren von Ausgaben oder zur Rundung von Kursdaten. Siehe auch [*TickSize*](#ticksize) und [*Instrument.Round2Ticks*](instrumentround2ticks), [*Instrument.Round2TickSize*](#instrumentround2ticksize).
+Die Funktion findet u.a. Verwendung für das Formatieren von Ausgaben oder zur Rundung von Kursdaten. Siehe auch [*TickSize*](#ticksize) und [*Instrument.Round2Ticks*](#instrumentround2ticks), [*Instrument.Round2TickSize*](#instrumentround2ticksize).
 
 Ausführliche Anleitung zum: *Formatieren von Zahlen.*.
 
@@ -2153,7 +2153,7 @@ Aktie:	0,01
 ES-Future: 0,25
 EUR/USD: 0,00001
 
-Siehe auch [*Instrument.PointValue*](instrumentpointvalue) und [*Instrument.Digits*](#instrumentdigits).
+Siehe auch [*Instrument.PointValue*](#instrumentpointvalue) und [*Instrument.Digits*](#instrumentdigits).
 
 Beispiele für professionelle  [*Formatting*](#formatting), *Formatting of Numbers*.
 
@@ -2223,7 +2223,7 @@ Closes\[2\]\[0\] entspricht dem aktuellen Schlusskurs der Wochendatenreihe.
 
 "Closes"kann in den Beispielen selbstverständlich auch durch Opens, Highs, Lows usw. ersetzt werden.
 
-Siehe auch [*ProcessingBarIndexes*](#processingbarindexes), [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*TimeFrames*](#timeframes), [*TimeFrameRequirements*](timeframerequirements).
+Siehe auch [*ProcessingBarIndexes*](#processingbarindexes), [*ProcessingBarSeriesIndex*](#processingbarseriesindex), [*TimeFrames*](#timeframes), [*TimeFrameRequirements*](#timeframerequirements).
 
 Es gibt noch eine weitere Schreibweise für Multbars:
 ```cs

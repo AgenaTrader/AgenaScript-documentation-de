@@ -100,7 +100,7 @@ AddChartArrowDown()  zeichnet einen nach unten gerichteten Pfeil:
 
 ![AddChartArrowDown()](./media/image21.png)
 
- DrawArrowUp(), DrawDiamond(), DrawDot(), DrawSquare(), DrawTriangleUp(),  [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+ DrawArrowUp(), DrawDiamond(), DrawDot(), DrawSquare(), DrawTriangleUp(),  [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
 
 ### Verwendung
 ```cs   
@@ -182,7 +182,7 @@ AddChartArowUp() zeichnet einen nach oben gerichteten Pfeil:
 
 ![AddChartArrowUp()](./media/image23.png)
 
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
 
 ### Verwendung
 ```cs
@@ -216,7 +216,7 @@ AddChartDiamond() zeichnet einen Diamanten:
 
 ![AddChartDiamond()](./media/image24.png)
 
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
 
 ### Verwendung
 ```cs
@@ -250,7 +250,7 @@ AddChartDot() zeichnet einen Punkt:
 
 ![AddChartDot()](./media/image25.png)
 
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown)(#drawarrowdown), [*AddChartDiamond()*](#addchartdiamond)(#drawdiamond), [*AddChartDot()*](#addchartdot)(#drawdot), [*AddChartSquare()*](#addchartsquare)(#drawsquare), [*AddChartTriangleUp()*](#addcharttriangleup)(#drawtriangleup), [*AddChartTriangleDown()*](#addcharttriangledown)(#drawtriangledown).
+Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
 
 ### Verwendung
 ```cs
@@ -316,7 +316,7 @@ AddChartEllipse("MyEllipse-" + ProcessingBarIndex, true, 5, High[5], 0, Close[0]
 ### Beschreibung
 AddChartExtendedLine() zeichnet eine Linie mit unendlichem Endpunkt.
 
-Siehe auch [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartRay()*](#drawray).
+Siehe auch [*AddChartLine()*](#addchartline), [*AddChartHorizontalLine()*](#addcharthorizontalline), [*AddChartVerticalLine()*](#addchartverticalline), [*AddChartRay()*](#addchartray).
 
 ### Verwendung
 ```cs
@@ -545,7 +545,7 @@ AddChartGannFan("MyGannFan-" + ProcessingBarIndex, true, 10, Low[10]);
 ### Beschreibung
 AddChartHorizontalLine() zeichnet eine horizontale Linie in den Chart.
 
-Siehe auch [*AddChartLine()*](#drawline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+Siehe auch [*AddChartLine()*](#addchartline), [*AddChartVerticalLine()*](#addchartverticalline), [*AddChartExtendedLine()*](#addchartextendedline), [*AddChartRay()*](#addchartray).
 
 ### Verwendung
 ```cs
@@ -584,7 +584,7 @@ AddChartHorizontalLine("MyHorizontalLine-" + ProcessingBarIndex, 10, Color.Black
 ### Beschreibung
 AddChartLine()  zeichnet eine (Trend-) Linie.
 
-Siehe auch  [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+Siehe auch  [*AddChartHorizontalLine()*](#addcharthorizontalline), [*AddChartVerticalLine()*](#addchartverticalline), [*AddChartExtendedLine()*](#addchartextendedline), [*AddChartRay()*](#addchartray).
 
 ### Verwendung
 ```cs
@@ -629,7 +629,7 @@ AddChartLine("MyLine-" + ProcessingBarIndex, false, 10, Close[10], 0, Close[0], 
 ### Beschreibung
 AddChartRay() zeichnet eine (Trend-) Linie, die zu einer Seite ins Unendliche verlängert wird.
 
-Siehe auch [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartVerticalLine()*](#drawverticalline), [*AddChartExtendedLine()*](#drawextendedline).
+Siehe auch [*AddChartLine()*](#addchartline), [*AddChartHorizontalLine()*](#addcharthorizontalline), [*AddChartVerticalLine()*](#addchartverticalline), [*AddChartExtendedLine()*](#addchartextendedline).
 
 ### Verwendung
 ```cs
@@ -795,7 +795,7 @@ AddChartSquare()  zeichnet ein Quadrat:
 
 ![AddChartSquare()](./media/image26.png)
 
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
+Siehe auch [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartTriangleUp()*](#addcharttriangleup), [*AddChartTriangleDown()*](#addcharttriangledown).
 
 ### Verwendung
 ```cs
@@ -1011,7 +1011,7 @@ AddChartTriangleDown() zeichnet ein kleines abwärtsgerichtetes Dreieck.
 
 ![AddChartTriangleDown()](./media/image29.png)
 
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup).
+Siehe auch [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleUp()*](#addcharttriangleup).
 
 ### Verwendung
 ```cs
@@ -1044,7 +1044,7 @@ AddChartTriangleUp() zeichnet ein kleines aufwärtsgerichtetes Dreieck.
 
 ![AddChartTriangleUp()](./media/image28.png)
 
-Siehe auch [*AddChartArrowUp()*](#drawarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleDown()*](#addcharttriangledown).
+Siehe auch [*AddChartArrowUp()*](#addchartarrowup), [*AddChartArrowDown()*](#addchartarrowdown), [*AddChartDiamond()*](#addchartdiamond), [*AddChartDot()*](#addchartdot), [*AddChartSquare()*](#addchartsquare), [*AddChartTriangleDown()*](#addcharttriangledown).
 
 ### Verwendung
 ```cs
@@ -1076,7 +1076,7 @@ AddChartTriangleUp("MyTriangleUp-" + ProcessingBarIndex, true, 0, Low[0] - 10*Ti
 ### Beschreibung
 AddChartVerticalLine() zeichnet eine vertikale Linie in den Chart.
 
-Siehe auch [*AddChartLine()*](#drawline), [*AddChartHorizontalLine()*](#drawhorizontalline), [*AddChartExtendedLine()*](#drawextendedline), [*AddChartRay()*](#drawray).
+Siehe auch [*AddChartLine()*](#addchartline), [*AddChartHorizontalLine()*](#addcharthorizontalline), [*AddChartExtendedLine()*](#addchartextendedline), [*AddChartRay()*](#addchartray).
 
 ### Verwendung
 ```cs

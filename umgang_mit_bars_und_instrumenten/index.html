@@ -353,7 +353,7 @@ Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgrei
 <p><a href="#barsgethigh"><em>Bars.GetHigh</em></a></p>
 <p><a href="#barsgetlow"><em>Bars.GetLow</em></a></p>
 <p><a href="#getnextsessiontimespan"><em>Bars.GetNextSessionTimeSpan</em></a></p>
-<p><a href="../barsgetopen"><em>Bars.GetOpen</em></a></p>
+<p><a href="#barsgetopen"><em>Bars.GetOpen</em></a></p>
 <p><a href="#getsessionbegin"><em>Bars.GetSessionBegin</em></a></p>
 <p><a href="#barsgettime"><em>Bars.GetTime</em></a></p>
 <p><a href="#barsgetvolume"><em>Bars.GetVolume</em></a></p>
@@ -510,11 +510,11 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 </code></pre>
 
 <h2 id="barsgetclose">Bars.GetClose</h2>
-<p>Bars.GetClose(int index) – siehe <a href="../barsgetopen"><em>Bars.GetOpen</em></a>.</p>
+<p>Bars.GetClose(int index) – siehe <a href="#barsgetopen"><em>Bars.GetOpen</em></a>.</p>
 <h2 id="barsgethigh">Bars.GetHigh</h2>
-<p>Bars.GetHigh(int index) – siehe <a href="../barsgetopen"><em>Bars.GetOpen</em></a>.</p>
+<p>Bars.GetHigh(int index) – siehe <a href="#barsgetopen"><em>Bars.GetOpen</em></a>.</p>
 <h2 id="barsgetlow">Bars.GetLow</h2>
-<p>Bars.GetLow(int index) – siehe <a href="../barsgetopen"><em>Bars.GetOpen</em></a>.</p>
+<p>Bars.GetLow(int index) – siehe <a href="#barsgetopen"><em>Bars.GetOpen</em></a>.</p>
 <h2 id="barsgetnextsessiontimespan">Bars.GetNextSessionTimeSpan</h2>
 <h3 id="beschreibung_7">Beschreibung</h3>
 <p>Bars.GetNextSessionTimeSpan liefert jeweils Datum und Uhrzeit von Beginn und Ende der nächsten Handelssitzung.</p>
@@ -618,9 +618,9 @@ Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
 </code></pre>
 
 <h2 id="barsgettime">Bars.GetTime</h2>
-<p>Bars.GetTime(int index) – siehe <a href="../barsgetopen"><em>Bars.GetOpen</em></a>.</p>
+<p>Bars.GetTime(int index) – siehe <a href="#barsgetopen"><em>Bars.GetOpen</em></a>.</p>
 <h2 id="barsgetvolume">Bars.GetVolume</h2>
-<p>Bars.GetVolume(int index) – siehe <a href="../barsgetopen"><em>Bars.GetOpen</em></a>.</p>
+<p>Bars.GetVolume(int index) – siehe <a href="#barsgetopen"><em>Bars.GetOpen</em></a>.</p>
 <h2 id="barsinstrument">Bars.Instrument</h2>
 <h3 id="beschreibung_10">Beschreibung</h3>
 <p>Bars.Instrument liefert ein Instrument-Objekt, für das im Chart dargestellte Handelsinstrument.</p>
@@ -1669,7 +1669,7 @@ Compare(2, 2.00001) eine -1, d.h. 2 ist kleiner als 2.00001.</p>
 <p>Instrument.Digits</p>
 <h3 id="weitere-informationen_43">Weitere Informationen</h3>
 <p>Aktie werden üblicherweise mit 2 Stellen nach dem Komma gehandelt. Bei Forex sind es je nach Datenanbieter 4 oder 5 Stellen.</p>
-<p>Die Funktion findet u.a. Verwendung für das Formatieren von Ausgaben oder zur Rundung von Kursdaten. Siehe auch <a href="#ticksize"><em>TickSize</em></a> und <a href="../instrumentround2ticks"><em>Instrument.Round2Ticks</em></a>, <a href="#instrumentround2ticksize"><em>Instrument.Round2TickSize</em></a>.</p>
+<p>Die Funktion findet u.a. Verwendung für das Formatieren von Ausgaben oder zur Rundung von Kursdaten. Siehe auch <a href="#ticksize"><em>TickSize</em></a> und <a href="#instrumentround2ticks"><em>Instrument.Round2Ticks</em></a>, <a href="#instrumentround2ticksize"><em>Instrument.Round2TickSize</em></a>.</p>
 <p>Ausführliche Anleitung zum: <em>Formatieren von Zahlen.</em>.</p>
 <h3 id="beispiel_50">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Der Kurs von  &quot; +Instrument.Name + &quot; wird mit einer Genauigkeit von&quot; + Instrument.Digits +&quot; Nachkommastellen angegeben.&quot;);
@@ -1889,7 +1889,7 @@ Print(Price + &quot;  gerundet auf einen für &quot; + Instrument.Name + &quot; 
 <p>Aktie:  0,01
 ES-Future: 0,25
 EUR/USD: 0,00001</p>
-<p>Siehe auch <a href="../instrumentpointvalue"><em>Instrument.PointValue</em></a> und <a href="#instrumentdigits"><em>Instrument.Digits</em></a>.</p>
+<p>Siehe auch <a href="#instrumentpointvalue"><em>Instrument.PointValue</em></a> und <a href="#instrumentdigits"><em>Instrument.Digits</em></a>.</p>
 <p>Beispiele für professionelle  <a href="#formatting"><em>Formatting</em></a>, <em>Formatting of Numbers</em>.</p>
 <h3 id="beispiel_62">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Der Kurs von &quot; + Instrument.Name + &quot;  kann sich minimal um  &quot; + Instrument.TickSize + &quot; Punkt(e) verändern.&quot;);
@@ -1951,7 +1951,7 @@ Closes[0][0] entspricht Close[0].
 Closes[1][0] entspricht dem aktuellen Schlusskurs der Tagesdatenreihe.
 Closes[2][0] entspricht dem aktuellen Schlusskurs der Wochendatenreihe.</p>
 <p>"Closes"kann in den Beispielen selbstverständlich auch durch Opens, Highs, Lows usw. ersetzt werden.</p>
-<p>Siehe auch <a href="#processingbarindexes"><em>ProcessingBarIndexes</em></a>, <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>, <a href="#timeframes"><em>TimeFrames</em></a>, <a href="../timeframerequirements"><em>TimeFrameRequirements</em></a>.</p>
+<p>Siehe auch <a href="#processingbarindexes"><em>ProcessingBarIndexes</em></a>, <a href="#processingbarseriesindex"><em>ProcessingBarSeriesIndex</em></a>, <a href="#timeframes"><em>TimeFrames</em></a>, <a href="#timeframerequirements"><em>TimeFrameRequirements</em></a>.</p>
 <p>Es gibt noch eine weitere Schreibweise für Multbars:</p>
 <pre><code class="cs">// unter Variablendeklaration wird die Variable TF_Day definiert
 private static readonly TimeFrame TF_Day = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);

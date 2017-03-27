@@ -119,7 +119,7 @@ Print("Der letzte Einstieg liegt " + BarsCountFromTradeOpen() + " Bars zurück."
 ## CancelAllOrders()
 ### Beschreibung
 CancelAllOrders  löscht alle Oders (cancel), die von der Strategie verwaltet werden.
-Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit [*OnOrderChanged()*](#onorderupdate) zu kontrollieren.
+Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit [*OnOrderChanged()*](#onorderchanged) zu kontrollieren.
 
 ### Verwendung
 ```cs
@@ -142,7 +142,7 @@ protected override void OnCalculate()
 ### Beschreibung
 Cancel order löscht eine Oder (cancel).
 
-Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit [*OnOrderChanged()*](#onorderupdate) zu kontrollieren.
+Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit [*OnOrderChanged()*](#onorderchanged) zu kontrollieren.
 
 ### Verwendung
 ```cs

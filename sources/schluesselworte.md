@@ -2398,7 +2398,7 @@ graphics.DrawString("Here is bottom left!", font, brush, r.X + 10, r.Y + r.Heigh
 ### Beschreibung
 PriceType beschreibt die Art von Kursdaten.
 
-Siehe auch [*InputPriceType*](#inputpricetypes)
+Siehe auch [*InputPriceType*](#inputpricetype)
 
 Folgende Werte stehen zur Verfügung:
 -   PriceType.Close

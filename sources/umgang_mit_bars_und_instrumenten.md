@@ -4,7 +4,7 @@ Unter "Daten" werden hier einerseits Informationen verstanden, die "von außen" 
 
 Detailierte Informatonen finden sich unter dem jeweiligen Stichwort.
 
-[Bars (Candles)](#bars-candles)
+[Bars](#bars)
 
 [Collections](#collections)
 
@@ -14,7 +14,7 @@ Detailierte Informatonen finden sich unter dem jeweiligen Stichwort.
 
 [Multibars](#multibars)
 
-##Bars (Candles)
+## Bars 
 ### Funktionsweise
 Ein klassischer Indikator berechnet üblicherweise aus einer vorliegenden Datenreihe einen oder mehrere Werte.
 

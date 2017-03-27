@@ -43,9 +43,9 @@ In diesem Fall bekommt der aktuell laufende Bar die Nummer 0, der Bar links nebe
 
 Mit close \[0\] bekommt man nun den jeweils letzten Kurs, der gerade vom Datenanbieter an AgenaTrader übermittelt wurde. Alle Werte des Bars (high \[0\], low \[0\]…) können sich solange verändern, bis der Bar fertig ausgebildet ist und ein neuer Bar begonnen hat. Nur Open\[0\] ändert sich auch in diesem Fall nicht mehr.
 
-## Eigenschaften von Bars
+## Eigenschaften 
 ### Eigenschaften von Bars
-"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe [*Functionality*](#functionality)(#functionality)[*Bars*](#bars)).
+"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe [*Funktionsweise*](#funktionsweise)[*Bars*](#bars)).
 
 Bars (**public** IBars Bars) kann direkt in einem Script verwendet werden und entspricht in diesem Fall BarsArray \[0\] (siehe Bars.GetNextSessionTimeSpan).
 
@@ -124,7 +124,7 @@ Innerhalb von **OnCalculate()**  können alle Eigenschaften verwendet werden, oh
 ### Beschreibung
 Bars.Count liefert die Anzahl der Bars in einer Datenreihe.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Rückgabewert
 Typ int	Anzahl der Bars
@@ -214,7 +214,7 @@ Bars.GetBar(DateTime time)
 ```
 
 ### Weitere Informationen
-zur Indizierung von Bars siehe [*Functionality*](#functionality), [*Bars*](#bars)
+zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
 
 zur Benutzung von DateTime siehe [http://msdn.microsoft.com/de-de/library/system.datetime.aspx](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
@@ -244,7 +244,7 @@ Bars.GetBarIndex (DateTime dt)
 ```
 
 ### Weitere Informationen
-zur Indizierung von Bars siehe [*Functionality*](#functionality), [*Bars*](#bars)
+zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
 
 ### Beispiel
 ```cs
@@ -273,7 +273,7 @@ Bars.GetBarsAgo(DateTime time)
 ```
 
 ### Weitere Informationen
-zur Indizierung von Bars siehe [*Functionality*](#functionality), [*Bars*](#bars)
+zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
 
 zur Benutzung von DateTime siehe  [http://msdn.microsoft.com/de-de/library/system.datetime.aspx](http://msdn.microsoft.com/de-de/library/system.datetime.aspx)
 
@@ -299,7 +299,7 @@ Bars.GetByIndex (int Index)
 ```
 
 ### Weitere Informationen
-zur Indizierung von Bars siehe [*Functionality*](#functionality), [*Bars*](#bars)
+zur Indizierung von Bars siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)
 
 ### Beispiel
 ```cs
@@ -397,7 +397,7 @@ Typ DateTime für GetTime
 ### Beschreibung
 Bars.GetSessionBegin liefert das Datum und die Uhrzeit des Beginns einer bestimmten Handelssitzung.
 Datum und Uhrzeit für den Beginn der aktuellen Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -429,7 +429,7 @@ Bars.GetVolume(int index) – siehe [*Bars.GetOpen*](#barsgetopen).
 ### Beschreibung
 Bars.Instrument liefert ein Instrument-Objekt, für das im Chart dargestellte Handelsinstrument.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -454,7 +454,7 @@ Print("Das aktuell dargestellte Handelsinstrument hat das Symbol " + i.Symbol);
 ### Beschreibung
 Mit Bars.IsEod kann überprüft werden, ob es sich um End-of-Day-Bars handelt.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -492,7 +492,7 @@ Bars[0].IsFalling;
 ### Beschreibung
 Mit Bars.IsFirstBarInSession kann festgestellt werden, ob der aktuelle Bar der erste Bar einer Handelssitzung ist.
 
-Siehe auch weitere  [*Properties*](#properties) von Bars.
+Siehe auch weitere  [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Rückgabewert
 Typ bool
@@ -553,7 +553,7 @@ if(Bars.IsIntraday) {
 ## Bars.IsNtb
 ### Beschreibung
 Mit Bars.IsNtb kann überprüft werden, ob es sich um Not-Time-Based-Bars handelt. Bei Ntb-Bars handelt es sich beispielsweise um Point & Figure oder Renko Charts.
-Siehe auch weitere  [*Properties*](#properties) von Bars.
+Siehe auch weitere  [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -576,7 +576,7 @@ Print("Die angezeigten Bars sind Ntb:" + Bars.IsNtb);
 ### Beschreibung
 Mit Bars.IsSessionBreak kann ermittelt werden, ob die Bars innerhalb der laufenden Handelssitzung in den im Marktplatz-Escort definierten Handelspausen liegen.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -663,7 +663,7 @@ Print("Die nächste Handelssitzung beginnt um " + Bars.NextSessionBeginTime);
 ### Beschreibung
 Bars.NextSessionEndTime liefert das Datum und die Uhrzeit für das Ende der auf die aktuell laufende Handelssitzung folgenden Sitzung.
 Datum und Uhrzeit für das Ende der nächsten Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
-Siehe auch weitere  [*Properties*](#properties) von Bars.
+Siehe auch weitere  [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -727,7 +727,7 @@ Print("Die Höhe des oberen Dochtes ist: " + Bars.TailTop);
 ### Beschreibung
 Bars.TicksCountForLastBar liefert die Gesamtanzahl der in einem Bar enthaltenen Ticks.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -752,7 +752,7 @@ Print("Der aktuelle Bar besteht aus " + Bars.TicksCountForLastBar + " Ticks.");
 ### Beschreibung
 Bars.TicksCountInTotal  liefert die Gesamtzahl aller Ticks von dem Moment an, von dem die Funktion aufgerufen wird.
 
-Siehe auch weitere  [*Properties*](#properties) von Bars.
+Siehe auch weitere  [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -779,7 +779,7 @@ Print("Die Gesamtanzahl der gelieferten Ticks in diesem Wert beträgt " + Bars.T
 ### Beschreibung
 Bars.TimeFrame liefert ein TimeFrame-Objekt, das Informationen zum aktuell verwendeten Zeiteinheit enthält.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Parameter
 keine
@@ -810,7 +810,7 @@ Print(tf.PeriodicityValue); // liefert "30"
 ### Beschreibung
 Bars.BarsCountForSession liefert die Anzahl der Bars, die seit dem Beginn der aktuellen Handelssitzung entstanden sind.
 
-Siehe auch weitere [*Properties*](#properties) von Bars.
+Siehe auch weitere [*Eigenschaften*](#eigenschaften) von Bars.
 
 ### Rückgabewert
 Typ int	Anzahl der Bars

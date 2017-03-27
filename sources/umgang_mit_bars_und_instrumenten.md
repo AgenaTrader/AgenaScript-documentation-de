@@ -227,7 +227,7 @@ Print ("Der Schlusskurs für den 01.03.2012 um 18:00:00 Uhr war " + Bars.GetBar(
 ### Beschreibung
 Bars.GetBarIndex liefert den Index eines Bars. Übergeben werden kann der Methode entweder ein Bar-Objekt oder ein DateTime-Objekt.
 
-Siehe [*Bars.GetBar*](#barsgetbar)(#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago)(#barsgetbarsago), [*Bars.GetByIndex*](#barsgetbyindex)(#barsgetbyindex).
+Siehe [*Bars.GetBar*](#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago), [*Bars.GetByIndex*](#barsgetbyindex).
 
 ### Parameter
 Typ IBar bar
@@ -285,7 +285,7 @@ Print("Der Bar für den 01.03.2012 um 18:00:00 Uhr hat den Index" + Bars.GetBars
 ### Beschreibung
 Bars.GetByIndex liefert das zu einem übergebenen Index gehörende Bar-Objekt.
 
-Siehe [*Bars.GetBar*](#barsgetbar)(#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago)(#barsgetbarsago), [*Bars.GetBarIndex*](#barsgetbarindex)(#barsgetindex).
+Siehe [*Bars.GetBar*](#barsgetbar), [*Bars.GetBarsAgo*](#barsgetbarsago), [*Bars.GetBarIndex*](#barsgetbarindex).
 
 ### Parameter
 Typ int Index

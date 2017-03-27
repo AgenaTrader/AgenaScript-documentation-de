@@ -92,7 +92,7 @@ Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar i
 **Achtung:**
 **Diese Nummerierung unterscheidet sich vom BarIndex, siehe [*Bars*](#bars).**
 
-More information can be found here: [*Events*](#events).
+More information can be found here: [*Ereignisse*](#ereignisse).
 
 ### Parameter
 keiner

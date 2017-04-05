@@ -45,7 +45,7 @@ Mit close \[0\] bekommt man nun den jeweils letzten Kurs, der gerade vom Datenan
 
 ## Eigenschaften 
 ### Eigenschaften von Bars
-"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe [*Funktionsweise*](#funktionsweise)[*Bars*](#bars)).
+"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe [*Funktionsweise*](#funktionsweise), [*Bars*](#bars)).
 
 Bars (**public** IBars Bars) kann direkt in einem Script verwendet werden und entspricht in diesem Fall BarsArray \[0\] (siehe Bars.GetNextSessionTimeSpan).
 

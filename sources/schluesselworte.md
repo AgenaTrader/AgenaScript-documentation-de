@@ -792,6 +792,8 @@ In der Tabelle ist zu sehen, dass 4 neue Datenserien (farbig markiert) angelegt 
 
 [*StringSeries*](#stringseries)
 
+[*DoubleSeries*](#doubleseries)
+
 Darüberhinaus gibt es die Datenserie ColorSeries, die jedoch nur für interne Zwecke bestimmt ist und nicht direkt verwendet werden sollte.
 Um die Farbe von Plots zu ändern, verwenden Sie bitte [*PlotColors*](#plotcolors).
 

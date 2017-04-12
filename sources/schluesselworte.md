@@ -191,7 +191,7 @@ namespace AgenaTrader.UserCode
     [Category("My Package")]
     public class MyHolyGrail_Indicator : UserIndicator
     {
-      //your class code
+        /* your code here */
     }
 }
 ```

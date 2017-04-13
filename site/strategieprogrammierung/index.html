@@ -414,7 +414,7 @@ BarsCountFromTradeOpen(string strategyName)
 <h2 id="cancelallorders">CancelAllOrders()</h2>
 <h3 id="beschreibung_3">Beschreibung</h3>
 <p>CancelAllOrders  löscht alle Oders (cancel), die von der Strategie verwaltet werden.
-Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit <a href="#onorderupdate"><em>OnOrderChanged()</em></a> zu kontrollieren.</p>
+Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit <a href="#onorderchanged"><em>OnOrderChanged()</em></a> zu kontrollieren.</p>
 <h3 id="verwendung_2">Verwendung</h3>
 <pre><code class="cs">CancelAllOrders()
 </code></pre>
@@ -432,7 +432,7 @@ Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich 
 <h2 id="cancelorder">CancelOrder()</h2>
 <h3 id="beschreibung_4">Beschreibung</h3>
 <p>Cancel order löscht eine Oder (cancel).</p>
-<p>Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit <a href="#onorderupdate"><em>OnOrderChanged()</em></a> zu kontrollieren.</p>
+<p>Es wird ein Cancel-Request an den Broker verschickt. Ob eine Oder dort wirklich gelöscht wird, kann nicht garantiert werden. Es kann vorkommen, dass eine Order eine Teilausführung erhalten hat, ehe sie gelöscht wird. Es ist daher ratsam, den jeweils aktuellen Status einer Order mit <a href="#onorderchanged"><em>OnOrderChanged()</em></a> zu kontrollieren.</p>
 <h3 id="verwendung_3">Verwendung</h3>
 <pre><code class="cs">CancelOrder(IOrder order)
 </code></pre>

@@ -184,7 +184,7 @@
 <li><a href="#ondispose"><em>OnDispose()</em></a></li>
 <li><a href="#onlevel1"><em>OnLevel1()</em></a></li>
 <li><a href="#onlevel2"><em>OnLevel2()</em></a></li>
-<li><a href="#onorderupdate"><em>OnOrderChanged()</em></a></li>
+<li><a href="#onorderchanged"><em>OnOrderChanged()</em></a></li>
 <li><a href="#onorderexecution"><em>OnOrderExecution()</em></a></li>
 <li><a href="#onstartop"><em>OnStart()</em></a></li>
 </ul>
@@ -241,12 +241,12 @@ protected override void OnBrokerConnect()
 
 <h2 id="oncalculate">OnCalculate()</h2>
 <h3 id="beschreibung_2">Beschreibung</h3>
-<p>Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  <a href="#CalculateOnClosedBar"><em>CalculateOnClosedBar</em></a>,wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
+<p>Die Methode OnCalculate() wird immer dann aufgerufen, wenn sich ein Bar ändert. Abhängig von der Variablen  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>,wird sie entweder bei jedem hereinkommenden Tick oder erst nach Fertigstellung eines Bars aufgerufen.
 OnCalculate ist die wichtigste Methode, die im Normalfall auch den größten Teil des Codes selbsterstellter Indikatoren bzw. Strategien enthält.
 Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar im Chart. Der älteste Bar erhält dabei die Nummer 0. Es wird fortlaufend weiter nummeriert. Auf diese Nummerierung kann über die Variable ProcessingBarIndex zugegriffen werden, siehe Beispiel unten.</p>
 <p><strong>Achtung:</strong>
 <strong>Diese Nummerierung unterscheidet sich vom BarIndex, siehe <a href="#bars"><em>Bars</em></a>.</strong></p>
-<p>More information can be found here: <a href="#events"><em>Events</em></a>.</p>
+<p>More information can be found here: <a href="#ereignisse"><em>Ereignisse</em></a>.</p>
 <h3 id="parameter_2">Parameter</h3>
 <p>keiner</p>
 <h3 id="ruckgabewert_2">Rückgabewert</h3>

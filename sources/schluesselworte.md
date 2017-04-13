@@ -1176,6 +1176,62 @@ Print ("Für den Bar von " + Time[0] + "ist der Wert der Datenserie: " + myDataS
 myDataSeries.Set((long) ((High[0] - Low[0]) / TickSize));
 ```
 
+## DoubleSeries
+### Beschreibung
+DoubleSeries ist eine Datenserie, die für jeden Bar einen Double-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.
+
+### Neue DoubleSeries anlegen
+Im Bereich für die Deklaration von Variablen eine neue Variable anlegen:
+```cs
+//Variablendeklaration
+private DoubleSeries myDoubleSeries;
+```
+In der Methode OnInit() dieser Variable eine neue Instanz von DoubleSeries zuweisen:
+```cs
+protected override void OnInit()
+{
+myDoubleSeries = new DoubleSeries(this);
+CalculateOnClosedBar = true;
+}
+```
+
+### Werte zuweisen
+Der Datenserie an aktueller Position einen Wert zuweisen:
+```cs
+myDoubleSeries.Set(double Value);
+```
+
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
+```cs
+myDoubleSeries.Set(int barsAgo, double Value);
+```
+
+### Werte löschen
+Den aktuellen Wert aus der Datenserie entfernen:
+```cs
+myDataSeries.Reset();
+```
+
+Einen Wert in der Vergangenheit aus der Datenserie entfernen:
+```cs
+myDoubleSeries.Reset(int barsAgo);
+```
+
+### Werte auf Gültigkeit prüfen
+```cs
+myDoubleSeries.ContainsValue(int barsAgo);
+```
+
+### Wert auslesen
+```cs
+Print ("Für den Bar von " + Time[0] + " ist der Wert der Datenserie: " + myDoubleSeries[0]);
+```
+
+### Beispiel
+```cs
+myDoubleSeries.Set((double) High[0]);
+```
+
 ## StringSeries
 ### Beschreibung
 StringSeries ist eine Datenserie, die für jeden Bar einen String-Wert aufnehmen kann. Die Anzahl der Elemente dieser Serie entspricht genau der Anzahl der Bars im Chart.

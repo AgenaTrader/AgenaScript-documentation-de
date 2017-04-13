@@ -73,9 +73,9 @@
             
                 <li class="toctree-l3"><a href="#umgang-mit-bars-und-instrumenten">Umgang mit Bars und Instrumenten</a></li>
                 
-                    <li><a class="toctree-l4" href="#bars-candles">Bars (Candles)</a></li>
+                    <li><a class="toctree-l4" href="#bars">Bars</a></li>
                 
-                    <li><a class="toctree-l4" href="#eigenschaften-von-bars">Eigenschaften von Bars</a></li>
+                    <li><a class="toctree-l4" href="#eigenschaften">Eigenschaften</a></li>
                 
                     <li><a class="toctree-l4" href="#barscount">Bars.Count</a></li>
                 
@@ -316,12 +316,12 @@
                 <h1 id="umgang-mit-bars-und-instrumenten">Umgang mit Bars und Instrumenten</h1>
 <p>Unter "Daten" werden hier einerseits Informationen verstanden, die "von außen" in AgenaTrader geladen werden und zum anderen Datenreihen, die aus selbst erstellten AgenaSripts stammen.</p>
 <p>Detailierte Informatonen finden sich unter dem jeweiligen Stichwort.</p>
-<p><a href="#bars-candles">Bars (Candles)</a></p>
+<p><a href="#bars">Bars</a></p>
 <p><a href="#collections">Collections</a></p>
 <p><a href="#data-series">Data series</a></p>
 <p><a href="#instruments">Instruments</a></p>
 <p><a href="#multibars">Multibars</a></p>
-<h2 id="bars-candles">Bars (Candles)</h2>
+<h2 id="bars">Bars</h2>
 <h3 id="funktionsweise">Funktionsweise</h3>
 <p>Ein klassischer Indikator berechnet üblicherweise aus einer vorliegenden Datenreihe einen oder mehrere Werte.</p>
 <p>Datenreihen können dabei z.B. alle Schlusskurse oder auch alle Tiefkurse eines Tages, einer Stunde oder einer 10 Min. Periode sein.</p>
@@ -334,17 +334,17 @@
 <p>Für jeden Bar gibt es nicht nur Close, sondern zudem auch <a href="#high"><em>High</em></a>, <a href="#low"><em>Low</em></a>, <a href="#open"><em>Open</em></a>, <a href="#median"><em>Median</em></a>, <a href="#typical"><em>Typical</em></a>, <a href="#weighted"><em>Weighted</em></a>, <a href="#time"><em>Time</em></a> and <a href="#volume"><em>Volume</em></a>. Das Hoch der Kerze, von vor 10 Tagen ist also z.B.  <em>High [10]</em>, Das Tief von gestern <em>Low [1]</em>...</p>
 <p><strong>wichtiger Hinweis</strong></p>
 <p>Die o.g. Beispiele gelten, wenn die Berechnung am Ende einer Periode erfolgt. Die Werte der aktuell laufenden (noch nicht fertigen Kerze) sind nicht berücksichtigt.
-Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgreifen, muß man dies AgenaTrader im Script mit <a href="#CalculateOnClosedBar"><em>CalculateOnClosedBar</em></a>= false mitteilen.</p>
+Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgreifen, muß man dies AgenaTrader im Script mit <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>= false mitteilen.</p>
 <p>In diesem Fall bekommt der aktuell laufende Bar die Nummer 0, der Bar links neben dem aktuell laufenden die Nummer 1 usw. Der letzte Bar (im Beispiel oben) hätte jetzt die Nummer 502.</p>
 <p>Mit close [0] bekommt man nun den jeweils letzten Kurs, der gerade vom Datenanbieter an AgenaTrader übermittelt wurde. Alle Werte des Bars (high [0], low [0]…) können sich solange verändern, bis der Bar fertig ausgebildet ist und ein neuer Bar begonnen hat. Nur Open[0] ändert sich auch in diesem Fall nicht mehr.</p>
-<h2 id="eigenschaften-von-bars">Eigenschaften von Bars</h2>
-<h3 id="eigenschaften-von-bars_1">Eigenschaften von Bars</h3>
-<p>"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe <a href="#functionality"><em>Functionality</em></a>(#functionality)<a href="#bars"><em>Bars</em></a>).</p>
+<h2 id="eigenschaften">Eigenschaften</h2>
+<h3 id="eigenschaften-von-bars">Eigenschaften von Bars</h3>
+<p>"Bars" steht für eine Liste aller Bars (Kerzen) in einem Chart (siehe <a href="#funktionsweise"><em>Funktionsweise</em></a>, <a href="#bars"><em>Bars</em></a>).</p>
 <p>Bars (<strong>public</strong> IBars Bars) kann direkt in einem Script verwendet werden und entspricht in diesem Fall BarsArray [0] (siehe Bars.GetNextSessionTimeSpan).</p>
 <p>Eigenschaften werden immer mit einem Punkt hinter dem Objekt (in diesem Falle Bars, der Liste der Kerzen) angegeben.</p>
 <p><a href="#barscount"><em>Bars.Count</em></a></p>
-<p><a href="#currentsessionbegintime"><em>Bars.CurrentSessionBeginTime</em></a></p>
-<p><a href="#currentsessionendtime"><em>Bars.CurrentSessionEndTime</em></a></p>
+<p><a href="#barscurrentsessionbegintime"><em>Bars.CurrentSessionBeginTime</em></a></p>
+<p><a href="#barscurrentsessionendtime"><em>Bars.CurrentSessionEndTime</em></a></p>
 <p><a href="#barsgetbar"><em>Bars.GetBar</em></a></p>
 <p><a href="#barsgetbarindex"><em>Bars.GetBarIndex</em></a></p>
 <p><a href="#barsgetbarsago"><em>Bars.GetBarsAgo</em></a></p>
@@ -352,25 +352,25 @@ Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgrei
 <p><a href="#barsgetclose"><em>Bars.GetClose</em></a></p>
 <p><a href="#barsgethigh"><em>Bars.GetHigh</em></a></p>
 <p><a href="#barsgetlow"><em>Bars.GetLow</em></a></p>
-<p><a href="#getnextsessiontimespan"><em>Bars.GetNextSessionTimeSpan</em></a></p>
+<p><a href="#barsgetnextsessiontimespan"><em>Bars.GetNextSessionTimeSpan</em></a></p>
 <p><a href="#barsgetopen"><em>Bars.GetOpen</em></a></p>
-<p><a href="#getsessionbegin"><em>Bars.GetSessionBegin</em></a></p>
+<p><a href="#barsgetsessionbegin"><em>Bars.GetSessionBegin</em></a></p>
 <p><a href="#barsgettime"><em>Bars.GetTime</em></a></p>
 <p><a href="#barsgetvolume"><em>Bars.GetVolume</em></a></p>
 <p><a href="#barsinstrument"><em>Bars.Instrument</em></a></p>
 <p><a href="#barsiseod"><em>Bars.IsEod</em></a></p>
 <p><a href="#barsisfalling"><em>Bars.IsFalling</em></a></p>
-<p><a href="#barsfirstbarinsession"><em>Bars.IsFirstBarInSession</em></a></p>
+<p><a href="#barsisfirstbarinsession"><em>Bars.IsFirstBarInSession</em></a></p>
 <p><a href="#barsisgrowing"><em>Bars.IsGrowing</em></a></p>
 <p><a href="#barsisintraday"><em>Bars.IsIntraday</em></a></p>
 <p><a href="#barsisntb"><em>Bars.IsNtb</em></a></p>
 <p><a href="#barssessionbreak"><em>Bars.SessionBreak</em></a></p>
 <p><a href="#barslastbarcompleteness"><em>Bars.LastBarCompleteness</em></a></p>
-<p><a href="#nextsessionbegintime"><em>Bars.NextSessionBeginTime</em></a></p>
-<p><a href="#nextsessionendtime"><em>Bars.NextSessionEndTime</em></a></p>
+<p><a href="#barsnextsessionbegintime"><em>Bars.NextSessionBeginTime</em></a></p>
+<p><a href="#barsnextsessionendtime"><em>Bars.NextSessionEndTime</em></a></p>
 <p><a href="#barstailbottom"><em>Bars.TailBottom</em></a></p>
 <p><a href="#barstailtop"><em>Bars.TailTop</em></a></p>
-<p><a href="#tickscountforlastbar"><em>Bars.TicksCountForLastBar</em></a></p>
+<p><a href="#barstickscountforlastbar"><em>Bars.TicksCountForLastBar</em></a></p>
 <p><a href="#barstickscountintotal"><em>Bars.TicksCountInTotal</em></a></p>
 <p><a href="#barstimeframe"><em>Bars.TimeFrame</em></a></p>
 <p><a href="#barscountforsession"><em>BarsCountForSession</em></a></p>
@@ -379,7 +379,7 @@ Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgrei
 <h2 id="barscount">Bars.Count</h2>
 <h3 id="beschreibung">Beschreibung</h3>
 <p>Bars.Count liefert die Anzahl der Bars in einer Datenreihe.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="ruckgabewert">Rückgabewert</h3>
 <p>Typ int Anzahl der Bars</p>
 <h3 id="verwendung">Verwendung</h3>
@@ -441,7 +441,7 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 </code></pre>
 
 <h3 id="weitere-informationen_3">Weitere Informationen</h3>
-<p>zur Indizierung von Bars siehe <a href="#functionality"><em>Functionality</em></a>, <a href="#bars"><em>Bars</em></a></p>
+<p>zur Indizierung von Bars siehe <a href="#funktionsweise"><em>Funktionsweise</em></a>, <a href="#bars"><em>Bars</em></a></p>
 <p>zur Benutzung von DateTime siehe <a href="http://msdn.microsoft.com/de-de/library/system.datetime.aspx">http://msdn.microsoft.com/de-de/library/system.datetime.aspx</a></p>
 <h3 id="beispiel_3">Beispiel</h3>
 <pre><code class="cs">Print (&quot;Der Schlusskurs für den 01.03.2012 um 18:00:00 Uhr war &quot; + Bars.GetBar(new DateTime(2012, 01, 03, 18, 0, 0)).Close);
@@ -450,7 +450,7 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 <h2 id="barsgetbarindex">Bars.GetBarIndex</h2>
 <h3 id="beschreibung_4">Beschreibung</h3>
 <p>Bars.GetBarIndex liefert den Index eines Bars. Übergeben werden kann der Methode entweder ein Bar-Objekt oder ein DateTime-Objekt.</p>
-<p>Siehe <a href="#barsgetbar"><em>Bars.GetBar</em></a>(#barsgetbar), <a href="#barsgetbarsago"><em>Bars.GetBarsAgo</em></a>(#barsgetbarsago), <a href="#barsgetbyindex"><em>Bars.GetByIndex</em></a>(#barsgetbyindex).</p>
+<p>Siehe <a href="#barsgetbar"><em>Bars.GetBar</em></a>, <a href="#barsgetbarsago"><em>Bars.GetBarsAgo</em></a>, <a href="#barsgetbyindex"><em>Bars.GetByIndex</em></a>.</p>
 <h3 id="parameter_3">Parameter</h3>
 <p>Typ IBar bar
 oder
@@ -463,7 +463,7 @@ Bars.GetBarIndex (DateTime dt)
 </code></pre>
 
 <h3 id="weitere-informationen_4">Weitere Informationen</h3>
-<p>zur Indizierung von Bars siehe <a href="#functionality"><em>Functionality</em></a>, <a href="#bars"><em>Bars</em></a></p>
+<p>zur Indizierung von Bars siehe <a href="#funktionsweise"><em>Funktionsweise</em></a>, <a href="#bars"><em>Bars</em></a></p>
 <h3 id="beispiel_4">Beispiel</h3>
 <pre><code class="cs">int barsAgo = 5;
 IBar bar = Bars.GetBar(Time[barsAgo]);
@@ -485,7 +485,7 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 </code></pre>
 
 <h3 id="weitere-informationen_5">Weitere Informationen</h3>
-<p>zur Indizierung von Bars siehe <a href="#functionality"><em>Functionality</em></a>, <a href="#bars"><em>Bars</em></a></p>
+<p>zur Indizierung von Bars siehe <a href="#funktionsweise"><em>Funktionsweise</em></a>, <a href="#bars"><em>Bars</em></a></p>
 <p>zur Benutzung von DateTime siehe  <a href="http://msdn.microsoft.com/de-de/library/system.datetime.aspx">http://msdn.microsoft.com/de-de/library/system.datetime.aspx</a></p>
 <h3 id="beispiel_5">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Der Bar für den 01.03.2012 um 18:00:00 Uhr hat den Index&quot; + Bars.GetBarsAgo(new DateTime(2012, 01, 03, 18, 0, 0)));
@@ -494,7 +494,7 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 <h2 id="barsgetbyindex">Bars.GetByIndex</h2>
 <h3 id="beschreibung_6">Beschreibung</h3>
 <p>Bars.GetByIndex liefert das zu einem übergebenen Index gehörende Bar-Objekt.</p>
-<p>Siehe <a href="#barsgetbar"><em>Bars.GetBar</em></a>(#barsgetbar), <a href="#barsgetbarsago"><em>Bars.GetBarsAgo</em></a>(#barsgetbarsago), <a href="#barsgetbarindex"><em>Bars.GetBarIndex</em></a>(#barsgetindex).</p>
+<p>Siehe <a href="#barsgetbar"><em>Bars.GetBar</em></a>, <a href="#barsgetbarsago"><em>Bars.GetBarsAgo</em></a>, <a href="#barsgetbarindex"><em>Bars.GetBarIndex</em></a>.</p>
 <h3 id="parameter_5">Parameter</h3>
 <p>Typ int Index</p>
 <h3 id="ruckgabewert_6">Rückgabewert</h3>
@@ -504,7 +504,7 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 </code></pre>
 
 <h3 id="weitere-informationen_6">Weitere Informationen</h3>
-<p>zur Indizierung von Bars siehe <a href="#functionality"><em>Functionality</em></a>, <a href="#bars"><em>Bars</em></a></p>
+<p>zur Indizierung von Bars siehe <a href="#funktionsweise"><em>Funktionsweise</em></a>, <a href="#bars"><em>Bars</em></a></p>
 <h3 id="beispiel_6">Beispiel</h3>
 <pre><code class="cs">Print(Close[0] + &quot; und &quot; + Bars.GetByIndex(ProcessingBarIndex).Close + &quot; sind in diesem Beispiel gleich.&quot;);
 </code></pre>
@@ -518,7 +518,7 @@ bei Zeitstempel jünger als der letzte Bar: Index des letzten Bars</p>
 <h2 id="barsgetnextsessiontimespan">Bars.GetNextSessionTimeSpan</h2>
 <h3 id="beschreibung_7">Beschreibung</h3>
 <p>Bars.GetNextSessionTimeSpan liefert jeweils Datum und Uhrzeit von Beginn und Ende der nächsten Handelssitzung.</p>
-<p>Siehe <a href="#barssessionbegin"><em>Bars.CurrentSessionBeginTime</em></a>, <a href="#barssessionend"><em>Bars.CurrentSessionEndTime</em></a>, <a href="#barssessionnextbegin"><em>Bars.NextSessionBeginTime</em></a>, <a href="#barssessionnextend"><em>Bars.NextSessionEndTime</em></a>.</p>
+<p>Siehe <a href="#barscurrentsessionbegintime"><em>Bars.CurrentSessionBeginTime</em></a>, <a href="#barscurrentsessionendtime"><em>Bars.CurrentSessionEndTime</em></a>, <a href="#barsnextsessionbegintime"><em>Bars.NextSessionBeginTime</em></a>, <a href="#barsnextsessionendtime"><em>Bars.NextSessionEndTime</em></a>.</p>
 <h3 id="parameter_6">Parameter</h3>
 <table>
 <thead>
@@ -602,7 +602,7 @@ return Math.Max(0,Bars.Count-idx-1-(CalculateOnClosedBar?1:0));
 <h3 id="beschreibung_9">Beschreibung</h3>
 <p>Bars.GetSessionBegin liefert das Datum und die Uhrzeit des Beginns einer bestimmten Handelssitzung.
 Datum und Uhrzeit für den Beginn der aktuellen Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
-Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_8">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_9">Rückgabewert</h3>
@@ -624,7 +624,7 @@ Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
 <h2 id="barsinstrument">Bars.Instrument</h2>
 <h3 id="beschreibung_10">Beschreibung</h3>
 <p>Bars.Instrument liefert ein Instrument-Objekt, für das im Chart dargestellte Handelsinstrument.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_9">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_10">Rückgabewert</h3>
@@ -643,7 +643,7 @@ Print(&quot;Das aktuell dargestellte Handelsinstrument hat das Symbol &quot; + i
 <h2 id="barsiseod">Bars.IsEod</h2>
 <h3 id="beschreibung_11">Beschreibung</h3>
 <p>Mit Bars.IsEod kann überprüft werden, ob es sich um End-of-Day-Bars handelt.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_10">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_11">Rückgabewert</h3>
@@ -651,7 +651,7 @@ Print(&quot;Das aktuell dargestellte Handelsinstrument hat das Symbol &quot; + i
 <h3 id="verwendung_10">Verwendung</h3>
 <p>Bars.IsEod</p>
 <h3 id="more-information">More Information</h3>
-<p>Innerhalb von  <a href="#oncalculate"><em>OnCalculate()</em></a>kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.</p>
+<p>Innerhalb von  <a href="#oncalculate"><em>OnCalculate()</em></a> kann diese Eigenschaft verwendet werden, ohne vorher auf Null-Reference testen zu müssen. Sobald die Methode OnCalculate() von AgenaScript aufgerufen wird, ist immer auch ein Bars Objekt vorhanden.</p>
 <p>Falls diese Eigenschaft ausserhalb von  OnCalculate ()verwendet wird, sollte vorher ein entsprechender Test auf Null-Reference z.B. mit  if (bars! = Null) ausgeführt werden.</p>
 <h3 id="beispiel_10">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Die Bars sind Eod: &quot; + Bars.IsEod);
@@ -671,7 +671,7 @@ Print(&quot;Das aktuell dargestellte Handelsinstrument hat das Symbol &quot; + i
 <h2 id="barsisfirstbarinsession">Bars.IsFirstBarInSession</h2>
 <h3 id="beschreibung_13">Beschreibung</h3>
 <p>Mit Bars.IsFirstBarInSession kann festgestellt werden, ob der aktuelle Bar der erste Bar einer Handelssitzung ist.</p>
-<p>Siehe auch weitere  <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere  <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="ruckgabewert_13">Rückgabewert</h3>
 <p>Typ bool</p>
 <p><strong>true</strong>: Der Bar ist der erste Bar einer Handelssitzung
@@ -718,7 +718,7 @@ Print (&quot;Die aktuelle Handelsitzung hat um&quot; + Time [0]);
 <h2 id="barsisntb">Bars.IsNtb</h2>
 <h3 id="beschreibung_16">Beschreibung</h3>
 <p>Mit Bars.IsNtb kann überprüft werden, ob es sich um Not-Time-Based-Bars handelt. Bei Ntb-Bars handelt es sich beispielsweise um Point &amp; Figure oder Renko Charts.
-Siehe auch weitere  <a href="#properties"><em>Properties</em></a> von Bars.</p>
+Siehe auch weitere  <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_13">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_16">Rückgabewert</h3>
@@ -735,7 +735,7 @@ Falls diese Eigenschaft ausserhalb von OnCalculate() verwendet wird, sollte vorh
 <h2 id="barsissessionbreak">Bars.IsSessionBreak</h2>
 <h3 id="beschreibung_17">Beschreibung</h3>
 <p>Mit Bars.IsSessionBreak kann ermittelt werden, ob die Bars innerhalb der laufenden Handelssitzung in den im Marktplatz-Escort definierten Handelspausen liegen.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_14">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_17">Rückgabewert</h3>
@@ -802,7 +802,7 @@ Datum und Uhrzeit für den Beginn der nächsten Handelssitzung werden auch dann 
 <h3 id="beschreibung_20">Beschreibung</h3>
 <p>Bars.NextSessionEndTime liefert das Datum und die Uhrzeit für das Ende der auf die aktuell laufende Handelssitzung folgenden Sitzung.
 Datum und Uhrzeit für das Ende der nächsten Handelssitzung werden auch dann korrekt angegeben, wenn die Funktion von einem Bar in der Vergangenheit aufgerufen wird.
-Siehe auch weitere  <a href="#properties"><em>Properties</em></a> von Bars.</p>
+Siehe auch weitere  <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_16">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_20">Rückgabewert</h3>
@@ -849,7 +849,7 @@ Siehe auch weitere  <a href="#properties"><em>Properties</em></a> von Bars.</p>
 <h2 id="barstickscountforlastbar">Bars.TicksCountForLastBar</h2>
 <h3 id="beschreibung_23">Beschreibung</h3>
 <p>Bars.TicksCountForLastBar liefert die Gesamtanzahl der in einem Bar enthaltenen Ticks.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_19">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_23">Rückgabewert</h3>
@@ -866,7 +866,7 @@ Siehe auch weitere  <a href="#properties"><em>Properties</em></a> von Bars.</p>
 <h2 id="barstickscountintotal">Bars.TicksCountInTotal</h2>
 <h3 id="beschreibung_24">Beschreibung</h3>
 <p>Bars.TicksCountInTotal  liefert die Gesamtzahl aller Ticks von dem Moment an, von dem die Funktion aufgerufen wird.</p>
-<p>Siehe auch weitere  <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere  <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_20">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_24">Rückgabewert</h3>
@@ -885,7 +885,7 @@ Print(&quot;Die Gesamtanzahl der gelieferten Ticks in diesem Wert beträgt &quot
 <h2 id="barstimeframe">Bars.TimeFrame</h2>
 <h3 id="beschreibung_25">Beschreibung</h3>
 <p>Bars.TimeFrame liefert ein TimeFrame-Objekt, das Informationen zum aktuell verwendeten Zeiteinheit enthält.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="parameter_21">Parameter</h3>
 <p>keine</p>
 <h3 id="ruckgabewert_25">Rückgabewert</h3>
@@ -907,7 +907,7 @@ Print(tf.PeriodicityValue); // liefert &quot;30&quot;
 <h2 id="barscountforsession">BarsCountForSession</h2>
 <h3 id="beschreibung_26">Beschreibung</h3>
 <p>Bars.BarsCountForSession liefert die Anzahl der Bars, die seit dem Beginn der aktuellen Handelssitzung entstanden sind.</p>
-<p>Siehe auch weitere <a href="#properties"><em>Properties</em></a> von Bars.</p>
+<p>Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.</p>
 <h3 id="ruckgabewert_26">Rückgabewert</h3>
 <p>Typ int Anzahl der Bars</p>
 <p>Ein Wert von -1 deutet auf ein Problem bei der Ermittlung des Sessionbeginns hin.</p>
@@ -1170,7 +1170,7 @@ Open[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_23">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_29">Beispiel</h3>
 <pre><code class="cs">// Eröffnungskurs der aktuellen Periode
 Print(Time[0] + &quot; &quot; + Open[0]);
@@ -1200,7 +1200,7 @@ Opens[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_24">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_30">Beispiel</h3>
 <p>Siehe Beispiel unter <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="high">High</h2>
@@ -1214,7 +1214,7 @@ High[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_25">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_31">Beispiel</h3>
 <pre><code class="cs">//Höchstkurs der aktuellen Periode
 Print(Time[0] + &quot; &quot; + High[0]);
@@ -1244,7 +1244,7 @@ Highs[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_26">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_32">Beispiel</h3>
 <p>Siehe Beispiel unter  <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="low">Low</h2>
@@ -1258,7 +1258,7 @@ Low[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_27">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_33">Beispiel</h3>
 <pre><code class="cs">// Tiefstkurs der aktuellen Periode
 Print(Time[0] + &quot; &quot; + Low[0]);
@@ -1288,7 +1288,7 @@ Lows[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_28">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_34">Beispiel</h3>
 <p>Siehe Beispiel unter <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="close">Close</h2>
@@ -1302,7 +1302,7 @@ Close[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_29">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <p>Indikatoren werden standardmäßig über die Schlusskurse berechnet. Die Angabe der Input-Serie kann weggelassen werden (siehe Beispiel unten).</p>
 <h3 id="beispiel_35">Beispiel</h3>
 <pre><code class="cs">// Schlusskurs der aktuellen Periode
@@ -1335,7 +1335,7 @@ Closes[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_30">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_36">Beispiel</h3>
 <p>Siehe Beispiel unter <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="median">Median</h2>
@@ -1351,7 +1351,7 @@ Median[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_31">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <p>Informationen zu Median, Typical und Weighted:
 <a href="http://blog.nobletrading.com/2009/12/median-price-typical-price-weighted.html"><em>http://blog.nobletrading.com/2009/12/median-price-typical-price-weighted.html</em></a></p>
 <h3 id="beispiel_37">Beispiel</h3>
@@ -1383,7 +1383,7 @@ Medians[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_32">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <p>Informationen zu Median, Typical und Weighted: <a href="http://www.investopedia.com/terms/m/median.asp">http://www.investopedia.com/terms/m/median.asp</a></p>
 <h3 id="beispiel_38">Beispiel</h3>
 <p>Siehe Beispiel unter <a href="#multibars"><em>Multibars</em></a>.</p>
@@ -1400,7 +1400,7 @@ Typical[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_33">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <p>Informationen zu Median, Typical und Weighted: <a href="https://technicianapp.com/resources/typical-price/"><em>https://technicianapp.com/resources/typical-price/</em></a></p>
 <h3 id="beispiel_39">Beispiel</h3>
 <pre><code class="cs">// Typical-Preis der aktuellen Periode
@@ -1431,7 +1431,7 @@ Typicals[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_34">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_40">Beispiel</h3>
 <p>Siehe Beispiel unter  <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="weighted">Weighted</h2>
@@ -1477,12 +1477,12 @@ Weighteds[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_36">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_42">Beispiel</h3>
 <p>Siehe Beispiel unter <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="time">Time</h2>
 <h3 id="beschreibung_48">Beschreibung</h3>
-<p>Time ist eine <a href="#dataseries"><em>DataSeries</em></a> vom Typ <a href="#datatimeseries"><em>DateTimeSeries</em></a>, in der die Zeitstempel der einzelnen Bars gespeichert sind.</p>
+<p>Time ist eine <a href="#dataseries"><em>DataSeries</em></a> vom Typ <a href="#datetimeseries"><em>DateTimeSeries</em></a>, in der die Zeitstempel der einzelnen Bars gespeichert sind.</p>
 <h3 id="parameter_37">Parameter</h3>
 <p>barsAgo Indexwert (s. <a href="#bars"><em>Bars</em></a>)</p>
 <h3 id="verwendung_45">Verwendung</h3>
@@ -1491,7 +1491,7 @@ Time[int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_37">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_43">Beispiel</h3>
 <pre><code class="cs">// Zeitstempel der aktuellen Periode
 Print(Time[0]);
@@ -1519,7 +1519,7 @@ Times[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_38">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_44">Beispiel</h3>
 <p>Siehe Beispiel unter <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="volume">Volume</h2>
@@ -1531,7 +1531,7 @@ Times[int barSeriesIndex][int barsAgo]
 <p>Volume</p>
 <p>Volume[<strong>int</strong> barsAgo]</p>
 <h3 id="weitere-informationen_39">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <p>Der vom Indikator <a href="#vol"><em>VOL()</em></a> zurückgelieferte Wert ist identisch mit dem hier beschriebenen Volumen.
 Z.B. liefert Vol()[3]  den gleichen Wert wie Volume[3].</p>
 <h3 id="beispiel_45">Beispiel</h3>
@@ -1563,7 +1563,7 @@ Volumes[int barSeriesIndex][int barsAgo]
 </code></pre>
 
 <h3 id="weitere-informationen_40">Weitere Informationen</h3>
-<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosebar"><em>CalculateOnClosedBar</em></a>.</p>
+<p>Der zurückgegebene Wert ist abhängig von der Eigenschaft  <a href="#calculateonclosedbar"><em>CalculateOnClosedBar</em></a>.</p>
 <h3 id="beispiel_46">Beispiel</h3>
 <p>Siehe Beispiel unter  <a href="#multibars"><em>Multibars</em></a>.</p>
 <h2 id="timeframe">TimeFrame</h2>

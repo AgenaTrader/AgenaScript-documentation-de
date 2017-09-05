@@ -830,7 +830,7 @@ Falls diese Eigenschaft ausserhalb von OnBarUpdate() verwendet wird, sollte vorh
 Print ("Seit dem Start der letzten Handelssitzung sind" + Bars.BarsCountForSession + "Bars entstanden.");
 ```
 
-## ProcessingBarSeriesIndex
+## ProcessingBarIndexLast
 ### Beschreibung
 Gibt an, ob der aktuelle Bar zuletzt berechnet wurde.
 
@@ -841,7 +841,7 @@ keine
 Typ bool
 
 ### Verwendung
-ProcessingBarSeriesIndex
+ProcessingBarIndexLast
 
 ### Weitere Informationen
 Verwendet für komplizierte Berechnung auf einem letzten Bar

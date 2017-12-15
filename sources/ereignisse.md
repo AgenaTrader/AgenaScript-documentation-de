@@ -30,9 +30,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 ### Parameter
 keine
 
-### Rückgabewert
-keiner
-
 ### Verwendung
 ```cs
 protected override void OnBrokerConnect()
@@ -64,8 +61,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 ### Parameter
 Ein Objekt vom Typ  *TradingDatafeedChangedEventArgs*
 
-### Rückgabewert
-keiner
 
 ### Verwendung
 ```cs
@@ -95,9 +90,6 @@ Die Bearbeitung beginnt mit dem ältesten Bar und läuft bis zum jüngsten Bar i
 More information can be found here: [*Ereignisse*](#ereignisse).
 
 ### Parameter
-keiner
-
-### Rückgabewert
 keiner
 
 ### Verwendung
@@ -233,9 +225,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 ### Parameter
 keiner
 
-### Rückgabewert
-keiner
-
 ### Verwendung
 ```cs
 protected override void OnDispose()
@@ -277,9 +266,6 @@ Die Felder "Volumen", "BidSize" und "AskSize" sind immer 0.
 protected override void OnLevel1(Level1Args e)
 ```
 
-### Rückgabewert
-keiner
-
 ### Parameter
 ```cs
 [*Level1Args*] e
@@ -316,9 +302,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 protected override void OnLevel2(Level2Args e)
 ```
 
-### Rückgabewert
-keiner
-
 ### Parameter
 Ein Objekt von *Level2Args*
 
@@ -343,8 +326,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 ### Parameter
 Ein Order-Objekt vom Type IOrder
 
-### Rückgabewert
-keiner
 
 ### Verwendung
 ```cs
@@ -385,9 +366,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 ### Parameter
 Ein execution-Objekt vom Type  *IExecution*
 
-### Rückgabewert
-keiner
-
 ### Verwendung
 ```cs
 protected override void OnOrderExecution(IExecution execution)
@@ -424,8 +402,6 @@ Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereigni
 ### Parameter
 keiner
 
-### Rückgabewert
-keiner
 
 ### Verwendung
 ```cs

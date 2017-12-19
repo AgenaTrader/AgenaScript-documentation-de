@@ -1693,7 +1693,7 @@ Siehe Beispiel unter  [*Multibars*](#multibars).
 
 ## TimeFrame
 ### Beschreibung
-TimeFrame ist ein Zeitrahmenobjekt.
+TimeFrame ist ein Zeitrahmenobjekt. Diese Einstellung/Menüpunkt wird verwendet, um die aktuelle Zeiteinheit zu lesen, nicht um sie zu festzulegen
 
 ### Verwendung
 ```cs

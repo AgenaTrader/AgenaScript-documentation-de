@@ -17,7 +17,7 @@ Folgende Methoden können verwendet, d.h. überschrieben werden:
 -   [*OnOrderChanged()*](#onorderchanged)
 -   [*OnOrderExecution()*](#onorderexecution)
 -   [*OnStart()*](#onstartop)
-
+-   [*OnStop()*](#onstop)
 
 ## OnBrokerConnect()
 ### Beschreibung
@@ -418,5 +418,30 @@ protected override void OnStart()
     Window = new myForm();
     Window.Show();
     }
+}
+```
+
+## OnStop()
+### Beschreibung
+Die OnStop()-Methode wird aufgerufen, sobald ein Script beendet wird. Dies kann z.B. vorkommen, wenn ein Indikator vom Chart entfernt wurde oder eine Spalte mit einem Indikator / einer gescripteten Condition vom Scanner entfernt wurde. 
+
+Siehe auch [*OnDispose()*](#ondispose).
+
+Siehe auch weitere Methoden zur Ereignisbehandlung unter [*Ereignisse*](#ereignisse).
+
+### Parameter
+keiner
+
+
+### Verwendung
+```cs
+protected override void OnStop()
+```
+
+### Beispiel
+```cs
+protected override void OnStop()
+{
+    Log("Stop: " + this.ToString() + " | " + Instrument.Symbol, InfoLogLevel.Info); 
 }
 ```

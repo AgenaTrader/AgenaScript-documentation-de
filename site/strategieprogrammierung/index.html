@@ -3,33 +3,30 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Strategieprogrammierung - AgenaScript Dokumentation (Deutsch)</title>
   
-
   <link rel="shortcut icon" href="../favicon.ico">
   
-
-  
+  <title>Strategieprogrammierung - AgenaScript Dokumentation (Deutsch)</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../css/highlight.css">
   <link href="../custom.css" rel="stylesheet">
-
   
   <script>
     // Current page data
     var mkdocs_page_name = "Strategieprogrammierung";
+    var mkdocs_page_input_path = "strategieprogrammierung.md";
+    var mkdocs_page_url = "/strategieprogrammierung/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
   <script src="../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../js/highlight.pack.js"></script>
-  <script src="../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
   
   <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -59,172 +56,166 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
+	  
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="..">Los gehts</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Los gehts</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../umgang_mit_bars_und_instrumenten/">Umgang mit Bars und Instrumenten</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../umgang_mit_bars_und_instrumenten/">Umgang mit Bars und Instrumenten</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../ereignisse/">Ereignisse</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../ereignisse/">Ereignisse</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Strategieprogrammierung</a>
-        
-            <ul>
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Strategieprogrammierung</a>
+    <ul class="subnav">
             
-                <li class="toctree-l3"><a href="#strategieprogrammierung">Strategieprogrammierung</a></li>
-                
-                    <li><a class="toctree-l4" href="#account">Account</a></li>
-                
-                    <li><a class="toctree-l4" href="#barscountfromtradeclose">BarsCountFromTradeClose()</a></li>
-                
-                    <li><a class="toctree-l4" href="#barscountfromtradeopen">BarsCountFromTradeOpen()</a></li>
-                
-                    <li><a class="toctree-l4" href="#cancelallorders">CancelAllOrders()</a></li>
-                
-                    <li><a class="toctree-l4" href="#cancelorder">CancelOrder()</a></li>
-                
-                    <li><a class="toctree-l4" href="#createifdonegroup">CreateIfDoneGroup()</a></li>
-                
-                    <li><a class="toctree-l4" href="#createocogroup">CreateOCOGroup()</a></li>
-                
-                    <li><a class="toctree-l4" href="#createorogroup">CreateOROGroup()</a></li>
-                
-                    <li><a class="toctree-l4" href="#dataseriesconfigurable">DataSeriesConfigurable</a></li>
-                
-                    <li><a class="toctree-l4" href="#defaultorderquantity">DefaultOrderQuantity</a></li>
-                
-                    <li><a class="toctree-l4" href="#entriesperdirection">EntriesPerDirection</a></li>
-                
-                    <li><a class="toctree-l4" href="#entryhandling">EntryHandling</a></li>
-                
-                    <li><a class="toctree-l4" href="#openlong">OpenLong()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openlonglimit">OpenLongLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openlongstop">OpenLongStop()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openlongstoplimit">OpenLongStopLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openshort">OpenShort()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openshortlimit">OpenShortLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openshortstop">OpenShortStop()</a></li>
-                
-                    <li><a class="toctree-l4" href="#openshortstoplimit">OpenShortStopLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#excludetradehistoryinbacktest">ExcludeTradeHistoryInBacktest</a></li>
-                
-                    <li><a class="toctree-l4" href="#closelong">CloseLong()</a></li>
-                
-                    <li><a class="toctree-l4" href="#closelonglimit">CloseLongLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#closelongstop">CloseLongStop()</a></li>
-                
-                    <li><a class="toctree-l4" href="#closelongstoplimit">CloseLongStopLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#exitonclose">ExitOnClose</a></li>
-                
-                    <li><a class="toctree-l4" href="#exitoncloseseconds">ExitOnCloseSeconds</a></li>
-                
-                    <li><a class="toctree-l4" href="#closeshort">CloseShort()</a></li>
-                
-                    <li><a class="toctree-l4" href="#closeshortlimit">CloseShortLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#closeshortstop">CloseShortStop()</a></li>
-                
-                    <li><a class="toctree-l4" href="#closeshortstoplimit">CloseShortStopLimit()</a></li>
-                
-                    <li><a class="toctree-l4" href="#getaccountvalue">GetAccountValue()</a></li>
-                
-                    <li><a class="toctree-l4" href="#getentries">GetEntries()</a></li>
-                
-                    <li><a class="toctree-l4" href="#getprofitloss">GetProfitLoss()</a></li>
-                
-                    <li><a class="toctree-l4" href="#getprofitlossamount">GetProfitLossAmount()</a></li>
-                
-                    <li><a class="toctree-l4" href="#getprofitlossrisk">GetProfitLossRisk()</a></li>
-                
-                    <li><a class="toctree-l4" href="#getscriptedcondition">GetScriptedCondition()</a></li>
-                
-                    <li><a class="toctree-l4" href="#isautomated">IsAutomated</a></li>
-                
-                    <li><a class="toctree-l4" href="#order">Order</a></li>
-                
-                    <li><a class="toctree-l4" href="#performance">Performance</a></li>
-                
-                    <li><a class="toctree-l4" href="#position">Position</a></li>
-                
-                    <li><a class="toctree-l4" href="#positiontype">PositionType</a></li>
-                
-                    <li><a class="toctree-l4" href="#printorders">PrintOrders</a></li>
-                
-                    <li><a class="toctree-l4" href="#quantity">Quantity</a></li>
-                
-                    <li><a class="toctree-l4" href="#replaceorder">ReplaceOrder()</a></li>
-                
-                    <li><a class="toctree-l4" href="#setupprofittarget">SetUpProfitTarget()</a></li>
-                
-                    <li><a class="toctree-l4" href="#setupstoploss">SetUpStopLoss()</a></li>
-                
-                    <li><a class="toctree-l4" href="#setuptrailstop">SetUpTrailStop()</a></li>
-                
-                    <li><a class="toctree-l4" href="#submitorder">SubmitOrder()</a></li>
-                
-                    <li><a class="toctree-l4" href="#timeinforce">TimeInForce</a></li>
-                
-                    <li><a class="toctree-l4" href="#trade">Trade</a></li>
-                
-                    <li><a class="toctree-l4" href="#unmanaged">Unmanaged</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#backtesting-and-optimization">Backtesting and Optimization</a></li>
-                
-                    <li><a class="toctree-l4" href="#performance-characteristics">Performance Characteristics</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l2"><a href="#strategieprogrammierung">Strategieprogrammierung</a></li>
+    
+        <ul>
         
-    </li>
-<li>
+            <li><a class="toctree-l3" href="#account">Account</a></li>
+        
+            <li><a class="toctree-l3" href="#barscountfromtradeclose">BarsCountFromTradeClose()</a></li>
+        
+            <li><a class="toctree-l3" href="#barscountfromtradeopen">BarsCountFromTradeOpen()</a></li>
+        
+            <li><a class="toctree-l3" href="#cancelallorders">CancelAllOrders()</a></li>
+        
+            <li><a class="toctree-l3" href="#cancelorder">CancelOrder()</a></li>
+        
+            <li><a class="toctree-l3" href="#createifdonegroup">CreateIfDoneGroup()</a></li>
+        
+            <li><a class="toctree-l3" href="#createocogroup">CreateOCOGroup()</a></li>
+        
+            <li><a class="toctree-l3" href="#createorogroup">CreateOROGroup()</a></li>
+        
+            <li><a class="toctree-l3" href="#dataseriesconfigurable">DataSeriesConfigurable</a></li>
+        
+            <li><a class="toctree-l3" href="#defaultorderquantity">DefaultOrderQuantity</a></li>
+        
+            <li><a class="toctree-l3" href="#entriesperdirection">EntriesPerDirection</a></li>
+        
+            <li><a class="toctree-l3" href="#entryhandling">EntryHandling</a></li>
+        
+            <li><a class="toctree-l3" href="#openlong">OpenLong()</a></li>
+        
+            <li><a class="toctree-l3" href="#openlonglimit">OpenLongLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#openlongstop">OpenLongStop()</a></li>
+        
+            <li><a class="toctree-l3" href="#openlongstoplimit">OpenLongStopLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#openshort">OpenShort()</a></li>
+        
+            <li><a class="toctree-l3" href="#openshortlimit">OpenShortLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#openshortstop">OpenShortStop()</a></li>
+        
+            <li><a class="toctree-l3" href="#openshortstoplimit">OpenShortStopLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#excludetradehistoryinbacktest">ExcludeTradeHistoryInBacktest</a></li>
+        
+            <li><a class="toctree-l3" href="#closelong">CloseLong()</a></li>
+        
+            <li><a class="toctree-l3" href="#closelonglimit">CloseLongLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#closelongstop">CloseLongStop()</a></li>
+        
+            <li><a class="toctree-l3" href="#closelongstoplimit">CloseLongStopLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#exitonclose">ExitOnClose</a></li>
+        
+            <li><a class="toctree-l3" href="#exitoncloseseconds">ExitOnCloseSeconds</a></li>
+        
+            <li><a class="toctree-l3" href="#closeshort">CloseShort()</a></li>
+        
+            <li><a class="toctree-l3" href="#closeshortlimit">CloseShortLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#closeshortstop">CloseShortStop()</a></li>
+        
+            <li><a class="toctree-l3" href="#closeshortstoplimit">CloseShortStopLimit()</a></li>
+        
+            <li><a class="toctree-l3" href="#getaccountvalue">GetAccountValue()</a></li>
+        
+            <li><a class="toctree-l3" href="#getentries">GetEntries()</a></li>
+        
+            <li><a class="toctree-l3" href="#getprofitloss">GetProfitLoss()</a></li>
+        
+            <li><a class="toctree-l3" href="#getprofitlossamount">GetProfitLossAmount()</a></li>
+        
+            <li><a class="toctree-l3" href="#getprofitlossrisk">GetProfitLossRisk()</a></li>
+        
+            <li><a class="toctree-l3" href="#getscriptedcondition">GetScriptedCondition()</a></li>
+        
+            <li><a class="toctree-l3" href="#isautomated">IsAutomated</a></li>
+        
+            <li><a class="toctree-l3" href="#order">Order</a></li>
+        
+            <li><a class="toctree-l3" href="#performance">Performance</a></li>
+        
+            <li><a class="toctree-l3" href="#position">Position</a></li>
+        
+            <li><a class="toctree-l3" href="#positiontype">PositionType</a></li>
+        
+            <li><a class="toctree-l3" href="#printorders">PrintOrders</a></li>
+        
+            <li><a class="toctree-l3" href="#quantity">Quantity</a></li>
+        
+            <li><a class="toctree-l3" href="#replaceorder">ReplaceOrder()</a></li>
+        
+            <li><a class="toctree-l3" href="#setupprofittarget">SetUpProfitTarget()</a></li>
+        
+            <li><a class="toctree-l3" href="#setupstoploss">SetUpStopLoss()</a></li>
+        
+            <li><a class="toctree-l3" href="#setuptrailstop">SetUpTrailStop()</a></li>
+        
+            <li><a class="toctree-l3" href="#submitorder">SubmitOrder()</a></li>
+        
+            <li><a class="toctree-l3" href="#timeinforce">TimeInForce</a></li>
+        
+            <li><a class="toctree-l3" href="#trade">Trade</a></li>
+        
+            <li><a class="toctree-l3" href="#unmanaged">Unmanaged</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#backtesting-and-optimization">Backtesting and Optimization</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#performance-characteristics">Performance Characteristics</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../schluesselworte/">Schlüsselworte</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../schluesselworte/">Schlüsselworte</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../zeichenobjekte/">Zeichenobjekte</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../zeichenobjekte/">Zeichenobjekte</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../tipps_und_tricks/">Tipps und Tricks</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../tipps_und_tricks/">Tipps und Tricks</a>
+	    </li>
           
         </ul>
       </div>
@@ -251,9 +242,8 @@
     <li>Strategieprogrammierung</li>
     <li class="wy-breadcrumbs-aside">
       
-        
-          <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de" class="icon icon-github"> Edit on GitHub</a>
-        
+        <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de/edit/master/sources/strategieprogrammierung.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -2461,7 +2451,7 @@ die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkann
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../schluesselworte/" class="btn btn-neutral float-right" title="Schlüsselworte"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../schluesselworte/" class="btn btn-neutral float-right" title="Schlüsselworte">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../ereignisse/" class="btn btn-neutral" title="Ereignisse"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -2483,13 +2473,13 @@ die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkann
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/AgenaTrader/AgenaScript-documentation-de" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../ereignisse/" style="color: #fcfcfc;">&laquo; Previous</a></span>
@@ -2499,6 +2489,7 @@ die Standardabweichung der Gewinne bzw. Verluste. Hier können Ausreißer erkann
       
     </span>
 </div>
+    <script src="../js/theme.js"></script>
 
 </body>
 </html>

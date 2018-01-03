@@ -405,15 +405,15 @@ LastBarPainted wäre in diesem Fall größer als Bars.Count.
 
 LastBarVisible wäre in Bars.Count -1.
 
-## ClearOutputWindow()
+## ClearTraceWindow()
 ### Beschreibung
-Die Methode ClearOutputWindow() leert das Output-Fenster. Die Methode kann sowohl in OnInit() als auch in OnCalculate() eingesetzt werden.
+Die Methode ClearTraceWindow() leert das Output-Fenster. Die Methode kann sowohl in OnInit() als auch in OnCalculate() eingesetzt werden.
 Das OutputWindow beinhaltet alle Ausgaben, die mit dem [*Print()*](#print) -Befehl erstellt wurden.
 Der Einsatz des OutputWindows ist eine sehr gute Möglichkeit für Code-Debugging.
 
 ### Verwendung
 ```cs
-ClearOutputWindow()
+ClearTraceWindow()
 ```
 
 ### Parameter
@@ -427,7 +427,7 @@ keiner
 protected override void OnInit()
 {
 //Inhalt des OutputWindow löschen
-ClearOutputWindow();
+ClearTraceWindow();
 }
 ```
 ## Colors

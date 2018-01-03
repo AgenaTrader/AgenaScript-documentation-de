@@ -136,7 +136,7 @@ Der Parameter soll im Eigenschaftsfenster angezeigt und abgefragt werden. Daher 
 
 ```cs
 [Description("Numbers of bars used for calculations")]
-[Category("Parameters")]
+[Category("InputParameter")]
 public int Period
 {
 get { return period; }
@@ -160,12 +160,12 @@ Category ist ein [Attribute](#attribute) in AgenaScript.
 
 Das Attribut Category gibt für einen Parameter an, unter welcher Kategorie im Eigenschaften-Dialog der Parameter erscheint.
 
-Wenn das Attribut fehlt, wird standardmäßig die Kategorie "Parameters" angenommen.
+Wenn das Attribut fehlt, wird standardmäßig die Kategorie "InputParameter" angenommen.
 
-Das folgende Beispiel erzeugt im Eigenschaften-Dialog die neue Kategorie "My Parameters".
+Das folgende Beispiel erzeugt im Eigenschaften-Dialog die neue Kategorie "My InputParameter".
 
 ```cs
-[Category("My Parameters")]
+[Category("My InputParameter")]
 [DisplayName("Period number")]
 public double _period
 {
@@ -180,9 +180,9 @@ Category ist ein  [Attribute](#attribute) in AgenaScript.
 
 Das Attribut Category gibt für einen Parameter an, unter welcher Kategorie im Eigenschaften-Dialog der Parameter erscheint.
 
-Wenn das Attribut fehlt, wird standardmäßig die Kategorie "Parameters" angenommen.
+Wenn das Attribut fehlt, wird standardmäßig die Kategorie "InputParameter" angenommen.
 
-Das folgende Beispiel erzeugt im Eigenschaften-Dialog die neue Kategorie "My Parameters".
+Das folgende Beispiel erzeugt im Eigenschaften-Dialog die neue Kategorie "My InputParameter".
 
 ```cs
 namespace AgenaTrader.UserCode
@@ -2256,7 +2256,7 @@ Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
 }
 ```
 
-## Parameter()
+## InputParameter()
 ### Beschreibung
 Attribut, das für die Anpassung der Indikatoren verwendet wird
 
@@ -2269,7 +2269,7 @@ keiner
 ### Beispiele
 ```cs
 [Description("Period for the medium mean average")]
-[Category("Parameters")]
+[Category("InputParameter")]
 [DisplayName("MA Medium")]
 public int MA_Medium
 {
@@ -2538,31 +2538,7 @@ RequiredBarsCount = 50;
 }
 ```
 
-## SessionBreakLines
-### Beschreibung
-Die Eigenschaft SessionBreakLines legt fest, ob vertikale Linien im Chart angezeigt werden, die eine Handelsunterbrechung anzeigen. Dies kann (wie bei Aktien üblich) die Datumsgrenze sein, ist aber mitunter bei vielen Handelsinstrumenten innerhalb des Tages.
-**SessionBreakLines = true (default)**
 
-SessionBreakLines werden im Chart angezeigt.
-
-**SessionBreakLines = false**
-
-SessionBreakLines werden nicht im Chart angezeigt
-
-Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
-
-### Verwendung
-SessionBreakLines
-
-### Beispiel
-```cs
-protected override void OnInit()
-{
-Add(new OnPaint(Color.Red, "MyPlot1"));
-//SessionBreakLines sollen nicht im Chart angezeigt werden
-SessionBreakLines = false;
-}
-```
 
 ## ShowAlert()
 ### Beschreibung

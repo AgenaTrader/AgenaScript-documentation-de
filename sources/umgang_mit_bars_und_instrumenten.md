@@ -929,7 +929,7 @@ Wenn einem Indikator mit der [*Add()*](#add) Methode ein Line-Objekt hinzugefüg
 
 Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines\[0\], der nächste Lines\[1\] usw.
 
-Siehe auch [*Plots*](#plots).
+Siehe auch [*OutputSeriesDescription*](#plots).
 
 ### Verwendung
 ```cs
@@ -1000,9 +1000,9 @@ protected override void OnInit()
 // Linienstärke (Width) auf 4 einstellen
 pen = new Pen(Color.Empty, 4);
  // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
-Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
-Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
-Add(new OnPaint(pen, PlotStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
+Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
+Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
+Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
 IsOverlay = true;
 }
 protected override void OnCalculate()
@@ -1035,35 +1035,36 @@ PlotColors[2][0] = Color.DarkGray;
 }
 ```
 
-## Plots
+## OutputSeriesDescription
 ### Beschreibung
-Plots ist eine Collection, die die Plot-Objekte eines Indikators enthält.
+OutputSeriesDescription ist eine Collection, die die Plot-Objekte eines Indikators enthält.
 
 Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.
 
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots\[0\], der nächste Plots\[1]\ usw.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt OutputSeriesDescription
+\[0\], der nächste OutputSeriesDescription\[1]\ usw.
 
 Siehe auch [*Lines*](#lines).
 
 ### Verwendung
 ```cs
-Plots[int index]
+OutputSeriesDescription[int index]
 ```
 
 ### Beispiele
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to Plots[0]
+Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to OutputSeriesDescription[0]
 }
 protected override void OnCalculate()
 {
 Value.Set(SMA(20)[0]);
 // Wenn Kurs über SMA, Plot grün färben, sonst rot
 if (Close[0] > SMA(20)[0])
-	Plots[0].PlotColor = Color.Green;
+	OutputSeriesDescription[0].PlotColor = Color.Green;
 else
-	Plots[0].PlotColor = Color.Red;
+	OutputSeriesDescription[0].PlotColor = Color.Red;
 }
 ```
 

@@ -453,10 +453,10 @@ public class MyTestEntry : UserScriptedCondition
 			IsEntry = true;
 			IsStop = false;
 			IsTarget= false;
-			Add(new Plot(Color.FromKnownColor(KnownColor.Black), "Occurred"));
-			Add(new Plot(Color.FromArgb(255, 118, 222, 90), "Entry1"));
-            Add(new Plot(Color.FromArgb(255, 118, 222, 90), "Entry2"));
-            Add(new Plot(Color.FromArgb(255, 118, 222, 90), "Entry3"));
+			Add(new OutputSeriesDescription(Color.FromKnownColor(KnownColor.Black), "Occurred"));
+			Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), "Entry1"));
+            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), "Entry2"));
+            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), "Entry3"));
             Overlay = true;
 			CalculateOnBarClose = true;
 		}

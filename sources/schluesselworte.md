@@ -1676,7 +1676,7 @@ InputPriceType
 ```cs
 protected override void OnInit()
 {
-ClearOutputWindow();
+ClearTraceWindow();
 InputPriceType = PriceType.Low;
 }
 protected override void OnCalculate()
@@ -2166,7 +2166,7 @@ protected override void OnInit()
 -   [*IsAutoScale*](#isautoscale)
 -   [*RequiredBarsCount*](#requiredbarscount)
 -   [*CalculateOnClosedBar*](calculateonclosedbar)
--   [*ClearOutputWindow()*](#clearoutputwindows)
+-   [*ClearTraceWindow*](#cleartracewindow)
 -   [*Displacement*](#displacement)
 -   [*IsShowInDataBox*](#isshowindatabox)
 -   [*IsAddDrawingsToPricePanel*](#isadddrawingstopricepanel)
@@ -2419,7 +2419,7 @@ Siehe Beispiel unter [*InputPriceType*](#inputpricetype)
 ## Print()
 ### Beschreibung
 Die Methode Print() schreibt Ausgaben in das AgenaTrader Output-Window.
-Siehe auch [*ClearOutputWindow()*](#clearoutputwindow).
+Siehe auch [*ClearTraceWindow*](#cleartracewindow).
 
 ### Verwendung
 ```cs

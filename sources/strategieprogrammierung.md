@@ -344,329 +344,6 @@ protected override void OnCalculate()
 ```
 
 
-
-## OpenLong()
-### Beschreibung
-Open long  erzeugt eine Marketorder um eine Long Position einzugehen (zu kaufen).
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
-
-### Verwendung
-```cs
-OpenLong()
-OpenLong(string strategyName)
-OpenLong(int quantity)
-OpenLong(int quantity, string strategyName)
-
-//Für Multibar-Strategieen
-OpenLong(int multibarSeriesIndex, int quantity, string strategyName)
-```
-
-### Parameter
-|                     |                                                                                               |
-|---------------------|-----------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                                           |
-| quantity            | zu ordernde Stückzahl                                                                |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.  Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-
-// Eine Longposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
-// und sich zwei SMA's kreuzen
-if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-    OpenLong("SMACrossesEMA");
-
-```
-
-## OpenLongLimit()
-### Beschreibung
-OpenLongLimit() erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen).
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*OpenLong()*](#openlong), [*OpenLongStop()*](#openlongstop), [*OpenLongStopLimit()*](#openlongstoplimit).
-
-### Verwendung
-```cs
-OpenLongLimit(double limitPrice)
-OpenLongLimit(double limitPrice, string strategyName)
-OpenLongLimit(int quantity, double limitPrice)
-OpenLongLimit(int quantity, double limitPrice, string strategyName)
-```
-
-Für Multibar-Strategieen
-```cs
-OpenLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName)
-```
-
-### Parameter
-|             |                  |     
-|---------------------|-------------|
-| strategyName          | ein eindeutiger Name |
-| quantity            | zu ordernde Stückzahl  |
-| multibarSeriesIndex | Für [*Multibar*](#multibar) und [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| limitPrice          | ein double-Wert für den Limit Preis |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*Order.Cancel*](#ordercancel) gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Eine Longposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
-// und sich zwei SMA's kreuzen
-if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-    OpenLongLimit("SMACrossesEMA");
-```
-
-## OpenLongStop()
-### Beschreibung
-Open long stop erzeugt eine Limitorder um eine Long Position einzugehen (zu kaufen)
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStopLimit()*](#openlongstoplimit).
-
-### Verwendung
-```cs
-OpenLongStop(double stopPrice)
-OpenLongStop(double stopPrice, string strategyName)
-OpenLongStop(int quantity, double stopPrice)
-OpenLongStop(int quantity, double stopPrice, string strategyName)
-```
-
-Für Multibar-Strategieen
-```cs
-OpenLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName)
-```
-
-### Parameter
-|             |                  |     
-|---------------------|-------------|
-| strategyName          | ein eindeutiger Name |
-| quantity            | zu ordernde Stückzahl  |
-| multibarSeriesIndex | Für [*Multibar*](#multibar)  Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| stopPrice          | ein double-Wert für den Stop Preis |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*Order.Cancel*](#ordercancel) gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-private IOrder stopOrder = null;
-// An das Hoch des aktuellen Bars einen Einstiegsstop legen
-if (stopOrder == null)
-    stopOrder = OpenLongStop(Low[0], "Stop Long");
-```
-
-## OpenLongStopLimit()
-### Beschreibung
-Open long stop limit erzeugt eine Buy-Stop-Limitorder um eine Long Position einzugehen (zu kaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity)  bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch  [*OpenLong()*](#openlong), [*OpenLongLimit()*](#openlonglimit), [*OpenLongStop()*](#openlongstop).
-
-### Verwendung
-```cs
-OpenLongStopLimit(double limitPrice, double stopPrice)
-OpenLongStopLimit(double limitPrice, double stopPrice, string strategyName)
-OpenLongStopLimit(int quantity, double limitPrice, double stopPrice)
-OpenLongStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName)
-```
-
-Für Multibar-Strategieen
-```cs
-OpenLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName)
-```
-
-### Parameter
-|    |     |
-|--------------|-------------------------|
-| strategyName          | ein eindeutiger Name      |
-| quantity            | zu ordernde Stückzahl  |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| stopPrice           | ein double-Wert für den Stop Preis |
-| limitPrice          | ein double-Wert für den Limit Preis |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*Order.Cancel*](#ordercancel) gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-private IOrder stopOrder = null;
-// Place an entry stop at the high of the current bar
-// if the high  is reached, at 5 ticks above the high.
-if (stopOrder == null)
-    stopOrder = OpenLongStopLimit(High[0]+ (5*TickSize), High[0], "Stop Long Limit");
-```
-
-## OpenShort()
-### Beschreibung
-open short erzeugt eine Marketorder um eine Short Position einzugehen (leerzuverkaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
-
-### Verwendung
-```cs
-OpenShort()
-OpenShort(string strategyName)
-OpenShort(int quantity)
-OpenShort(int quantity, string strategyName)
-
-Für Multibar-Strategieen
-OpenShort(int multibarSeriesIndex, int quantity, string strategyName)
-```
-
-### Parameter
-|                     |                                                                      |
-|---------------------|----------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                              |
-| quantity            | zu ordernde Stückzahl                                  |
-| multibarSeriesIndex | Für [*Multibar*](#multibar) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).    |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Eine Shortposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
-// und sich zwei SMA's kreuzen
-if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-    OpenShort("'EMACrossesSMA");
-```
-
-## OpenShortLimit()
-### Beschreibung
-open short limit erzeugt eine Limitorder um eine Short Position einzugehen (leerzuverkaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity)bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*OpenShort()*](#openshort), [*OpenShortStop()*](#openshortstop), [*OpenShortStopLimit()*](#openshortstoplimit)..
-
-### Verwendung
-```cs
-OpenShortLimit(double limitPrice)
-OpenShortLimit(double limitPrice, string strategyName)
-OpenShortLimit(int quantity, double limitPrice)
-OpenShortLimit(int quantity, double limitPrice, string strategyName)
-```
-
-Für Multibar-Strategieen
-```cs
-OpenShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName)
-```
-
-### Parameter
-|    |  |
-|---------------------|-------------------------------------------------|
-| strategyName          | ein eindeutiger Name     |
-| quantity            | zu ordernde Stückzahl  |
-| multibarSeriesIndex | Für [*Multibar*](#multibar) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
-| limitPrice          | ein double-Wert für den Limit Preis  |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Eine Shortposition eingehen, wenn der letzte Einstieg bereits 10 Bars in der Verganheit liegt
-// und sich zwei SMA's kreuzen
-if (BarsCountFromTradeOpen() > 10 && CrossBelow(SMA(10), SMA(20), 1))
-OpenShortLimit("SMA cross entry");
-```
-
-## OpenShortStop()
-### Beschreibung
-Open short stop erzeugt eine Limitorder um eine Short Position einzugehen (leerzuverkaufen).
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-Siehe auch [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStopLimit()*](#openshortstoplimit)..
-
-### Verwendung
-```cs
-OpenShortStop(double stopPrice)
-OpenShortStop(double stopPrice, string strategyName)
-OpenShortStop(int quantity, double stopPrice)
-OpenShortStop(int quantity, double stopPrice, string strategyName)
-```
-
-For multi-bar strategies
-```cs
-OpenShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName)
-```
-
-### Für Multibar-Strategieen
-|                     |                                                                                                               |
-|---------------------|---------------------------------------------------------------------------------------------------------------|
-| strategyName        | ein eindeutiger Name                                                                                         |
-| quantity            | zu ordernde Stückzahl                                                                                         |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                 |
-| stopPrice           | ein double-Wert für den Stop Preis                                                                            |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-private IOrder stopOrder = null;
-// An das Tief des aktuellen Bars einen Einstiegsstop legen
-if (stopOrder == null)
-    stopOrder = OpenShortStop(High[0], "stop short");
-```
-
-## OpenShortStopLimit()
-### Beschreibung
-Open short stop limit  erzeugt eine Sell-Stop-Limitorder um eine Short Position einzugehen (leerzuverkaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity)bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*OpenShort()*](#openshort), [*OpenShortLimit()*](#openshortlimit), [*OpenShortStop()*](#openshortstop).
-
-### Verwendung
-```cs
-OpenShortStopLimit(double limitPrice, double stopPrice)
-OpenShortStopLimit(double limitPrice, double stopPrice, string strategyName)
-OpenShortStopLimit(int quantity, double limitPrice, double stopPrice)
-OpenShortStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName)
-```
-
-Für Multibar-Strategieen
-
-```cs
-OpenShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName)
-```
-
-### Parameter
-|                     |                                                                                                             |
-|---------------------|-------------------------------------------------------------------------------------------------------------|
-| strategyName        | ein eindeutiger Name                                                                                        |
-| quantity            | zu ordernde Stückzahl                                                                                       |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Einstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                               |
-| stopPrice           | ein double-Wert für den Stop Preis                                                                          |
-| limitPrice          | ein double-Wert für den Limit Preis                                                                         |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist.                                                  |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-private IOrder stopOrder = null;
-// Place an entry stop at the low of the current bar; if the low is reached then place a limit order 2 ticks below the low
-if (stopOrder == null)
-    stopOrder = OpenShortStopLimit(High[0] + (2*TickSize), High[0], "stop short");
-```
-
 ## ExcludeTradeHistoryInBacktest
 ## CloseLong()
 ### Beschreibung
@@ -1621,6 +1298,45 @@ protected override void OnInit()
     SetUpTrailStop(CalculationMode.Price, Low[0]);
 }
 ```
+## StrategyOrderParameters
+## Beschreibung
+Diese Klasse aggregiert alle Eigenschaften, die zum Übergeben der Bestellung benötigt werden.
+
+Seihe [*SubmitOrder()*](#submitorder), [*CloseLongTrade()*](#closelongtrade), [*CloseShortTrade()*](#closeshorttrade).
+
+### Verwendung
+```cs
+public class StrategyOrderParameters
+    {
+        public OrderDirection Direction { get; set; }
+        public OrderMode Mode { get; set; } = OrderMode.Direct;
+        public OrderType Type { get; set; }
+        public bool LiveUntilCancelled { get; set; }
+        public int Quantity { get; set; }
+        public double Price { get; set; }
+        public double StopPrice { get; set; }
+        public string SignalName { get; set; } = String.Empty;
+        public IInstrument Instrument { get; set; }
+        public ITimeFrame TimeFrame { get; set; }
+        public string FromEntrySignal { get; set; } = String.Empty;
+    }
+```
+### Parameter
+|                     |                                                                    |
+|---------------------|--------------------------------------------------------------------|
+| OrderDirection         |  Mögliche Werte sind: OrderDirection.Buy Kauforder zum Long-Einstieg; OrderDirection.Sell Verkaufsorder zum Schließen einer Long-Position;                 |
+|OrderMode            | One of three possible positions in the market: Direct, Dynamic, Synthetic  |
+| OrderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit                                                  |
+| LiveUntilCancelled  |Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit [*Order.Cancel*](#ordercancel)  gelöscht wird, bzw. bis ihre Ablaufzeit (siehe [*TimeInForce*](#timeinforce)) erreicht ist.     | 
+| Quantity            | Stückzahl                                                             |
+| Price               | Limit-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist.       |
+| StopPrice           | Stop-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist        |
+| SignalName          | Ein eindeutiger Signalname (string)                                      |
+| Instrument          | Das Handelsinstrument, in welchem die Position besteht.               |
+| TimeFrame           | T Der TimeFrame, der für die Order gültig ist.                      |
+| FromEntrySignal     |  Der Name eines Einstiegssignals, für das eine Trail-Stoporder generiert werden soll. Die Stückzahl wird nur aus der angegebenen Einstiegsorder übernommen.                      |
+
+
 
 ## SubmitOrder()
 ### Beschreibung
@@ -1629,34 +1345,44 @@ Submit order erzeugt eine benutzerdefinierte Oder. Für diese Order wird kein St
 Siehe auch  [*OnOrderChanged()*](#onorderchanged), [*OnOrderExecution()*](#onorderexecution).
 
 ### Verwendung
-```cs
-SubmitOrder(int multibarSeriesIndex, OrderDirection orderDirection, OrderType orderType, int quantity, double limitPrice, double stopPrice, string ocoId, string strategyName)
-```
+Seihe [*StrategyOrderParameters*](#strategyorderparameters)
 
 ### Parameter
-|                     |                                                                    |
-|---------------------|--------------------------------------------------------------------|
-| multibarSeriesIndex | Für Multibar-Strategieen. Index der Datenreihe, für die die Order ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                                                 |
-| orderAction         | Mögliche Werte sind: OrderDirection.Buy Kauforder zum Long-Einstieg; OrderDirection.Sell Verkaufsorder zum Schließen einer Long-Position;                                                                            |
-| orderType           | Mögliche Werte sind: OrderType.Limit, OrderType.Market, OrderType.Stop, OrderType.StopLimit           |
-| quantity            | Stückzahl                                                             |
-| limitPrice          | Limit-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist.        |
-| stopPrice           | Stop-Kurs. Die Angabe einer 0 (Null) bedeutet, dass dieser Parameter irrelevant ist          |
-| ocoId               | Eine eindeutige ID (string) zur Verknüpfung mehrerer Orders zu einer OCO-Gruppe |
-| strategyName          | Ein eindeutiger Signalname (string)                               |
+Seihe [*StrategyOrderParameters*](#strategyorderparameters)                   |
+
 
 ### Rückgabewert
 an order object of the type "IOrder"
 
 ### Beispiel
 ```cs
-private IOrder entryOrder = null;
-protected override void OnCalculate()
-{
+// Limit Long order
+Submit Limit Buy
+var order = SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Buy,
+                    Type = OrderType.Limit,
+                    Mode = orderMode,
+                    Price = limitPrice,
+                    Quantity = quantity,
+                    SignalName = entryName,
+                    Instrument = Instrument,
+                    TimeFrame = TimeFrame,
+                    LiveUntilCancelled = true
+                });
 
-if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-    entryOrder = SubmitOrder(0, OrderDirection.Buy, OrderType.Stop, 1, 0, High[0], "", "LongEntry");
-}
+// Short Market order
+Submit Sell Market
+var order = SubmitOrder(new StrategyOrderParameters
+            {
+                Direction = OrderDirection.Sell,
+                Type = OrderType.Market,
+                Mode = ordermode,
+                Quantity = quantity,
+                SignalName = entryName,
+                Instrument = Instrument,
+                TimeFrame = TimeFrame
+            });
 ```
 
 ## TimeInForce

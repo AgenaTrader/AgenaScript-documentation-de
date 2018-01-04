@@ -248,9 +248,28 @@ protected override void OnInit()
 
 protected override void OnCalculate()
 {
-   oopenlong = SubmitOrder(0, OrderDirection.Buy, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, "ocoId","strategyName");
-   oEnterShort = SubmitOrder(0, OrderDirection.Sell, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * -1.1,"ocoId", "strategyName");
+    
+oopenlong =  SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Buy,
+                    Type = OrderType.Stop,
+                    Quantity = DefaultOrderQuantity,
+					StopPrice = Close[0] * 1.1,
+                    SignalName = "strategyName",
+                });
 
+  
+oEnterShort =  SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Sell,
+                    Type = OrderType.Stop,
+                    Quantity = DefaultOrderQuantity,
+					StopPrice = Close[0] * -1.1,
+                    SignalName = "strategyName",
+                });
+				
+  
+  
    CreateOCOGroup(new List<IOrder> { oopenlong, oEnterShort });
 
    oopenlong.ConfirmOrder();
@@ -284,14 +303,31 @@ protected override void OnInit()
 
 protected override void OnCalculate()
 {
-   oStopLong = SubmitOrder(0, OrderDirection.Buy, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * -1.1,"ocoId", "strategyName");
-   oLimitLong = SubmitOrder(0, OrderDirection.Buy, OrderType.Limit, (int)(DefaultOrderQuantity * 0.5), Close[0] * 1.1, 0, "ocoId", "strategyName");
+   
+   oStopLong =  SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Buy,
+                    Type = OrderType.Stop,
+                    Quantity = DefaultOrderQuantity,
+					StopPrice = Close[0] * -1.1,
+                    SignalName = "strategyName",
+                });
+   
+   
+   
+   
+   oLimitLong =  SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Buy,
+                    Type = OrderType.Limit,
+                    Quantity = DefaultOrderQuantity*0.5,
+					Price = Close[0] * 1.1,
+                    SignalName = "strategyName",
+                });
 
    CreateOROGroup(new List<IOrder> { oLimitLong, oStopLong });
 }
 ```
-
-
 
 
 ## DataSeriesConfigurable

@@ -219,7 +219,7 @@ osubmitbuy =  SubmitOrder(new StrategyOrderParameters
 
    oopenlong.ConfirmOrder();
 }
-}
+
 ```
 
 ## CreateOCOGroup()

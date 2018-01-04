@@ -410,7 +410,10 @@ var order = CloseShortTrade(new StrategyOrderParameters
     Type = OrderType.Stop,
     Quantity = quantity,
     StopPrice = price
-});```
+});
+```
+
+
 
 
 ## Account.GetValue()

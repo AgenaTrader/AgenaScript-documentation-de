@@ -254,7 +254,7 @@ oopenlong =  SubmitOrder(new StrategyOrderParameters
                     Direction = OrderDirection.Buy,
                     Type = OrderType.Stop,
                     Quantity = DefaultOrderQuantity,
-					StopPrice = Close[0] * 1.1,
+		    StopPrice = Close[0] * 1.1,
                     SignalName = "strategyName",
                 });
 
@@ -264,7 +264,7 @@ oEnterShort =  SubmitOrder(new StrategyOrderParameters
                     Direction = OrderDirection.Sell,
                     Type = OrderType.Stop,
                     Quantity = DefaultOrderQuantity,
-					StopPrice = Close[0] * -1.1,
+		    StopPrice = Close[0] * -1.1,
                     SignalName = "strategyName",
                 });
 				
@@ -309,7 +309,7 @@ protected override void OnCalculate()
                     Direction = OrderDirection.Buy,
                     Type = OrderType.Stop,
                     Quantity = DefaultOrderQuantity,
-					StopPrice = Close[0] * -1.1,
+		    StopPrice = Close[0] * -1.1,
                     SignalName = "strategyName",
                 });
    
@@ -321,7 +321,7 @@ protected override void OnCalculate()
                     Direction = OrderDirection.Buy,
                     Type = OrderType.Limit,
                     Quantity = DefaultOrderQuantity*0.5,
-					Price = Close[0] * 1.1,
+		    Price = Close[0] * 1.1,
                     SignalName = "strategyName",
                 });
 

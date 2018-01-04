@@ -995,7 +995,7 @@ protected override void OnInit()
 ## Beschreibung
 Diese Klasse aggregiert alle Eigenschaften, die zum Übergeben der Bestellung benötigt werden.
 
-Seihe [*SubmitOrder()*](#submitorder), [*CloseLongTrade()*](#closelongtrade), [*CloseShortTrade()*](#closeshorttrade).
+Siehe [*SubmitOrder()*](#submitorder), [*CloseLongTrade()*](#closelongtrade), [*CloseShortTrade()*](#closeshorttrade).
 
 ### Verwendung
 ```cs
@@ -1038,10 +1038,10 @@ Submit order erzeugt eine benutzerdefinierte Oder. Für diese Order wird kein St
 Siehe auch  [*OnOrderChanged()*](#onorderchanged), [*OnOrderExecution()*](#onorderexecution).
 
 ### Verwendung
-Seihe [*StrategyOrderParameters*](#strategyorderparameters)
+Siehe [*StrategyOrderParameters*](#strategyorderparameters)
 
 ### Parameter
-Seihe [*StrategyOrderParameters*](#strategyorderparameters)                   
+Siehe [*StrategyOrderParameters*](#strategyorderparameters)                   
 
 
 ### Rückgabewert

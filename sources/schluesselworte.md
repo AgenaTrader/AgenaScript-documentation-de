@@ -2195,7 +2195,7 @@ Entwickler von eigenen AgenaScripts sollten diese Methode NICHT verwenden, um ei
 protected override void OnInit()
 {
 Add(new OnPaint(Color.Blue, "myPlot"));
-ClearOutputWindow();
+ClearTraceWindow();
 IsAutoScale = false;
 IsOverlay = true;
 IsShowPriceMarkers = false;

@@ -1,6 +1,6 @@
 ![AgenaTrader](./images/logo_100.png)
 
-**Die folgende API-Dokumentation benötigt AgenaTrader in der Version 1.9.0.563**
+**Die folgende API-Dokumentation benötigt AgenaTrader in der Version 2.0.1.x**
 
 AgenaScript ist eine in die Handelsplattform AgenaTrader integrierte Programmiersprache. Die Syntax von AgenaScript ist von der Programmiersprache C# abgeleitet.
 Mit AgenaScript können alle Anliegen umgesetzt werden, die z.B. für den Condition Escort zu komplex sind. Das Spektrum reicht von der Programmierung eines einfachen Indikators bis hin zu eigenen Applikationen, bei denen AgenaTrader sozusagen nur noch im Hintergrund benötigt wird. Generell sind alle Dinge umsetzbar, die auch in DotNet realisierbar sind: Indikatoren fast beliebiger Komplexität, Signalanzeige, Excel-Export, Auswertungen, Chartanzeigen, Sound, Farben uvm.

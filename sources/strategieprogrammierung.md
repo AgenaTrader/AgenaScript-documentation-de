@@ -345,364 +345,57 @@ protected override void OnCalculate()
 
 
 ## ExcludeTradeHistoryInBacktest
-## CloseLong()
+## CloseLongTrade()
 ### Beschreibung
-CloseLong() erzeugt eine Sell-Marketorder um eine Long Position zu schließen (zu verkaufen).
+CloseLongTrade  erzeugt eine Sell-Order um eine Long Position zu schließen (zu verkaufen).
 
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity)bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
+Siehe auch: [*SubmitOrder()*](#submitorder), [*CloseShortTrade()*](#closeshorttrade)
 
 ### Verwendung
-```cs
-CloseLong()
-CloseLong(int quantity)
-CloseLong(string fromEntry signal)
-CloseLong(string strategyName, string fromEntry signal)
-CloseLong(int quantity, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseLong(int multibarSeriesIndex, int quantity, string strategyName, string fromEntry signal)
-```
+Siehe [*StrategyOrderParameters*](#strategyorderparameters)
 
 ### Parameter
-|                     |                                                                                  |
-|---------------------|----------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                           |
-| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).   |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                        |
+Siehe [*StrategyOrderParameters*](#strategyorderparameters)
 
-### Rückgabewert
+### Return Value
 ein order-Objekt vom Typ IOrder
+
 
 ### Beispiel
 ```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenLong("EMACrossesSMA");
-
-// Position schließen
-if (CrossBelow(EMA(14), SMA(50), 2))
-    CloseLong();
+var order = CloseLongTrade(new StrategyOrderParameters
+{
+    Type = OrderType.Market
+});
 ```
 
-## CloseLongLimit()
-### Beschreibung
-Close long limit  erzeugt eine Sell-Limitorder um eine Long Position zu schließen (zu verkaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
-
-### Verwendung
-```cs
-CloseLongLimit(double limitPrice)
-CloseLongLimit(int quantity, double limitPrice)
-CloseLongLimit(double limitPrice, string fromEntry signal)
-CloseLongLimit(double limitPrice, string strategyName, string fromEntry signal)
-CloseLongLimit(int quantity, double limitPrice, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseLongLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName, string fromEntry signal)
-```
-
-### Parameter
-|                     |                       |
-|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                                                                                                          |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                        |
-| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                 |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| limitPrice          | ein double-Wert für den Limit Preis                                                                                                                       |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenLong("EMACrossesSMA");
-
-// Position schließen
-if (CrossBelow(EMA(14), SMA(50), 2))
-    CloseLongLimit(Low[0]);
-```
-
-## CloseLongStop()
-### Beschreibung
-Close long stop creates  erzeugt eine Sell-Stoporder um eine Long Position zu schließen (zu verkaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
-
-### Verwendung
-```cs
-CloseLongStop(int quantity, double stopPrice)
-CloseLongStop(double stopPrice, string fromEntry signal)
-CloseLongStop(double stopPrice, string strategyName, string fromEntry signal)
-CloseLongStop(int quantity, double stopPrice, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseLongStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName, string fromEntry signal)CloseLongStop
-```
-
-### Parameter
-|                     |                                                                                                                                                              |
-|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                                                                                                          |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                   |
-| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                   |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen.Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| stopPrice           | ein double-Wert für den Stop Preis                               |
-| liveUntilCancelled  |  Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder command gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenLong("EMACrossesSMA");
-
-// Position schließen
-if (CrossBelow(EMA(14), SMA(50), 2))
-    CloseLongStop(Low[0]);
-```
-
-## CloseLongStopLimit()
-### Beschreibung
-Close long stop limit erzeugt eine Sell-Stop-Limitorder um eine Long Position zu schließen (zu verkaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
-
-### Verwendung
-```cs
-CloseLongStopLimit(double limitPrice, double stopPrice)
-CloseLongStopLimit(int quantity, double limitPrice, double stopPrice)
-CloseLongStopLimit(double limitPrice, double stopPrice, string fromEntry signal)
-CloseLongStopLimit(double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
-CloseLongStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseLongStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
-```
-
-### Parameter
-|                     |                                                                                                                                                              |
-|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                                                                                                          |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                      |
-| quantity            | zu verkaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                      |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars). ndex der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| limitPrice          | ein double-Wert für den Limit Preis                                                                                                                           |
-| stopPrice           | ein double-Wert für den Stop Preis                                                                                                                          |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenLong("EMACrossesSMA");
-
-// Position schließen
-if (CrossBelow(EMA(14), SMA(50), 2))
-    CloseLongStopLimit(Low[0] - (15 * TickSize), Low[0]);
-```
 
 ## ExitOnClose
 ## ExitOnCloseSeconds
-## CloseShort()
+## CloseShortTrade()
 ### Beschreibung
-Close short erzeugt eine Buy-to-Cover Marketorder um eine Short Position zu schließen (zu kaufen).
+CloseShortTrade  erzeugt eine Buy-to-Cover Order um eine Short Position zu schließen (zu kaufen).
 
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch  [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
+Siehe auch: [*SubmitOrder()*](#submitorder), [*CloselongTrade()*](#closelongtrade)
 
 ### Verwendung
-```cs
-CloseShort()
-CloseShort(int quantity)
-CloseShort(string fromEntry signal)
-CloseShort(string strategyName, string fromEntry signal)
-CloseShort(int quantity, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseShort(int multibarSeriesIndex, int quantity, string strategyName, string fromEntry signal)
-```
+Siehe [*StrategyOrderParameters*](#strategyorderparameters)
 
 ### Parameter
-|                     |                                                                      |
-|---------------------|----------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                  |
-| Quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                      |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                              |
+Siehe [*StrategyOrderParameters*](#strategyorderparameters)
 
 ### Rückgabewert
 ein order-Objekt vom Typ IOrder
 
-### Beispiel
+### Example
 ```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenShort("EMACrossesSMA");
+var order = CloseShortTrade(new StrategyOrderParameters
+{
+    Type = OrderType.Stop,
+    Quantity = quantity,
+    StopPrice = price
+});```
 
-// Position schließen
-if (CrossAbove(EMA(15), SMA(50), 2))
-    CloseShort();
-```
-
-## CloseShortLimit()
-### Beschreibung
-Close short limit erzeugt eine Buy-to-Cover Limitorder um eine Short Position zu schließen (zu kaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
-
-### Verwendung
-```cs
-CloseShortLimit(double limitPrice)
-CloseShortLimit(int quantity, double limitPrice)
-CloseShortLimit(double limitPrice, string fromEntry signal)
-CloseShortLimit(double limitPrice, string strategyName, string fromEntry signal)
-CloseShortLimit(int quantity, double limitPrice, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseShortLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, string strategyName, string fromEntry signal)
-```
-
-### Parameter
-|                     |                                                                                                                                                              |
-|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name                                                                                                                                          |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                                                                                     |
-| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                                                                                                                 |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex).  |
-| limitPrice          | ein double-Wert für den Limit Preise                                                                                                                           |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit (siehe TimeInForce) erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenShort("EMACrossesSMA");
-// Position schließen
-if (CrossAbove(EMA(15), SMA(50), 2))
-    CloseShortLimit(High[0] + (Ticksize * 2));
-```
-
-## CloseShortStop()
-### Beschreibung
-Close short stop erzeugt eine Buy-to-Cover Stoporder um eine Short Position zu schließen (zu kaufen).
-
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von  [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*CloseShort()*](#closeshort), [*CloseShortLimit()*](#closeshortlimit), [*CloseShortStop()*](#closeshortstop), [*CloseShortStopLimit()*](#closeshortstoplimit).
-
-### Verwendung
-```cs
-CloseShortStop(int quantity, double stopPrice)
-CloseShortStop(double stopPrice, string fromEntry signal)
-CloseShortStop(double stopPrice, string strategyName, string fromEntry signal)
-CloseShortStop(int quantity, double stopPrice, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseShortStop(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double stopPrice, string strategyName, string fromEntry signal)CloseLongStop
-```
-
-### Parameter
-|  |                                                                                                                                                              |  |---------------------|---------------------------------------------------------------|
-| strategyName          | ein eindeutiger Name    |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals    |
-| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)   |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe [*ProcessingBarSeriesIndex*](#processingbarseriesindex). |
-| stopPrice           | ein double-Wert für den Stop Preis    |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit  erreicht ist. |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Einstieg wenn zwei SMA' sich kreuzen
-if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenShort("EMACrossesSMA");
-// Position schließen
-if (CrossAbove(EMA(15), SMA(50), 2))
-    CloseShortStop(High[0] + (Ticksize * 2));
-```
-
-## CloseShortStopLimit()
-### Beschreibung
-Close short stop  erzeugt eine Buy-to-Cover Stop-Limitorder um eine Short Position zu schließen (zu kaufen).
-Wird eine Signatur verwendet, die keine Stückanzahl enthält, wird die Stückzahl von [*DefaultOrderQuantity*](#defaultorderquantity) bzw. aus dem Strategie-Dialog herangezogen.
-
-Siehe auch [*CloseLong()*](#closelong), [*CloseLongLimit()*](#closelonglimit), [*CloseLongStop()*](#closelongstop), [*CloseLongStopLimit()*](#closelongstoplimit).
-
-### Verwendung
-```cs
-CloseShortStopLimit(double limitPrice, double stopPrice)
-CloseShortStopLimit(int quantity, double limitPrice, double stopPrice)
-CloseShortStopLimit(double limitPrice, double stopPrice, string fromEntry signal)
-CloseShortStopLimit(double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
-CloseShortStopLimit(int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
-```
-
-Für Multibar-Strategieen
-```cs
-CloseShortStopLimit(int multibarSeriesIndex, bool liveUntilCancelled, int quantity, double limitPrice, double stopPrice, string strategyName, string fromEntry signal)
-```
-
-### Parameter
-|                     |                                                                                                 |
-|---------------------|-------------------------------------------------------------------------------------------------|
-| strategyName        | ein eindeutiger Name                                                                            |
-| fromEntry signal    | der Name des zugehörigen Einstiegssignals                                                       |
-| quantity            | zu kaufende Stückzahl (aus der Einstiegsorder)                                                  |
-| multibarSeriesIndex | Für [*Multibar*](#multibar), [*MultiBars*](#multibars) Strategieen. Index der Datenreihe, für die die Ausstiegsorder ausgeführt werden soll. Siehe  [*ProcessingBarSeriesIndex*](#processingbarseriesindex).                  |
-| limitPrice          | ein double-Wert für den Limit Preis                                                             |
-| stopPrice           | ein double-Wert für den Stop Preis                                                              |
-| liveUntilCancelled  | Die Order wird nicht am Ende des Bars gelöscht, sondern bleibt so lange aktiv, bis sie mit CancelOrder gelöscht wird, bzw. bis ihre Ablaufzeit erreicht ist.                                                                            |
-
-### Rückgabewert
-ein order-Objekt vom Typ IOrder
-
-### Beispiel
-```cs
-// Eingabe, wenn zwei EMA den SMA kreuzt und der ADX steigt
-if (CrossBelow(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-     OpenShort("EMACrossesSMA");
-// Position schließen
-if (CrossAbove(EMA(15), SMA(50), 2))
-    CloseShortStopLimit(High[0] + ( TickSize * 2 ), High[0]);
-```
 
 ## Account.GetValue()
 ### Beschreibung

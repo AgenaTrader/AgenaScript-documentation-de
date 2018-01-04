@@ -2173,14 +2173,12 @@ protected override void OnInit()
 -   [*InputPriceType*](#inputpricetype)
 -   [*IsOverlay*](#isoverlay)
 -   [*IsShowPriceMarkers*](#isshowpricemarkers)
--   [*SessionBreakLines*](#sessionbreaklines)
 -   [*IsShowChartVerticalGrid*](#isshowchartverticalgrid)
 
 **zusätzlich für Strategien**
 
 -   [*DefaultOrderQuantity*](#defaultorderquantity)
 -   [*EntriesPerDirection*](#entriesperdirection)
--   [*EntryHandling*](#entryhandling)
 -   [*SetUpStopLoss()*](#setupstoploss)
 -   [*SetUpProfitTarget()*](#setupprofittarget)
 -   [*SetUpTrailStop()*](#setuptrailstop)

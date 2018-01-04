@@ -1041,7 +1041,7 @@ Siehe auch  [*OnOrderChanged()*](#onorderchanged), [*OnOrderExecution()*](#onord
 Seihe [*StrategyOrderParameters*](#strategyorderparameters)
 
 ### Parameter
-Seihe [*StrategyOrderParameters*](#strategyorderparameters)                   |
+Seihe [*StrategyOrderParameters*](#strategyorderparameters)                   
 
 
 ### Rückgabewert

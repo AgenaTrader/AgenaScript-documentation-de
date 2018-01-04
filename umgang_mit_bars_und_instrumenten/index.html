@@ -153,7 +153,7 @@
         
             <li><a class="toctree-l3" href="#plotcolors">PlotColors</a></li>
         
-            <li><a class="toctree-l3" href="#plots">Plots</a></li>
+            <li><a class="toctree-l3" href="#outputseriesdescription">OutputSeriesDescription</a></li>
         
             <li><a class="toctree-l3" href="#values">Values</a></li>
         
@@ -986,7 +986,7 @@ InSeries[int barsAgo]
 <p>Lines ist eine Collection, die die  <a href="#levelline"><em>LevelLine</em></a> Objekte eines Indikators enthält.</p>
 <p>Wenn einem Indikator mit der <a href="#add"><em>Add()</em></a> Methode ein Line-Objekt hinzugefügt wird, wird dieses automatisch der Collection Lines hinzugefügt.</p>
 <p>Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines[0], der nächste Lines[1] usw.</p>
-<p>Siehe auch <a href="#plots"><em>Plots</em></a>.</p>
+<p>Siehe auch <a href="#plots"><em>OutputSeriesDescription</em></a>.</p>
 <h3 id="verwendung_27">Verwendung</h3>
 <pre><code class="cs">Lines[int index]
 </code></pre>
@@ -1048,9 +1048,9 @@ protected override void OnInit()
 // Linienstärke (Width) auf 4 einstellen
 pen = new Pen(Color.Empty, 4);
  // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
-Add(new OnPaint(pen, PlotStyle.LevelLine, &quot;SMA20&quot; )); //attached to PlotColors[0]
-Add(new OnPaint(pen, PlotStyle.LevelLine, &quot;SMA50&quot; )); //attached to PlotColors[1]
-Add(new OnPaint(pen, PlotStyle.LevelLine, &quot;SMA100&quot;)); //attached to PlotColors[2]
+Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA20&quot; )); //attached to PlotColors[0]
+Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA50&quot; )); //attached to PlotColors[1]
+Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA100&quot;)); //attached to PlotColors[2]
 IsOverlay = true;
 }
 protected override void OnCalculate()
@@ -1083,29 +1083,30 @@ PlotColors[2][0] = Color.DarkGray;
 }
 </code></pre>
 
-<h2 id="plots">Plots</h2>
+<h2 id="outputseriesdescription">OutputSeriesDescription</h2>
 <h3 id="beschreibung_32">Beschreibung</h3>
-<p>Plots ist eine Collection, die die Plot-Objekte eines Indikators enthält.</p>
+<p>OutputSeriesDescription ist eine Collection, die die Plot-Objekte eines Indikators enthält.</p>
 <p>Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.</p>
-<p>Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt Plots[0], der nächste Plots[1]\ usw.</p>
+<p>Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt OutputSeriesDescription
+[0], der nächste OutputSeriesDescription[1]\ usw.</p>
 <p>Siehe auch <a href="#lines"><em>Lines</em></a>.</p>
 <h3 id="verwendung_29">Verwendung</h3>
-<pre><code class="cs">Plots[int index]
+<pre><code class="cs">OutputSeriesDescription[int index]
 </code></pre>
 
 <h3 id="beispiele_3">Beispiele</h3>
 <pre><code class="cs">protected override void OnInit()
 {
-Add(new OnPaint(Color.Blue, &quot;MySMA 20&quot;)); // saved to Plots[0]
+Add(new OnPaint(Color.Blue, &quot;MySMA 20&quot;)); // saved to OutputSeriesDescription[0]
 }
 protected override void OnCalculate()
 {
 Value.Set(SMA(20)[0]);
 // Wenn Kurs über SMA, Plot grün färben, sonst rot
 if (Close[0] &gt; SMA(20)[0])
-    Plots[0].PlotColor = Color.Green;
+    OutputSeriesDescription[0].PlotColor = Color.Green;
 else
-    Plots[0].PlotColor = Color.Red;
+    OutputSeriesDescription[0].PlotColor = Color.Red;
 }
 </code></pre>
 

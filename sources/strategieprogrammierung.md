@@ -186,7 +186,7 @@ Ein order-Objekt vom Typ IOrder als List
 ### Beispiel
 ```cs
 private IOrder oopenlong = null;
-private IOrder oenterlong = null;
+private IOrder osubmitbuy = null;
 
 
 protected override void OnInit()
@@ -197,12 +197,28 @@ protected override void OnInit()
 
 protected override void OnCalculate()
 {
-   oopenlong = SubmitOrder(0, OrderDirection.Buy, OrderType.Market, DefaultOrderQuantity, 0, 0, "ocoId","strategyName");
-   oenterlong = SubmitOrder(0, OrderDirection.Sell, OrderType.Stop, DefaultOrderQuantity, 0, Close[0] * 1.1, "ocoId","strategyName");
-
-   CreateIfDoneGroup(new List<IOrder> { oopenlong, oenterlong });
+ 
+ oopenlong =  SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Buy,
+                    Type = OrderType.Market,
+                    Quantity = DefaultOrderQuantity,
+                    SignalName = "strategyName",
+                });
+   
+osubmitbuy =  SubmitOrder(new StrategyOrderParameters
+                {
+                    Direction = OrderDirection.Sell,
+                    Type = OrderType.Stop,
+                    Quantity = DefaultOrderQuantity,
+		    StopPrice = Close[0] * 1.1,
+                    SignalName = "strategyName",
+                });
+				
+   CreateIfDoneGroup(new List<IOrder> { oopenlong, osubmitbuy });
 
    oopenlong.ConfirmOrder();
+}
 }
 ```
 

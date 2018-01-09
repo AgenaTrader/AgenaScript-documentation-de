@@ -1088,7 +1088,7 @@ public class StrategyOrderParameters
 
 ## SubmitOrder()
 ### Beschreibung
-Submit order erzeugt eine benutzerdefinierte Oder. Für diese Order wird kein Stop und kein Limit in den Markt gelegt. Alle Kontrollmechanismen von AgenaTrader sind für diese Orderart abgeschaltet. Der Nutzer ist für die Verwaltung, Stop, Target und für die Behandlung von Teilausführungen selbst verantwortlich und kann sich ein Ordermanagement nach seinen eigenen Wünschen selbst erstellen.
+SubmitOrder erzeugt eine benutzerdefinierte Order. Für diese Order wird kein Stop und kein Limit in den Markt gelegt. Alle Kontrollmechanismen von AgenaTrader sind für diese Orderart abgeschaltet. Der Nutzer ist für die Verwaltung, Stop, Target und für die Behandlung von Teilausführungen selbst verantwortlich und kann sich ein Ordermanagement nach seinen eigenen Wünschen selbst erstellen.
 
 Siehe auch  [*OnOrderChanged()*](#onorderchanged), [*OnOrderExecution()*](#onorderexecution).
 

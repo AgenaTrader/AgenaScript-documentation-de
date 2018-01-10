@@ -929,7 +929,7 @@ Wenn einem Indikator mit der [*Add()*](#add) Methode ein Line-Objekt hinzugefüg
 
 Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Lines. Der erste Aufruf von Add() erzeugt Lines\[0\], der nächste Lines\[1\] usw.
 
-Siehe auch [*OutputSeriesDescription*](#plots).
+Siehe auch [*OutputDescriptor*](#outputdescriptor).
 
 ### Verwendung
 ```cs
@@ -1035,36 +1035,36 @@ PlotColors[2][0] = Color.DarkGray;
 }
 ```
 
-## OutputSeriesDescription
+## OutputDescriptor
 ### Beschreibung
-OutputSeriesDescription ist eine Collection, die die Plot-Objekte eines Indikators enthält.
+OutputDescriptor ist eine Collection, die die Plot-Objekte eines Indikators enthält.
 
 Wenn einem Indikator mit der Add()-Methode ein Plot-Objekt hinzugefügt wird, wird dieses automatisch der Collection Plots hinzugefügt.
 
-Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt OutputSeriesDescription
-\[0\], der nächste OutputSeriesDescription\[1]\ usw.
+Die Reihenfolge der Add-Befehle bestimmt dabei auch die Sortierung in Plots. Der erste Aufruf von Add() erzeugt OutputDescriptor
+\[0\], der nächste OutputDescriptor\[1]\ usw.
 
 Siehe auch [*Lines*](#lines).
 
 ### Verwendung
 ```cs
-OutputSeriesDescription[int index]
+OutputDescriptor[int index]
 ```
 
 ### Beispiele
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to OutputSeriesDescription[0]
+Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to OutputDescriptor[0]
 }
 protected override void OnCalculate()
 {
 Value.Set(SMA(20)[0]);
 // Wenn Kurs über SMA, Plot grün färben, sonst rot
 if (Close[0] > SMA(20)[0])
-	OutputSeriesDescription[0].PlotColor = Color.Green;
+	OutputDescriptor[0].PlotColor = Color.Green;
 else
-	OutputSeriesDescription[0].PlotColor = Color.Red;
+	OutputDescriptor[0].PlotColor = Color.Red;
 }
 ```
 

@@ -508,10 +508,10 @@ public class MyTestEntry : UserScriptedCondition
 			IsEntry = true;
 			IsStop = false;
 			IsTarget= false;
-			Add(new OutputSeriesDescription(Color.FromKnownColor(KnownColor.Black), "Occurred"));
-			Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), "Entry1"));
-            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), "Entry2"));
-            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), "Entry3"));
+			Add(new OutputDescriptor(Color.FromKnownColor(KnownColor.Black), "Occurred"));
+			Add(new OutputDescriptor(Color.FromArgb(255, 118, 222, 90), "Entry1"));
+            Add(new OutputDescriptor(Color.FromArgb(255, 118, 222, 90), "Entry2"));
+            Add(new OutputDescriptor(Color.FromArgb(255, 118, 222, 90), "Entry3"));
             Overlay = true;
 			CalculateOnBarClose = true;
 		}

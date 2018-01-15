@@ -706,10 +706,10 @@ Print(&quot;The current P/L already realized is &quot; + Account.GetValue(Accoun
             IsEntry = true;
             IsStop = false;
             IsTarget= false;
-            Add(new OutputSeriesDescription(Color.FromKnownColor(KnownColor.Black), &quot;Occurred&quot;));
-            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), &quot;Entry1&quot;));
-            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), &quot;Entry2&quot;));
-            Add(new OutputSeriesDescription(Color.FromArgb(255, 118, 222, 90), &quot;Entry3&quot;));
+            Add(new OutputDescriptor(Color.FromKnownColor(KnownColor.Black), &quot;Occurred&quot;));
+            Add(new OutputDescriptor(Color.FromArgb(255, 118, 222, 90), &quot;Entry1&quot;));
+            Add(new OutputDescriptor(Color.FromArgb(255, 118, 222, 90), &quot;Entry2&quot;));
+            Add(new OutputDescriptor(Color.FromArgb(255, 118, 222, 90), &quot;Entry3&quot;));
             Overlay = true;
             CalculateOnBarClose = true;
         }
@@ -1379,7 +1379,7 @@ SetUpTrailStop(string fromEntry signal, CalculationMode mode, double value, bool
 </table>
 <h2 id="submitorder">SubmitOrder()</h2>
 <h3 id="beschreibung_28">Beschreibung</h3>
-<p>Submit order erzeugt eine benutzerdefinierte Oder. Für diese Order wird kein Stop und kein Limit in den Markt gelegt. Alle Kontrollmechanismen von AgenaTrader sind für diese Orderart abgeschaltet. Der Nutzer ist für die Verwaltung, Stop, Target und für die Behandlung von Teilausführungen selbst verantwortlich und kann sich ein Ordermanagement nach seinen eigenen Wünschen selbst erstellen.</p>
+<p>SubmitOrder erzeugt eine benutzerdefinierte Order. Für diese Order wird kein Stop und kein Limit in den Markt gelegt. Alle Kontrollmechanismen von AgenaTrader sind für diese Orderart abgeschaltet. Der Nutzer ist für die Verwaltung, Stop, Target und für die Behandlung von Teilausführungen selbst verantwortlich und kann sich ein Ordermanagement nach seinen eigenen Wünschen selbst erstellen.</p>
 <p>Siehe auch  <a href="#onorderchanged"><em>OnOrderChanged()</em></a>, <a href="#onorderexecution"><em>OnOrderExecution()</em></a>.</p>
 <h3 id="verwendung_22">Verwendung</h3>
 <p>Siehe <a href="#strategyorderparameters"><em>StrategyOrderParameters</em></a></p>

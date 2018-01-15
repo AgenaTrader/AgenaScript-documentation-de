@@ -377,7 +377,7 @@ Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgrei
 <h3 id="weitere-informationen">Weitere Informationen</h3>
 <p>Der Wert von <em>ProcessingBarIndex</em> kann immer nur kleiner oder gleich Bars.Count - 1 sein.</p>
 <p>Wenn in AgenaTrader angegeben wurde, wieviel Bars in einen Chart geladen werden sollen, entspricht der Wert von Bars.Count genau dieser Einstellung. Im Beispiel unten würde Bars.Count 500 liefern.</p>
-<p><img alt="Bars.Count" src="../media/image1.png" /></p>
+<p><img alt="Bars.Count" src="../media/CrateChart.png" /></p>
 <h3 id="beispiel">Beispiel</h3>
 <pre><code class="cs">Print (&quot;Es stehen insgesamt&quot; + Bars.Count + &quot;Bars zur Verfügung.&quot;);
 </code></pre>
@@ -394,7 +394,7 @@ Möchte man bereits auf die Werte der sich gerade ausbildenden Kerze zurückgrei
 <p>Bars.GetSessionBegin</p>
 <h3 id="weitere-informationen_1">Weitere Informationen</h3>
 <p>Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion <a href="#instrumentexchange"><em>Instrument.Exchange</em></a> ermittelt.</p>
-<p><img alt="Bars.CurrentSessionBeginTime" src="../media/image3.png" /></p>
+<p><img alt="Bars.CurrentSessionBeginTime" src="../media/TradingHour_TSE.jpg" /></p>
 <h3 id="beispiel_1">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Die laufende Handelssitzung hat um  &quot; + Bars.CurrentSessionBeginTime );
 </code></pre>
@@ -411,7 +411,7 @@ Datum und Uhrzeit für das Ende der aktuellen Handelssitzung werden auch dann ko
 <p>Bars.GetSessionEnd</p>
 <h3 id="weitere-informationen_2">Weitere Informationen</h3>
 <p>Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Endezeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion  <a href="#instrumentexchange"><em>Instrument.Exchange</em></a> ermittelt werden.</p>
-<p><img alt="Bars.CurrentSessionEndTime" src="../media/image4.png" /></p>
+<p><img alt="Bars.CurrentSessionEndTime" src="../media/TradingHour_Nashdaq.jpg" /></p>
 <h3 id="beispiel_2">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Die laufende Handelssitzung endet um &quot; + Bars.CurrentSessionEndTime);
 </code></pre>
@@ -601,7 +601,7 @@ Siehe auch weitere <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars.
 <p>Bars.GetSessionBegin(DateTime dt)</p>
 <h3 id="weitere-informationen_8">Weitere Informationen</h3>
 <p>Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion Instrument.Exchange ermittelt werden.</p>
-<p><img alt="Bars.CurrentSessionBeginTime" src="../media/image3.png" /></p>
+<p><img alt="Bars.CurrentSessionBeginTime" src="../mediaTradingHour_TSE.jpg" /></p>
 <h3 id="beispiel_8">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Die Handelssitzung am 25.03.2015 hat um &quot;+ Bars.GetSessionBegin(new DateTime(2015, 03, 25)) + &quot; begonnen.&quot;);
 }
@@ -733,7 +733,7 @@ Falls diese Eigenschaft ausserhalb von OnCalculate() verwendet wird, sollte vorh
 <h3 id="verwendung_14">Verwendung</h3>
 <p>Bars.IsSessionBreak</p>
 <h3 id="weitere-informationen_12">Weitere Informationen</h3>
-<p><img alt="Bars.CurrentSessionEndTime" src="../media/image4.png" /></p>
+<p><img alt="Bars.CurrentSessionEndTime" src="../media/TradingHour_Nashdaq.jpg" /></p>
 <h3 id="beispiel_16">Beispiel</h3>
 <pre><code class="cs">if (Bars.IsSessionBreak)
 {
@@ -783,7 +783,7 @@ Datum und Uhrzeit für den Beginn der nächsten Handelssitzung werden auch dann 
 <p>Bars.GetSessionNextBegin</p>
 <h3 id="weitere-informationen_14">Weitere Informationen</h3>
 <p>Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion <a href="#instrumentexchange"><em>Instrument.Exchange</em></a> ermittelt werden.</p>
-<p><img alt="Bars.NextSessionBeginTime" src="../media/image3.png" /></p>
+<p><img alt="Bars.NextSessionBeginTime" src="../media/TradingHour_TSE.jpg" /></p>
 <h3 id="beispiel_18">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Die nächste Handelssitzung beginnt um &quot; + Bars.NextSessionBeginTime);
 </code></pre>
@@ -801,7 +801,7 @@ Siehe auch weitere  <a href="#eigenschaften"><em>Eigenschaften</em></a> von Bars
 <p>Bars.GetSessionNextEnd</p>
 <h3 id="weitere-informationen_15">Weitere Informationen</h3>
 <p>Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Endezeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion <a href="#instrumentexchange"><em>Instrument.Exchange</em></a> ermittelt werden.</p>
-<p><img alt="Bars.NextSessionEndTime" src="../media/image4.png" /></p>
+<p><img alt="Bars.NextSessionEndTime" src="../media/TradingHour_Nashdaq.jpg" /></p>
 <h3 id="beispiel_19">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Die nächste Handelssitzung endet um &quot; + Bars.NextSessionEndTime);
 </code></pre>
@@ -1713,7 +1713,7 @@ Print(&quot;Der Wert ist eine Aktie.&quot;);
 <p>Instrument.Expiry</p>
 <h3 id="weitere-informationen_46">Weitere Informationen</h3>
 <p>Das Verfallsdatum (Expiry) ist auch im Instrument Escort ersichtlich:</p>
-<p><img alt="Instrument.Expiry" src="../media/image5.png" /></p>
+<p><img alt="Instrument.Expiry" src="../media/Expiry.jpg" /></p>
 <h3 id="beispiel_53">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Das Instrument &quot; + Instrument.Name +&quot; verfällt am &quot; + Instrument.Expiry);
 </code></pre>
@@ -1750,7 +1750,7 @@ Print(&quot;Der Wert ist eine Aktie.&quot;);
 <p>Mögliche Werte sind: Future, Stock, Index, Currency, Option, CFD und Unknown.
 Einen Typ ETF gibt es nicht. ETF's sind vom Typ Stock, siehe<a href="#instrumentetf"><em>Instrument.ETF</em></a>.</p>
 <p>Der Instrument-Typ ist auch im Instrument Escort ersichtlich:</p>
-<p><img alt="Instrument.InstrumentType" src="../media/image6.png" /></p>
+<p><img alt="Instrument.InstrumentType" src="../media/InstrumentTypeFGBL.jpg" /></p>
 <h3 id="beispiel_55">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Das Instrument  &quot; + Instrument.Name + &quot;  ist vom Typ &quot; + Instrument.InstrumentType);
 </code></pre>
@@ -1766,7 +1766,7 @@ Einen Typ ETF gibt es nicht. ETF's sind vom Typ Stock, siehe<a href="#instrument
 <p>Instrument.MainSector</p>
 <h3 id="weitere-informationen_49">Weitere Informationen</h3>
 <p>Der  Hauptsektor ist auch im Instrument Escort ersichtlich:
-<img alt="Instrument.InstrumentType" src="../media/image6.png" /></p>
+<img alt="Instrument.InstrumentType" src="../media/InstrumentTypeFGBL.jpg" /></p>
 <h3 id="beispiel_56">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Das Instrument &quot; + Instrument.Name + &quot; ist im Sektor &quot; + Instrument.MainSector + &quot; tätig.&quot;);
 </code></pre>
@@ -1782,7 +1782,7 @@ Einen Typ ETF gibt es nicht. ETF's sind vom Typ Stock, siehe<a href="#instrument
 <p>Instrument.Margin</p>
 <h3 id="weitere-informationen_50">Weitere Informationen</h3>
 <p>Margin ist auch im Instrument Escort ersichtlich:
-<img alt="Instrument.InstrumentType" src="../media/image6.png" /></p>
+<img alt="Instrument.InstrumentType" src="../media/InstrumentTypeFGBL.jpg" /></p>
 <h3 id="beispiel_57">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Das Instrument&quot; + Instrument.Name + &quot; hat eine Margin von  &quot; + Instrument.Margin);
 </code></pre>
@@ -1798,7 +1798,7 @@ Einen Typ ETF gibt es nicht. ETF's sind vom Typ Stock, siehe<a href="#instrument
 <p>Instrument.Name</p>
 <h3 id="weitere-informationen_51">Weitere Informationen</h3>
 <p>Der Instrument Name ist auch im Instrument Escort ersichtlich:</p>
-<p><img alt="Instrument.Name" src="../media/image7.png" /></p>
+<p><img alt="Instrument.Name" src="../media/Name_Fdax.jpg" /></p>
 <h3 id="beispiel_58">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Das aktuell im Chart geladene Instrument heißt &quot; + Instrument.Name);
 </code></pre>
@@ -1822,7 +1822,7 @@ Dax-Future: 25,00 Euro</p>
 <p>z.B. hat der E-mini S&amp;P 500 einen Punktwert von $ 50. Die TickSize beträgt 0,25. Es braucht also eine Bewegung von 4 Ticks für einen vollen Punkt.
 Aus 50 * 0,25 = 50 / 4 ergibt sich ein Tickwert von 12,50 $/ je Tick.</p>
 <p>Der Punktwert ist auch im Instrument Escort ersichtlich:</p>
-<p><img alt="Instrument.PointValue" src="../media/image8.png" /></p>
+<p><img alt="Instrument.PointValue" src="../media/Fdax_PointValue.jpg" /></p>
 <h3 id="beispiel_59">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Wenn &quot; + Instrument.Name + &quot; einen vollen Punkt steigt, entspricht dies dem Gegenwert von  &quot; + Instrument.PointValue + &quot; &quot; + Instrument.Currency);
 </code></pre>
@@ -1860,7 +1860,7 @@ Print(Price + &quot;  gerundet auf einen für &quot; + Instrument.Name + &quot; 
 <h3 id="weitere-informationen_54">Weitere Informationen</h3>
 <p>Mit dem Symbol werden gleiche Aktion an verschiedenen Börsenplätzen unterschieden. Das Symbol BMW.DE ist z.B. die BMW-Aktie an der Xetra, BMW.CFD ist der CFD auf die BMW-Aktie.</p>
 <p>Das Instrument Symbol ist auch im Instrument Escort ersichtlich:</p>
-<p><img alt="Instrument.Symbol" src="../media/image9.png" /></p>
+<p><img alt="Instrument.Symbol" src="../media/Fdax_Symbol.jpg" /></p>
 <h3 id="beispiel_61">Beispiel</h3>
 <pre><code class="cs">Print(&quot;Das aktuell im Chart geladene Instrument hat das Symbol  &quot; + Instrument.Symbol);
 </code></pre>

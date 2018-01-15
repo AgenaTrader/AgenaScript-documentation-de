@@ -174,7 +174,7 @@ set { _period = value; }
 }
 ```
 
-![Category](./media/image11.png)
+![Category](./media/ClimDistance.png)
 
 Category ist ein  [Attribute](#attribute) in AgenaScript.
 

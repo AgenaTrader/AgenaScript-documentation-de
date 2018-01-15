@@ -137,7 +137,7 @@ Der Wert von *ProcessingBarIndex* kann immer nur kleiner oder gleich Bars.Count 
 
 Wenn in AgenaTrader angegeben wurde, wieviel Bars in einen Chart geladen werden sollen, entspricht der Wert von Bars.Count genau dieser Einstellung. Im Beispiel unten würde Bars.Count 500 liefern.
 
-![Bars.Count](./media/image1.png)
+![Bars.Count](./media/CrateChart.png)
 
 ### Beispiel
 ```cs
@@ -162,7 +162,7 @@ Bars.GetSessionBegin
 ### Weitere Informationen
 Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt.
 
-![Bars.CurrentSessionBeginTime](./media/image3.png)
+![Bars.CurrentSessionBeginTime](./media/TradingHour_TSE.jpg)
 
 ### Beispiel
 ```cs
@@ -186,7 +186,7 @@ Bars.GetSessionEnd
 ### Weitere Informationen
 Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Endezeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion  [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
 
-![Bars.CurrentSessionEndTime](./media/image4.png)
+![Bars.CurrentSessionEndTime](./media/TradingHour_Nashdaq.jpg)
 
 ### Beispiel
 ```cs
@@ -411,7 +411,7 @@ Bars.GetSessionBegin(DateTime dt)
 ### Weitere Informationen
 Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion Instrument.Exchange ermittelt werden.
 
-![Bars.CurrentSessionBeginTime](./media/image3.png)
+![Bars.CurrentSessionBeginTime](./mediaTradingHour_TSE.jpg)
 
 ### Beispiel
 ```cs
@@ -588,7 +588,7 @@ Typ bool
 Bars.IsSessionBreak
 
 ### Weitere Informationen
-![Bars.CurrentSessionEndTime](./media/image4.png)
+![Bars.CurrentSessionEndTime](./media/TradingHour_Nashdaq.jpg)
 
 ### Beispiel
 ```cs
@@ -652,7 +652,7 @@ Bars.GetSessionNextBegin
 ### Weitere Informationen
 Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
 
-![Bars.NextSessionBeginTime](./media/image3.png)
+![Bars.NextSessionBeginTime](./media/TradingHour_TSE.jpg)
 
 ### Beispiel
 ```cs
@@ -677,7 +677,7 @@ Bars.GetSessionNextEnd
 ### Weitere Informationen
 Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Endezeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion [*Instrument.Exchange*](#instrumentexchange) ermittelt werden.
 
-![Bars.NextSessionEndTime](./media/image4.png)
+![Bars.NextSessionEndTime](./media/TradingHour_Nashdaq.jpg)
 
 ### Beispiel
 ```cs
@@ -1921,7 +1921,7 @@ Instrument.Expiry
 ### Weitere Informationen
 Das Verfallsdatum (Expiry) ist auch im Instrument Escort ersichtlich:
 
-![Instrument.Expiry](./media/image5.png)
+![Instrument.Expiry](./media/Expiry.jpg)
 
 ### Beispiel
 ```cs
@@ -1973,7 +1973,7 @@ Einen Typ ETF gibt es nicht. ETF's sind vom Typ Stock, siehe[*Instrument.ETF*](#
 
 Der Instrument-Typ ist auch im Instrument Escort ersichtlich:
 
-![Instrument.InstrumentType](./media/image6.png)
+![Instrument.InstrumentType](./media/InstrumentTypeFGBL.jpg)
 
 ### Beispiel
 ```cs
@@ -1994,7 +1994,7 @@ Instrument.MainSector
 
 ### Weitere Informationen
 Der  Hauptsektor ist auch im Instrument Escort ersichtlich:
-![Instrument.InstrumentType](./media/image6.png)
+![Instrument.InstrumentType](./media/InstrumentTypeFGBL.jpg)
 ### Beispiel
 ```cs
 Print("Das Instrument " + Instrument.Name + " ist im Sektor " + Instrument.MainSector + " tätig.");
@@ -2015,7 +2015,7 @@ Instrument.Margin
 
 ### Weitere Informationen
 Margin ist auch im Instrument Escort ersichtlich:
-![Instrument.InstrumentType](./media/image6.png)
+![Instrument.InstrumentType](./media/InstrumentTypeFGBL.jpg)
 ### Beispiel
 ```cs
 Print("Das Instrument" + Instrument.Name + " hat eine Margin von  " + Instrument.Margin);
@@ -2036,7 +2036,7 @@ Instrument.Name
 ### Weitere Informationen
 Der Instrument Name ist auch im Instrument Escort ersichtlich:
 
-![Instrument.Name](./media/image7.png)
+![Instrument.Name](./media/Name_Fdax.jpg)
 
 ### Beispiel
 ```cs
@@ -2072,7 +2072,7 @@ Aus 50 * 0,25 = 50 / 4 ergibt sich ein Tickwert von 12,50 $/ je Tick.
 
 Der Punktwert ist auch im Instrument Escort ersichtlich:
 
-![Instrument.PointValue](./media/image8.png)
+![Instrument.PointValue](./media/Fdax_PointValue.jpg)
 
 ### Beispiel
 ```cs
@@ -2126,7 +2126,7 @@ Mit dem Symbol werden gleiche Aktion an verschiedenen Börsenplätzen unterschie
 
 Das Instrument Symbol ist auch im Instrument Escort ersichtlich:
 
-![Instrument.Symbol](./media/image9.png)
+![Instrument.Symbol](./media/Fdax_Symbol.jpg)
 
 ### Beispiel
 ```cs

@@ -2267,15 +2267,18 @@ keiner
 ### Beispiele
 ```cs
 [Description("Period for the medium mean average")]
-[Category("InputParameter")]
+[InputParameter]
 [DisplayName("MA Medium")]
 public int MA_Medium
 {
-get { return _ma_medium; }
-set
-{
-_ma_medium = value;
-}
+    get 
+    { 
+        return _ma_medium; 
+    }
+    set
+    {
+        _ma_medium = value;
+    }
 }
 ```
 

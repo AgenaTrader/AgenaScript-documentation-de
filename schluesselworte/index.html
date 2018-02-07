@@ -2252,15 +2252,18 @@ Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, &quot;MyPlot&quot;));
 <p>keiner</p>
 <h3 id="beispiele_14">Beispiele</h3>
 <pre><code class="cs">[Description(&quot;Period for the medium mean average&quot;)]
-[Category(&quot;InputParameter&quot;)]
+[InputParameter]
 [DisplayName(&quot;MA Medium&quot;)]
 public int MA_Medium
 {
-get { return _ma_medium; }
-set
-{
-_ma_medium = value;
-}
+    get 
+    { 
+        return _ma_medium; 
+    }
+    set
+    {
+        _ma_medium = value;
+    }
 }
 </code></pre>
 

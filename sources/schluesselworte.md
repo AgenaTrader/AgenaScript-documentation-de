@@ -1,18 +1,19 @@
 
 # Schlüsselworte
-
-## Add()
+## AddOutput()
+## AddLine()
 ### Beschreibung
 Mit der Methode Add() werden dem Chart Plot - bzw. Line-Objekte  hinzugefügt. Wenn mit Add() ein neues Plot-Objekt hinzugefügt wird, wird automatisch auch eine Datenserie vom Typ DataSeries erzeugt, die diesem Plot zugeordnet ist. Auf diese Datenserie kann über die Value-Collection zugegriffen werden.
 Add() kann in der  OnInit() Methode und in der OnCalculate() Methode verwendet werden..
 
 ### Parameter
-plot – ein *OnPaint* Objekt
+plot – ein *OutputDescriptor* Objekt
 line – ein *LevelLine* Objekt
 
 ### Verwendung
 ```cs
-Add(OnPaint plot)
+
+AddOutput(new OutputDescriptor(Color.FromKnownColor(KnownColor.Black), "MyPlot1"));
 Add(LevelLine line)
 ```
 
@@ -43,8 +44,8 @@ namespace AgenaTrader.UserCode
     Add(new LevelLine(Color.Blue, 30, "LowerLine"));
 
    // 2 Plots hinzufügen
-    Add(new OnPaint(Color.Red, "myFastSMA"));
-    Add(new OnPaint(Color.Blue, "mySlowSMA"));
+    Add(new OutputDescriptor(Color.Red, "myFastSMA"));
+    Add(new OutputDescriptor(Color.Blue, "mySlowSMA"));
     }
 
     protected override void OnCalculate()
@@ -98,7 +99,7 @@ AllowRemovalOfChartDrawings
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
+Add(new OutputDescriptor(Color.FromKnownColor(KnownColor.Red), "MyPlot1"));
 //DrawObjects können aus dem Chart manuell entfernt werden
 AllowRemovalOfChartDrawings = true;
 }
@@ -1290,7 +1291,7 @@ int Offfset	Anzahl Bars, um die der Indikator verschoben werden soll.
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
+Add(new (Color.FromKnownColor(KnownColor.Red), "MyPlot1"));
 //Displacement of the plot by one bar to the right
 Displacement = 1;
 }
@@ -1736,7 +1737,7 @@ protected override void OnInit()
 {
 // Indikator in einem neuen Subchart zeichnen
 IsOverlay = false;
-Add(new OnPaint(Color.Red, "MyPlot1"));
+(Color.FromKnownColor(KnownColor.Red), "MyPlot1"));
 // Zeichenobjekte im Preischart zeichnen
 IsAddDrawingsToPricePanel = true;
 }
@@ -1801,7 +1802,7 @@ IsOverlay
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
+(Color.FromKnownColor(KnownColor.Red), "MyPlot1"));
 //Der Indikator soll in einem separaten Fenster dargestellt werden
 IsOverlay = false;
 }
@@ -1902,7 +1903,7 @@ IsShowChartVerticalGrid
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
+(Color.FromKnownColor(KnownColor.Black), "MyPlot1"));
 // Vertikale Gitternetzlinien sollen nicht im Chart angezeigt werden
 IsShowChartVerticalGrid = false;
 }
@@ -1936,7 +1937,7 @@ IsShowInDataBox
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
+(Color.FromKnownColor(KnownColor.Black), "MyPlot1"));
 //Werte sollen nicht in der DataBox angezeigt werden
 IsShowInDataBox = false;
 }
@@ -1962,7 +1963,7 @@ IsShowPriceMarkers
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Red, "MyPlot1"));
+(Color.FromKnownColor(KnownColor.Black), "MyPlot1"));
 //IsShowPriceMarkers sollen nicht angezeigt werden
 IsShowPriceMarkers = false;
 }
@@ -2010,7 +2011,7 @@ EinA LevelLine object wird genutzt, um eine horizontale Linie in einen Chart zu 
 Diese hier beschriebenen Linien sind nicht zu verwechseln mit der Linie aus den Zeichenobjekten  (siehe "AddChartHorizontalLine").
 LevelLine objectwerden einem Indikator mit Hilfe der Add()-Methode hinzugefügt und damit in die Lines-Collection aufgenommen.
 
-Siehe auch [*OnPaint*](#onpaint).
+Siehe auch [*OutputDescriptor*](#onpaint).
 
 ### Parameter
 |       |                                                              |
@@ -2194,7 +2195,7 @@ Entwickler von eigenen AgenaScripts sollten diese Methode NICHT verwenden, um ei
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Blue, "myPlot"));
+AddOutput(new OutputDescriptor(Color.FromKnownColor(KnownColor.Black), "MyPlot1"));
 ClearTraceWindow();
 IsAutoScale = false;
 IsOverlay = true;
@@ -2204,9 +2205,9 @@ CalculateOnClosedBar = true;
 }
 ```
 
-## OnPaint()
+## OutputDescriptor()
 ### Beschreibung
-EinOnPaint (drawing)wird genutzt, um einen Indikator in einem Chart graphisch darzustellen. Plot-Objekte werden einem Indikator mit Hilfe der Add()-Methode hinzugefügt und damit in die Plots-Collection aufgenommen.
+Ein OutputDescriptor (drawing)wird genutzt, um einen Indikator in einem Chart graphisch darzustellen. Plot-Objekte werden einem Indikator mit Hilfe der Add()-Methode hinzugefügt und damit in die Plots-Collection aufgenommen.
 Siehe auch  [*LevelLine*](#levelline).
 
 ### Parameter
@@ -2219,10 +2220,10 @@ Siehe auch  [*LevelLine*](#levelline).
 
 ### Verwendung
 ```cs
-OnPaint(Color color, string name)
-OnPaint(Pen pen, string name)
-OnPaint(Color color, PlotStyle plotStyle, string name)
-OnPaint(Pen pen, PlotStyle plotStyle, string name)
+OutputDescriptor(Color color, string name)
+OutputDescriptorOutputDescriptorOutputDescriptor(Pen pen, string name)
+OutputDescriptorOutputDescriptor(Color color, PlotStyle plotStyle, string name)
+OutputDescriptor(Pen pen, PlotStyle plotStyle, string name)
 ```
 
 ### Weitere Informationen
@@ -2232,17 +2233,17 @@ Informationen zur Klasse Pen: [*http://msdn.microsoft.com/de-de/library/system.d
 ```cs
 // Beispiel 1
 // Plot mit Standardwerten (Linie mit Linienstärke 1)
-Add(new OnPaint(Color.Green, "MyPlot"));
+Add(new OutputDescriptor(Color.Green, "MyPlot"));
 // Beispiel 2
 // benutzerdefinierte Werte für Pen und PlotStyle
-private OnPaint plot;
+private OutputDescriptor plot;
 private Pen pen;
 protected override void OnInit()
 {
 // einen roten Stift mit der Linienstärke 6 definieren
 pen = new Pen(Color.Blue, 6);
 // eine Punkt-Linie mit dem dicken roten Stift von oben definieren
-plot = new OnPaint(pen, PlotStyle.Dot, "MyPlot");
+plot = new OutputDescriptor(pen, PlotStyle.Dot, "MyPlot");
 // den oben def. Plot als Darstellung für den Indikator verwenden
 Add(plot);
 }
@@ -2250,7 +2251,7 @@ Add(plot);
 // Kurzform von Beispiel 2
 protected override void OnInit()
 {
-Add(new OnPaint(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
+Add(new OutputDescriptor(new Pen(Color.Blue, 6), PlotStyle.Dot, "MyPlot"));
 }
 ```
 
@@ -2327,7 +2328,7 @@ keiner
 
 ### Verwendung
 ```cs
-public override void OnPaint(Graphics graphics, Rectangle r, double min, double max)
+public override void OutputDescriptor(Graphics graphics, Rectangle r, double min, double max)
 ```
 
 ### Beispiel
@@ -2360,7 +2361,7 @@ protected override void OnDispose()
 brush.Dispose();
 stringFormat.Dispose();
 }
-public override void OnPaint(Graphics graphics, Rectangle r, double min, double max)
+public override void OutputDescriptor(Graphics graphics, Rectangle r, double min, double max)
 {
 // Ausfuellen eines Rechtecks
 SolidBrush tmpBrush = new SolidBrush(Color.LightGray);

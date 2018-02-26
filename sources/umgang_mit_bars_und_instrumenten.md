@@ -1000,9 +1000,9 @@ protected override void OnInit()
 // Linienstärke (Width) auf 4 einstellen
 pen = new Pen(Color.Empty, 4);
  // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
-Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
-Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
-Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
+Add(new OutputDescriptorOutputDescriptor(pen, OutputSeriesDisplayStyle.LevelLine, "SMA20" )); //attached to PlotColors[0]
+Add(new OutputDescriptor(pen, OutputSeriesDisplayStyle.LevelLine, "SMA50" )); //attached to PlotColors[1]
+Add(new OutputDescriptor(pen, OutputSeriesDisplayStyle.LevelLine, "SMA100")); //attached to PlotColors[2]
 IsOverlay = true;
 }
 protected override void OnCalculate()
@@ -1055,7 +1055,7 @@ OutputDescriptor[int index]
 ```cs
 protected override void OnInit()
 {
-Add(new OnPaint(Color.Blue, "MySMA 20")); // saved to OutputDescriptor[0]
+ AddOutput(new OutputDescriptor(Color.FromKnownColor(KnownColor.Black), "MySMA 20")); // saved to OutputDescriptor[0]
 }
 protected override void OnCalculate()
 {

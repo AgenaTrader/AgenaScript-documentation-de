@@ -1048,9 +1048,9 @@ protected override void OnInit()
 // Linienstärke (Width) auf 4 einstellen
 pen = new Pen(Color.Empty, 4);
  // Dem Chart drei Plots mit der def. Linienstärke hinzufügen
-Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA20&quot; )); //attached to PlotColors[0]
-Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA50&quot; )); //attached to PlotColors[1]
-Add(new OnPaint(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA100&quot;)); //attached to PlotColors[2]
+Add(new OutputDescriptorOutputDescriptor(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA20&quot; )); //attached to PlotColors[0]
+Add(new OutputDescriptor(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA50&quot; )); //attached to PlotColors[1]
+Add(new OutputDescriptor(pen, OutputSeriesDisplayStyle.LevelLine, &quot;SMA100&quot;)); //attached to PlotColors[2]
 IsOverlay = true;
 }
 protected override void OnCalculate()
@@ -1097,7 +1097,7 @@ PlotColors[2][0] = Color.DarkGray;
 <h3 id="beispiele_3">Beispiele</h3>
 <pre><code class="cs">protected override void OnInit()
 {
-Add(new OnPaint(Color.Blue, &quot;MySMA 20&quot;)); // saved to OutputDescriptor[0]
+ AddOutput(new OutputDescriptor(Color.FromKnownColor(KnownColor.Black), &quot;MySMA 20&quot;)); // saved to OutputDescriptor[0]
 }
 protected override void OnCalculate()
 {

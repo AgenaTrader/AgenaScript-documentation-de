@@ -351,51 +351,6 @@ DefaultOrderQuantity = 100;
 }
 ```
 
-## EntriesPerDirection
-### Beschreibung
-Die Eigenschaft EntriesPerDirection legt die maximal erlaubte Anzahl von Einstiegen in eine Richtung (long bzw. short) fest.
-
-Ob dabei der Name des Einstiegssignals berücksichtigt werden soll oder nicht festgelegt.
-
-EntriesPerDirection wird in der [*OnInit()*](#oninit) -Methode angegeben.
-
-### Verwendung
-**EntriesPerDirection**
-
-### Parameter
-ein int-Wert für die max. erlaubte Anzahl von Einstiegen in eine Richtung
-
-### Beispiel
-```cs
-// Beispiel 1
-// Wenn eine der beiden Einstiegsbedingungen zutrifft und eine Long-Position eröffnet wird,
-// wird das jeweils andere Einstiegssignal ignoriert
-protected override void OnInit()
-{
-EntriesPerDirection = 1;
-
-}
-
-protected override void OnCalculate()
-{
-    if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-        OpenLong("SMA cross entry");
-}
-
-// Beispiel 2
-// Es wird für jedes unterschiedlich benannte Einstiegssignal eine Long-Position eröffnet
-
-
-protected override void OnCalculate()
-{
-    if (CrossAbove(EMA(14), SMA(50), 1) && IsSerieRising(ADX(20)))
-        OpenLong("EMACrossesSMA");
-    else if (CrossAbove (MACD(2,2,5), 0, 1))
-        OpenLong("MACDCross");
-}
-```
-
-
 ## ExcludeTradeHistoryInBacktest
 ## CloseLongTrade()
 ### Beschreibung

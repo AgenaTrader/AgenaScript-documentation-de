@@ -411,7 +411,6 @@ Bars.GetSessionBegin(DateTime dt)
 ### Weitere Informationen
 Die Uhrzeit des zurückgegebenen Wertes entspricht der im MarketEscort angegebenen Startzeit der Handelssitzung des jeweiligen Handelsplatzes. Der für den Wert verwendete Handelsplatz wird im Instrumet Escort eingestellt und kann in AgenaSript mit der Funktion Instrument.Exchange ermittelt werden.
 
-![Bars.CurrentSessionBeginTime](./mediaTradingHour_TSE.jpg)
 
 ### Beispiel
 ```cs

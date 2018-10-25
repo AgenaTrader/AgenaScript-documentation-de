@@ -1,60 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/umgang_mit_bars_und_instrumenten/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/ereignisse/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/strategieprogrammierung/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/schluesselworte/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/zeichenobjekte/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
      <loc>https://agenatrader.github.io/AgenaScript-documentation-de/index.html/tipps_und_tricks/</loc>
-     <lastmod>2018-02-26</lastmod>
+     <lastmod>2018-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
 </urlset>

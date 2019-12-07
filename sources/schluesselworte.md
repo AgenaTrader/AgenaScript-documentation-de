@@ -337,7 +337,7 @@ CalculateOnClosedBar = false
 OnCalculate() wird für jeden neu hereinkommenden Tick aufgerufen.
 Achtung bei älterer Hardware: dies führt bei sehr liquiden Werten zu einer erhöhten Rechnerbelastung.
 Die Eigenschaft kann im Script abgefragt werden und liefert einen Wert vom Typ Boolean (true bzw. false).
-CalculateOnClosedBar  kann sowohl in OnInit() aals auch in OnCalculate() eingesetzt werden..
+CalculateOnClosedBar  kann sowohl in OnInit() als auch in OnCalculate() eingesetzt werden..
 OnCalculate wird für historische Daten immer nur für den Schlusskurs eines jeden Bars aufgerufen, auch wenn CalculateOnClosedBar=false gesetzt ist.
 Wird ein Indikator von einem anderen Indikator aufgerufen, so wird die Eigenschaft  CalculateOnClosedBar des aufgerufenen Indikators vom aufrufenden Indikator überschrieben.
 

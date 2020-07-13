@@ -608,7 +608,7 @@ if (ProcessingBarIndex == Bars.Count-1-(CalculateOnClosedBar?1:0))
 // Farbe des aktuellen Bars auf Blau setzen
 // Dies ist identisch mit BarColor = Color.Blue
 BarColorSeries[0] = Color.Blue;
-// Farbe des vorhergehenden Bars auf Grün setzen
+// Farbe des vorhergehenden Bars auf Orange setzen
 BarColorSeries[1] = Color.Orange;
 // Farbe des 3. Bars auf Gelb setzen
 BarColorSeries[2] = Color.Yellow;
@@ -2272,9 +2272,9 @@ keiner
 [DisplayName("MA Medium")]
 public int MA_Medium
 {
-    get 
-    { 
-        return _ma_medium; 
+    get
+    {
+        return _ma_medium;
     }
     set
     {

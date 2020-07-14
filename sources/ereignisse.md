@@ -393,7 +393,12 @@ protected override void OnOrderExecution(IExecution execution)
 ## OnStart()
 ### Beschreibung
 Die Methode OnStart() kann überschrieben werden, um eigene Variablen zu initialisieren, Lizenzchecks auszuführen, UserForms aufzurufen usw.
-OnStart() wird nur einmal am Beginn des Scrips nach [*OnInit()*](#oninit) und vor [*OnCalculate()*](#oncalculate) aufgerufen.
+OnStart() wird nur einmal am Beginn des Scrips nach [*OnInit()*](#oninit) und vor [*OnCalculate()*](#oncalculate) was in der folgenden Ausführungsreihenfolge resultiert:
+
+OnInit
+OnStart
+OnStop
+OnDispose
 
 Siehe auch [*OnDispose()*](#ondispose).
 
@@ -423,7 +428,7 @@ protected override void OnStart()
 
 ## OnStop()
 ### Beschreibung
-Die OnStop()-Methode wird aufgerufen, sobald ein Script beendet wird. Dies kann z.B. vorkommen, wenn ein Indikator vom Chart entfernt wurde oder eine Spalte mit einem Indikator / einer gescripteten Condition vom Scanner entfernt wurde. 
+Die OnStop()-Methode wird aufgerufen, sobald ein Script beendet wird. Dies kann z.B. vorkommen, wenn ein Indikator vom Chart entfernt wurde oder eine Spalte mit einem Indikator / einer gescripteten Condition vom Scanner entfernt wurde.
 
 Siehe auch [*OnDispose()*](#ondispose).
 
@@ -442,6 +447,6 @@ protected override void OnStop()
 ```cs
 protected override void OnStop()
 {
-    Log("Stop: " + this.ToString() + " | " + Instrument.Symbol, InfoLogLevel.Info); 
+    Log("Stop: " + this.ToString() + " | " + Instrument.Symbol, InfoLogLevel.Info);
 }
 ```
